@@ -1,61 +1,72 @@
 // Datos REALES de equipos de la LVBP - Temporada 2026-2027
-// Actualizado con resultados del Jueves 15 de Octubre
+// Fuente de logos: Enlaces proporcionados por el usuario (Norma permanente)
 const equipos = [
     { 
         nombre: "Caribes de Anzoátegui", 
         abrev: "ANZ", 
         jj: 4, jg: 3, jp: 1, racha: "G1",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Caribes_de_Anzo%C3%A1tegui.svg/1200px-Caribes_de_Anzo%C3%A1tegui.svg.png"
+        logo: "https://i.postimg.cc/0j685n5D/image-search-1791393733450-11zon.webp"
     },
     { 
         nombre: "Tigres de Aragua", 
         abrev: "ARA", 
         jj: 4, jg: 3, jp: 1, racha: "G1",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Tigres_de_Aragua.svg/1200px-Tigres_de_Aragua.svg.png"
+        logo: "https://i.postimg.cc/0QRG0W3n/1791393470300-11zon.jpg"
     },
     { 
         nombre: "Águilas del Zulia", 
         abrev: "ZUL", 
         jj: 4, jg: 3, jp: 1, racha: "G1",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/%C3%81guilas_del_Zulia.svg/1200px-%C3%81guilas_del_Zulia.svg.png"
+        logo: "https://i.postimg.cc/J4wxQnwX/1791392132263-11zon.jpg"
     },
     { 
         nombre: "Bravos de Margarita", 
         abrev: "MAR", 
         jj: 3, jg: 2, jp: 1, racha: "G1",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Bravos_de_Margarita.svg/1200px-Bravos_de_Margarita.svg.png"
+        logo: "https://i.postimg.cc/PJh5yYdY/1791395148443-11zon.jpg"
     },
     { 
         nombre: "Tiburones de La Guaira", 
         abrev: "LGU", 
         jj: 4, jg: 2, jp: 2, racha: "P1",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Tiburones_de_La_Guaira.svg/1200px-Tiburones_de_La_Guaira.svg.png"
+        logo: "https://i.postimg.cc/J7Hm024y/image-search-1791382706892.png"
     },
     { 
         nombre: "Cardenales de Lara", 
         abrev: "LAR", 
         jj: 3, jg: 1, jp: 2, racha: "P1",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Cardenales_de_Lara.svg/1200px-Cardenales_de_Lara.svg.png"
+        logo: "https://i.postimg.cc/HLpzqP32/image-search-1791395610326-11zon.jpg"
     },
     { 
         nombre: "Leones del Caracas", 
         abrev: "CAR", 
         jj: 4, jg: 1, jp: 3, racha: "P1",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Leones_del_Caracas.svg/1200px-Leones_del_Caracas.svg.png"
+        logo: "https://i.postimg.cc/Kjrw7g8p/image-search-1791396859705.jpg"
     },
     { 
         nombre: "Navegantes del Magallanes", 
         abrev: "MAG", 
         jj: 4, jg: 0, jp: 4, racha: "P4",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Navegantes_del_Magallanes.svg/1200px-Navegantes_del_Magallanes.svg.png"
+        logo: "https://i.postimg.cc/ydNH8j6v/1791396497437-11zon.jpg"
     }
 ];
+
+// Función inteligente para obtener el logo desde el nombre corto o abreviatura
+function getLogo(nombreEquipo) {
+    const nombreLower = nombreEquipo.toLowerCase();
+    const equipo = equipos.find(eq => 
+        eq.nombre.toLowerCase().includes(nombreLower) || 
+        eq.abrev.toLowerCase() === nombreLower ||
+        nombreLower.includes(eq.abrev.toLowerCase())
+    );
+    return equipo ? equipo.logo : '';
+}
 
 // Noticias actualizadas con información real
 const noticias = [
     {
         titulo: "¡Cuádruple empate en la cima! Caribes, Tigres, Águilas y Bravos lideran",
-        texto: "Tras la jornada del jueves 15 de octubre, cuatro equipos comparten el liderato con marca de 3-1. La competencia está más reñida que nunca en esta temporada 2026-2027.",
+        texto: "Tras la jornada del jueves 15 de octubre, cuatro equipos comparten el liderato con marca de 3-1 o mejor. La competencia está más reñida que nunca en esta temporada 2026-2027.",
         fecha: "16 Oct 2026",
         tag: "DESTACADO",
         imagen: "https://images.unsplash.com/photo-1508344928928-7165b67de128?w=800&q=80"
@@ -97,7 +108,7 @@ const noticias = [
     }
 ];
 
-// Resultados REALES del Jueves 15 de Octubre (fuente: @lvbp_oficial)
+// Resultados REALES del Jueves 15 de Octubre
 const resultados = [
     { local: "Tiburones", scoreLocal: 5, visitante: "Caribes", scoreVisitante: 15, fecha: "15 Oct" },
     { local: "Bravos", scoreLocal: 3, visitante: "Leones", scoreVisitante: 1, fecha: "15 Oct" },
@@ -105,7 +116,7 @@ const resultados = [
     { local: "Cardenales", scoreLocal: 0, visitante: "Águilas", scoreVisitante: 2, fecha: "15 Oct" }
 ];
 
-// Jornada del Viernes 16 de Octubre (fuente: @lvbp_oficial)
+// Jornada del Viernes 16 de Octubre
 const calendario = [
     { fecha: "16 Oct 2026", local: "Bravos", visitante: "Leones", hora: "2:00 PM", transmision: "📺 BYM Sport" },
     { fecha: "16 Oct 2026", local: "Tiburones", visitante: "Caribes", hora: "7:00 PM", transmision: "📻 Baseball FM / 📺 Meridiano TV" },
@@ -163,7 +174,7 @@ function renderPosiciones() {
         tr.innerHTML = `
             <td>${i + 1}</td>
             <td class="equipo-con-logo">
-                <img src="${eq.logo}" alt="${eq.nombre}" class="logo-equipo" onerror="this.style.display='none'">
+                <img src="${eq.logo}" alt="${eq.nombre}" class="logo-small">
                 <span>${eq.nombre}</span>
             </td>
             <td>${eq.jj}</td>
@@ -195,17 +206,26 @@ function renderNoticias() {
     });
 }
 
-// Renderizar resultados
+// Renderizar resultados CON LOGOS (Norma permanente)
 function renderResultados() {
     const container = document.getElementById("resultados-container");
     resultados.forEach(r => {
+        const logoLocal = getLogo(r.local);
+        const logoVisitante = getLogo(r.visitante);
+        
         const card = document.createElement("div");
         card.className = "resultado-card";
         card.innerHTML = `
             <div class="equipos">
-                <div class="equipo-nombre">${r.local}</div>
+                <div class="equipo-info">
+                    ${logoLocal ? `<img src="${logoLocal}" alt="${r.local}" class="logo-small">` : ''}
+                    <div class="equipo-nombre">${r.local}</div>
+                </div>
                 <div class="score">${r.scoreLocal} - ${r.scoreVisitante}</div>
-                <div class="equipo-nombre">${r.visitante}</div>
+                <div class="equipo-info">
+                    <div class="equipo-nombre">${r.visitante}</div>
+                    ${logoVisitante ? `<img src="${logoVisitante}" alt="${r.visitante}" class="logo-small">` : ''}
+                </div>
             </div>
             <div class="fecha-juego">${r.fecha}</div>
         `;
@@ -213,17 +233,32 @@ function renderResultados() {
     });
 }
 
-// Renderizar calendario con transmisión
+// Renderizar calendario CON LOGOS (Norma permanente)
 function renderCalendario() {
     const container = document.getElementById("calendario-container");
     calendario.forEach(j => {
+        const logoLocal = getLogo(j.local);
+        const logoVisitante = getLogo(j.visitante);
+        
         const card = document.createElement("div");
         card.className = "juego-card";
         card.innerHTML = `
             <div class="fecha">${j.fecha}</div>
-            <div class="matchup">${j.local} vs ${j.visitante}</div>
-            <div class="hora">${j.hora}</div>
-            <div class="transmision">${j.transmision}</div>
+            <div class="matchup">
+                <div class="equipo-info">
+                    ${logoLocal ? `<img src="${logoLocal}" alt="${j.local}" class="logo-small">` : ''}
+                    <span>${j.local}</span>
+                </div>
+                <span class="vs">vs</span>
+                <div class="equipo-info">
+                    <span>${j.visitante}</span>
+                    ${logoVisitante ? `<img src="${logoVisitante}" alt="${j.visitante}" class="logo-small">` : ''}
+                </div>
+            </div>
+            <div class="hora-info">
+                <div class="hora">${j.hora}</div>
+                <div class="transmision">${j.transmision}</div>
+            </div>
         `;
         container.appendChild(card);
     });
