@@ -1,4 +1,4 @@
-// Datos de ejemplo - Se actualizarán con datos reales
+// Datos de equipos de la LVBP
 const equipos = [
     { nombre: "Navegantes del Magallanes", abrev: "MAG", jj: 10, jg: 7, jp: 3, racha: "G3" },
     { nombre: "Leones del Caracas", abrev: "CAR", jj: 10, jg: 6, jp: 4, racha: "G1" },
@@ -10,6 +10,7 @@ const equipos = [
     { nombre: "Caribes de Anzoátegui", abrev: "ANZ", jj: 10, jg: 3, jp: 7, racha: "P3" }
 ];
 
+// Noticias de ejemplo
 const noticias = [
     {
         titulo: "Magallanes toma la punta de la tabla",
@@ -49,6 +50,7 @@ const noticias = [
     }
 ];
 
+// Resultados recientes
 const resultados = [
     { local: "Magallanes", scoreLocal: 5, visitante: "Caracas", scoreVisitante: 3, fecha: "16 Oct" },
     { local: "La Guaira", scoreLocal: 4, visitante: "Aragua", scoreVisitante: 3, fecha: "16 Oct" },
@@ -58,6 +60,7 @@ const resultados = [
     { local: "Aragua", scoreLocal: 2, visitante: "Magallanes", scoreVisitante: 8, fecha: "15 Oct" }
 ];
 
+// Calendario de juegos
 const calendario = [
     { fecha: "18 Oct 2026", local: "Caracas", visitante: "Magallanes", hora: "6:00 PM" },
     { fecha: "18 Oct 2026", local: "La Guaira", visitante: "Zulia", hora: "6:00 PM" },
@@ -67,6 +70,7 @@ const calendario = [
     { fecha: "19 Oct 2026", local: "Zulia", visitante: "Caracas", hora: "4:00 PM" }
 ];
 
+// Líderes estadísticos
 const lideres = {
     carreras: [
         { nombre: "José Ramírez (MAG)", valor: 12 },
@@ -195,7 +199,7 @@ function renderLideres() {
     crearLista("lideres-era", lideres.era);
 }
 
-// Inicializar
+// Inicializar cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", () => {
     renderPosiciones();
     renderNoticias();
