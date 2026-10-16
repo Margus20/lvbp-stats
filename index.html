@@ -5,104 +5,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LVBP al Día - Liga Venezolana de Béisbol Profesional</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <img src="https://i.postimg.cc/Z5CRqQjK/1000411837.jpg" alt="LVBP al Día" class="logo-principal">
-            <p class="subtitle">Noticias y estadísticas de la Liga Venezolana de Béisbol Profesional</p>
+    <!-- HEADER -->
+    <header class="header-principal">
+        <div class="header-container">
+            <div class="header-izquierda">
+                <img src="https://i.postimg.cc/Z5CRqQjK/1000411837.jpg" alt="LVBP al Día" class="logo-header">
+                <button class="menu-hamburguesa" id="menuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="header-derecha">
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-x-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            </div>
         </div>
-        <nav>
+        <nav class="nav-menu" id="navMenu">
             <ul>
-                <li><a href="#noticias">📰 Noticias</a></li>
-                <li><a href="#posiciones">🏆 Posiciones</a></li>
-                <li><a href="#resultados">📊 Resultados</a></li>
-                <li><a href="#calendario"> Calendario</a></li>
-                <li><a href="#estadisticas"> Estadísticas</a></li>
+                <li><a href="#noticias">Noticias</a></li>
+                <li><a href="#posiciones">Posiciones</a></li>
+                <li><a href="#resultados">Resultados</a></li>
+                <li><a href="#calendario">Calendario</a></li>
+                <li><a href="#estadisticas">Estadísticas</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="container">
-        <!-- SECCIÓN NOTICIAS -->
-        <section id="noticias">
-            <h2>📰 Últimas Noticias</h2>
-            <div class="noticias-grid" id="noticias-container">
-                <!-- Las noticias se cargan desde JavaScript -->
-            </div>
-        </section>
-
-        <!-- SECCIÓN POSICIONES -->
-        <section id="posiciones">
-            <h2>🏆 Tabla de Posiciones</h2>
-            <div class="tabla-container">
-                <table id="tabla-posiciones">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Equipo</th>
-                            <th>JJ</th>
-                            <th>JG</th>
-                            <th>JP</th>
-                            <th>PCT</th>
-                            <th>DIF</th>
-                            <th>RACHA</th>
-                        </tr>
-                    </thead>
-                    <tbody id="posiciones-body">
-                        <!-- Se llena con JavaScript -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- SECCIÓN RESULTADOS -->
-        <section id="resultados">
-            <h2>📊 Últimos Resultados</h2>
-            <div class="resultados-grid" id="resultados-container">
-                <!-- Se llena con JavaScript -->
-            </div>
-        </section>
-
-        <!-- SECCIÓN CALENDARIO -->
-        <section id="calendario">
-            <h2>📅 Próximos Juegos</h2>
-            <div class="calendario-lista" id="calendario-container">
-                <!-- Se llena con JavaScript -->
-            </div>
-        </section>
-
-        <!-- SECCIÓN ESTADÍSTICAS -->
-        <section id="estadisticas">
-            <h2>📈 Líderes Estadísticos</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>🏃 Carreras Anotadas</h3>
-                    <ol id="lideres-carreras"></ol>
+    <main>
+        <!-- NOTICIA DESTACADA (HERO) -->
+        <section class="hero-noticia" id="noticias">
+            <div class="hero-imagen" style="background-image: url('https://images.unsplash.com/photo-1508344928928-7165b67de128?w=1400&q=80');">
+                <div class="hero-overlay"></div>
+                <div class="hero-contenido">
+                    <span class="hero-tag">DESTACADO</span>
+                    <h1 class="hero-titulo">Magallanes toma la punta de la tabla con racha ganadora</h1>
+                    <p class="hero-fecha">17 de octubre, 2026</p>
                 </div>
-                <div class="stat-card">
-                    <h3>⚾ Average de Bateo</h3>
-                    <ol id="lideres-average"></ol>
+            </div>
+        </section>
+
+        <!-- GRID DE NOTICIAS -->
+        <section class="noticias-grid-section">
+            <div class="container">
+                <div class="noticias-grid" id="noticias-container">
+                    <!-- Se llena con JavaScript -->
                 </div>
-                <div class="stat-card">
-                    <h3>💥 Jonrones</h3>
-                    <ol id="lideres-hr"></ol>
+            </div>
+        </section>
+
+        <!-- TABLA DE POSICIONES -->
+        <section id="posiciones" class="seccion-oscura">
+            <div class="container">
+                <h2 class="titulo-seccion"> Tabla de Posiciones</h2>
+                <div class="tabla-container">
+                    <table id="tabla-posiciones">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Equipo</th>
+                                <th>JJ</th>
+                                <th>JG</th>
+                                <th>JP</th>
+                                <th>PCT</th>
+                                <th>DIF</th>
+                                <th>RACHA</th>
+                            </tr>
+                        </thead>
+                        <tbody id="posiciones-body"></tbody>
+                    </table>
                 </div>
-                <div class="stat-card">
-                    <h3>🎯 Efectividad (Pitcheo)</h3>
-                    <ol id="lideres-era"></ol>
+            </div>
+        </section>
+
+        <!-- RESULTADOS -->
+        <section id="resultados" class="seccion-clara">
+            <div class="container">
+                <h2 class="titulo-seccion">📊 Últimos Resultados</h2>
+                <div class="resultados-grid" id="resultados-container"></div>
+            </div>
+        </section>
+
+        <!-- CALENDARIO -->
+        <section id="calendario" class="seccion-oscura">
+            <div class="container">
+                <h2 class="titulo-seccion">📅 Próximos Juegos</h2>
+                <div class="calendario-lista" id="calendario-container"></div>
+            </div>
+        </section>
+
+        <!-- ESTADÍSTICAS -->
+        <section id="estadisticas" class="seccion-clara">
+            <div class="container">
+                <h2 class="titulo-seccion">📈 Líderes Estadísticos</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>🏃 Carreras Anotadas</h3>
+                        <ol id="lideres-carreras"></ol>
+                    </div>
+                    <div class="stat-card">
+                        <h3>⚾ Average de Bateo</h3>
+                        <ol id="lideres-average"></ol>
+                    </div>
+                    <div class="stat-card">
+                        <h3> Jonrones</h3>
+                        <ol id="lideres-hr"></ol>
+                    </div>
+                    <div class="stat-card">
+                        <h3>🎯 Efectividad</h3>
+                        <ol id="lideres-era"></ol>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- FOOTER -->
     <footer>
         <div class="container">
-            <p>⚾ LVBP al Día 2026 - Página no oficial de la Liga Venezolana de Béisbol Profesional</p>
+            <img src="https://i.postimg.cc/Z5CRqQjK/1000411837.jpg" alt="LVBP al Día" class="logo-footer">
+            <p>⚾ LVBP al Día 2026 - Noticias y estadísticas de la Liga Venezolana de Béisbol Profesional</p>
             <p>Desarrollado con ❤️ por Margus20</p>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-x-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
         </div>
     </footer>
 
     <script src="js/main.js"></script>
 </body>
-                            </html>
+</html>
