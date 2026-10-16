@@ -10,43 +10,49 @@ const equipos = [
     { nombre: "Caribes de Anzoátegui", abrev: "ANZ", jj: 10, jg: 3, jp: 7, racha: "P3" }
 ];
 
-// Noticias de ejemplo
+// Noticias con imágenes de fondo (usando Unsplash como placeholder)
 const noticias = [
     {
-        titulo: "Magallanes toma la punta de la tabla",
-        texto: "Los Navegantes del Magallanes se consolidan en el primer lugar tras ganar tres juegos consecutivos. El pitcheo abridor ha sido clave en esta racha ganadora.",
-        fecha: "17 Oct 2026",
-        tag: "Destacado"
-    },
-    {
-        titulo: "Leones del Caracas anuncian nuevo refuerzo",
-        texto: "El equipo capitalino incorpora un nuevo lanzador foráneo para fortalecer el bullpen de cara a la segunda mitad de la temporada regular.",
+        titulo: "Leones del Caracas anuncian nuevo refuerzo para el bullpen",
+        texto: "El equipo capitalino incorpora un nuevo lanzador foráneo de cara a la segunda mitad de la temporada.",
         fecha: "16 Oct 2026",
-        tag: "Fichajes"
+        tag: "FICHAJES",
+        imagen: "https://images.unsplash.com/photo-1529768167801-9173d94c2a42?w=800&q=80"
     },
     {
         titulo: "Tiburones de La Guaira empatan en el segundo lugar",
-        texto: "Con victoria apretada 4-3 en entradas extras, La Guaira se mantiene en la pelea por el primer lugar de la división.",
+        texto: "Con victoria apretada 4-3 en entradas extras, La Guaira se mantiene en la pelea por el primer lugar.",
         fecha: "16 Oct 2026",
-        tag: "Resultados"
+        tag: "RESULTADOS",
+        imagen: "https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=800&q=80"
     },
     {
-        titulo: "Águilas del Zulia sorprenden con barrida",
-        texto: "Los Águilas barrieron la serie contra los Bravos de Margarita con actuaciones destacadas de su lineup ofensivo.",
+        titulo: "Águilas del Zulia sorprenden con barrida en casa",
+        texto: "Los Águilas barrieron la serie contra los Bravos con actuaciones destacadas de su lineup ofensivo.",
         fecha: "15 Oct 2026",
-        tag: "Resultados"
+        tag: "RESULTADOS",
+        imagen: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=800&q=80"
     },
     {
-        titulo: "Líderes de bateo: competencia reñida",
-        texto: "Tres jugadores se disputan el título de bateo con averages superiores a .350. La competencia se intensifica semana a semana.",
+        titulo: "Líderes de bateo: competencia reñida esta semana",
+        texto: "Tres jugadores se disputan el título de bateo con averages superiores a .350. La lucha se intensifica.",
         fecha: "15 Oct 2026",
-        tag: "Estadísticas"
+        tag: "ESTADÍSTICAS",
+        imagen: "https://images.unsplash.com/photo-1577471488278-16eec37ffcc2?w=800&q=80"
     },
     {
-        titulo: "Calendario de la semana: juegos clave",
-        texto: "Esta semana se disputarán enfrentamientos directos entre los primeros lugares de la tabla. No te los pierdas.",
+        titulo: "Calendario de la semana: juegos clave entre líderes",
+        texto: "Esta semana se disputarán enfrentamientos directos entre los primeros lugares de la tabla.",
         fecha: "14 Oct 2026",
-        tag: "Calendario"
+        tag: "CALENDARIO",
+        imagen: "https://images.unsplash.com/photo-1508344928928-7165b67de128?w=800&q=80"
+    },
+    {
+        titulo: "Tigres de Aragua buscan romper racha negativa",
+        texto: "El equipo aragüeño necesita una victoria urgente para mantenerse en la lucha por los primeros lugares.",
+        fecha: "14 Oct 2026",
+        tag: "ANÁLISIS",
+        imagen: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80"
     }
 ];
 
@@ -94,12 +100,12 @@ const lideres = {
     ]
 };
 
-// Función para calcular porcentaje de victorias
+// Calcular porcentaje de victorias
 function calcularPCT(jg, jp) {
     return (jg / (jg + jp)).toFixed(3);
 }
 
-// Función para calcular diferencia
+// Calcular diferencia
 function calcularDIF(jg, jp, primerJG, primerJP) {
     const diff = ((primerJG - jg) + (jp - primerJP)) / 2;
     return diff > 0 ? diff.toFixed(1) : "-";
@@ -129,17 +135,19 @@ function renderPosiciones() {
     });
 }
 
-// Renderizar noticias
+// Renderizar noticias con imágenes de fondo
 function renderNoticias() {
     const container = document.getElementById("noticias-container");
     noticias.forEach(n => {
         const card = document.createElement("div");
         card.className = "noticia-card";
+        card.style.backgroundImage = `url('${n.imagen}')`;
         card.innerHTML = `
-            <div class="fecha">${n.fecha}</div>
-            <h3>${n.titulo}</h3>
-            <p>${n.texto}</p>
-            <span class="tag">${n.tag}</span>
+            <div class="noticia-contenido">
+                <span class="noticia-tag">${n.tag}</span>
+                <h3>${n.titulo}</h3>
+                <p class="fecha">${n.fecha}</p>
+            </div>
         `;
         container.appendChild(card);
     });
@@ -153,13 +161,9 @@ function renderResultados() {
         card.className = "resultado-card";
         card.innerHTML = `
             <div class="equipos">
-                <div class="equipo">
-                    <div class="equipo-nombre">${r.local}</div>
-                </div>
+                <div class="equipo-nombre">${r.local}</div>
                 <div class="score">${r.scoreLocal} - ${r.scoreVisitante}</div>
-                <div class="equipo">
-                    <div class="equipo-nombre">${r.visitante}</div>
-                </div>
+                <div class="equipo-nombre">${r.visitante}</div>
             </div>
             <div class="fecha-juego">${r.fecha}</div>
         `;
@@ -199,8 +203,15 @@ function renderLideres() {
     crearLista("lideres-era", lideres.era);
 }
 
-// Inicializar cuando el DOM esté listo
+// Menú hamburguesa
 document.addEventListener("DOMContentLoaded", () => {
+    const menuBtn = document.getElementById("menuBtn");
+    const navMenu = document.getElementById("navMenu");
+    
+    menuBtn.addEventListener("click", () => {
+        navMenu.classList.toggle("activo");
+    });
+    
     renderPosiciones();
     renderNoticias();
     renderResultados();
