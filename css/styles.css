@@ -315,6 +315,24 @@ tr:nth-child(1) td {
 tr:nth-child(2) td { color: #c0c0c0; font-weight: bold; }
 tr:nth-child(3) td { color: #cd7f32; font-weight: bold; }
 
+/* ============ LOGOS EN TABLA ============ */
+.equipo-con-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+}
+
+.logo-equipo {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    border-radius: 50%;
+    background: #fff;
+    padding: 3px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
 /* ============ RESULTADOS ============ */
 .resultados-grid {
     display: grid;
@@ -409,6 +427,15 @@ tr:nth-child(3) td { color: #cd7f32; font-weight: bold; }
     background: rgba(255,215,0,0.1);
     padding: 5px 10px;
     border-radius: 5px;
+}
+
+.juego-card .transmision {
+    color: #ffd700;
+    font-size: 0.8rem;
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+    font-style: italic;
 }
 
 /* ============ ESTADÍSTICAS ============ */
@@ -556,5 +583,14 @@ footer p {
     
     .header-derecha {
         gap: 5px;
+    }
+    
+    .logo-equipo {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .equipo-con-logo span {
+        font-size: 0.85rem;
     }
 }
