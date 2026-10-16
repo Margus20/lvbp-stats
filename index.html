@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LVBP Stats - Liga Venezolana de Béisbol Profesional</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>⚾ LVBP Stats</h1>
+            <p class="subtitle">Liga Venezolana de Béisbol Profesional</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#noticias">Noticias</a></li>
+                <li><a href="#posiciones">Posiciones</a></li>
+                <li><a href="#resultados">Resultados</a></li>
+                <li><a href="#calendario">Calendario</a></li>
+                <li><a href="#estadisticas">Estadísticas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- SECCIÓN NOTICIAS -->
+        <section id="noticias">
+            <h2>📰 Últimas Noticias</h2>
+            <div class="noticias-grid" id="noticias-container">
+                <!-- Las noticias se cargan desde JavaScript -->
+            </div>
+        </section>
+
+        <!-- SECCIÓN POSICIONES -->
+        <section id="posiciones">
+            <h2> Tabla de Posiciones</h2>
+            <div class="tabla-container">
+                <table id="tabla-posiciones">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Equipo</th>
+                            <th>JJ</th>
+                            <th>JG</th>
+                            <th>JP</th>
+                            <th>PCT</th>
+                            <th>DIF</th>
+                            <th>RACHA</th>
+                        </tr>
+                    </thead>
+                    <tbody id="posiciones-body">
+                        <!-- Se llena con JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECCIÓN RESULTADOS -->
+        <section id="resultados">
+            <h2>📊 Últimos Resultados</h2>
+            <div class="resultados-grid" id="resultados-container">
+                <!-- Se llena con JavaScript -->
+            </div>
+        </section>
+
+        <!-- SECCIÓN CALENDARIO -->
+        <section id="calendario">
+            <h2>📅 Próximos Juegos</h2>
+            <div class="calendario-lista" id="calendario-container">
+                <!-- Se llena con JavaScript -->
+            </div>
+        </section>
+
+        <!-- SECCIÓN ESTADÍSTICAS -->
+        <section id="estadisticas">
+            <h2>📈 Líderes Estadísticos</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>🏃 Carreras Anotadas</h3>
+                    <ol id="lideres-carreras"></ol>
+                </div>
+                <div class="stat-card">
+                    <h3>🎯 Average de Bateo</h3>
+                    <ol id="lideres-average"></ol>
+                </div>
+                <div class="stat-card">
+                    <h3> Jonrones</h3>
+                    <ol id="lideres-hr"></ol>
+                </div>
+                <div class="stat-card">
+                    <h3>🎯 Efectividad (Pitcheo)</h3>
+                    <ol id="lideres-era"></ol>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>⚾ LVBP Stats 2026 - Página no oficial de la Liga Venezolana de Béisbol Profesional</p>
+            <p>Desarrollado con ❤️ por Margus20</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
