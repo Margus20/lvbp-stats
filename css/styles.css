@@ -6,8 +6,8 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #0a0a0a;
-    color: #ffffff;
+    background: linear-gradient(135deg, #f5f0e8 0%, #f0ebe3 100%);
+    color: #2c2c2c;
     line-height: 1.6;
 }
 
@@ -19,12 +19,13 @@ body {
 
 /* ============ HEADER ============ */
 .header-principal {
-    background: #000000;
+    background: #ffffff;
     padding: 15px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 3px solid #ffd700;
+    border-bottom: 3px solid #d32f2f;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .header-container {
@@ -60,7 +61,7 @@ body {
 .menu-hamburguesa span {
     width: 30px;
     height: 3px;
-    background: #ffd700;
+    background: #d32f2f;
     transition: all 0.3s;
 }
 
@@ -183,7 +184,7 @@ body {
 /* ============ GRID DE NOTICIAS ============ */
 .noticias-grid-section {
     padding: 40px 0;
-    background: #0a0a0a;
+    background: transparent;
 }
 
 .noticias-grid {
@@ -201,10 +202,12 @@ body {
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.3s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .noticia-card:hover {
     transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
 .noticia-card::before {
@@ -255,22 +258,23 @@ body {
 /* ============ SECCIONES ============ */
 .seccion-oscura {
     padding: 50px 0;
-    background: #0a0a0a;
+    background: #ffffff;
     border-top: 3px solid #d32f2f;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
 }
 
 .seccion-clara {
     padding: 50px 0;
-    background: #141414;
+    background: #faf8f5;
     border-top: 3px solid #ffd700;
 }
 
 .titulo-seccion {
-    color: #ffd700;
+    color: #d32f2f;
     font-size: 2rem;
     margin-bottom: 30px;
     padding-bottom: 15px;
-    border-bottom: 3px solid #d32f2f;
+    border-bottom: 3px solid #ffd700;
     display: inline-block;
 }
 
@@ -278,17 +282,17 @@ body {
 .tabla-container {
     overflow-x: auto;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    background: #1a1a1a;
+    background: #ffffff;
 }
 
 th {
-    background: #d32f2f;
+    background: linear-gradient(90deg, #d32f2f 0%, #b71c1c 100%);
     color: #fff;
     padding: 15px 10px;
     text-align: center;
@@ -299,8 +303,8 @@ th {
 td {
     padding: 12px 10px;
     text-align: center;
-    border-bottom: 1px solid #2a2a2a;
-    color: #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    color: #2c2c2c;
 }
 
 tr:hover {
@@ -308,12 +312,12 @@ tr:hover {
 }
 
 tr:nth-child(1) td { 
-    color: #ffd700; 
+    color: #d32f2f; 
     font-weight: bold; 
-    background: rgba(255,215,0,0.1);
+    background: rgba(255,215,0,0.15);
 }
-tr:nth-child(2) td { color: #c0c0c0; font-weight: bold; }
-tr:nth-child(3) td { color: #cd7f32; font-weight: bold; }
+tr:nth-child(2) td { color: #666; font-weight: bold; }
+tr:nth-child(3) td { color: #b87333; font-weight: bold; }
 
 /* ============ LOGOS (Norma permanente para todas las secciones) ============ */
 .equipo-con-logo {
@@ -330,7 +334,7 @@ tr:nth-child(3) td { color: #cd7f32; font-weight: bold; }
     background: #fff;
     border-radius: 50%;
     padding: 3px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 /* ============ RESULTADOS ============ */
@@ -341,17 +345,19 @@ tr:nth-child(3) td { color: #cd7f32; font-weight: bold; }
 }
 
 .resultado-card {
-    background: #1a1a1a;
+    background: #ffffff;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
     border-left: 4px solid #d32f2f;
     transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .resultado-card:hover {
     transform: translateX(5px);
     border-left-color: #ffd700;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .resultado-card .equipos {
@@ -376,19 +382,19 @@ tr:nth-child(3) td { color: #cd7f32; font-weight: bold; }
 
 .resultado-card .equipo-nombre {
     font-weight: bold;
-    color: #fff;
+    color: #2c2c2c;
     font-size: 0.9rem;
 }
 
 .resultado-card .score {
     font-size: 1.8rem;
-    color: #ffd700;
+    color: #d32f2f;
     font-weight: bold;
     padding: 0 10px;
 }
 
 .resultado-card .fecha-juego {
-    color: #ffd700;
+    color: #d32f2f;
     font-size: 0.85rem;
     margin-top: 10px;
     font-weight: 600;
@@ -401,7 +407,7 @@ tr:nth-child(3) td { color: #cd7f32; font-weight: bold; }
 }
 
 .juego-card {
-    background: #1a1a1a;
+    background: #ffffff;
     padding: 18px 20px;
     border-radius: 8px;
     display: flex;
@@ -411,15 +417,17 @@ tr:nth-child(3) td { color: #cd7f32; font-weight: bold; }
     gap: 10px;
     border-left: 4px solid #ffd700;
     transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .juego-card:hover {
-    background: #252525;
+    background: #fafafa;
     transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .juego-card .fecha {
-    color: #ffd700;
+    color: #d32f2f;
     font-weight: bold;
     min-width: 100px;
     font-size: 0.95rem;
@@ -445,7 +453,7 @@ tr:nth-child(3) td { color: #cd7f32; font-weight: bold; }
 }
 
 .juego-card .vs {
-    color: #ffd700;
+    color: #d32f2f;
     font-weight: bold;
     font-size: 0.9rem;
 }
@@ -458,7 +466,7 @@ tr:nth-child(3) td { color: #cd7f32; font-weight: bold; }
 .juego-card .hora {
     color: #d32f2f;
     font-weight: bold;
-    background: rgba(255,215,0,0.1);
+    background: rgba(255,215,0,0.2);
     padding: 5px 10px;
     border-radius: 5px;
     display: inline-block;
@@ -466,7 +474,7 @@ tr:nth-child(3) td { color: #cd7f32; font-weight: bold; }
 }
 
 .juego-card .transmision {
-    color: #ffd700;
+    color: #666;
     font-size: 0.8rem;
     font-style: italic;
 }
@@ -479,18 +487,19 @@ tr:nth-child(3) td { color: #cd7f32; font-weight: bold; }
 }
 
 .stat-card {
-    background: #1a1a1a;
+    background: #ffffff;
     padding: 20px;
     border-radius: 8px;
     border-top: 4px solid #d32f2f;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .stat-card h3 {
-    color: #ffd700;
+    color: #d32f2f;
     margin-bottom: 15px;
     font-size: 1.1rem;
     padding-bottom: 10px;
-    border-bottom: 2px solid #2a2a2a;
+    border-bottom: 2px solid #e0e0e0;
 }
 
 .stat-card ol {
@@ -501,8 +510,8 @@ tr:nth-child(3) td { color: #cd7f32; font-weight: bold; }
 
 .stat-card li {
     padding: 10px;
-    border-bottom: 1px solid #2a2a2a;
-    color: #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    color: #2c2c2c;
     position: relative;
     padding-left: 35px;
 }
@@ -531,7 +540,7 @@ tr:nth-child(3) td { color: #cd7f32; font-weight: bold; }
 }
 
 .stat-card .valor {
-    color: #ffd700;
+    color: #d32f2f;
     font-weight: bold;
     float: right;
     font-size: 1.1rem;
@@ -539,7 +548,7 @@ tr:nth-child(3) td { color: #cd7f32; font-weight: bold; }
 
 /* ============ FOOTER ============ */
 footer {
-    background: #000000;
+    background: #1a1a1a;
     padding: 40px 0 20px;
     text-align: center;
     border-top: 4px solid #ffd700;
