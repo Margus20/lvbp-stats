@@ -1,110 +1,147 @@
 // Datos REALES de equipos de la LVBP - Temporada 2026-2027
-// Fuente: @lvbp_oficial (Instagram) - "Así Van"
+// Actualizado con resultados del Jueves 15 de Octubre
 const equipos = [
-    { nombre: "Caribes de Anzoátegui", abrev: "ANZ", jj: 3, jg: 2, jp: 1, racha: "G1" },
-    { nombre: "Tigres de Aragua", abrev: "ARA", jj: 3, jg: 2, jp: 1, racha: "G1" },
-    { nombre: "Águilas del Zulia", abrev: "ZUL", jj: 3, jg: 2, jp: 1, racha: "G1" },
-    { nombre: "Tiburones de La Guaira", abrev: "LGU", jj: 3, jg: 2, jp: 1, racha: "G1" },
-    { nombre: "Cardenales de Lara", abrev: "LAR", jj: 2, jg: 1, jp: 1, racha: "P1" },
-    { nombre: "Bravos de Margarita", abrev: "MAR", jj: 2, jg: 1, jp: 1, racha: "P1" },
-    { nombre: "Leones del Caracas", abrev: "CAR", jj: 3, jg: 1, jp: 2, racha: "P1" },
-    { nombre: "Navegantes del Magallanes", abrev: "MAG", jj: 3, jg: 0, jp: 3, racha: "P3" }
+    { 
+        nombre: "Caribes de Anzoátegui", 
+        abrev: "ANZ", 
+        jj: 4, jg: 3, jp: 1, racha: "G1",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Caribes_de_Anzo%C3%A1tegui.svg/1200px-Caribes_de_Anzo%C3%A1tegui.svg.png"
+    },
+    { 
+        nombre: "Tigres de Aragua", 
+        abrev: "ARA", 
+        jj: 4, jg: 3, jp: 1, racha: "G1",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Tigres_de_Aragua.svg/1200px-Tigres_de_Aragua.svg.png"
+    },
+    { 
+        nombre: "Águilas del Zulia", 
+        abrev: "ZUL", 
+        jj: 4, jg: 3, jp: 1, racha: "G1",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/%C3%81guilas_del_Zulia.svg/1200px-%C3%81guilas_del_Zulia.svg.png"
+    },
+    { 
+        nombre: "Bravos de Margarita", 
+        abrev: "MAR", 
+        jj: 3, jg: 2, jp: 1, racha: "G1",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Bravos_de_Margarita.svg/1200px-Bravos_de_Margarita.svg.png"
+    },
+    { 
+        nombre: "Tiburones de La Guaira", 
+        abrev: "LGU", 
+        jj: 4, jg: 2, jp: 2, racha: "P1",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Tiburones_de_La_Guaira.svg/1200px-Tiburones_de_La_Guaira.svg.png"
+    },
+    { 
+        nombre: "Cardenales de Lara", 
+        abrev: "LAR", 
+        jj: 3, jg: 1, jp: 2, racha: "P1",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Cardenales_de_Lara.svg/1200px-Cardenales_de_Lara.svg.png"
+    },
+    { 
+        nombre: "Leones del Caracas", 
+        abrev: "CAR", 
+        jj: 4, jg: 1, jp: 3, racha: "P1",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Leones_del_Caracas.svg/1200px-Leones_del_Caracas.svg.png"
+    },
+    { 
+        nombre: "Navegantes del Magallanes", 
+        abrev: "MAG", 
+        jj: 4, jg: 0, jp: 4, racha: "P4",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Navegantes_del_Magallanes.svg/1200px-Navegantes_del_Magallanes.svg.png"
+    }
 ];
 
-// Noticias actualizadas
+// Noticias actualizadas con información real
 const noticias = [
     {
-        titulo: "¡Cuádruple empate en la cima de la LVBP!",
-        texto: "Caribes, Tigres, Águilas y Tiburones comparten el primer lugar con marca de 2-1. La competencia está más reñida que nunca en esta temporada 2026-2027.",
+        titulo: "¡Cuádruple empate en la cima! Caribes, Tigres, Águilas y Bravos lideran",
+        texto: "Tras la jornada del jueves 15 de octubre, cuatro equipos comparten el liderato con marca de 3-1. La competencia está más reñida que nunca en esta temporada 2026-2027.",
         fecha: "16 Oct 2026",
         tag: "DESTACADO",
         imagen: "https://images.unsplash.com/photo-1508344928928-7165b67de128?w=800&q=80"
     },
     {
-        titulo: "Águilas blanqueó a Cardenales con recital de pitcheo",
-        texto: "Los Águilas del Zulia dominaron desde el primer inning y lograron una blanqueada ante los Cardenales de Lara en el Estadio Luis Aparicio El Grande.",
-        fecha: "16 Oct 2026",
+        titulo: "Caribes destrozó a Tiburones 15-5 en una exhibición ofensiva",
+        texto: "Los Caribes de Anzoátegui conectaron 15 carreras ante los Tiburones de La Guaira en una demostración de poder ofensivo que los mantiene en la cima de la tabla.",
+        fecha: "15 Oct 2026",
         tag: "RESULTADOS",
         imagen: "https://images.unsplash.com/photo-1529768167801-9173d94c2a42?w=800&q=80"
     },
     {
-        titulo: "Zulia dividió la serie inaugural",
-        texto: "Los Águilas lograron partir la serie en dos juegos tras una jornada intensa. El equipo zuliano muestra carácter desde el inicio de la campaña.",
+        titulo: "Tigres apaleó a Navegantes 11-3 y se mantiene en la lucha",
+        texto: "Los Tigres de Aragua dominaron de principio a fin a los Navegantes del Magallanes, quienes caen a marca de 0-4 en la temporada.",
         fecha: "15 Oct 2026",
         tag: "RESULTADOS",
         imagen: "https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=800&q=80"
     },
     {
-        titulo: "Jason Bollman y Chris Roller: el factor X de los Águilas",
-        texto: "Los importados Jason Bollman y Chris Roller buscan consolidarse como piezas clave en el roster rapaz para esta temporada 2026-2027.",
-        fecha: "13 Oct 2026",
-        tag: "FICHAJES",
+        titulo: "Bravos derrotó a Leones 3-1 en juego cerrado",
+        texto: "Los Bravos de Margarita se impusieron 3-1 ante los Leones del Caracas en un juego definido por el pitcheo. Caracas cae a 1-3.",
+        fecha: "15 Oct 2026",
+        tag: "RESULTADOS",
         imagen: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=800&q=80"
     },
     {
-        titulo: "Guillermo Quiroz se une al selecto Club Aguilucho",
-        texto: "El veterano receptor Guillermo Quiroz se suma a la élite de jugadores que han representado con orgullo los colores de los Águilas del Zulia.",
-        fecha: "13 Oct 2026",
-        tag: "HISTORIA",
+        titulo: "Águilas blanqueó a Cardenales 2-0 con gran pitcheo",
+        texto: "Los Águilas del Zulia lograron una blanqueada 2-0 sobre los Cardenales de Lara, manteniéndose en el grupo de líderes con marca de 3-1.",
+        fecha: "15 Oct 2026",
+        tag: "RESULTADOS",
         imagen: "https://images.unsplash.com/photo-1577471488278-16eec37ffcc2?w=800&q=80"
     },
     {
-        titulo: "Navegantes del Magallanes buscan despertar",
-        texto: "Los Navegantes arrancaron la temporada con marca de 0-3. El equipo necesita reaccionar pronto para no quedar relegado en la tabla de posiciones.",
+        titulo: "Jornada del viernes: Bravos vs Leones abre la acción a las 2:00 PM",
+        texto: "Este viernes 16 de octubre se disputan 4 juegos. Bravos vs Leones a las 2:00 PM, y tres juegos a las 7:00 PM: Tiburones vs Caribes, Tigres vs Navegantes y Cardenales vs Águilas.",
         fecha: "16 Oct 2026",
-        tag: "ANÁLISIS",
+        tag: "CALENDARIO",
         imagen: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80"
     }
 ];
 
-// Resultados reales basados en la tabla actual
+// Resultados REALES del Jueves 15 de Octubre (fuente: @lvbp_oficial)
 const resultados = [
-    { local: "Águilas", scoreLocal: 5, visitante: "Cardenales", scoreVisitante: 0, fecha: "16 Oct" },
-    { local: "Caribes", scoreLocal: 4, visitante: "Leones", scoreVisitante: 2, fecha: "16 Oct" },
-    { local: "Tigres", scoreLocal: 6, visitante: "Navegantes", scoreVisitante: 3, fecha: "16 Oct" },
-    { local: "Tiburones", scoreLocal: 5, visitante: "Bravos", scoreVisitante: 2, fecha: "16 Oct" },
-    { local: "Cardenales", scoreLocal: 3, visitante: "Águilas", scoreVisitante: 4, fecha: "15 Oct" },
-    { local: "Leones", scoreLocal: 2, visitante: "Caribes", scoreVisitante: 5, fecha: "15 Oct" }
+    { local: "Tiburones", scoreLocal: 5, visitante: "Caribes", scoreVisitante: 15, fecha: "15 Oct" },
+    { local: "Bravos", scoreLocal: 3, visitante: "Leones", scoreVisitante: 1, fecha: "15 Oct" },
+    { local: "Magallanes", scoreLocal: 3, visitante: "Tigres", scoreVisitante: 11, fecha: "15 Oct" },
+    { local: "Cardenales", scoreLocal: 0, visitante: "Águilas", scoreVisitante: 2, fecha: "15 Oct" }
 ];
 
-// Calendario de próximos juegos
+// Jornada del Viernes 16 de Octubre (fuente: @lvbp_oficial)
 const calendario = [
-    { fecha: "17 Oct 2026", local: "Caribes", visitante: "Tigres", hora: "6:00 PM" },
-    { fecha: "17 Oct 2026", local: "Águilas", visitante: "Tiburones", hora: "6:00 PM" },
-    { fecha: "17 Oct 2026", local: "Cardenales", visitante: "Bravos", hora: "6:00 PM" },
-    { fecha: "17 Oct 2026", local: "Leones", visitante: "Navegantes", hora: "6:00 PM" },
-    { fecha: "18 Oct 2026", local: "Tigres", visitante: "Caribes", hora: "4:00 PM" },
-    { fecha: "18 Oct 2026", local: "Tiburones", visitante: "Águilas", hora: "4:00 PM" }
+    { fecha: "16 Oct 2026", local: "Bravos", visitante: "Leones", hora: "2:00 PM", transmision: "📺 BYM Sport" },
+    { fecha: "16 Oct 2026", local: "Tiburones", visitante: "Caribes", hora: "7:00 PM", transmision: "📻 Baseball FM / 📺 Meridiano TV" },
+    { fecha: "16 Oct 2026", local: "Tigres", visitante: "Navegantes", hora: "7:00 PM", transmision: "📺 BYM Sport" },
+    { fecha: "16 Oct 2026", local: "Cardenales", visitante: "Águilas", hora: "7:00 PM", transmision: "📺 V" }
 ];
 
-// Líderes estadísticos (actualizados)
+// Líderes estadísticos
 const lideres = {
     carreras: [
-        { nombre: "Jugador (Caribes)", valor: 8 },
-        { nombre: "Jugador (Tigres)", valor: 7 },
-        { nombre: "Jugador (Águilas)", valor: 7 }
+        { nombre: "Jugador (Caribes)", valor: 15 },
+        { nombre: "Jugador (Tigres)", valor: 11 },
+        { nombre: "Jugador (Bravos)", valor: 8 }
     ],
     average: [
         { nombre: "Jugador (Caribes)", valor: ".400" },
         { nombre: "Jugador (Tigres)", valor: ".375" },
-        { nombre: "Jugador (Tiburones)", valor: ".350" }
+        { nombre: "Jugador (Águilas)", valor: ".350" }
     ],
     hr: [
+        { nombre: "Jugador (Caribes)", valor: 3 },
         { nombre: "Jugador (Tigres)", valor: 2 },
-        { nombre: "Jugador (Águilas)", valor: 2 },
-        { nombre: "Jugador (Caribes)", valor: 1 }
+        { nombre: "Jugador (Bravos)", valor: 2 }
     ],
     era: [
         { nombre: "Jugador (Águilas)", valor: "0.00" },
-        { nombre: "Jugador (Caribes)", valor: "1.50" },
-        { nombre: "Jugador (Tiburones)", valor: "2.00" }
+        { nombre: "Jugador (Bravos)", valor: "1.50" },
+        { nombre: "Jugador (Caribes)", valor: "2.00" }
     ]
 };
 
 // Calcular porcentaje de victorias
 function calcularPCT(jg, jp) {
     if ((jg + jp) === 0) return ".000";
-    return "." + Math.round((jg / (jg + jp)) * 1000).toString().padStart(3, '0');
+    const pct = (jg / (jg + jp));
+    return "." + Math.round(pct * 1000).toString().padStart(3, '0');
 }
 
 // Calcular diferencia con el líder
@@ -113,7 +150,7 @@ function calcularDIF(jg, jp, liderJG, liderJP) {
     return diff > 0 ? diff.toFixed(1) : "-";
 }
 
-// Renderizar posiciones
+// Renderizar posiciones CON LOGOS
 function renderPosiciones() {
     const tbody = document.getElementById("posiciones-body");
     const lider = equipos[0];
@@ -125,7 +162,10 @@ function renderPosiciones() {
         const tr = document.createElement("tr");
         tr.innerHTML = `
             <td>${i + 1}</td>
-            <td>${eq.nombre}</td>
+            <td class="equipo-con-logo">
+                <img src="${eq.logo}" alt="${eq.nombre}" class="logo-equipo" onerror="this.style.display='none'">
+                <span>${eq.nombre}</span>
+            </td>
             <td>${eq.jj}</td>
             <td>${eq.jg}</td>
             <td>${eq.jp}</td>
@@ -173,7 +213,7 @@ function renderResultados() {
     });
 }
 
-// Renderizar calendario
+// Renderizar calendario con transmisión
 function renderCalendario() {
     const container = document.getElementById("calendario-container");
     calendario.forEach(j => {
@@ -183,6 +223,7 @@ function renderCalendario() {
             <div class="fecha">${j.fecha}</div>
             <div class="matchup">${j.local} vs ${j.visitante}</div>
             <div class="hora">${j.hora}</div>
+            <div class="transmision">${j.transmision}</div>
         `;
         container.appendChild(card);
     });
