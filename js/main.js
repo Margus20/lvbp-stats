@@ -111,46 +111,47 @@ function getColorTexto(nombreEquipo) {
 const noticias = [];
 
 // Resultados REALES del Viernes 16 de Octubre
+// VISITANTE a la IZQUIERDA, LOCAL a la DERECHA
 const resultados = [
     { local: "Bravos", scoreLocal: 9, visitante: "Leones", scoreVisitante: 2, fecha: "16 Oct", innings: 9 },
-    { local: "Tiburones", scoreLocal: 4, visitante: "Caribes", scoreVisitante: 7, fecha: "16 Oct", innings: 9 },
+    { local: "Caribes", scoreLocal: 7, visitante: "Tiburones", scoreVisitante: 4, fecha: "16 Oct", innings: 9 },
     { local: "Tigres", scoreLocal: 8, visitante: "Magallanes", scoreVisitante: 7, fecha: "16 Oct", innings: 9 },
     { local: "Cardenales", scoreLocal: 8, visitante: "Águilas", scoreVisitante: 5, fecha: "16 Oct", innings: 9 }
 ];
 
-// Jornada del Sábado 17 de Octubre (ACTUALIZADA)
+// Jornada del Sábado 17 de Octubre (CORREGIDA: visitante izquierda, local derecha)
 const calendario = [
     { 
         fecha: "17 Oct 2026", 
-        local: "Magallanes", 
-        visitante: "Cardenales", 
+        local: "Cardenales", 
+        visitante: "Magallanes", 
         hora: "4:00 PM", 
-        transmision: " IVC",
-        lugar: "Estadio José Bernardo Pérez"
+        transmision: "📺 IVC",
+        lugar: "Estadio Antonio Herrera Gutiérrez"
     },
     { 
         fecha: "17 Oct 2026", 
-        local: "Tigres", 
-        visitante: "Tiburones", 
+        local: "Tiburones", 
+        visitante: "Tigres", 
         hora: "6:00 PM", 
         transmision: "📻 Baseball FM",
-        lugar: "Estadio José Pérez Colmenares"
+        lugar: "Estadio Universitario de La Guaira"
     },
     { 
         fecha: "17 Oct 2026", 
-        local: "Leones", 
-        visitante: "Caribes", 
+        local: "Caribes", 
+        visitante: "Leones", 
         hora: "6:00 PM", 
         transmision: "📺 Televen",
-        lugar: "Estadio Universitario de Caracas"
+        lugar: "Estadio Alfonso Chico Carrasquel"
     },
     { 
         fecha: "17 Oct 2026", 
-        local: "Bravos", 
-        visitante: "Águilas", 
+        local: "Águilas", 
+        visitante: "Bravos", 
         hora: "8:00 PM", 
         transmision: "📺 BYM Sport",
-        lugar: "Estadio Nueva Esparta"
+        lugar: "Estadio Luis Aparicio El Grande"
     }
 ];
 
@@ -247,7 +248,7 @@ function renderNoticias() {
     }
 }
 
-// Renderizar resultados
+// Renderizar resultados - VISITANTE IZQUIERDA, LOCAL DERECHA
 function renderResultados() {
     const container = document.getElementById("resultados-container");
     resultados.forEach(r => {
@@ -289,7 +290,7 @@ function renderResultados() {
     });
 }
 
-// Renderizar calendario
+// Renderizar calendario - VISITANTE IZQUIERDA, LOCAL DERECHA
 function renderCalendario() {
     const container = document.getElementById("calendario-container");
     calendario.forEach(j => {
