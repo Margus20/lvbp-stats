@@ -1,13 +1,13 @@
 // ============================================
 // DATOS DE LA LVBP - TEMPORADA 2026-2027
 // ============================================
-// INSTRUCCIONES: Solo edita los valores entre comillas o números
-// NO cambies los nombres de las propiedades (nombre, jj, jg, etc.)
+// INSTRUCCIONES: Solo edita los valores
+// NO cambies los nombres de las propiedades
 // ============================================
 
 const DATOS = {
     
-    // ===== EQUIPOS (NO SE MODIFICA - Ya está completo) =====
+    // ===== EQUIPOS (NO SE MODIFICA) =====
     equipos: [
         { nombre: "Caribes de Anzoátegui", nombreCorto: "Caribes", abrev: "ANZ", logo: "https://i.postimg.cc/0j685n5D/image-search-1791393733450-11zon.webp", claseFila: "fila-caribes", color: "#F2F2F2", colorTexto: "#2c2c2c" },
         { nombre: "Tigres de Aragua", nombreCorto: "Tigres", abrev: "ARA", logo: "https://i.postimg.cc/0QRG0W3n/1791393470300-11zon.jpg", claseFila: "fila-tigres", color: "#042959", colorTexto: "#ffffff" },
@@ -20,7 +20,6 @@ const DATOS = {
     ],
 
     // ===== POSICIONES (EDITAR DIARIO) =====
-    // Solo cambia los números de jj, jg, jp y la racha
     posiciones: [
         { nombre: "Caribes de Anzoátegui", jj: 4, jg: 3, jp: 1, racha: "G1" },
         { nombre: "Tigres de Aragua", jj: 4, jg: 3, jp: 1, racha: "G2" },
@@ -33,19 +32,21 @@ const DATOS = {
     ],
 
     // ===== RESULTADOS (EDITAR DIARIO) =====
-    // Agrega o modifica los juegos del día
+    // IMPORTANTE: "local" = equipo de casa (va a la DERECHA)
+    //             "visitante" = equipo visitante (va a la IZQUIERDA)
     resultados: [
-        { local: "Bravos", scoreLocal: 9, visitante: "Leones", scoreVisitante: 2, fecha: "16 Oct", innings: 9 },
-        { local: "Caribes", scoreLocal: 7, visitante: "Tiburones", scoreVisitante: 4, fecha: "16 Oct", innings: 9 },
-        { local: "Tigres", scoreLocal: 8, visitante: "Magallanes", scoreVisitante: 7, fecha: "16 Oct", innings: 9 },
-        { local: "Cardenales", scoreLocal: 8, visitante: "Águilas", scoreVisitante: 5, fecha: "16 Oct", innings: 9 }
+        { local: "Leones", scoreLocal: 2, visitante: "Bravos", scoreVisitante: 9, fecha: "16 Oct", innings: 9 },
+        { local: "Tiburones", scoreLocal: 4, visitante: "Caribes", scoreVisitante: 7, fecha: "16 Oct", innings: 9 },
+        { local: "Magallanes", scoreLocal: 7, visitante: "Tigres", scoreVisitante: 8, fecha: "16 Oct", innings: 9 },
+        { local: "Águilas", scoreLocal: 5, visitante: "Cardenales", scoreVisitante: 8, fecha: "16 Oct", innings: 9 }
     ],
 
     // ===== CALENDARIO (EDITAR DIARIO) =====
-    // Juegos programados para hoy/mañana
+    // "local" = equipo de casa (va a la DERECHA)
+    // "visitante" = equipo visitante (va a la IZQUIERDA)
     calendario: [
-        { local: "Cardenales", visitante: "Magallanes", hora: "4:00 PM", transmision: " IVC", lugar: "Estadio Antonio Herrera Gutiérrez", fecha: "17 Oct 2026" },
-        { local: "Tiburones", visitante: "Tigres", hora: "6:00 PM", transmision: " Baseball FM", lugar: "Estadio Universitario de La Guaira", fecha: "17 Oct 2026" },
+        { local: "Cardenales", visitante: "Magallanes", hora: "4:00 PM", transmision: "📺 IVC", lugar: "Estadio Antonio Herrera Gutiérrez", fecha: "17 Oct 2026" },
+        { local: "Tiburones", visitante: "Tigres", hora: "6:00 PM", transmision: "📻 Baseball FM", lugar: "Estadio Universitario de La Guaira", fecha: "17 Oct 2026" },
         { local: "Caribes", visitante: "Leones", hora: "6:00 PM", transmision: " Televen", lugar: "Estadio Alfonso Chico Carrasquel", fecha: "17 Oct 2026" },
         { local: "Águilas", visitante: "Bravos", hora: "8:00 PM", transmision: " BYM Sport", lugar: "Estadio Luis Aparicio El Grande", fecha: "17 Oct 2026" }
     ],
