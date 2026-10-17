@@ -17,15 +17,15 @@ body {
     padding: 0 20px;
 }
 
-/* ============ HEADER ============ */
+/* ============ HEADER (AZUL OSCURO) ============ */
 .header-principal {
-    background: #ffffff;
+    background: linear-gradient(135deg, #0d47a1 0%, #1a237e 100%);
     padding: 15px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 3px solid #d32f2f;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-bottom: 3px solid #ffd700;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .header-container {
@@ -61,7 +61,7 @@ body {
 .menu-hamburguesa span {
     width: 30px;
     height: 3px;
-    background: #d32f2f;
+    background: #ffd700;
     transition: all 0.3s;
 }
 
@@ -301,25 +301,50 @@ th {
 }
 
 td {
-    padding: 12px 10px;
+    padding: 14px 10px;
     text-align: center;
     border-bottom: 1px solid #e0e0e0;
     color: #2c2c2c;
+    font-weight: 500;
 }
 
 tr:hover {
-    background: rgba(255,215,0,0.1);
+    filter: brightness(0.95);
+    transform: scale(1.01);
+    transition: all 0.2s;
 }
 
-tr:nth-child(1) td { 
-    color: #d32f2f; 
-    font-weight: bold; 
-    background: rgba(255,215,0,0.15);
+/* COLORES POR EQUIPO - Filas completas */
+.fila-caribes {
+    background: linear-gradient(90deg, #fff3e0 0%, #ffe0b2 100%);
 }
-tr:nth-child(2) td { color: #666; font-weight: bold; }
-tr:nth-child(3) td { color: #b87333; font-weight: bold; }
+.fila-tigres {
+    background: linear-gradient(90deg, #fff3e0 0%, #ffcc80 100%);
+}
+.fila-aguilas {
+    background: linear-gradient(90deg, #fff8e1 0%, #ffecb3 100%);
+}
+.fila-bravos {
+    background: linear-gradient(90deg, #e0f2f1 0%, #b2dfdb 100%);
+}
+.fila-tiburones {
+    background: linear-gradient(90deg, #e3f2fd 0%, #bbdefb 100%);
+}
+.fila-cardenales {
+    background: linear-gradient(90deg, #ffebee 0%, #ffcdd2 100%);
+}
+.fila-leones {
+    background: linear-gradient(90deg, #424242 0%, #616161 100%);
+    color: #fff !important;
+}
+.fila-leones td {
+    color: #fff !important;
+}
+.fila-magallanes {
+    background: linear-gradient(90deg, #e1f5fe 0%, #b3e5fc 100%);
+}
 
-/* ============ LOGOS (Norma permanente para todas las secciones) ============ */
+/* ============ LOGOS ============ */
 .equipo-con-logo {
     display: flex;
     align-items: center;
@@ -335,6 +360,16 @@ tr:nth-child(3) td { color: #b87333; font-weight: bold; }
     border-radius: 50%;
     padding: 3px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.logo-grande {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 50%;
+    padding: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 /* ============ RESULTADOS ============ */
@@ -371,7 +406,7 @@ tr:nth-child(3) td { color: #b87333; font-weight: bold; }
 .resultado-card .equipo-info {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     flex: 1;
 }
 
@@ -383,11 +418,11 @@ tr:nth-child(3) td { color: #b87333; font-weight: bold; }
 .resultado-card .equipo-nombre {
     font-weight: bold;
     color: #2c2c2c;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
 .resultado-card .score {
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: #d32f2f;
     font-weight: bold;
     padding: 0 10px;
@@ -395,7 +430,7 @@ tr:nth-child(3) td { color: #b87333; font-weight: bold; }
 
 .resultado-card .fecha-juego {
     color: #d32f2f;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     margin-top: 10px;
     font-weight: 600;
 }
@@ -408,7 +443,7 @@ tr:nth-child(3) td { color: #b87333; font-weight: bold; }
 
 .juego-card {
     background: #ffffff;
-    padding: 18px 20px;
+    padding: 20px;
     border-radius: 8px;
     display: flex;
     justify-content: space-between;
@@ -438,14 +473,14 @@ tr:nth-child(3) td { color: #b87333; font-weight: bold; }
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
     text-align: center;
 }
 
 .juego-card .equipo-info {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .juego-card .equipo-info:last-child {
@@ -455,7 +490,7 @@ tr:nth-child(3) td { color: #b87333; font-weight: bold; }
 .juego-card .vs {
     color: #d32f2f;
     font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
 .juego-card .hora-info {
@@ -475,7 +510,7 @@ tr:nth-child(3) td { color: #b87333; font-weight: bold; }
 
 .juego-card .transmision {
     color: #666;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-style: italic;
 }
 
@@ -630,6 +665,11 @@ footer p {
     .logo-small {
         width: 28px;
         height: 28px;
+    }
+    
+    .logo-grande {
+        width: 45px;
+        height: 45px;
     }
     
     .equipo-con-logo span {
