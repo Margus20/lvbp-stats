@@ -39,102 +39,96 @@
         </nav>
     </header>
 
-    <!-- LAYOUT PRINCIPAL CON SIDEBAR -->
-    <div class="layout-principal">
-        <!-- CONTENIDO PRINCIPAL -->
+    <!-- LAYOUT PRINCIPAL: CONTENIDO + SIDEBAR A LA DERECHA -->
+    <div class="main-layout">
+        
+        <!-- COLUMNA IZQUIERDA: TODO EL CONTENIDO -->
         <main class="contenido-principal">
-            <!-- NOTICIA DESTACADA (HERO) -->
+            
+            <!-- HERO (NOTICIA GRANDE) -->
             <section class="hero-noticia" id="noticias">
                 <div class="hero-imagen" style="background-image: url('https://images.unsplash.com/photo-1508344928928-7165b67de128?w=1400&q=80');">
                     <div class="hero-overlay"></div>
                     <div class="hero-contenido">
                         <span class="hero-tag">JORNADA DE HOY</span>
                         <h1 class="hero-titulo">Sábado 17 de Octubre: Cuádruple jornada en la LVBP</h1>
-                        <p class="hero-subtitulo">Caribes recibe a Leones, Tiburones enfrenta a Tigres, Cardenales recibe a Navegantes y Águilas recibe a Bravos en una jornada clave.</p>
+                        <p class="hero-subtitulo">Caribes recibe a Leones, Tiburones enfrenta a Tigres, Cardenales recibe a Navegantes y Águilas recibe a Bravos.</p>
                         <p class="hero-fecha">17 de octubre de 2026</p>
                     </div>
                 </div>
             </section>
 
-            <!-- GRID DE NOTICIAS -->
+            <!-- GRID DE NOTICIAS (2 COLUMNAS) -->
             <section class="noticias-grid-section">
-                <div class="container">
-                    <div class="noticias-grid" id="noticias-container"></div>
-                </div>
+                <div class="noticias-grid" id="noticias-container"></div>
             </section>
 
             <!-- TABLA DE POSICIONES -->
             <section id="posiciones" class="seccion-oscura">
-                <div class="container">
-                    <h2 class="titulo-seccion">🏆 Tabla de Posiciones</h2>
-                    <div class="tabla-container">
-                        <table id="tabla-posiciones">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Equipo</th>
-                                    <th>JJ</th>
-                                    <th>JG</th>
-                                    <th>JP</th>
-                                    <th>PCT</th>
-                                    <th>DIF</th>
-                                    <th>RACHA</th>
-                                </tr>
-                            </thead>
-                            <tbody id="posiciones-body"></tbody>
-                        </table>
-                    </div>
+                <h2 class="titulo-seccion">🏆 Tabla de Posiciones</h2>
+                <div class="tabla-container">
+                    <table id="tabla-posiciones">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Equipo</th>
+                                <th>JJ</th>
+                                <th>JG</th>
+                                <th>JP</th>
+                                <th>PCT</th>
+                                <th>DIF</th>
+                                <th>RACHA</th>
+                            </tr>
+                        </thead>
+                        <tbody id="posiciones-body"></tbody>
+                    </table>
                 </div>
             </section>
 
             <!-- RESULTADOS -->
             <section id="resultados" class="seccion-clara">
-                <div class="container">
-                    <h2 class="titulo-seccion">📊 Resultados del Viernes 16 de Octubre</h2>
-                    <div class="resultados-grid" id="resultados-container"></div>
-                </div>
+                <h2 class="titulo-seccion">📊 Resultados del Viernes 16 de Octubre</h2>
+                <div class="resultados-grid" id="resultados-container"></div>
             </section>
 
-            <!-- CALENDARIO / JORNADA DE HOY -->
+            <!-- CALENDARIO -->
             <section id="calendario" class="seccion-oscura">
-                <div class="container">
-                    <h2 class="titulo-seccion">📅 Jornada del Sábado 17 de Octubre</h2>
-                    <div class="calendario-lista" id="calendario-container"></div>
-                </div>
+                <h2 class="titulo-seccion">📅 Jornada del Sábado 17 de Octubre</h2>
+                <div class="calendario-lista" id="calendario-container"></div>
             </section>
 
             <!-- ESTADÍSTICAS -->
             <section id="estadisticas" class="seccion-clara">
-                <div class="container">
-                    <h2 class="titulo-seccion"> Líderes Estadísticos</h2>
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <h3> Carreras Anotadas</h3>
-                            <ol id="lideres-carreras"></ol>
-                        </div>
-                        <div class="stat-card">
-                            <h3>⚾ Average de Bateo</h3>
-                            <ol id="lideres-average"></ol>
-                        </div>
-                        <div class="stat-card">
-                            <h3>💥 Jonrones</h3>
-                            <ol id="lideres-hr"></ol>
-                        </div>
-                        <div class="stat-card">
-                            <h3>🎯 Efectividad</h3>
-                            <ol id="lideres-era"></ol>
-                        </div>
+                <h2 class="titulo-seccion">📈 Líderes Estadísticos</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>🏃 Carreras Anotadas</h3>
+                        <ol id="lideres-carreras"></ol>
+                    </div>
+                    <div class="stat-card">
+                        <h3>⚾ Average de Bateo</h3>
+                        <ol id="lideres-average"></ol>
+                    </div>
+                    <div class="stat-card">
+                        <h3>💥 Jonrones</h3>
+                        <ol id="lideres-hr"></ol>
+                    </div>
+                    <div class="stat-card">
+                        <h3>🎯 Efectividad</h3>
+                        <ol id="lideres-era"></ol>
                     </div>
                 </div>
             </section>
         </main>
 
-        <!-- SIDEBAR PUBLICITARIO -->
+        <!-- COLUMNA DERECHA: PUBLICIDAD (Siempre visible al lado) -->
         <aside class="sidebar-publicidad">
             <div class="espacio-publicidad">
                 <img src="https://i.postimg.cc/Ls63NHxv/1000419154.jpg" alt="Publicidad" class="anuncio-imagen">
             </div>
+            <!-- Puedes copiar y pegar este bloque "espacio-publicidad" para añadir más anuncios -->
         </aside>
+
     </div>
 
     <!-- FOOTER -->
