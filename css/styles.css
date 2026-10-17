@@ -17,6 +17,46 @@ body {
     padding: 0 20px;
 }
 
+/* ============ LAYOUT PRINCIPAL CON SIDEBAR ============ */
+.layout-principal {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 20px;
+    padding: 20px;
+}
+
+.contenido-principal {
+    flex: 1;
+    min-width: 0;
+}
+
+/* ============ SIDEBAR PUBLICITARIO ============ */
+.sidebar-publicidad {
+    width: 300px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+}
+
+.espacio-publicidad {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+}
+
+.anuncio-imagen {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+}
+
 /* ============ HEADER ============ */
 .header-principal {
     background: linear-gradient(135deg, #0d47a1 0%, #1a237e 100%);
@@ -29,7 +69,7 @@ body {
 }
 
 .header-container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
@@ -106,7 +146,7 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -137,6 +177,8 @@ body {
     position: relative;
     display: flex;
     align-items: flex-end;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 .hero-overlay {
@@ -173,6 +215,13 @@ body {
     line-height: 1.2;
     margin-bottom: 15px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.hero-subtitulo {
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
 }
 
 .hero-fecha {
@@ -350,7 +399,7 @@ tr:hover {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* ============ RESULTADOS - DISEÑO COMPACTO DIVIDIDO ============ */
+/* ============ RESULTADOS ============ */
 .resultados-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -372,7 +421,6 @@ tr:hover {
     box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
 
-/* Contenedor de las dos mitades */
 .resultado-card .mitades {
     display: flex;
     width: 100%;
@@ -380,7 +428,6 @@ tr:hover {
     position: relative;
 }
 
-/* Cada mitad ocupa 50% */
 .resultado-card .mitad {
     flex: 1;
     display: flex;
@@ -391,7 +438,6 @@ tr:hover {
     position: relative;
 }
 
-/* Logo compacto */
 .resultado-card .logo-resultado {
     width: 70px;
     height: 70px;
@@ -412,7 +458,6 @@ tr:hover {
     line-height: 1.2;
 }
 
-/* VS central compacto */
 .resultado-card .vs-central {
     position: absolute;
     top: 50%;
@@ -433,7 +478,6 @@ tr:hover {
     border: 2px solid #ffd700;
 }
 
-/* Barra inferior con marcador */
 .resultado-card .info-marcador {
     background: linear-gradient(90deg, #1a1a1a 0%, #2c2c2c 100%);
     padding: 12px 15px;
@@ -497,7 +541,7 @@ tr:hover {
     font-weight: 500;
 }
 
-/* ============ CALENDARIO - DISEÑO COMPACTO DIVIDIDO ============ */
+/* ============ CALENDARIO ============ */
 .calendario-lista {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -709,6 +753,22 @@ footer p {
 }
 
 /* ============ RESPONSIVE ============ */
+@media (max-width: 1024px) {
+    .layout-principal {
+        flex-direction: column;
+    }
+    
+    .sidebar-publicidad {
+        width: 100%;
+        position: static;
+    }
+    
+    .sidebar-publicidad .espacio-publicidad {
+        max-width: 300px;
+        margin: 0 auto 20px;
+    }
+}
+
 @media (max-width: 768px) {
     .logo-header {
         height: 45px;
