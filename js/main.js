@@ -99,89 +99,88 @@ function getColorTexto(nombreEquipo) {
     return eq ? eq.colorTexto : '#ffffff';
 }
 
-// Noticias
+// Noticias actualizadas con la noticia real de Bravos vs Leones
 const noticias = [
     {
-        titulo: "¡Cuádruple empate en la cima! Caribes, Tigres, Águilas y Bravos lideran",
-        texto: "Tras la jornada del jueves 15 de octubre, cuatro equipos comparten el liderato con marca de 3-1 o mejor. La competencia está más reñida que nunca en esta temporada 2026-2027.",
+        titulo: "Bravos de Margarita embiste a Leones del Caracas con contundente victoria de 9-2",
+        texto: "Los Bravos desplegaron una letal ofensiva en la segunda mitad para superar holgadamente a los Leones. Diosbel Arias y Alexi Amarista destacaron con 2-5 cada uno. El conjunto insular mejora a 2-1, mientras los melenudos caen a 1-3.",
         fecha: "16 Oct 2026",
         tag: "DESTACADO",
         imagen: "https://images.unsplash.com/photo-1508344928928-7165b67de128?w=800&q=80"
     },
     {
-        titulo: "Caribes destrozó a Tiburones 15-5 en una exhibición ofensiva",
-        texto: "Los Caribes de Anzoátegui conectaron 15 carreras ante los Tiburones de La Guaira en una demostración de poder ofensivo que los mantiene en la cima de la tabla.",
-        fecha: "15 Oct 2026",
+        titulo: "Reacción insular silencia la capital en el segundo tramo",
+        texto: "Aunque los Leones pegaron primero en el segundo episodio con dos anotaciones impulsadas por Gabriel Lino, Bravos descontó en el tercer inning y tomó el control definitivo en la alta del quinto con un rally de tres carreras.",
+        fecha: "16 Oct 2026",
         tag: "RESULTADOS",
         imagen: "https://images.unsplash.com/photo-1529768167801-9173d94c2a42?w=800&q=80"
     },
     {
-        titulo: "Tigres apaleó a Navegantes 11-3 y se mantiene en la lucha",
-        texto: "Los Tigres de Aragua dominaron de principio a fin a los Navegantes del Magallanes, quienes caen a marca de 0-4 en la temporada.",
-        fecha: "15 Oct 2026",
-        tag: "RESULTADOS",
+        titulo: "Ofensiva oportuna y bateo clave de los Bravos",
+        texto: "A pesar de conectar 8 imparables (uno menos que los 9 del Caracas), la alineación insular sacó el máximo provecho al negociar 9 bases por bolas. José Martínez remató con 3 impulsadas en solo 1 turno al bate.",
+        fecha: "16 Oct 2026",
+        tag: "ANÁLISIS",
         imagen: "https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=800&q=80"
     },
     {
-        titulo: "Bravos derrotó a Leones 3-1 en juego cerrado",
-        texto: "Los Bravos de Margarita se impusieron 3-1 ante los Leones del Caracas en un juego definido por el pitcheo. Caracas cae a 1-3.",
-        fecha: "15 Oct 2026",
-        tag: "RESULTADOS",
+        titulo: "Leandro Cedeño fue el punto alto de los Leones con 3-4",
+        texto: "Por el Caracas, la actuación de Leandro Cedeño fue el punto más alto tras batear de 4-3, aunque la ofensiva melenuda dejó a 17 corredores en base sin poder plasmar mayor daño en el marcador.",
+        fecha: "16 Oct 2026",
+        tag: "ESTADÍSTICAS",
         imagen: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=800&q=80"
     },
     {
-        titulo: "Águilas blanqueó a Cardenales 2-0 con gran pitcheo",
-        texto: "Los Águilas del Zulia lograron una blanqueada 2-0 sobre los Cardenales de Lara, manteniéndose en el grupo de líderes con marca de 3-1.",
-        fecha: "15 Oct 2026",
-        tag: "RESULTADOS",
+        titulo: "Escobar se lleva la victoria, González carga con la derrota",
+        texto: "La victoria desde la lomita se la acreditó el lanzador L. Escobar (1-0), mientras que el revés fue para el abridor melenudo Jo. González (0-1) en su apertura de la temporada.",
+        fecha: "16 Oct 2026",
+        tag: "PITCHEO",
         imagen: "https://images.unsplash.com/photo-1577471488278-16eec37ffcc2?w=800&q=80"
     },
     {
         titulo: "Jornada del viernes: Bravos vs Leones abre la acción a las 2:00 PM",
-        texto: "Este viernes 16 de octubre se disputan 4 juegos. Bravos vs Leones a las 2:00 PM, y tres juegos a las 7:00 PM: Tiburones vs Caribes, Tigres vs Navegantes y Cardenales vs Águilas.",
+        texto: "Este viernes 16 de octubre se disputaron 4 juegos. Bravos vs Leones a las 2:00 PM, y tres juegos a las 7:00 PM: Tiburones vs Caribes, Tigres vs Navegantes y Cardenales vs Águilas.",
         fecha: "16 Oct 2026",
         tag: "CALENDARIO",
         imagen: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80"
     }
 ];
 
-// Resultados REALES del Jueves 15 de Octubre (con innings)
+// Resultados REALES del Jueves 15 de Octubre (actualizados con Bravos 9-2 Leones)
 const resultados = [
     { local: "Tiburones", scoreLocal: 5, visitante: "Caribes", scoreVisitante: 15, fecha: "15 Oct", innings: 9 },
-    { local: "Bravos", scoreLocal: 3, visitante: "Leones", scoreVisitante: 1, fecha: "15 Oct", innings: 9 },
+    { local: "Bravos", scoreLocal: 9, visitante: "Leones", scoreVisitante: 2, fecha: "16 Oct", innings: 9 },
     { local: "Magallanes", scoreLocal: 3, visitante: "Tigres", scoreVisitante: 11, fecha: "15 Oct", innings: 9 },
     { local: "Cardenales", scoreLocal: 0, visitante: "Águilas", scoreVisitante: 2, fecha: "15 Oct", innings: 9 }
 ];
 
 // Jornada del Viernes 16 de Octubre
 const calendario = [
-    { fecha: "16 Oct 2026", local: "Bravos", visitante: "Leones", hora: "2:00 PM", transmision: " BYM Sport", lugar: "Estadio Nueva Esparta" },
-    { fecha: "16 Oct 2026", local: "Tiburones", visitante: "Caribes", hora: "7:00 PM", transmision: " Baseball FM / 📺 Meridiano TV", lugar: "Estadio Universitario" },
-    { fecha: "16 Oct 2026", local: "Tigres", visitante: "Navegantes", hora: "7:00 PM", transmision: "📺 BYM Sport", lugar: "Estadio José Pérez Colmenares" },
+    { fecha: "16 Oct 2026", local: "Tiburones", visitante: "Caribes", hora: "7:00 PM", transmision: "📻 Baseball FM / 📺 Meridiano TV", lugar: "Estadio Universitario" },
+    { fecha: "16 Oct 2026", local: "Tigres", visitante: "Navegantes", hora: "7:00 PM", transmision: " BYM Sport", lugar: "Estadio José Pérez Colmenares" },
     { fecha: "16 Oct 2026", local: "Cardenales", visitante: "Águilas", hora: "7:00 PM", transmision: "📺 V", lugar: "Estadio Antonio Herrera Gutiérrez" }
 ];
 
-// Líderes estadísticos
+// Líderes estadísticos (actualizados con datos reales del juego)
 const lideres = {
     carreras: [
-        { nombre: "Jugador (Caribes)", valor: 15 },
-        { nombre: "Jugador (Tigres)", valor: 11 },
-        { nombre: "Jugador (Bravos)", valor: 8 }
+        { nombre: "Carlos Pérez (MAR)", valor: 2 },
+        { nombre: "David Peralta (MAR)", valor: 2 },
+        { nombre: "Ramón Flores (MAR)", valor: 2 }
     ],
     average: [
-        { nombre: "Jugador (Caribes)", valor: ".400" },
-        { nombre: "Jugador (Tigres)", valor: ".375" },
-        { nombre: "Jugador (Águilas)", valor: ".350" }
+        { nombre: "Diosbel Arias (MAR)", valor: ".538" },
+        { nombre: "Leandro Cedeño (CAR)", valor: ".400" },
+        { nombre: "Alexi Amarista (MAR)", valor: ".308" }
     ],
     hr: [
-        { nombre: "Jugador (Caribes)", valor: 3 },
-        { nombre: "Jugador (Tigres)", valor: 2 },
-        { nombre: "Jugador (Bravos)", valor: 2 }
+        { nombre: "Por definir", valor: 0 },
+        { nombre: "Por definir", valor: 0 },
+        { nombre: "Por definir", valor: 0 }
     ],
     era: [
-        { nombre: "Jugador (Águilas)", valor: "0.00" },
-        { nombre: "Jugador (Bravos)", valor: "1.50" },
-        { nombre: "Jugador (Caribes)", valor: "2.00" }
+        { nombre: "L. Escobar (MAR)", valor: "0.00" },
+        { nombre: "Por definir", valor: 0.00 },
+        { nombre: "Por definir", valor: 0.00 }
     ]
 };
 
@@ -243,7 +242,7 @@ function renderNoticias() {
     });
 }
 
-// Renderizar resultados CON NUEVO DISEÑO DIVIDIDO
+// Renderizar resultados con diseño dividido
 function renderResultados() {
     const container = document.getElementById("resultados-container");
     resultados.forEach(r => {
@@ -285,7 +284,7 @@ function renderResultados() {
     });
 }
 
-// Renderizar calendario CON NUEVO DISEÑO DIVIDIDO
+// Renderizar calendario con diseño dividido
 function renderCalendario() {
     const container = document.getElementById("calendario-container");
     calendario.forEach(j => {
