@@ -218,7 +218,7 @@ function renderResultados() {
 }
 
 // Renderizar calendario (Visitante IZQUIERDA, Local DERECHA)
-// Con soporte para juegos EN VIVO
+// Con soporte para juegos EN VIVO y FINALIZADOS
 function renderCalendario() {
     const container = document.getElementById("calendario-container");
     if (!container) return;
@@ -236,15 +236,34 @@ function renderCalendario() {
         const card = document.createElement("div");
         card.className = "juego-card";
         
-        // Si el juego está en vivo, agregar clase especial
+        // Clases especiales según estado del juego
         if (j.enVivo) {
             card.classList.add("en-vivo");
+        }
+        if (j.finalizado) {
+            card.classList.add("finalizado");
         }
         
         // Determinar qué mostrar en la barra inferior
         let infoInferior = '';
-        if (j.enVivo && j.scoreLocal !== null) {
-            // Mostrar marcador en vivo
+        
+        if (j.finalizado && j.scoreLocal !== null) {
+            // Juego FINALIZADO - mostrar resultado final
+            infoInferior = `
+                <div class="info-juego-cal finalizado-info">
+                    <div class="marcador-vivo">
+                        <span class="carreras-visitante">${j.scoreVisitante}</span>
+                        <span class="separador-marcador">-</span>
+                        <span class="carreras-local">${j.scoreLocal}</span>
+                    </div>
+                    <div class="inning-info">
+                        <span class="finalizado-badge">FINAL</span>
+                        <span class="inning-numero">${j.innings || j.inning || 9} Innings</span>
+                    </div>
+                </div>
+            `;
+        } else if (j.enVivo && j.scoreLocal !== null) {
+            // Juego EN VIVO - mostrar marcador actual
             infoInferior = `
                 <div class="info-juego-cal en-vivo-info">
                     <div class="marcador-vivo">
@@ -259,7 +278,7 @@ function renderCalendario() {
                 </div>
             `;
         } else {
-            // Mostrar hora y transmisión (juego por comenzar)
+            // Juego por comenzar - mostrar hora y transmisión
             infoInferior = `
                 <div class="info-juego-cal">
                     <div class="hora-cal">🕐 ${j.hora}</div>
