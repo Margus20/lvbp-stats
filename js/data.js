@@ -20,21 +20,20 @@ const DATOS = {
     ],
 
     // ===== POSICIONES (EDITAR DIARIO) =====
+    // Actualizado: Cardenales 3-1, Magallanes 0-5
     posiciones: [
-        { nombre: "Caribes de Anzoátegui", jj: 4, jg: 3, jp: 1, racha: "G1" },
-        { nombre: "Tigres de Aragua", jj: 4, jg: 3, jp: 1, racha: "G2" },
-        { nombre: "Cardenales de Lara", jj: 3, jg: 2, jp: 1, racha: "G1" },
-        { nombre: "Bravos de Margarita", jj: 3, jg: 2, jp: 1, racha: "G2" },
-        { nombre: "Águilas del Zulia", jj: 4, jg: 2, jp: 2, racha: "P1" },
-        { nombre: "Tiburones de La Guaira", jj: 4, jg: 2, jp: 2, racha: "P2" },
-        { nombre: "Leones del Caracas", jj: 4, jg: 1, jp: 3, racha: "P2" },
-        { nombre: "Navegantes del Magallanes", jj: 4, jg: 0, jp: 4, racha: "P4" }
+        { nombre: "Caribes de Anzoátegui", jj: 5, jg: 4, jp: 1, racha: "G2" },
+        { nombre: "Tigres de Aragua", jj: 5, jg: 4, jp: 1, racha: "G3" },
+        { nombre: "Cardenales de Lara", jj: 4, jg: 3, jp: 1, racha: "G2" },
+        { nombre: "Bravos de Margarita", jj: 4, jg: 3, jp: 1, racha: "G3" },
+        { nombre: "Águilas del Zulia", jj: 5, jg: 2, jp: 3, racha: "P2" },
+        { nombre: "Tiburones de La Guaira", jj: 5, jg: 2, jp: 3, racha: "P3" },
+        { nombre: "Leones del Caracas", jj: 5, jg: 2, jp: 3, racha: "G1" },
+        { nombre: "Navegantes del Magallanes", jj: 5, jg: 0, jp: 5, racha: "P5" }
     ],
 
     // ===== RESULTADOS DE AYER (NO TOCAR) =====
     // Viernes 16 de Octubre - Finalizados
-    // "local" = equipo de casa (va a la DERECHA)
-    // "visitante" = equipo visitante (va a la IZQUIERDA)
     resultados: [
         { local: "Leones", scoreLocal: 2, visitante: "Bravos", scoreVisitante: 9, fecha: "16 Oct", innings: 9 },
         { local: "Caribes", scoreLocal: 7, visitante: "Tiburones", scoreVisitante: 4, fecha: "16 Oct", innings: 9 },
@@ -42,24 +41,26 @@ const DATOS = {
         { local: "Águilas", scoreLocal: 5, visitante: "Cardenales", scoreVisitante: 8, fecha: "16 Oct", innings: 9 }
     ],
 
-    // ===== JORNADA DE HOY - EN VIVO =====
+    // ===== JORNADA DE HOY =====
     // Sábado 17 de Octubre
     // "local" = equipo de casa (va a la DERECHA)
     // "visitante" = equipo visitante (va a la IZQUIERDA)
     // "enVivo": true = mostrar marcador en vivo
-    // "enVivo": false = mostrar hora y transmisión
+    // "enVivo": false = mostrar hora y transmisión (o finalizado)
+    // "finalizado": true = juego terminado, mostrar resultado final
     calendario: [
         { 
             local: "Cardenales", 
             visitante: "Magallanes", 
             hora: "4:00 PM", 
-            transmision: "📺 IVC",
+            transmision: " IVC",
             lugar: "Estadio Antonio Herrera Gutiérrez", 
             fecha: "17 Oct 2026",
-            enVivo: true,
-            inning: 7,
+            enVivo: false,
+            finalizado: true,
+            inning: 9,
             scoreLocal: 7,
-            scoreVisitante: 3
+            scoreVisitante: 4
         },
         { 
             local: "Tiburones", 
@@ -69,6 +70,7 @@ const DATOS = {
             lugar: "Estadio Universitario de La Guaira", 
             fecha: "17 Oct 2026",
             enVivo: true,
+            finalizado: false,
             inning: 1,
             scoreLocal: 1,
             scoreVisitante: 4
@@ -81,6 +83,7 @@ const DATOS = {
             lugar: "Estadio Alfonso Chico Carrasquel", 
             fecha: "17 Oct 2026",
             enVivo: true,
+            finalizado: false,
             inning: 3,
             scoreLocal: 1,
             scoreVisitante: 5
@@ -89,10 +92,11 @@ const DATOS = {
             local: "Águilas", 
             visitante: "Bravos", 
             hora: "8:00 PM", 
-            transmision: "📺 BYM Sport",
+            transmision: " BYM Sport",
             lugar: "Estadio Luis Aparicio El Grande", 
             fecha: "17 Oct 2026",
             enVivo: false,
+            finalizado: false,
             inning: null,
             scoreLocal: null,
             scoreVisitante: null
@@ -103,6 +107,15 @@ const DATOS = {
     noticias: [
         {
             id: 1,
+            titulo: "Cardenales hunde más al Magallanes y extiende su mal momento en la LVBP",
+            resumen: "Cardenales de Lara derrotó 7-4 a los Navegantes del Magallanes, extendiendo la racha negativa de la nave turca a 0-5. Lara mejora a 3-1 y se mantiene en la parte alta de la tabla.",
+            fecha: "17 Oct 2026",
+            tag: "RESULTADOS",
+            imagen: "https://i.postimg.cc/d3h5b9Rh/1000419499.jpg",
+            contenido: "<p><strong>CARACAS.-</strong> Cardenales de Lara volvió a demostrar su solidez en el terreno de juego al derrotar 7-4 a los Navegantes del Magallanes, resultado que extiende la racha negativa de la nave turca y consolida el buen momento del conjunto crepuscular en el inicio de la temporada.</p><p>Con este triunfo, Lara mejora su registro a 3-1, manteniéndose firmemente en la parte alta de la tabla de posiciones y levantando vuelo en el campeonato. Por su parte, el equipo eléctrico continúa sin conocer la victoria y cae a un preocupante récord de 0-5, hundiéndose en el fondo de la clasificación.</p><p><strong>Las cifras del encuentro</strong></p><p>La ofensiva de Cardenales desplegó un ataque oportuno con 12 imparables sin cometer pifias a la defensiva (7 R, 12 H, 0 E). Magallanes conectó 11 hits y anotó 4 carreras, pero un pecado a la defensiva y el pitcheo en momentos clave terminaron por costarle el compromiso (4 R, 11 H, 1 E).</p><p>En el apartado del pitcheo:</p><p>• <strong>Pitcher Ganador:</strong> Rob Hernández (1-0, 0.00 ERA)</p><p>• <strong>Pitcher Perdedor:</strong> Chirinos (0-1, 21.60 ERA)</p><p>• <strong>Juego Salvado:</strong> Gu Rodríguez (2, 0.00 ERA)</p><p>Magallanes requerirá de ajustes urgentes en su cuerpo de lanzadores y en la efectividad con corredores en posición de anotar para revertir esta racha adversa en sus próximos compromisos.</p><div class=\"articulo-cta\">💬 ¿Crees que Magallanes logrará romper la racha negativa en su próximo partido? ¡Déjanos tu opinión!</div>"
+        },
+        {
+            id: 2,
             titulo: "¿Alarma en la nave? Magallanes sigue sin ganar y se hunde en el fondo de la LVBP",
             resumen: "Con cuatro jornadas disputadas, Navegantes del Magallanes marcha en el sótano de la tabla con preocupante registro de 0-4.",
             fecha: "17 Oct 2026",
@@ -135,9 +148,9 @@ const DATOS = {
             { nombre: "Por definir", valor: 0 }
         ],
         era: [
-            { nombre: "L. Escobar (MAR)", valor: "0.00" },
-            { nombre: "Por definir", valor: 0.00 },
-            { nombre: "Por definir", valor: 0.00 }
+            { nombre: "Rob Hernández (LAR)", valor: "0.00" },
+            { nombre: "Gu Rodríguez (LAR)", valor: "0.00" },
+            { nombre: "L. Escobar (MAR)", valor: "0.00" }
         ]
     }
 };
