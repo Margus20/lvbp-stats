@@ -5,49 +5,57 @@ const equipos = [
         nombre: "Caribes de Anzoátegui", 
         abrev: "ANZ", 
         jj: 4, jg: 3, jp: 1, racha: "G1",
-        logo: "https://i.postimg.cc/0j685n5D/image-search-1791393733450-11zon.webp"
+        logo: "https://i.postimg.cc/0j685n5D/image-search-1791393733450-11zon.webp",
+        claseFila: "fila-caribes"
     },
     { 
         nombre: "Tigres de Aragua", 
         abrev: "ARA", 
         jj: 4, jg: 3, jp: 1, racha: "G1",
-        logo: "https://i.postimg.cc/0QRG0W3n/1791393470300-11zon.jpg"
+        logo: "https://i.postimg.cc/0QRG0W3n/1791393470300-11zon.jpg",
+        claseFila: "fila-tigres"
     },
     { 
         nombre: "Águilas del Zulia", 
         abrev: "ZUL", 
         jj: 4, jg: 3, jp: 1, racha: "G1",
-        logo: "https://i.postimg.cc/J4wxQnwX/1791392132263-11zon.jpg"
+        logo: "https://i.postimg.cc/J4wxQnwX/1791392132263-11zon.jpg",
+        claseFila: "fila-aguilas"
     },
     { 
         nombre: "Bravos de Margarita", 
         abrev: "MAR", 
         jj: 3, jg: 2, jp: 1, racha: "G1",
-        logo: "https://i.postimg.cc/PJh5yYdY/1791395148443-11zon.jpg"
+        logo: "https://i.postimg.cc/PJh5yYdY/1791395148443-11zon.jpg",
+        claseFila: "fila-bravos"
     },
     { 
         nombre: "Tiburones de La Guaira", 
         abrev: "LGU", 
         jj: 4, jg: 2, jp: 2, racha: "P1",
-        logo: "https://i.postimg.cc/J7Hm024y/image-search-1791382706892.png"
+        logo: "https://i.postimg.cc/J7Hm024y/image-search-1791382706892.png",
+        claseFila: "fila-tiburones"
     },
     { 
         nombre: "Cardenales de Lara", 
         abrev: "LAR", 
         jj: 3, jg: 1, jp: 2, racha: "P1",
-        logo: "https://i.postimg.cc/HLpzqP32/image-search-1791395610326-11zon.jpg"
+        logo: "https://i.postimg.cc/HLpzqP32/image-search-1791395610326-11zon.jpg",
+        claseFila: "fila-cardenales"
     },
     { 
         nombre: "Leones del Caracas", 
         abrev: "CAR", 
         jj: 4, jg: 1, jp: 3, racha: "P1",
-        logo: "https://i.postimg.cc/Kjrw7g8p/image-search-1791396859705.jpg"
+        logo: "https://i.postimg.cc/Kjrw7g8p/image-search-1791396859705.jpg",
+        claseFila: "fila-leones"
     },
     { 
         nombre: "Navegantes del Magallanes", 
         abrev: "MAG", 
         jj: 4, jg: 0, jp: 4, racha: "P4",
-        logo: "https://i.postimg.cc/ydNH8j6v/1791396497437-11zon.jpg"
+        logo: "https://i.postimg.cc/ydNH8j6v/1791396497437-11zon.jpg",
+        claseFila: "fila-magallanes"
     }
 ];
 
@@ -119,7 +127,7 @@ const resultados = [
 // Jornada del Viernes 16 de Octubre
 const calendario = [
     { fecha: "16 Oct 2026", local: "Bravos", visitante: "Leones", hora: "2:00 PM", transmision: "📺 BYM Sport" },
-    { fecha: "16 Oct 2026", local: "Tiburones", visitante: "Caribes", hora: "7:00 PM", transmision: "📻 Baseball FM / 📺 Meridiano TV" },
+    { fecha: "16 Oct 2026", local: "Tiburones", visitante: "Caribes", hora: "7:00 PM", transmision: "📻 Baseball FM /  Meridiano TV" },
     { fecha: "16 Oct 2026", local: "Tigres", visitante: "Navegantes", hora: "7:00 PM", transmision: "📺 BYM Sport" },
     { fecha: "16 Oct 2026", local: "Cardenales", visitante: "Águilas", hora: "7:00 PM", transmision: "📺 V" }
 ];
@@ -161,7 +169,7 @@ function calcularDIF(jg, jp, liderJG, liderJP) {
     return diff > 0 ? diff.toFixed(1) : "-";
 }
 
-// Renderizar posiciones CON LOGOS
+// Renderizar posiciones CON LOGOS Y COLORES POR EQUIPO
 function renderPosiciones() {
     const tbody = document.getElementById("posiciones-body");
     const lider = equipos[0];
@@ -171,6 +179,7 @@ function renderPosiciones() {
         const dif = calcularDIF(eq.jg, eq.jp, lider.jg, lider.jp);
         
         const tr = document.createElement("tr");
+        tr.className = eq.claseFila; // Color de fondo por equipo
         tr.innerHTML = `
             <td>${i + 1}</td>
             <td class="equipo-con-logo">
@@ -206,7 +215,7 @@ function renderNoticias() {
     });
 }
 
-// Renderizar resultados CON LOGOS (Norma permanente)
+// Renderizar resultados CON LOGOS GRANDES (Norma permanente)
 function renderResultados() {
     const container = document.getElementById("resultados-container");
     resultados.forEach(r => {
@@ -218,13 +227,13 @@ function renderResultados() {
         card.innerHTML = `
             <div class="equipos">
                 <div class="equipo-info">
-                    ${logoLocal ? `<img src="${logoLocal}" alt="${r.local}" class="logo-small">` : ''}
+                    ${logoLocal ? `<img src="${logoLocal}" alt="${r.local}" class="logo-grande">` : ''}
                     <div class="equipo-nombre">${r.local}</div>
                 </div>
                 <div class="score">${r.scoreLocal} - ${r.scoreVisitante}</div>
                 <div class="equipo-info">
                     <div class="equipo-nombre">${r.visitante}</div>
-                    ${logoVisitante ? `<img src="${logoVisitante}" alt="${r.visitante}" class="logo-small">` : ''}
+                    ${logoVisitante ? `<img src="${logoVisitante}" alt="${r.visitante}" class="logo-grande">` : ''}
                 </div>
             </div>
             <div class="fecha-juego">${r.fecha}</div>
@@ -233,7 +242,7 @@ function renderResultados() {
     });
 }
 
-// Renderizar calendario CON LOGOS (Norma permanente)
+// Renderizar calendario CON LOGOS GRANDES (Norma permanente)
 function renderCalendario() {
     const container = document.getElementById("calendario-container");
     calendario.forEach(j => {
@@ -246,13 +255,13 @@ function renderCalendario() {
             <div class="fecha">${j.fecha}</div>
             <div class="matchup">
                 <div class="equipo-info">
-                    ${logoLocal ? `<img src="${logoLocal}" alt="${j.local}" class="logo-small">` : ''}
+                    ${logoLocal ? `<img src="${logoLocal}" alt="${j.local}" class="logo-grande">` : ''}
                     <span>${j.local}</span>
                 </div>
                 <span class="vs">vs</span>
                 <div class="equipo-info">
                     <span>${j.visitante}</span>
-                    ${logoVisitante ? `<img src="${logoVisitante}" alt="${j.visitante}" class="logo-small">` : ''}
+                    ${logoVisitante ? `<img src="${logoVisitante}" alt="${j.visitante}" class="logo-grande">` : ''}
                 </div>
             </div>
             <div class="hora-info">
