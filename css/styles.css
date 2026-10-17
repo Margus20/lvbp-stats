@@ -875,7 +875,7 @@ tr:hover {
     font-style: italic;
 }
 
-/* ============ JUEGOS EN VIVO ============ */
+/* ============ JUEGOS EN VIVO Y FINALIZADOS ============ */
 .juego-card.en-vivo {
     border: 2px solid #d32f2f;
     animation: pulso-vivo 2s infinite;
@@ -887,7 +887,12 @@ tr:hover {
     100% { box-shadow: 0 3px 12px rgba(211, 47, 47, 0.3); }
 }
 
-.en-vivo-info {
+.juego-card.finalizado {
+    border: 2px solid #4caf50;
+    opacity: 0.95;
+}
+
+.en-vivo-info, .finalizado-info {
     background: linear-gradient(90deg, #1a1a1a 0%, #2c2c2c 100%);
     padding: 10px 12px;
     display: flex;
@@ -895,8 +900,10 @@ tr:hover {
     align-items: center;
     flex-wrap: wrap;
     gap: 8px;
-    border-top: 2px solid #d32f2f;
 }
+
+.en-vivo-info { border-top: 2px solid #d32f2f; }
+.finalizado-info { border-top: 2px solid #4caf50; }
 
 .marcador-vivo {
     display: flex;
@@ -941,6 +948,16 @@ tr:hover {
     animation: parpadeo 1.5s infinite;
 }
 
+.finalizado-badge {
+    background: #4caf50;
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
 @keyframes parpadeo {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.6; }
@@ -982,22 +999,4 @@ tr:hover {
 }
 
 .stat-card li {
-    padding: 8px;
-    border-bottom: 1px solid #e0e0e0;
-    color: #2c2c2c;
-    position: relative;
-    padding-left: 30px;
-    font-size: 0.85rem;
-}
-
-.stat-card li:before {
-    counter-increment: item;
-    content: counter(item);
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    background: #d32f2f;
-    color: #fff;
-    width: 22px;
-    
+    padding: 8p
