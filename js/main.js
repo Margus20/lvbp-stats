@@ -1,28 +1,323 @@
-// NOTICIAS - Ahora con contenido real
-const noticias = [
-    {
-        id: 1,
-        titulo: "¿Alarma en la nave? Magallanes sigue sin ganar y se hunde en el fondo de la LVBP",
-        resumen: "Con cuatro jornadas disputadas, Navegantes del Magallanes marcha en el sótano de la tabla con preocupante registro de 0-4, mientras Leones del Caracas tampoco la pasa bien.",
-        fecha: "17 Oct 2026",
-        tag: "ANÁLISIS",
-        imagen: "https://i.postimg.cc/7Pn1L0RW/1000419348.jpg", // ← CAMBIO AQUÍ
-        contenido: `
-            <p class="articulo-fecha"><strong>CARACAS.-</strong> La temporada de la Liga Venezolana de Béisbol Profesional (LVBP) apenas comienza, pero las alarmas ya empiezan a encenderse en las filas de los "Eternos Rivales". Con cuatro jornadas disputadas, Navegantes del Magallanes marcha en el sótano de la tabla de posiciones con un preocupante registro de 0-4, mientras que Leones del Caracas tampoco la pasa bien tras encajar su tercera derrota del torneo.</p>
-            
-            <p>La nave turca no ha podido descifrar la fórmula ganadora en esta primera semana de acción, acumulando una racha negativa de cuatro reveses consecutivos que los mantiene como el único equipo de la liga que aún no conoce la victoria (.000 PCT), ubicándose a 3.0 juegos de la cima.</p>
-            
-            <p><strong>Leones tropieza ante unos inspirados Bravos</strong></p>
-            
-            <p>Por su parte, la afición melenuda sufrió un duro golpe este viernes 16 de octubre. Los Bravos de Margarita desplegaron una letal ofensiva para imponerse de forma contundente 9-2 sobre Leones del Caracas. Con este resultado, la tropa insular mejoró su marca a 2-1 para instalarse en el tercer lugar del torneo junto a Cardenales de Lara, mientras que el Caracas cayó al penúltimo peldaño de la clasificación con récord de 1-3.</p>
-            
-            <p>En el otro extremo de la tabla, la contienda en la parte alta se mantiene al rojo vivo: Caribes de Anzoátegui y Tigres de Aragua comparten el liderato de la LVBP con balance de 3-1 (.750 PCT).</p>
-            
-            <p>Con el calendario avanzando a ritmo acelerado, tanto turcos como melenudos están obligados a ajustar piezas de inmediato en su pitcheo y bateo oportuno para no ceder más terreno en la tabla de posiciones.</p>
-            
-            <div class="articulo-cta">
-                💬 ¿Crees que Magallanes podrá reaccionar este fin de semana o la crisis se extenderá? ¡Déjanos tu comentario y comparte la nota!
+// Datos de líderes estadísticos (hardcoded por ahora)
+const lideres = {
+    carreras: [
+        { nombre: "Carlos Pérez (MAR)", valor: 4 },
+        { nombre: "David Peralta (MAR)", valor: 4 },
+        { nombre: "Diosbel Arias (MAR)", valor: 3 }
+    ],
+    average: [
+        { nombre: "Diosbel Arias (MAR)", valor: ".538" },
+        { nombre: "Leandro Cedeño (CAR)", valor: ".400" },
+        { nombre: "Alexi Amarista (MAR)", valor: ".308" }
+    ],
+    hr: [
+        { nombre: "Por definir", valor: 0 },
+        { nombre: "Por definir", valor: 0 },
+        { nombre: "Por definir", valor: 0 }
+    ],
+    era: [
+        { nombre: "L. Escobar (MAR)", valor: "0.00" },
+        { nombre: "Por definir", valor: 0.00 },
+        { nombre: "Por definir", valor: 0.00 }
+    ]
+};
+
+let comentarios = [];
+
+// Funciones de cálculo
+function calcularPCT(jg, jp) {
+    if ((jg + jp) === 0) return ".000";
+    const pct = (jg / (jg + jp));
+    return "." + Math.round(pct * 1000).toString().padStart(3, '0');
+}
+
+function calcularDIF(jg, jp, liderJG, liderJP) {
+    const diff = ((liderJG - jg) + (jp - liderJP)) / 2;
+    return diff > 0 ? diff.toFixed(1) : "-";
+}
+
+// Renderizar posiciones
+function renderPosiciones() {
+    const tbody = document.getElementById("posiciones-body");
+    if (!tbody || !DataLoader.posiciones) return;
+    
+    const lider = DataLoader.posiciones[0];
+    
+    DataLoader.posiciones.forEach((pos, i) => {
+        const equipo = DataLoader.getEquipo(pos.nombre);
+        if (!equipo) return;
+        
+        const pct = calcularPCT(pos.jg, pos.jp);
+        const dif = calcularDIF(pos.jg, pos.jp, lider.jg, lider.jp);
+        
+        const tr = document.createElement("tr");
+        tr.className = equipo.claseFila;
+        tr.innerHTML = `
+            <td>${i + 1}</td>
+            <td class="equipo-con-logo">
+                <img src="${equipo.logo}" alt="${equipo.nombre}" class="logo-small">
+                <span>${equipo.nombreCorto}</span>
+            </td>
+            <td>${pos.jj}</td>
+            <td>${pos.jg}</td>
+            <td>${pos.jp}</td>
+            <td>${pct}</td>
+            <td>${dif}</td>
+            <td>${pos.racha}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+// Renderizar noticias
+function renderNoticias() {
+    const container = document.getElementById("noticias-container");
+    if (!container || !DataLoader.noticias) return;
+    
+    container.innerHTML = '';
+    
+    DataLoader.noticias.forEach(n => {
+        const card = document.createElement("div");
+        card.className = "noticia-card";
+        card.style.backgroundImage = `url('${n.imagen}')`;
+        card.onclick = () => abrirArticulo(n.id);
+        card.innerHTML = `
+            <div class="noticia-contenido">
+                <span class="noticia-tag">${n.tag}</span>
+                <h3>${n.titulo}</h3>
+                <p class="fecha">${n.fecha}</p>
             </div>
-        `
+        `;
+        container.appendChild(card);
+    });
+}
+
+// Abrir artículo
+function abrirArticulo(id) {
+    const noticia = DataLoader.noticias.find(n => n.id === id);
+    if (!noticia) return;
+    
+    const articuloSeccion = document.getElementById("articulo-completo");
+    const articuloContenido = document.getElementById("articulo-contenido");
+    
+    articuloContenido.innerHTML = `
+        <h1 class="articulo-titulo">${noticia.titulo}</h1>
+        <p class="articulo-fecha">${noticia.fecha} | LVBP al Día</p>
+        <div class="articulo-texto">${noticia.contenido}</div>
+    `;
+    
+    articuloSeccion.style.display = "block";
+    articuloSeccion.scrollIntoView({ behavior: "smooth" });
+    
+    actualizarBotonesCompartir(noticia);
+    renderizarComentarios();
+}
+
+// Cerrar artículo
+function cerrarArticulo() {
+    const articuloSeccion = document.getElementById("articulo-completo");
+    articuloSeccion.style.display = "none";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// Actualizar botones de compartir
+function actualizarBotonesCompartir(noticia) {
+    const url = window.location.href;
+    const texto = `${noticia.titulo} - LVBP al Día`;
+    
+    document.getElementById("compartir-whatsapp").href = 
+        `https://wa.me/?text=${encodeURIComponent(texto + ' ' + url)}`;
+    
+    document.getElementById("compartir-telegram").href = 
+        `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(texto)}`;
+    
+    document.getElementById("compartir-facebook").href = 
+        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+    
+    document.getElementById("compartir-twitter").href = 
+        `https://twitter.com/intent/tweet?text=${encodeURIComponent(texto)}&url=${encodeURIComponent(url)}`;
+}
+
+// Renderizar comentarios
+function renderizarComentarios() {
+    const container = document.getElementById("lista-comentarios");
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    if (comentarios.length === 0) {
+        container.innerHTML = '<p style="color: #999; text-align: center; padding: 20px;">Sé el primero en comentar</p>';
+        return;
     }
-];
+    
+    comentarios.forEach(c => {
+        const div = document.createElement("div");
+        div.className = "comentario-item";
+        div.innerHTML = `
+            <div class="comentario-autor">${c.autor}</div>
+            <div class="comentario-texto">${c.texto}</div>
+            <div class="comentario-fecha">${c.fecha}</div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+// Renderizar resultados
+function renderResultados() {
+    const container = document.getElementById("resultados-container");
+    if (!container || !DataLoader.resultados) return;
+    
+    container.innerHTML = '';
+    
+    DataLoader.resultados.forEach(r => {
+        const logoLocal = DataLoader.getLogo(r.local);
+        const logoVisitante = DataLoader.getLogo(r.visitante);
+        const colorLocal = DataLoader.getColor(r.local);
+        const colorVisitante = DataLoader.getColor(r.visitante);
+        const textoLocal = DataLoader.getColorTexto(r.local);
+        const textoVisitante = DataLoader.getColorTexto(r.visitante);
+        
+        const card = document.createElement("div");
+        card.className = "resultado-card";
+        card.innerHTML = `
+            <div class="mitades">
+                <div class="mitad" style="background-color: ${colorVisitante};">
+                    <img src="${logoVisitante}" alt="${r.visitante}" class="logo-resultado">
+                    <div class="nombre-equipo-res" style="color: ${textoVisitante};">${r.visitante}</div>
+                </div>
+                <div class="mitad" style="background-color: ${colorLocal};">
+                    <img src="${logoLocal}" alt="${r.local}" class="logo-resultado">
+                    <div class="nombre-equipo-res" style="color: ${textoLocal};">${r.local}</div>
+                </div>
+                <div class="vs-central">VS</div>
+            </div>
+            <div class="info-marcador">
+                <div class="marcador">
+                    <span class="carreras-visitante">${r.scoreVisitante}</span>
+                    <span class="separador-marcador">-</span>
+                    <span class="carreras-local">${r.scoreLocal}</span>
+                </div>
+                <div class="innings-info">
+                    <span class="innings-numero">${r.innings}</span>
+                    <span class="innings-label">Innings</span>
+                </div>
+            </div>
+            <div class="fecha-juego-res">${r.fecha}</div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+// Renderizar calendario
+function renderCalendario() {
+    const container = document.getElementById("calendario-container");
+    if (!container || !DataLoader.calendario) return;
+    
+    container.innerHTML = '';
+    
+    DataLoader.calendario.forEach(j => {
+        const logoLocal = DataLoader.getLogo(j.local);
+        const logoVisitante = DataLoader.getLogo(j.visitante);
+        const colorLocal = DataLoader.getColor(j.local);
+        const colorVisitante = DataLoader.getColor(j.visitante);
+        const textoLocal = DataLoader.getColorTexto(j.local);
+        const textoVisitante = DataLoader.getColorTexto(j.visitante);
+        
+        const card = document.createElement("div");
+        card.className = "juego-card";
+        card.innerHTML = `
+            <div class="mitades-cal">
+                <div class="mitad-cal" style="background-color: ${colorVisitante};">
+                    <img src="${logoVisitante}" alt="${j.visitante}" class="logo-calendario">
+                    <div class="nombre-equipo-cal" style="color: ${textoVisitante};">${j.visitante}</div>
+                </div>
+                <div class="mitad-cal" style="background-color: ${colorLocal};">
+                    <img src="${logoLocal}" alt="${j.local}" class="logo-calendario">
+                    <div class="nombre-equipo-cal" style="color: ${textoLocal};">${j.local}</div>
+                </div>
+                <div class="vs-central-cal">VS</div>
+            </div>
+            <div class="info-juego-cal">
+                <div class="hora-cal"> ${j.hora}</div>
+                <div class="transmision-cal">${j.transmision}</div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+// Renderizar líderes
+function renderLideres() {
+    const crearLista = (id, datos) => {
+        const ol = document.getElementById(id);
+        if (!ol) return;
+        ol.innerHTML = '';
+        datos.forEach(d => {
+            const li = document.createElement("li");
+            li.innerHTML = `${d.nombre} <span class="valor">${d.valor}</span>`;
+            ol.appendChild(li);
+        });
+    };
+    
+    crearLista("lideres-carreras", lideres.carreras);
+    crearLista("lideres-average", lideres.average);
+    crearLista("lideres-hr", lideres.hr);
+    crearLista("lideres-era", lideres.era);
+}
+
+// Renderizar publicidad
+function renderPublicidad() {
+    const sidebar = document.getElementById("sidebar-publicidad");
+    if (!sidebar || !DataLoader.publicidad) return;
+    
+    sidebar.innerHTML = '';
+    
+    DataLoader.publicidad.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "espacio-publicidad";
+        div.innerHTML = `<img src="${p.imagen}" alt="${p.alt}" class="anuncio-imagen">`;
+        sidebar.appendChild(div);
+    });
+}
+
+// Inicialización
+document.addEventListener("DOMContentLoaded", async () => {
+    // Cargar datos desde JSON
+    const datosCargados = await DataLoader.cargarDatos();
+    
+    if (!datosCargados) {
+        console.error('No se pudieron cargar los datos');
+        return;
+    }
+    
+    // Menú hamburguesa
+    const menuBtn = document.getElementById("menuBtn");
+    const navMenu = document.getElementById("navMenu");
+    
+    menuBtn.addEventListener("click", () => {
+        navMenu.classList.toggle("activo");
+    });
+    
+    // Formulario de comentarios
+    const formulario = document.getElementById("formulario-comentario");
+    if (formulario) {
+        formulario.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const autor = formulario.querySelector(".input-comentario").value;
+            const texto = formulario.querySelector(".textarea-comentario").value;
+            const fecha = new Date().toLocaleString("es-VE");
+            
+            comentarios.push({ autor, texto, fecha });
+            renderizarComentarios();
+            formulario.reset();
+        });
+    }
+    
+    // Renderizar todo
+    renderPosiciones();
+    renderNoticias();
+    renderResultados();
+    renderCalendario();
+    renderLideres();
+    renderPublicidad();
+});
