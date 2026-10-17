@@ -20,7 +20,6 @@ const DATOS = {
     ],
 
     // ===== POSICIONES (EDITAR DIARIO) =====
-    // Datos oficiales de la imagen "Así Van" de la LVBP
     posiciones: [
         { nombre: "Caribes de Anzoátegui", jj: 4, jg: 3, jp: 1, racha: "G1" },
         { nombre: "Tigres de Aragua", jj: 4, jg: 3, jp: 1, racha: "G2" },
@@ -32,10 +31,8 @@ const DATOS = {
         { nombre: "Navegantes del Magallanes", jj: 4, jg: 0, jp: 4, racha: "P4" }
     ],
 
-    // ===== RESULTADOS (EDITAR DIARIO) =====
-    // IMPORTANTE: "local" = equipo de casa (va a la DERECHA)
-    //             "visitante" = equipo visitante (va a la IZQUIERDA)
-    // Datos oficiales de la imagen "Resultados del Día" de la LVBP
+    // ===== RESULTADOS DE AYER (NO TOCAR) =====
+    // Viernes 16 de Octubre - Finalizados
     resultados: [
         { local: "Leones", scoreLocal: 2, visitante: "Bravos", scoreVisitante: 9, fecha: "16 Oct", innings: 9 },
         { local: "Caribes", scoreLocal: 7, visitante: "Tiburones", scoreVisitante: 4, fecha: "16 Oct", innings: 9 },
@@ -43,17 +40,64 @@ const DATOS = {
         { local: "Águilas", scoreLocal: 5, visitante: "Cardenales", scoreVisitante: 8, fecha: "16 Oct", innings: 9 }
     ],
 
-    // ===== CALENDARIO (EDITAR DIARIO) =====
+    // ===== JORNADA DE HOY - EN VIVO =====
+    // Sábado 17 de Octubre
     // "local" = equipo de casa (va a la DERECHA)
     // "visitante" = equipo visitante (va a la IZQUIERDA)
+    // "enVivo": true = mostrar etiqueta "EN VIVO"
+    // "inning": número del inning actual
     calendario: [
-        { local: "Cardenales", visitante: "Magallanes", hora: "4:00 PM", transmision: "📺 IVC", lugar: "Estadio Antonio Herrera Gutiérrez", fecha: "17 Oct 2026" },
-        { local: "Tiburones", visitante: "Tigres", hora: "6:00 PM", transmision: "📻 Baseball FM", lugar: "Estadio Universitario de La Guaira", fecha: "17 Oct 2026" },
-        { local: "Caribes", visitante: "Leones", hora: "6:00 PM", transmision: " Televen", lugar: "Estadio Alfonso Chico Carrasquel", fecha: "17 Oct 2026" },
-        { local: "Águilas", visitante: "Bravos", hora: "8:00 PM", transmision: " BYM Sport", lugar: "Estadio Luis Aparicio El Grande", fecha: "17 Oct 2026" }
+        { 
+            local: "Cardenales", 
+            visitante: "Magallanes", 
+            hora: "4:00 PM", 
+            transmision: "📺 IVC",
+            lugar: "Estadio Antonio Herrera Gutiérrez", 
+            fecha: "17 Oct 2026",
+            enVivo: true,
+            inning: 7,
+            scoreLocal: 7,
+            scoreVisitante: 3
+        },
+        { 
+            local: "Tiburones", 
+            visitante: "Tigres", 
+            hora: "6:00 PM", 
+            transmision: " Baseball FM",
+            lugar: "Estadio Universitario de La Guaira", 
+            fecha: "17 Oct 2026",
+            enVivo: true,
+            inning: 1,
+            scoreLocal: 1,
+            scoreVisitante: 4
+        },
+        { 
+            local: "Caribes", 
+            visitante: "Leones", 
+            hora: "6:00 PM", 
+            transmision: "📺 Televen",
+            lugar: "Estadio Alfonso Chico Carrasquel", 
+            fecha: "17 Oct 2026",
+            enVivo: true,
+            inning: 2,
+            scoreLocal: 1,
+            scoreVisitante: 1
+        },
+        { 
+            local: "Águilas", 
+            visitante: "Bravos", 
+            hora: "8:00 PM", 
+            transmision: "📺 BYM Sport",
+            lugar: "Estadio Luis Aparicio El Grande", 
+            fecha: "17 Oct 2026",
+            enVivo: false,
+            inning: null,
+            scoreLocal: null,
+            scoreVisitante: null
+        }
     ],
 
-    // ===== NOTICIAS (EDITAR CUANDO TENGAS NUEVAS) =====
+    // ===== NOTICIAS =====
     noticias: [
         {
             id: 1,
@@ -66,12 +110,12 @@ const DATOS = {
         }
     ],
 
-    // ===== PUBLICIDAD (EDITAR CUANDO CAMBIE) =====
+    // ===== PUBLICIDAD =====
     publicidad: [
         { imagen: "https://i.postimg.cc/Ls63NHxv/1000419154.jpg", alt: "Publicidad" }
     ],
 
-    // ===== LÍDERES ESTADÍSTICOS (EDITAR SEMANAL) =====
+    // ===== LÍDERES ESTADÍSTICOS =====
     lideres: {
         carreras: [
             { nombre: "Carlos Pérez (MAR)", valor: 4 },
