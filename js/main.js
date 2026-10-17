@@ -1,8 +1,8 @@
 // Datos REALES de equipos de la LVBP - Temporada 2026-2027
-// Actualizado al 17 de octubre de 2026 - Fuente: @lvbp_oficial
 const equipos = [
     { 
         nombre: "Caribes de Anzoátegui", 
+        nombreCorto: "Caribes",
         abrev: "ANZ", 
         jj: 4, jg: 3, jp: 1, racha: "G1",
         logo: "https://i.postimg.cc/0j685n5D/image-search-1791393733450-11zon.webp",
@@ -12,6 +12,7 @@ const equipos = [
     },
     { 
         nombre: "Tigres de Aragua", 
+        nombreCorto: "Tigres",
         abrev: "ARA", 
         jj: 4, jg: 3, jp: 1, racha: "G2",
         logo: "https://i.postimg.cc/0QRG0W3n/1791393470300-11zon.jpg",
@@ -21,6 +22,7 @@ const equipos = [
     },
     { 
         nombre: "Cardenales de Lara", 
+        nombreCorto: "Cardenales",
         abrev: "LAR", 
         jj: 3, jg: 2, jp: 1, racha: "G1",
         logo: "https://i.postimg.cc/HLpzqP32/image-search-1791395610326-11zon.jpg",
@@ -30,6 +32,7 @@ const equipos = [
     },
     { 
         nombre: "Bravos de Margarita", 
+        nombreCorto: "Bravos",
         abrev: "MAR", 
         jj: 3, jg: 2, jp: 1, racha: "G2",
         logo: "https://i.postimg.cc/PJh5yYdY/1791395148443-11zon.jpg",
@@ -39,6 +42,7 @@ const equipos = [
     },
     { 
         nombre: "Águilas del Zulia", 
+        nombreCorto: "Águilas",
         abrev: "ZUL", 
         jj: 4, jg: 2, jp: 2, racha: "P1",
         logo: "https://i.postimg.cc/J4wxQnwX/1791392132263-11zon.jpg",
@@ -48,6 +52,7 @@ const equipos = [
     },
     { 
         nombre: "Tiburones de La Guaira", 
+        nombreCorto: "Tiburones",
         abrev: "LGU", 
         jj: 4, jg: 2, jp: 2, racha: "P2",
         logo: "https://i.postimg.cc/J7Hm024y/image-search-1791382706892.png",
@@ -57,6 +62,7 @@ const equipos = [
     },
     { 
         nombre: "Leones del Caracas", 
+        nombreCorto: "Leones",
         abrev: "CAR", 
         jj: 4, jg: 1, jp: 3, racha: "P2",
         logo: "https://i.postimg.cc/Kjrw7g8p/image-search-1791396859705.jpg",
@@ -66,6 +72,7 @@ const equipos = [
     },
     { 
         nombre: "Navegantes del Magallanes", 
+        nombreCorto: "Magallanes",
         abrev: "MAG", 
         jj: 4, jg: 0, jp: 4, racha: "P4",
         logo: "https://i.postimg.cc/ydNH8j6v/1791396497437-11zon.jpg",
@@ -100,53 +107,10 @@ function getColorTexto(nombreEquipo) {
     return eq ? eq.colorTexto : '#ffffff';
 }
 
-// Noticias actualizadas
-const noticias = [
-    {
-        titulo: "Sábado de acción: Cuádruple jornada en la LVBP",
-        texto: "Caribes recibe a Leones, Tiburones enfrenta a Tigres, Cardenales recibe a Navegantes y Águilas recibe a Bravos en una jornada clave. Los líderes Caribes y Tigres buscarán mantener la cima de la tabla.",
-        fecha: "17 Oct 2026",
-        tag: "JORNADA",
-        imagen: "https://images.unsplash.com/photo-1508344928928-7165b67de128?w=800&q=80"
-    },
-    {
-        titulo: "Bravos de Margarita embiste a Leones del Caracas 9-2",
-        texto: "Los Bravos desplegaron una letal ofensiva en la segunda mitad para superar holgadamente a los Leones. Diosbel Arias y Alexi Amarista destacaron con 2-5 cada uno. El conjunto insular mejora a 2-1.",
-        fecha: "16 Oct 2026",
-        tag: "RESULTADOS",
-        imagen: "https://images.unsplash.com/photo-1529768167801-9173d94c2a42?w=800&q=80"
-    },
-    {
-        titulo: "Tigres de Aragua vence 8-7 a Navegantes del Magallanes",
-        texto: "Los Tigres de Aragua lograron una ajustada victoria 8-7 sobre los Navegantes del Magallanes, quienes siguen sin conocer la victoria en la temporada y caen a marca de 0-4.",
-        fecha: "16 Oct 2026",
-        tag: "RESULTADOS",
-        imagen: "https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=800&q=80"
-    },
-    {
-        titulo: "Cardenales de Lara supera 8-5 a Águilas del Zulia",
-        texto: "Los Cardenales de Lara se impusieron 8-5 a las Águilas del Zulia en un juego de alta anotación. Con este triunfo, los cardenales mejoran a 2-1 y escalan en la tabla de posiciones.",
-        fecha: "16 Oct 2026",
-        tag: "RESULTADOS",
-        imagen: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=800&q=80"
-    },
-    {
-        titulo: "Caribes de Anzoátegui vence 7-4 a Tiburones de La Guaira",
-        texto: "Los Caribes de Anzoátegui se impusieron 7-4 a los Tiburones de La Guaira, manteniendo su marca de 3-1 y compartiendo el liderato de la tabla con los Tigres de Aragua.",
-        fecha: "16 Oct 2026",
-        tag: "RESULTADOS",
-        imagen: "https://images.unsplash.com/photo-1577471488278-16eec37ffcc2?w=800&q=80"
-    },
-    {
-        titulo: "Navegantes del Magallanes sigue en cero: 0-4 en la temporada",
-        texto: "Los Navegantes del Magallanes continúan sin conocer la victoria en la temporada 2026-2027. Tras caer 8-7 ante los Tigres de Aragua, el equipo azul cae a marca de 0-4 y necesita una reacción urgente.",
-        fecha: "16 Oct 2026",
-        tag: "ANÁLISIS",
-        imagen: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80"
-    }
-];
+// Noticias (vacías hasta que tú las proporciones)
+const noticias = [];
 
-// Resultados REALES del Viernes 16 de Octubre - Fuente: @lvbp_oficial
+// Resultados REALES del Viernes 16 de Octubre
 const resultados = [
     { local: "Bravos", scoreLocal: 9, visitante: "Leones", scoreVisitante: 2, fecha: "16 Oct", innings: 9 },
     { local: "Tiburones", scoreLocal: 4, visitante: "Caribes", scoreVisitante: 7, fecha: "16 Oct", innings: 9 },
@@ -154,43 +118,43 @@ const resultados = [
     { local: "Cardenales", scoreLocal: 8, visitante: "Águilas", scoreVisitante: 5, fecha: "16 Oct", innings: 9 }
 ];
 
-// Jornada del Sábado 17 de Octubre (HOY) - 4 JUEGOS
+// Jornada del Sábado 17 de Octubre (ACTUALIZADA)
 const calendario = [
     { 
         fecha: "17 Oct 2026", 
-        local: "Caribes", 
-        visitante: "Leones", 
-        hora: "Por definir", 
-        transmision: "Por anunciar", 
-        lugar: "Estadio Alfonso Chico Carrasquel" 
+        local: "Magallanes", 
+        visitante: "Cardenales", 
+        hora: "4:00 PM", 
+        transmision: " IVC",
+        lugar: "Estadio José Bernardo Pérez"
     },
     { 
         fecha: "17 Oct 2026", 
-        local: "Tiburones", 
-        visitante: "Tigres", 
-        hora: "Por definir", 
-        transmision: "Por anunciar", 
-        lugar: "Estadio Universitario de La Guaira" 
+        local: "Tigres", 
+        visitante: "Tiburones", 
+        hora: "6:00 PM", 
+        transmision: "📻 Baseball FM",
+        lugar: "Estadio José Pérez Colmenares"
     },
     { 
         fecha: "17 Oct 2026", 
-        local: "Cardenales", 
-        visitante: "Navegantes", 
-        hora: "Por definir", 
-        transmision: "Por anunciar", 
-        lugar: "Estadio Antonio Herrera Gutiérrez" 
+        local: "Leones", 
+        visitante: "Caribes", 
+        hora: "6:00 PM", 
+        transmision: "📺 Televen",
+        lugar: "Estadio Universitario de Caracas"
     },
     { 
         fecha: "17 Oct 2026", 
-        local: "Águilas", 
-        visitante: "Bravos", 
-        hora: "Por definir", 
-        transmision: "Por anunciar", 
-        lugar: "Estadio Luis Aparicio El Grande" 
+        local: "Bravos", 
+        visitante: "Águilas", 
+        hora: "8:00 PM", 
+        transmision: "📺 BYM Sport",
+        lugar: "Estadio Nueva Esparta"
     }
 ];
 
-// Líderes estadísticos (actualizados con datos reales)
+// Líderes estadísticos
 const lideres = {
     carreras: [
         { nombre: "Carlos Pérez (MAR)", valor: 4 },
@@ -226,7 +190,7 @@ function calcularDIF(jg, jp, liderJG, liderJP) {
     return diff > 0 ? diff.toFixed(1) : "-";
 }
 
-// Renderizar posiciones
+// Renderizar posiciones (con nombres cortos)
 function renderPosiciones() {
     const tbody = document.getElementById("posiciones-body");
     const lider = equipos[0];
@@ -241,7 +205,7 @@ function renderPosiciones() {
             <td>${i + 1}</td>
             <td class="equipo-con-logo">
                 <img src="${eq.logo}" alt="${eq.nombre}" class="logo-small">
-                <span>${eq.nombre}</span>
+                <span>${eq.nombreCorto}</span>
             </td>
             <td>${eq.jj}</td>
             <td>${eq.jg}</td>
@@ -257,23 +221,33 @@ function renderPosiciones() {
 // Renderizar noticias
 function renderNoticias() {
     const container = document.getElementById("noticias-container");
-    noticias.forEach(n => {
-        const card = document.createElement("div");
-        card.className = "noticia-card";
-        card.style.backgroundImage = `url('${n.imagen}')`;
-        card.innerHTML = `
-            <div class="noticia-contenido">
-                <span class="noticia-tag">${n.tag}</span>
-                <h3>${n.titulo}</h3>
-                <p class="fecha">${n.fecha}</p>
+    
+    if (noticias.length === 0) {
+        container.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 40px; background: #f5f0e8; border-radius: 8px; border: 2px dashed #d32f2f;">
+                <h3 style="color: #d32f2f; margin-bottom: 15px;">📰 Sección de Noticias</h3>
+                <p style="color: #666; font-size: 1.1rem;">Próximamente: Noticias y fotos oficiales de LVBP al Día</p>
+                <p style="color: #999; font-size: 0.9rem; margin-top: 10px;">Mantente atento a nuestras próximas publicaciones</p>
             </div>
         `;
-        container.appendChild(card);
-    });
+    } else {
+        noticias.forEach(n => {
+            const card = document.createElement("div");
+            card.className = "noticia-card";
+            card.style.backgroundImage = `url('${n.imagen}')`;
+            card.innerHTML = `
+                <div class="noticia-contenido">
+                    <span class="noticia-tag">${n.tag}</span>
+                    <h3>${n.titulo}</h3>
+                    <p class="fecha">${n.fecha}</p>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
 }
 
-// Renderizar resultados con diseño dividido
-// VISITANTE a la IZQUIERDA, LOCAL a la DERECHA
+// Renderizar resultados
 function renderResultados() {
     const container = document.getElementById("resultados-container");
     resultados.forEach(r => {
@@ -288,11 +262,11 @@ function renderResultados() {
         card.className = "resultado-card";
         card.innerHTML = `
             <div class="mitades">
-                <div class="mitad mitad-visitante" style="background-color: ${colorVisitante};">
+                <div class="mitad" style="background-color: ${colorVisitante};">
                     <img src="${logoVisitante}" alt="${r.visitante}" class="logo-resultado">
                     <div class="nombre-equipo-res" style="color: ${textoVisitante};">${r.visitante}</div>
                 </div>
-                <div class="mitad mitad-local" style="background-color: ${colorLocal};">
+                <div class="mitad" style="background-color: ${colorLocal};">
                     <img src="${logoLocal}" alt="${r.local}" class="logo-resultado">
                     <div class="nombre-equipo-res" style="color: ${textoLocal};">${r.local}</div>
                 </div>
@@ -315,8 +289,7 @@ function renderResultados() {
     });
 }
 
-// Renderizar calendario con diseño dividido
-// VISITANTE a la IZQUIERDA, LOCAL (HOME) a la DERECHA
+// Renderizar calendario
 function renderCalendario() {
     const container = document.getElementById("calendario-container");
     calendario.forEach(j => {
