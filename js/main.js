@@ -1,76 +1,105 @@
 // Datos REALES de equipos de la LVBP - Temporada 2026-2027
-// Fuente de logos: Enlaces proporcionados por el usuario (Norma permanente)
 const equipos = [
     { 
         nombre: "Caribes de Anzoátegui", 
         abrev: "ANZ", 
         jj: 4, jg: 3, jp: 1, racha: "G1",
         logo: "https://i.postimg.cc/0j685n5D/image-search-1791393733450-11zon.webp",
-        claseFila: "fila-caribes"
+        claseFila: "fila-caribes",
+        color: "#F2F2F2",
+        colorTexto: "#2c2c2c"
     },
     { 
         nombre: "Tigres de Aragua", 
         abrev: "ARA", 
         jj: 4, jg: 3, jp: 1, racha: "G1",
         logo: "https://i.postimg.cc/0QRG0W3n/1791393470300-11zon.jpg",
-        claseFila: "fila-tigres"
+        claseFila: "fila-tigres",
+        color: "#042959",
+        colorTexto: "#ffffff"
     },
     { 
         nombre: "Águilas del Zulia", 
         abrev: "ZUL", 
         jj: 4, jg: 3, jp: 1, racha: "G1",
         logo: "https://i.postimg.cc/J4wxQnwX/1791392132263-11zon.jpg",
-        claseFila: "fila-aguilas"
+        claseFila: "fila-aguilas",
+        color: "#F24607",
+        colorTexto: "#ffffff"
     },
     { 
         nombre: "Bravos de Margarita", 
         abrev: "MAR", 
         jj: 3, jg: 2, jp: 1, racha: "G1",
         logo: "https://i.postimg.cc/PJh5yYdY/1791395148443-11zon.jpg",
-        claseFila: "fila-bravos"
+        claseFila: "fila-bravos",
+        color: "#56A6A6",
+        colorTexto: "#ffffff"
     },
     { 
         nombre: "Tiburones de La Guaira", 
         abrev: "LGU", 
         jj: 4, jg: 2, jp: 2, racha: "P1",
         logo: "https://i.postimg.cc/J7Hm024y/image-search-1791382706892.png",
-        claseFila: "fila-tiburones"
+        claseFila: "fila-tiburones",
+        color: "#2104D9",
+        colorTexto: "#ffffff"
     },
     { 
         nombre: "Cardenales de Lara", 
         abrev: "LAR", 
         jj: 3, jg: 1, jp: 2, racha: "P1",
         logo: "https://i.postimg.cc/HLpzqP32/image-search-1791395610326-11zon.jpg",
-        claseFila: "fila-cardenales"
+        claseFila: "fila-cardenales",
+        color: "#D90D1E",
+        colorTexto: "#ffffff"
     },
     { 
         nombre: "Leones del Caracas", 
         abrev: "CAR", 
         jj: 4, jg: 1, jp: 3, racha: "P1",
         logo: "https://i.postimg.cc/Kjrw7g8p/image-search-1791396859705.jpg",
-        claseFila: "fila-leones"
+        claseFila: "fila-leones",
+        color: "#082040",
+        colorTexto: "#ffffff"
     },
     { 
         nombre: "Navegantes del Magallanes", 
         abrev: "MAG", 
         jj: 4, jg: 0, jp: 4, racha: "P4",
         logo: "https://i.postimg.cc/ydNH8j6v/1791396497437-11zon.jpg",
-        claseFila: "fila-magallanes"
+        claseFila: "fila-magallanes",
+        color: "#5BA9D9",
+        colorTexto: "#ffffff"
     }
 ];
 
-// Función inteligente para obtener el logo desde el nombre corto o abreviatura
-function getLogo(nombreEquipo) {
+// Función para obtener datos del equipo
+function getEquipo(nombreEquipo) {
     const nombreLower = nombreEquipo.toLowerCase();
-    const equipo = equipos.find(eq => 
+    return equipos.find(eq => 
         eq.nombre.toLowerCase().includes(nombreLower) || 
         eq.abrev.toLowerCase() === nombreLower ||
         nombreLower.includes(eq.abrev.toLowerCase())
     );
-    return equipo ? equipo.logo : '';
 }
 
-// Noticias actualizadas con información real
+function getLogo(nombreEquipo) {
+    const eq = getEquipo(nombreEquipo);
+    return eq ? eq.logo : '';
+}
+
+function getColor(nombreEquipo) {
+    const eq = getEquipo(nombreEquipo);
+    return eq ? eq.color : '#cccccc';
+}
+
+function getColorTexto(nombreEquipo) {
+    const eq = getEquipo(nombreEquipo);
+    return eq ? eq.colorTexto : '#ffffff';
+}
+
+// Noticias
 const noticias = [
     {
         titulo: "¡Cuádruple empate en la cima! Caribes, Tigres, Águilas y Bravos lideran",
@@ -116,20 +145,20 @@ const noticias = [
     }
 ];
 
-// Resultados REALES del Jueves 15 de Octubre
+// Resultados REALES del Jueves 15 de Octubre (con innings)
 const resultados = [
-    { local: "Tiburones", scoreLocal: 5, visitante: "Caribes", scoreVisitante: 15, fecha: "15 Oct" },
-    { local: "Bravos", scoreLocal: 3, visitante: "Leones", scoreVisitante: 1, fecha: "15 Oct" },
-    { local: "Magallanes", scoreLocal: 3, visitante: "Tigres", scoreVisitante: 11, fecha: "15 Oct" },
-    { local: "Cardenales", scoreLocal: 0, visitante: "Águilas", scoreVisitante: 2, fecha: "15 Oct" }
+    { local: "Tiburones", scoreLocal: 5, visitante: "Caribes", scoreVisitante: 15, fecha: "15 Oct", innings: 9 },
+    { local: "Bravos", scoreLocal: 3, visitante: "Leones", scoreVisitante: 1, fecha: "15 Oct", innings: 9 },
+    { local: "Magallanes", scoreLocal: 3, visitante: "Tigres", scoreVisitante: 11, fecha: "15 Oct", innings: 9 },
+    { local: "Cardenales", scoreLocal: 0, visitante: "Águilas", scoreVisitante: 2, fecha: "15 Oct", innings: 9 }
 ];
 
 // Jornada del Viernes 16 de Octubre
 const calendario = [
-    { fecha: "16 Oct 2026", local: "Bravos", visitante: "Leones", hora: "2:00 PM", transmision: "📺 BYM Sport" },
-    { fecha: "16 Oct 2026", local: "Tiburones", visitante: "Caribes", hora: "7:00 PM", transmision: "📻 Baseball FM /  Meridiano TV" },
-    { fecha: "16 Oct 2026", local: "Tigres", visitante: "Navegantes", hora: "7:00 PM", transmision: "📺 BYM Sport" },
-    { fecha: "16 Oct 2026", local: "Cardenales", visitante: "Águilas", hora: "7:00 PM", transmision: "📺 V" }
+    { fecha: "16 Oct 2026", local: "Bravos", visitante: "Leones", hora: "2:00 PM", transmision: " BYM Sport", lugar: "Estadio Nueva Esparta" },
+    { fecha: "16 Oct 2026", local: "Tiburones", visitante: "Caribes", hora: "7:00 PM", transmision: " Baseball FM / 📺 Meridiano TV", lugar: "Estadio Universitario" },
+    { fecha: "16 Oct 2026", local: "Tigres", visitante: "Navegantes", hora: "7:00 PM", transmision: "📺 BYM Sport", lugar: "Estadio José Pérez Colmenares" },
+    { fecha: "16 Oct 2026", local: "Cardenales", visitante: "Águilas", hora: "7:00 PM", transmision: "📺 V", lugar: "Estadio Antonio Herrera Gutiérrez" }
 ];
 
 // Líderes estadísticos
@@ -156,20 +185,19 @@ const lideres = {
     ]
 };
 
-// Calcular porcentaje de victorias
+// Funciones de cálculo
 function calcularPCT(jg, jp) {
     if ((jg + jp) === 0) return ".000";
     const pct = (jg / (jg + jp));
     return "." + Math.round(pct * 1000).toString().padStart(3, '0');
 }
 
-// Calcular diferencia con el líder
 function calcularDIF(jg, jp, liderJG, liderJP) {
     const diff = ((liderJG - jg) + (jp - liderJP)) / 2;
     return diff > 0 ? diff.toFixed(1) : "-";
 }
 
-// Renderizar posiciones CON LOGOS Y COLORES POR EQUIPO
+// Renderizar posiciones
 function renderPosiciones() {
     const tbody = document.getElementById("posiciones-body");
     const lider = equipos[0];
@@ -179,7 +207,7 @@ function renderPosiciones() {
         const dif = calcularDIF(eq.jg, eq.jp, lider.jg, lider.jp);
         
         const tr = document.createElement("tr");
-        tr.className = eq.claseFila; // Color de fondo por equipo
+        tr.className = eq.claseFila;
         tr.innerHTML = `
             <td>${i + 1}</td>
             <td class="equipo-con-logo">
@@ -197,7 +225,7 @@ function renderPosiciones() {
     });
 }
 
-// Renderizar noticias con imágenes de fondo
+// Renderizar noticias
 function renderNoticias() {
     const container = document.getElementById("noticias-container");
     noticias.forEach(n => {
@@ -215,58 +243,76 @@ function renderNoticias() {
     });
 }
 
-// Renderizar resultados CON LOGOS GRANDES (Norma permanente)
+// Renderizar resultados CON NUEVO DISEÑO DIVIDIDO
 function renderResultados() {
     const container = document.getElementById("resultados-container");
     resultados.forEach(r => {
         const logoLocal = getLogo(r.local);
         const logoVisitante = getLogo(r.visitante);
+        const colorLocal = getColor(r.local);
+        const colorVisitante = getColor(r.visitante);
+        const textoLocal = getColorTexto(r.local);
+        const textoVisitante = getColorTexto(r.visitante);
         
         const card = document.createElement("div");
         card.className = "resultado-card";
         card.innerHTML = `
-            <div class="equipos">
-                <div class="equipo-info">
-                    ${logoLocal ? `<img src="${logoLocal}" alt="${r.local}" class="logo-grande">` : ''}
-                    <div class="equipo-nombre">${r.local}</div>
+            <div class="mitades">
+                <div class="mitad mitad-local" style="background-color: ${colorLocal};">
+                    <img src="${logoLocal}" alt="${r.local}" class="logo-resultado">
+                    <div class="nombre-equipo-res" style="color: ${textoLocal};">${r.local}</div>
                 </div>
-                <div class="score">${r.scoreLocal} - ${r.scoreVisitante}</div>
-                <div class="equipo-info">
-                    <div class="equipo-nombre">${r.visitante}</div>
-                    ${logoVisitante ? `<img src="${logoVisitante}" alt="${r.visitante}" class="logo-grande">` : ''}
+                <div class="mitad mitad-visitante" style="background-color: ${colorVisitante};">
+                    <img src="${logoVisitante}" alt="${r.visitante}" class="logo-resultado">
+                    <div class="nombre-equipo-res" style="color: ${textoVisitante};">${r.visitante}</div>
+                </div>
+                <div class="vs-central">VS</div>
+            </div>
+            <div class="info-marcador">
+                <div class="marcador">
+                    <span class="carreras-local">${r.scoreLocal}</span>
+                    <span class="separador-marcador">-</span>
+                    <span class="carreras-visitante">${r.scoreVisitante}</span>
+                </div>
+                <div class="innings-info">
+                    <span class="innings-numero">${r.innings}</span>
+                    <span class="innings-label">Innings</span>
                 </div>
             </div>
-            <div class="fecha-juego">${r.fecha}</div>
+            <div class="fecha-juego-res">${r.fecha}</div>
         `;
         container.appendChild(card);
     });
 }
 
-// Renderizar calendario CON LOGOS GRANDES (Norma permanente)
+// Renderizar calendario CON NUEVO DISEÑO DIVIDIDO
 function renderCalendario() {
     const container = document.getElementById("calendario-container");
     calendario.forEach(j => {
         const logoLocal = getLogo(j.local);
         const logoVisitante = getLogo(j.visitante);
+        const colorLocal = getColor(j.local);
+        const colorVisitante = getColor(j.visitante);
+        const textoLocal = getColorTexto(j.local);
+        const textoVisitante = getColorTexto(j.visitante);
         
         const card = document.createElement("div");
         card.className = "juego-card";
         card.innerHTML = `
-            <div class="fecha">${j.fecha}</div>
-            <div class="matchup">
-                <div class="equipo-info">
-                    ${logoLocal ? `<img src="${logoLocal}" alt="${j.local}" class="logo-grande">` : ''}
-                    <span>${j.local}</span>
+            <div class="mitades-cal">
+                <div class="mitad-cal" style="background-color: ${colorLocal};">
+                    <img src="${logoLocal}" alt="${j.local}" class="logo-calendario">
+                    <div class="nombre-equipo-cal" style="color: ${textoLocal};">${j.local}</div>
                 </div>
-                <span class="vs">vs</span>
-                <div class="equipo-info">
-                    <span>${j.visitante}</span>
-                    ${logoVisitante ? `<img src="${logoVisitante}" alt="${j.visitante}" class="logo-grande">` : ''}
+                <div class="mitad-cal" style="background-color: ${colorVisitante};">
+                    <img src="${logoVisitante}" alt="${j.visitante}" class="logo-calendario">
+                    <div class="nombre-equipo-cal" style="color: ${textoVisitante};">${j.visitante}</div>
                 </div>
+                <div class="vs-central-cal">VS</div>
             </div>
-            <div class="hora-info">
-                <div class="hora">${j.hora}</div>
-                <div class="transmision">${j.transmision}</div>
+            <div class="info-juego-cal">
+                <div class="hora-cal">🕐 ${j.hora}</div>
+                <div class="transmision-cal">${j.transmision}</div>
             </div>
         `;
         container.appendChild(card);
@@ -290,7 +336,7 @@ function renderLideres() {
     crearLista("lideres-era", lideres.era);
 }
 
-// Menú hamburguesa + inicialización
+// Inicialización
 document.addEventListener("DOMContentLoaded", () => {
     const menuBtn = document.getElementById("menuBtn");
     const navMenu = document.getElementById("navMenu");
