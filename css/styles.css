@@ -317,21 +317,26 @@ body {
     border-top: 3px solid #ffd700;
 }
 
+/* ============ TÍTULOS DE SECCIÓN (UNA SOLA LÍNEA) ============ */
 .titulo-seccion {
     color: #d32f2f;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     margin-bottom: 25px;
     padding-bottom: 10px;
     border-bottom: 3px solid #ffd700;
     display: flex;
     align-items: center;
     gap: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .logo-seccion {
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
     object-fit: contain;
+    flex-shrink: 0;
 }
 
 /* ============ TABLA DE POSICIONES (COMPACTA) ============ */
@@ -812,14 +817,15 @@ footer p {
         padding: 2px 6px;
     }
 
+    /* TÍTULOS MÁS PEQUEÑOS EN MÓVIL */
     .titulo-seccion {
-        font-size: 1.1rem;
-        gap: 8px;
+        font-size: 0.95rem;
+        gap: 6px;
     }
 
     .logo-seccion {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
     }
 
     table {
