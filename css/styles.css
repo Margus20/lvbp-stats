@@ -17,7 +17,7 @@ body {
     padding: 0 20px;
 }
 
-/* ============ HEADER (AZUL OSCURO) ============ */
+/* ============ HEADER ============ */
 .header-principal {
     background: linear-gradient(135deg, #0d47a1 0%, #1a237e 100%);
     padding: 15px 0;
@@ -315,34 +315,22 @@ tr:hover {
 }
 
 /* COLORES POR EQUIPO - Filas completas */
-.fila-caribes {
-    background: linear-gradient(90deg, #fff3e0 0%, #ffe0b2 100%);
-}
-.fila-tigres {
-    background: linear-gradient(90deg, #fff3e0 0%, #ffcc80 100%);
-}
-.fila-aguilas {
-    background: linear-gradient(90deg, #fff8e1 0%, #ffecb3 100%);
-}
-.fila-bravos {
-    background: linear-gradient(90deg, #e0f2f1 0%, #b2dfdb 100%);
-}
-.fila-tiburones {
-    background: linear-gradient(90deg, #e3f2fd 0%, #bbdefb 100%);
-}
-.fila-cardenales {
-    background: linear-gradient(90deg, #ffebee 0%, #ffcdd2 100%);
-}
-.fila-leones {
-    background: linear-gradient(90deg, #424242 0%, #616161 100%);
-    color: #fff !important;
-}
-.fila-leones td {
-    color: #fff !important;
-}
-.fila-magallanes {
-    background: linear-gradient(90deg, #e1f5fe 0%, #b3e5fc 100%);
-}
+.fila-caribes { background: #F2F2F2; }
+.fila-caribes td { color: #2c2c2c !important; font-weight: 600; }
+.fila-tigres { background: #042959; }
+.fila-tigres td { color: #ffffff !important; font-weight: 600; }
+.fila-aguilas { background: #F24607; }
+.fila-aguilas td { color: #ffffff !important; font-weight: 600; }
+.fila-bravos { background: #56A6A6; }
+.fila-bravos td { color: #ffffff !important; font-weight: 600; }
+.fila-tiburones { background: #2104D9; }
+.fila-tiburones td { color: #ffffff !important; font-weight: 600; }
+.fila-cardenales { background: #D90D1E; }
+.fila-cardenales td { color: #ffffff !important; font-weight: 600; }
+.fila-leones { background: #082040; }
+.fila-leones td { color: #ffffff !important; font-weight: 600; }
+.fila-magallanes { background: #5BA9D9; }
+.fila-magallanes td { color: #ffffff !important; font-weight: 600; }
 
 /* ============ LOGOS ============ */
 .equipo-con-logo {
@@ -362,154 +350,256 @@ tr:hover {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-.logo-grande {
-    width: 55px;
-    height: 55px;
-    object-fit: contain;
-    background: #fff;
-    border-radius: 50%;
-    padding: 4px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-
-/* ============ RESULTADOS ============ */
+/* ============ RESULTADOS - NUEVO DISEÑO DIVIDIDO ============ */
 .resultados-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 20px;
 }
 
 .resultado-card {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    border-left: 4px solid #d32f2f;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     transition: all 0.3s;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    background: #fff;
 }
 
 .resultado-card:hover {
-    transform: translateX(5px);
-    border-left-color: #ffd700;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 }
 
-.resultado-card .equipos {
+/* Contenedor de las dos mitades */
+.resultado-card .mitades {
+    display: flex;
+    width: 100%;
+    height: 240px;
+    position: relative;
+}
+
+/* Cada mitad ocupa 50% */
+.resultado-card .mitad {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 15px;
+    position: relative;
+}
+
+.resultado-card .mitad-local {
+    /* El color se aplica dinámicamente vía style inline */
+}
+
+.resultado-card .mitad-visitante {
+    /* El color se aplica dinámicamente vía style inline */
+}
+
+/* Logo grande y notable */
+.resultado-card .logo-resultado {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    margin-bottom: 12px;
+}
+
+.resultado-card .nombre-equipo-res {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    line-height: 1.2;
+}
+
+/* VS central */
+.resultado-card .vs-central {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    background: #fff;
+    color: #d32f2f;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    border: 3px solid #ffd700;
+}
+
+/* Barra inferior con marcador e innings */
+.resultado-card .info-marcador {
+    background: linear-gradient(90deg, #1a1a1a 0%, #2c2c2c 100%);
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 0;
-    gap: 10px;
+    border-top: 3px solid #ffd700;
 }
 
-.resultado-card .equipo-info {
+.resultado-card .marcador {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     flex: 1;
+    justify-content: center;
 }
 
-.resultado-card .equipo-info:last-child {
-    flex-direction: row-reverse;
-    text-align: right;
-}
-
-.resultado-card .equipo-nombre {
-    font-weight: bold;
-    color: #2c2c2c;
-    font-size: 1rem;
-}
-
-.resultado-card .score {
+.resultado-card .carreras-local,
+.resultado-card .carreras-visitante {
     font-size: 2rem;
-    color: #d32f2f;
     font-weight: bold;
-    padding: 0 10px;
+    color: #ffd700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    min-width: 40px;
+    text-align: center;
 }
 
-.resultado-card .fecha-juego {
-    color: #d32f2f;
-    font-size: 0.9rem;
-    margin-top: 10px;
-    font-weight: 600;
+.resultado-card .separador-marcador {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.resultado-card .innings-info {
+    color: #fff;
+    font-size: 0.85rem;
+    text-align: right;
+    min-width: 80px;
+}
+
+.resultado-card .innings-info .innings-numero {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 1rem;
+    display: block;
+}
+
+.resultado-card .innings-info .innings-label {
+    color: #b0b0b0;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.resultado-card .fecha-juego-res {
+    text-align: center;
+    color: #b0b0b0;
+    font-size: 0.8rem;
+    padding: 8px;
+    background: #0f0f0f;
+    font-weight: 500;
 }
 
 /* ============ CALENDARIO ============ */
 .calendario-lista {
     display: grid;
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 20px;
 }
 
 .juego-card {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.juego-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.juego-card .mitades-cal {
+    display: flex;
+    width: 100%;
+    height: 220px;
+    position: relative;
+}
+
+.juego-card .mitad-cal {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 15px;
+}
+
+.juego-card .logo-calendario {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    margin-bottom: 10px;
+}
+
+.juego-card .nombre-equipo-cal {
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.95rem;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.juego-card .vs-central-cal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    background: #fff;
+    color: #d32f2f;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    border: 3px solid #ffd700;
+}
+
+.juego-card .info-juego-cal {
+    background: linear-gradient(90deg, #1a1a1a 0%, #2c2c2c 100%);
+    padding: 12px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
-    border-left: 4px solid #ffd700;
-    transition: all 0.3s;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-top: 3px solid #ffd700;
 }
 
-.juego-card:hover {
-    background: #fafafa;
-    transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.juego-card .fecha {
-    color: #d32f2f;
+.juego-card .hora-cal {
+    color: #ffd700;
     font-weight: bold;
-    min-width: 100px;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
 }
 
-.juego-card .matchup {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    text-align: center;
-}
-
-.juego-card .equipo-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.juego-card .equipo-info:last-child {
-    flex-direction: row-reverse;
-}
-
-.juego-card .vs {
-    color: #d32f2f;
-    font-weight: bold;
-    font-size: 1rem;
-}
-
-.juego-card .hora-info {
-    text-align: right;
-    min-width: 130px;
-}
-
-.juego-card .hora {
-    color: #d32f2f;
-    font-weight: bold;
-    background: rgba(255,215,0,0.2);
-    padding: 5px 10px;
-    border-radius: 5px;
-    display: inline-block;
-    margin-bottom: 4px;
-}
-
-.juego-card .transmision {
-    color: #666;
+.juego-card .transmision-cal {
+    color: #fff;
     font-size: 0.85rem;
     font-style: italic;
 }
@@ -667,22 +757,39 @@ footer p {
         height: 28px;
     }
     
-    .logo-grande {
-        width: 45px;
-        height: 45px;
-    }
-    
     .equipo-con-logo span {
         font-size: 0.85rem;
     }
     
-    .juego-card {
-        flex-direction: column;
-        text-align: center;
+    .resultados-grid,
+    .calendario-lista {
+        grid-template-columns: 1fr;
     }
     
-    .juego-card .fecha, .juego-card .hora-info {
-        width: 100%;
-        text-align: center;
+    .resultado-card .mitades {
+        height: 200px;
     }
-}
+    
+    .resultado-card .logo-resultado {
+        width: 85px;
+        height: 85px;
+    }
+    
+    .resultado-card .nombre-equipo-res {
+        font-size: 0.85rem;
+    }
+    
+    .resultado-card .carreras-local,
+    .resultado-card .carreras-visitante {
+        font-size: 1.5rem;
+    }
+    
+    .juego-card .mitades-cal {
+        height: 180px;
+    }
+    
+    .juego-card .logo-calendario {
+        width: 75px;
+        height: 75px;
+    }
+    }
