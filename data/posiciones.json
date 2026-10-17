@@ -1,0 +1,58 @@
+[
+  {
+    "nombre": "Caribes de Anzoátegui",
+    "jj": 4,
+    "jg": 3,
+    "jp": 1,
+    "racha": "G1"
+  },
+  {
+    "nombre": "Tigres de Aragua",
+    "jj": 4,
+    "jg": 3,
+    "jp": 1,
+    "racha": "G2"
+  },
+  {
+    "nombre": "Cardenales de Lara",
+    "jj": 3,
+    "jg": 2,
+    "jp": 1,
+    "racha": "G1"
+  },
+  {
+    "nombre": "Bravos de Margarita",
+    "jj": 3,
+    "jg": 2,
+    "jp": 1,
+    "racha": "G2"
+  },
+  {
+    "nombre": "Águilas del Zulia",
+    "jj": 4,
+    "jg": 2,
+    "jp": 2,
+    "racha": "P1"
+  },
+  {
+    "nombre": "Tiburones de La Guaira",
+    "jj": 4,
+    "jg": 2,
+    "jp": 2,
+    "racha": "P2"
+  },
+  {
+    "nombre": "Leones del Caracas",
+    "jj": 4,
+    "jg": 1,
+    "jp": 3,
+    "racha": "P2"
+  },
+  {
+    "nombre": "Navegantes del Magallanes",
+    "jj": 4,
+    "jg": 0,
+    "jp": 4,
+    "racha": "P4"
+  }
+]
