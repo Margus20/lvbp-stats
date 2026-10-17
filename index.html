@@ -60,74 +60,122 @@
 
             <!-- GRID DE NOTICIAS (2 COLUMNAS) -->
             <section class="noticias-grid-section">
-                <div class="noticias-grid" id="noticias-container"></div>
+                <div class="container">
+                    <div class="noticias-grid" id="noticias-container"></div>
+                </div>
+            </section>
+
+            <!-- ARTÍCULO COMPLETO DE NOTICIA (Se muestra al hacer clic) -->
+            <section class="articulo-completo" id="articulo-completo" style="display: none;">
+                <div class="container">
+                    <button class="btn-volver" onclick="cerrarArticulo()">← Volver a noticias</button>
+                    <article class="articulo-contenido" id="articulo-contenido"></article>
+                    
+                    <!-- SECCIÓN DE COMENTARIOS -->
+                    <div class="seccion-comentarios">
+                        <h3>💬 Comentarios</h3>
+                        <form class="formulario-comentario" id="formulario-comentario">
+                            <input type="text" placeholder="Tu nombre" required class="input-comentario">
+                            <textarea placeholder="Escribe tu comentario..." required class="textarea-comentario" rows="4"></textarea>
+                            <button type="submit" class="btn-comentar">Publicar comentario</button>
+                        </form>
+                        <div class="lista-comentarios" id="lista-comentarios"></div>
+                    </div>
+
+                    <!-- BOTONES DE COMPARTIR -->
+                    <div class="seccion-compartir">
+                        <h3>📢 Comparte esta noticia</h3>
+                        <div class="botones-compartir">
+                            <a href="#" class="btn-compartir whatsapp" id="compartir-whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                            <a href="#" class="btn-compartir telegram" id="compartir-telegram" target="_blank">
+                                <i class="fab fa-telegram"></i> Telegram
+                            </a>
+                            <a href="#" class="btn-compartir facebook" id="compartir-facebook" target="_blank">
+                                <i class="fab fa-facebook"></i> Facebook
+                            </a>
+                            <a href="#" class="btn-compartir twitter" id="compartir-twitter" target="_blank">
+                                <i class="fab fa-x-twitter"></i> Twitter
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <!-- TABLA DE POSICIONES -->
             <section id="posiciones" class="seccion-oscura">
-                <h2 class="titulo-seccion">
-                    <img src="https://i.postimg.cc/T29t9x9M/image-search-1791397173263.jpg" alt="LVBP" class="logo-seccion">
-                    Tabla de Posiciones de la LVBP
-                </h2>
-                <div class="tabla-container">
-                    <table id="tabla-posiciones">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Equipo</th>
-                                <th>JJ</th>
-                                <th>JG</th>
-                                <th>JP</th>
-                                <th>PCT</th>
-                                <th>DIF</th>
-                                <th>RACHA</th>
-                            </tr>
-                        </thead>
-                        <tbody id="posiciones-body"></tbody>
-                    </table>
+                <div class="container">
+                    <h2 class="titulo-seccion">
+                        <img src="https://i.postimg.cc/T29t9x9M/image-search-1791397173263.jpg" alt="LVBP" class="logo-seccion">
+                        Tabla de Posiciones de la LVBP
+                    </h2>
+                    <div class="tabla-container">
+                        <table id="tabla-posiciones">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Equipo</th>
+                                    <th>JJ</th>
+                                    <th>JG</th>
+                                    <th>JP</th>
+                                    <th>PCT</th>
+                                    <th>DIF</th>
+                                    <th>RACHA</th>
+                                </tr>
+                            </thead>
+                            <tbody id="posiciones-body"></tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
             <!-- RESULTADOS -->
             <section id="resultados" class="seccion-clara">
-                <h2 class="titulo-seccion">
-                    <img src="https://i.postimg.cc/T29t9x9M/image-search-1791397173263.jpg" alt="LVBP" class="logo-seccion">
-                    Resultados del Viernes 16 de Octubre de la LVBP
-                </h2>
-                <div class="resultados-grid" id="resultados-container"></div>
+                <div class="container">
+                    <h2 class="titulo-seccion">
+                        <img src="https://i.postimg.cc/T29t9x9M/image-search-1791397173263.jpg" alt="LVBP" class="logo-seccion">
+                        Resultados del Viernes 16 de Octubre de la LVBP
+                    </h2>
+                    <div class="resultados-grid" id="resultados-container"></div>
+                </div>
             </section>
 
             <!-- CALENDARIO -->
             <section id="calendario" class="seccion-oscura">
-                <h2 class="titulo-seccion">
-                    <img src="https://i.postimg.cc/T29t9x9M/image-search-1791397173263.jpg" alt="LVBP" class="logo-seccion">
-                    Jornada del Sábado 17 de Octubre de la LVBP
-                </h2>
-                <div class="calendario-lista" id="calendario-container"></div>
+                <div class="container">
+                    <h2 class="titulo-seccion">
+                        <img src="https://i.postimg.cc/T29t9x9M/image-search-1791397173263.jpg" alt="LVBP" class="logo-seccion">
+                        Jornada del Sábado 17 de Octubre de la LVBP
+                    </h2>
+                    <div class="calendario-lista" id="calendario-container"></div>
+                </div>
             </section>
 
             <!-- ESTADÍSTICAS -->
             <section id="estadisticas" class="seccion-clara">
-                <h2 class="titulo-seccion">
-                    <img src="https://i.postimg.cc/T29t9x9M/image-search-1791397173263.jpg" alt="LVBP" class="logo-seccion">
-                    Líderes Estadísticos de la LVBP
-                </h2>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3>🏃 Carreras Anotadas</h3>
-                        <ol id="lideres-carreras"></ol>
-                    </div>
-                    <div class="stat-card">
-                        <h3> Average de Bateo</h3>
-                        <ol id="lideres-average"></ol>
-                    </div>
-                    <div class="stat-card">
-                        <h3>💥 Jonrones</h3>
-                        <ol id="lideres-hr"></ol>
-                    </div>
-                    <div class="stat-card">
-                        <h3> Efectividad</h3>
-                        <ol id="lideres-era"></ol>
+                <div class="container">
+                    <h2 class="titulo-seccion">
+                        <img src="https://i.postimg.cc/T29t9x9M/image-search-1791397173263.jpg" alt="LVBP" class="logo-seccion">
+                        Líderes Estadísticos de la LVBP
+                    </h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>🏃 Carreras Anotadas</h3>
+                            <ol id="lideres-carreras"></ol>
+                        </div>
+                        <div class="stat-card">
+                            <h3>⚾ Average de Bateo</h3>
+                            <ol id="lideres-average"></ol>
+                        </div>
+                        <div class="stat-card">
+                            <h3>💥 Jonrones</h3>
+                            <ol id="lideres-hr"></ol>
+                        </div>
+                        <div class="stat-card">
+                            <h3>🎯 Efectividad</h3>
+                            <ol id="lideres-era"></ol>
+                        </div>
                     </div>
                 </div>
             </section>
