@@ -103,10 +103,10 @@ function getColorTexto(nombreEquipo) {
 // Noticias actualizadas
 const noticias = [
     {
-        titulo: "¡Se movió la tabla! Cardenales y Bravos escalan posiciones",
-        texto: "Tras la jornada del viernes 16 de octubre, Caribes y Tigres mantienen el liderato compartido con marca de 3-1, mientras Cardenales y Bravos escalan al tercer lugar con 2-1. Águilas y Tiburones ceden terreno al caer a 2-2.",
+        titulo: "Sábado de acción: Cuádruple jornada en la LVBP",
+        texto: "Caribes recibe a Leones, Tiburones enfrenta a Tigres, Cardenales recibe a Navegantes y Águilas recibe a Bravos en una jornada clave. Los líderes Caribes y Tigres buscarán mantener la cima de la tabla.",
         fecha: "17 Oct 2026",
-        tag: "DESTACADO",
+        tag: "JORNADA",
         imagen: "https://images.unsplash.com/photo-1508344928928-7165b67de128?w=800&q=80"
     },
     {
@@ -154,9 +154,40 @@ const resultados = [
     { local: "Cardenales", scoreLocal: 8, visitante: "Águilas", scoreVisitante: 5, fecha: "16 Oct", innings: 9 }
 ];
 
-// Próxima jornada (Sábado 17 de Octubre - por definir)
+// Jornada del Sábado 17 de Octubre (HOY) - 4 JUEGOS
 const calendario = [
-    { fecha: "17 Oct 2026", local: "Por definir", visitante: "Por definir", hora: "Por definir", transmision: "Por anunciar", lugar: "Por confirmar" }
+    { 
+        fecha: "17 Oct 2026", 
+        local: "Caribes", 
+        visitante: "Leones", 
+        hora: "Por definir", 
+        transmision: "Por anunciar", 
+        lugar: "Estadio Alfonso Chico Carrasquel" 
+    },
+    { 
+        fecha: "17 Oct 2026", 
+        local: "Tiburones", 
+        visitante: "Tigres", 
+        hora: "Por definir", 
+        transmision: "Por anunciar", 
+        lugar: "Estadio Universitario de La Guaira" 
+    },
+    { 
+        fecha: "17 Oct 2026", 
+        local: "Cardenales", 
+        visitante: "Navegantes", 
+        hora: "Por definir", 
+        transmision: "Por anunciar", 
+        lugar: "Estadio Antonio Herrera Gutiérrez" 
+    },
+    { 
+        fecha: "17 Oct 2026", 
+        local: "Águilas", 
+        visitante: "Bravos", 
+        hora: "Por definir", 
+        transmision: "Por anunciar", 
+        lugar: "Estadio Luis Aparicio El Grande" 
+    }
 ];
 
 // Líderes estadísticos (actualizados con datos reales)
