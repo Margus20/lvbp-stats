@@ -44,8 +44,6 @@ const DATOS = {
     // Sábado 17 de Octubre
     // "local" = equipo de casa (va a la DERECHA)
     // "visitante" = equipo visitante (va a la IZQUIERDA)
-    // "enVivo": true = mostrar etiqueta "EN VIVO"
-    // "inning": número del inning actual
     calendario: [
         { 
             local: "Cardenales", 
@@ -63,7 +61,7 @@ const DATOS = {
             local: "Tiburones", 
             visitante: "Tigres", 
             hora: "6:00 PM", 
-            transmision: " Baseball FM",
+            transmision: "📻 Baseball FM",
             lugar: "Estadio Universitario de La Guaira", 
             fecha: "17 Oct 2026",
             enVivo: true,
@@ -75,13 +73,13 @@ const DATOS = {
             local: "Caribes", 
             visitante: "Leones", 
             hora: "6:00 PM", 
-            transmision: "📺 Televen",
+            transmision: " Televen",
             lugar: "Estadio Alfonso Chico Carrasquel", 
             fecha: "17 Oct 2026",
             enVivo: true,
-            inning: 2,
+            inning: 3,
             scoreLocal: 1,
-            scoreVisitante: 1
+            scoreVisitante: 5
         },
         { 
             local: "Águilas", 
