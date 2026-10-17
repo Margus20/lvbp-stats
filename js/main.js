@@ -1,26 +1,9 @@
-// Datos de líderes estadísticos (hardcoded por ahora)
-const lideres = {
-    carreras: [
-        { nombre: "Carlos Pérez (MAR)", valor: 4 },
-        { nombre: "David Peralta (MAR)", valor: 4 },
-        { nombre: "Diosbel Arias (MAR)", valor: 3 }
-    ],
-    average: [
-        { nombre: "Diosbel Arias (MAR)", valor: ".538" },
-        { nombre: "Leandro Cedeño (CAR)", valor: ".400" },
-        { nombre: "Alexi Amarista (MAR)", valor: ".308" }
-    ],
-    hr: [
-        { nombre: "Por definir", valor: 0 },
-        { nombre: "Por definir", valor: 0 },
-        { nombre: "Por definir", valor: 0 }
-    ],
-    era: [
-        { nombre: "L. Escobar (MAR)", valor: "0.00" },
-        { nombre: "Por definir", valor: 0.00 },
-        { nombre: "Por definir", valor: 0.00 }
-    ]
-};
+// ============================================
+// LVBP AL DÍA - CÓDIGO PRINCIPAL
+// ============================================
+// NO MODIFICAR ESTE ARCHIVO
+// Los datos se editan en data.js
+// ============================================
 
 let comentarios = [];
 
@@ -36,15 +19,39 @@ function calcularDIF(jg, jp, liderJG, liderJP) {
     return diff > 0 ? diff.toFixed(1) : "-";
 }
 
+function getEquipo(nombre) {
+    const nombreLower = nombre.toLowerCase();
+    return DATOS.equipos.find(eq => 
+        eq.nombre.toLowerCase().includes(nombreLower) || 
+        eq.abrev.toLowerCase() === nombreLower ||
+        nombreLower.includes(eq.abrev.toLowerCase())
+    );
+}
+
+function getLogo(nombre) {
+    const eq = getEquipo(nombre);
+    return eq ? eq.logo : '';
+}
+
+function getColor(nombre) {
+    const eq = getEquipo(nombre);
+    return eq ? eq.color : '#cccccc';
+}
+
+function getColorTexto(nombre) {
+    const eq = getEquipo(nombre);
+    return eq ? eq.colorTexto : '#ffffff';
+}
+
 // Renderizar posiciones
 function renderPosiciones() {
     const tbody = document.getElementById("posiciones-body");
-    if (!tbody || !DataLoader.posiciones) return;
+    if (!tbody) return;
     
-    const lider = DataLoader.posiciones[0];
+    const lider = DATOS.posiciones[0];
     
-    DataLoader.posiciones.forEach((pos, i) => {
-        const equipo = DataLoader.getEquipo(pos.nombre);
+    DATOS.posiciones.forEach((pos, i) => {
+        const equipo = getEquipo(pos.nombre);
         if (!equipo) return;
         
         const pct = calcularPCT(pos.jg, pos.jp);
@@ -72,11 +79,11 @@ function renderPosiciones() {
 // Renderizar noticias
 function renderNoticias() {
     const container = document.getElementById("noticias-container");
-    if (!container || !DataLoader.noticias) return;
+    if (!container) return;
     
     container.innerHTML = '';
     
-    DataLoader.noticias.forEach(n => {
+    DATOS.noticias.forEach(n => {
         const card = document.createElement("div");
         card.className = "noticia-card";
         card.style.backgroundImage = `url('${n.imagen}')`;
@@ -94,7 +101,7 @@ function renderNoticias() {
 
 // Abrir artículo
 function abrirArticulo(id) {
-    const noticia = DataLoader.noticias.find(n => n.id === id);
+    const noticia = DATOS.noticias.find(n => n.id === id);
     if (!noticia) return;
     
     const articuloSeccion = document.getElementById("articulo-completo");
@@ -113,32 +120,22 @@ function abrirArticulo(id) {
     renderizarComentarios();
 }
 
-// Cerrar artículo
 function cerrarArticulo() {
     const articuloSeccion = document.getElementById("articulo-completo");
     articuloSeccion.style.display = "none";
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// Actualizar botones de compartir
 function actualizarBotonesCompartir(noticia) {
     const url = window.location.href;
     const texto = `${noticia.titulo} - LVBP al Día`;
     
-    document.getElementById("compartir-whatsapp").href = 
-        `https://wa.me/?text=${encodeURIComponent(texto + ' ' + url)}`;
-    
-    document.getElementById("compartir-telegram").href = 
-        `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(texto)}`;
-    
-    document.getElementById("compartir-facebook").href = 
-        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-    
-    document.getElementById("compartir-twitter").href = 
-        `https://twitter.com/intent/tweet?text=${encodeURIComponent(texto)}&url=${encodeURIComponent(url)}`;
+    document.getElementById("compartir-whatsapp").href = `https://wa.me/?text=${encodeURIComponent(texto + ' ' + url)}`;
+    document.getElementById("compartir-telegram").href = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(texto)}`;
+    document.getElementById("compartir-facebook").href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+    document.getElementById("compartir-twitter").href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(texto)}&url=${encodeURIComponent(url)}`;
 }
 
-// Renderizar comentarios
 function renderizarComentarios() {
     const container = document.getElementById("lista-comentarios");
     if (!container) return;
@@ -165,17 +162,17 @@ function renderizarComentarios() {
 // Renderizar resultados
 function renderResultados() {
     const container = document.getElementById("resultados-container");
-    if (!container || !DataLoader.resultados) return;
+    if (!container) return;
     
     container.innerHTML = '';
     
-    DataLoader.resultados.forEach(r => {
-        const logoLocal = DataLoader.getLogo(r.local);
-        const logoVisitante = DataLoader.getLogo(r.visitante);
-        const colorLocal = DataLoader.getColor(r.local);
-        const colorVisitante = DataLoader.getColor(r.visitante);
-        const textoLocal = DataLoader.getColorTexto(r.local);
-        const textoVisitante = DataLoader.getColorTexto(r.visitante);
+    DATOS.resultados.forEach(r => {
+        const logoLocal = getLogo(r.local);
+        const logoVisitante = getLogo(r.visitante);
+        const colorLocal = getColor(r.local);
+        const colorVisitante = getColor(r.visitante);
+        const textoLocal = getColorTexto(r.local);
+        const textoVisitante = getColorTexto(r.visitante);
         
         const card = document.createElement("div");
         card.className = "resultado-card";
@@ -211,17 +208,17 @@ function renderResultados() {
 // Renderizar calendario
 function renderCalendario() {
     const container = document.getElementById("calendario-container");
-    if (!container || !DataLoader.calendario) return;
+    if (!container) return;
     
     container.innerHTML = '';
     
-    DataLoader.calendario.forEach(j => {
-        const logoLocal = DataLoader.getLogo(j.local);
-        const logoVisitante = DataLoader.getLogo(j.visitante);
-        const colorLocal = DataLoader.getColor(j.local);
-        const colorVisitante = DataLoader.getColor(j.visitante);
-        const textoLocal = DataLoader.getColorTexto(j.local);
-        const textoVisitante = DataLoader.getColorTexto(j.visitante);
+    DATOS.calendario.forEach(j => {
+        const logoLocal = getLogo(j.local);
+        const logoVisitante = getLogo(j.visitante);
+        const colorLocal = getColor(j.local);
+        const colorVisitante = getColor(j.visitante);
+        const textoLocal = getColorTexto(j.local);
+        const textoVisitante = getColorTexto(j.visitante);
         
         const card = document.createElement("div");
         card.className = "juego-card";
@@ -238,7 +235,7 @@ function renderCalendario() {
                 <div class="vs-central-cal">VS</div>
             </div>
             <div class="info-juego-cal">
-                <div class="hora-cal"> ${j.hora}</div>
+                <div class="hora-cal">🕐 ${j.hora}</div>
                 <div class="transmision-cal">${j.transmision}</div>
             </div>
         `;
@@ -259,20 +256,20 @@ function renderLideres() {
         });
     };
     
-    crearLista("lideres-carreras", lideres.carreras);
-    crearLista("lideres-average", lideres.average);
-    crearLista("lideres-hr", lideres.hr);
-    crearLista("lideres-era", lideres.era);
+    crearLista("lideres-carreras", DATOS.lideres.carreras);
+    crearLista("lideres-average", DATOS.lideres.average);
+    crearLista("lideres-hr", DATOS.lideres.hr);
+    crearLista("lideres-era", DATOS.lideres.era);
 }
 
 // Renderizar publicidad
 function renderPublicidad() {
     const sidebar = document.getElementById("sidebar-publicidad");
-    if (!sidebar || !DataLoader.publicidad) return;
+    if (!sidebar) return;
     
     sidebar.innerHTML = '';
     
-    DataLoader.publicidad.forEach(p => {
+    DATOS.publicidad.forEach(p => {
         const div = document.createElement("div");
         div.className = "espacio-publicidad";
         div.innerHTML = `<img src="${p.imagen}" alt="${p.alt}" class="anuncio-imagen">`;
@@ -281,16 +278,7 @@ function renderPublicidad() {
 }
 
 // Inicialización
-document.addEventListener("DOMContentLoaded", async () => {
-    // Cargar datos desde JSON
-    const datosCargados = await DataLoader.cargarDatos();
-    
-    if (!datosCargados) {
-        console.error('No se pudieron cargar los datos');
-        return;
-    }
-    
-    // Menú hamburguesa
+document.addEventListener("DOMContentLoaded", () => {
     const menuBtn = document.getElementById("menuBtn");
     const navMenu = document.getElementById("navMenu");
     
@@ -298,7 +286,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         navMenu.classList.toggle("activo");
     });
     
-    // Formulario de comentarios
     const formulario = document.getElementById("formulario-comentario");
     if (formulario) {
         formulario.addEventListener("submit", (e) => {
@@ -313,7 +300,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
     
-    // Renderizar todo
     renderPosiciones();
     renderNoticias();
     renderResultados();
