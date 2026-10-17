@@ -33,6 +33,8 @@ const DATOS = {
 
     // ===== RESULTADOS DE AYER (NO TOCAR) =====
     // Viernes 16 de Octubre - Finalizados
+    // "local" = equipo de casa (va a la DERECHA)
+    // "visitante" = equipo visitante (va a la IZQUIERDA)
     resultados: [
         { local: "Leones", scoreLocal: 2, visitante: "Bravos", scoreVisitante: 9, fecha: "16 Oct", innings: 9 },
         { local: "Caribes", scoreLocal: 7, visitante: "Tiburones", scoreVisitante: 4, fecha: "16 Oct", innings: 9 },
@@ -44,6 +46,8 @@ const DATOS = {
     // Sábado 17 de Octubre
     // "local" = equipo de casa (va a la DERECHA)
     // "visitante" = equipo visitante (va a la IZQUIERDA)
+    // "enVivo": true = mostrar marcador en vivo
+    // "enVivo": false = mostrar hora y transmisión
     calendario: [
         { 
             local: "Cardenales", 
@@ -73,7 +77,7 @@ const DATOS = {
             local: "Caribes", 
             visitante: "Leones", 
             hora: "6:00 PM", 
-            transmision: " Televen",
+            transmision: "📺 Televen",
             lugar: "Estadio Alfonso Chico Carrasquel", 
             fecha: "17 Oct 2026",
             enVivo: true,
