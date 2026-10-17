@@ -1,0 +1,34 @@
+[
+  {
+    "local": "Bravos",
+    "scoreLocal": 9,
+    "visitante": "Leones",
+    "scoreVisitante": 2,
+    "fecha": "16 Oct",
+    "innings": 9
+  },
+  {
+    "local": "Caribes",
+    "scoreLocal": 7,
+    "visitante": "Tiburones",
+    "scoreVisitante": 4,
+    "fecha": "16 Oct",
+    "innings": 9
+  },
+  {
+    "local": "Tigres",
+    "scoreLocal": 8,
+    "visitante": "Magallanes",
+    "scoreVisitante": 7,
+    "fecha": "16 Oct",
+    "innings": 9
+  },
+  {
+    "local": "Cardenales",
+    "scoreLocal": 8,
+    "visitante": "Águilas",
+    "scoreVisitante": 5,
+    "fecha": "16 Oct",
+    "innings": 9
+  }
+]
