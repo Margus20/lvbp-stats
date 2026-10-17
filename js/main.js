@@ -19,7 +19,7 @@ function calcularDIF(jg, jp, liderJG, liderJP) {
     return diff > 0 ? diff.toFixed(1) : "-";
 }
 
-// Función CORREGIDA para obtener equipo sin confundir nombres
+// Función para obtener equipo sin confundir nombres
 function getEquipo(nombre) {
     const nombreLower = nombre.toLowerCase().trim();
     
@@ -218,6 +218,7 @@ function renderResultados() {
 }
 
 // Renderizar calendario (Visitante IZQUIERDA, Local DERECHA)
+// Con soporte para juegos EN VIVO
 function renderCalendario() {
     const container = document.getElementById("calendario-container");
     if (!container) return;
@@ -234,6 +235,39 @@ function renderCalendario() {
         
         const card = document.createElement("div");
         card.className = "juego-card";
+        
+        // Si el juego está en vivo, agregar clase especial
+        if (j.enVivo) {
+            card.classList.add("en-vivo");
+        }
+        
+        // Determinar qué mostrar en la barra inferior
+        let infoInferior = '';
+        if (j.enVivo && j.scoreLocal !== null) {
+            // Mostrar marcador en vivo
+            infoInferior = `
+                <div class="info-juego-cal en-vivo-info">
+                    <div class="marcador-vivo">
+                        <span class="carreras-visitante">${j.scoreVisitante}</span>
+                        <span class="separador-marcador">-</span>
+                        <span class="carreras-local">${j.scoreLocal}</span>
+                    </div>
+                    <div class="inning-info">
+                        <span class="en-vivo-badge">🔴 EN VIVO</span>
+                        <span class="inning-numero">Inning ${j.inning}</span>
+                    </div>
+                </div>
+            `;
+        } else {
+            // Mostrar hora y transmisión (juego por comenzar)
+            infoInferior = `
+                <div class="info-juego-cal">
+                    <div class="hora-cal">🕐 ${j.hora}</div>
+                    <div class="transmision-cal">${j.transmision}</div>
+                </div>
+            `;
+        }
+        
         card.innerHTML = `
             <div class="mitades-cal">
                 <div class="mitad-cal" style="background-color: ${colorVisitante};">
@@ -246,10 +280,7 @@ function renderCalendario() {
                 </div>
                 <div class="vs-central-cal">VS</div>
             </div>
-            <div class="info-juego-cal">
-                <div class="hora-cal">🕐 ${j.hora}</div>
-                <div class="transmision-cal">${j.transmision}</div>
-            </div>
+            ${infoInferior}
         `;
         container.appendChild(card);
     });
