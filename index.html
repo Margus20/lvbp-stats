@@ -39,13 +39,13 @@
         </nav>
     </header>
 
-    <!-- LAYOUT PRINCIPAL: CONTENIDO + SIDEBAR A LA DERECHA -->
+    <!-- LAYOUT PRINCIPAL -->
     <div class="main-layout">
         
-        <!-- COLUMNA IZQUIERDA: TODO EL CONTENIDO -->
+        <!-- CONTENIDO PRINCIPAL -->
         <main class="contenido-principal">
             
-            <!-- HERO (NOTICIA GRANDE) -->
+            <!-- HERO -->
             <section class="hero-noticia" id="noticias">
                 <div class="hero-imagen" style="background-image: url('https://images.unsplash.com/photo-1508344928928-7165b67de128?w=1400&q=80');">
                     <div class="hero-overlay"></div>
@@ -58,20 +58,20 @@
                 </div>
             </section>
 
-            <!-- GRID DE NOTICIAS (2 COLUMNAS) -->
+            <!-- GRID DE NOTICIAS -->
             <section class="noticias-grid-section">
                 <div class="container">
                     <div class="noticias-grid" id="noticias-container"></div>
                 </div>
             </section>
 
-            <!-- ARTÍCULO COMPLETO DE NOTICIA (Se muestra al hacer clic) -->
+            <!-- ARTÍCULO COMPLETO -->
             <section class="articulo-completo" id="articulo-completo" style="display: none;">
                 <div class="container">
                     <button class="btn-volver" onclick="cerrarArticulo()">← Volver a noticias</button>
                     <article class="articulo-contenido" id="articulo-contenido"></article>
                     
-                    <!-- SECCIÓN DE COMENTARIOS -->
+                    <!-- COMENTARIOS -->
                     <div class="seccion-comentarios">
                         <h3>💬 Comentarios</h3>
                         <form class="formulario-comentario" id="formulario-comentario">
@@ -82,7 +82,7 @@
                         <div class="lista-comentarios" id="lista-comentarios"></div>
                     </div>
 
-                    <!-- BOTONES DE COMPARTIR -->
+                    <!-- COMPARTIR -->
                     <div class="seccion-compartir">
                         <h3>📢 Comparte esta noticia</h3>
                         <div class="botones-compartir">
@@ -165,7 +165,7 @@
                             <ol id="lideres-carreras"></ol>
                         </div>
                         <div class="stat-card">
-                            <h3>⚾ Average de Bateo</h3>
+                            <h3> Average de Bateo</h3>
                             <ol id="lideres-average"></ol>
                         </div>
                         <div class="stat-card">
@@ -173,7 +173,7 @@
                             <ol id="lideres-hr"></ol>
                         </div>
                         <div class="stat-card">
-                            <h3>🎯 Efectividad</h3>
+                            <h3> Efectividad</h3>
                             <ol id="lideres-era"></ol>
                         </div>
                     </div>
@@ -181,12 +181,8 @@
             </section>
         </main>
 
-        <!-- COLUMNA DERECHA: PUBLICIDAD (Scroll normal, no fija) -->
-        <aside class="sidebar-publicidad">
-            <div class="espacio-publicidad">
-                <img src="https://i.postimg.cc/Ls63NHxv/1000419154.jpg" alt="Publicidad" class="anuncio-imagen">
-            </div>
-        </aside>
+        <!-- SIDEBAR PUBLICIDAD -->
+        <aside class="sidebar-publicidad" id="sidebar-publicidad"></aside>
 
     </div>
 
@@ -205,6 +201,7 @@
         </div>
     </footer>
 
+    <script src="js/loader.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
