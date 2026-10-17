@@ -20,6 +20,7 @@ const DATOS = {
     ],
 
     // ===== POSICIONES (EDITAR DIARIO) =====
+    // Datos oficiales de la imagen "Así Van" de la LVBP
     posiciones: [
         { nombre: "Caribes de Anzoátegui", jj: 4, jg: 3, jp: 1, racha: "G1" },
         { nombre: "Tigres de Aragua", jj: 4, jg: 3, jp: 1, racha: "G2" },
@@ -34,9 +35,10 @@ const DATOS = {
     // ===== RESULTADOS (EDITAR DIARIO) =====
     // IMPORTANTE: "local" = equipo de casa (va a la DERECHA)
     //             "visitante" = equipo visitante (va a la IZQUIERDA)
+    // Datos oficiales de la imagen "Resultados del Día" de la LVBP
     resultados: [
         { local: "Leones", scoreLocal: 2, visitante: "Bravos", scoreVisitante: 9, fecha: "16 Oct", innings: 9 },
-        { local: "Tiburones", scoreLocal: 4, visitante: "Caribes", scoreVisitante: 7, fecha: "16 Oct", innings: 9 },
+        { local: "Caribes", scoreLocal: 7, visitante: "Tiburones", scoreVisitante: 4, fecha: "16 Oct", innings: 9 },
         { local: "Magallanes", scoreLocal: 7, visitante: "Tigres", scoreVisitante: 8, fecha: "16 Oct", innings: 9 },
         { local: "Águilas", scoreLocal: 5, visitante: "Cardenales", scoreVisitante: 8, fecha: "16 Oct", innings: 9 }
     ],
