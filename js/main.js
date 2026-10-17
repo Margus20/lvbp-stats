@@ -19,13 +19,25 @@ function calcularDIF(jg, jp, liderJG, liderJP) {
     return diff > 0 ? diff.toFixed(1) : "-";
 }
 
+// Función CORREGIDA para obtener equipo sin confundir nombres
 function getEquipo(nombre) {
-    const nombreLower = nombre.toLowerCase();
-    return DATOS.equipos.find(eq => 
-        eq.nombre.toLowerCase().includes(nombreLower) || 
-        eq.abrev.toLowerCase() === nombreLower ||
-        nombreLower.includes(eq.abrev.toLowerCase())
+    const nombreLower = nombre.toLowerCase().trim();
+    
+    // Primero busca coincidencia exacta por nombre completo o nombre corto
+    let equipo = DATOS.equipos.find(eq => 
+        eq.nombre.toLowerCase() === nombreLower ||
+        eq.nombreCorto.toLowerCase() === nombreLower
     );
+    
+    // Si no encuentra, busca por inclusión del nombre corto
+    if (!equipo) {
+        equipo = DATOS.equipos.find(eq => 
+            nombreLower.includes(eq.nombreCorto.toLowerCase()) ||
+            eq.nombreCorto.toLowerCase().includes(nombreLower.split(' ')[0])
+        );
+    }
+    
+    return equipo;
 }
 
 function getLogo(nombre) {
@@ -159,7 +171,7 @@ function renderizarComentarios() {
     });
 }
 
-// Renderizar resultados
+// Renderizar resultados (Visitante IZQUIERDA, Local DERECHA)
 function renderResultados() {
     const container = document.getElementById("resultados-container");
     if (!container) return;
@@ -205,7 +217,7 @@ function renderResultados() {
     });
 }
 
-// Renderizar calendario
+// Renderizar calendario (Visitante IZQUIERDA, Local DERECHA)
 function renderCalendario() {
     const container = document.getElementById("calendario-container");
     if (!container) return;
