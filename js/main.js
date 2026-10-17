@@ -1,4 +1,5 @@
 // Datos REALES de equipos de la LVBP - Temporada 2026-2027
+// Actualizado al 17 de octubre de 2026 - Fuente: @lvbp_oficial
 const equipos = [
     { 
         nombre: "Caribes de Anzoátegui", 
@@ -12,52 +13,52 @@ const equipos = [
     { 
         nombre: "Tigres de Aragua", 
         abrev: "ARA", 
-        jj: 4, jg: 3, jp: 1, racha: "G1",
+        jj: 4, jg: 3, jp: 1, racha: "G2",
         logo: "https://i.postimg.cc/0QRG0W3n/1791393470300-11zon.jpg",
         claseFila: "fila-tigres",
         color: "#042959",
         colorTexto: "#ffffff"
     },
     { 
-        nombre: "Águilas del Zulia", 
-        abrev: "ZUL", 
-        jj: 4, jg: 3, jp: 1, racha: "G1",
-        logo: "https://i.postimg.cc/J4wxQnwX/1791392132263-11zon.jpg",
-        claseFila: "fila-aguilas",
-        color: "#F24607",
-        colorTexto: "#ffffff"
-    },
-    { 
-        nombre: "Bravos de Margarita", 
-        abrev: "MAR", 
-        jj: 3, jg: 2, jp: 1, racha: "G1",
-        logo: "https://i.postimg.cc/PJh5yYdY/1791395148443-11zon.jpg",
-        claseFila: "fila-bravos",
-        color: "#56A6A6",
-        colorTexto: "#ffffff"
-    },
-    { 
-        nombre: "Tiburones de La Guaira", 
-        abrev: "LGU", 
-        jj: 4, jg: 2, jp: 2, racha: "P1",
-        logo: "https://i.postimg.cc/J7Hm024y/image-search-1791382706892.png",
-        claseFila: "fila-tiburones",
-        color: "#2104D9",
-        colorTexto: "#ffffff"
-    },
-    { 
         nombre: "Cardenales de Lara", 
         abrev: "LAR", 
-        jj: 3, jg: 1, jp: 2, racha: "P1",
+        jj: 3, jg: 2, jp: 1, racha: "G1",
         logo: "https://i.postimg.cc/HLpzqP32/image-search-1791395610326-11zon.jpg",
         claseFila: "fila-cardenales",
         color: "#D90D1E",
         colorTexto: "#ffffff"
     },
     { 
+        nombre: "Bravos de Margarita", 
+        abrev: "MAR", 
+        jj: 3, jg: 2, jp: 1, racha: "G2",
+        logo: "https://i.postimg.cc/PJh5yYdY/1791395148443-11zon.jpg",
+        claseFila: "fila-bravos",
+        color: "#56A6A6",
+        colorTexto: "#ffffff"
+    },
+    { 
+        nombre: "Águilas del Zulia", 
+        abrev: "ZUL", 
+        jj: 4, jg: 2, jp: 2, racha: "P1",
+        logo: "https://i.postimg.cc/J4wxQnwX/1791392132263-11zon.jpg",
+        claseFila: "fila-aguilas",
+        color: "#F24607",
+        colorTexto: "#ffffff"
+    },
+    { 
+        nombre: "Tiburones de La Guaira", 
+        abrev: "LGU", 
+        jj: 4, jg: 2, jp: 2, racha: "P2",
+        logo: "https://i.postimg.cc/J7Hm024y/image-search-1791382706892.png",
+        claseFila: "fila-tiburones",
+        color: "#2104D9",
+        colorTexto: "#ffffff"
+    },
+    { 
         nombre: "Leones del Caracas", 
         abrev: "CAR", 
-        jj: 4, jg: 1, jp: 3, racha: "P1",
+        jj: 4, jg: 1, jp: 3, racha: "P2",
         logo: "https://i.postimg.cc/Kjrw7g8p/image-search-1791396859705.jpg",
         claseFila: "fila-leones",
         color: "#082040",
@@ -99,73 +100,71 @@ function getColorTexto(nombreEquipo) {
     return eq ? eq.colorTexto : '#ffffff';
 }
 
-// Noticias actualizadas con la noticia real de Bravos vs Leones
+// Noticias actualizadas
 const noticias = [
     {
-        titulo: "Bravos de Margarita embiste a Leones del Caracas con contundente victoria de 9-2",
-        texto: "Los Bravos desplegaron una letal ofensiva en la segunda mitad para superar holgadamente a los Leones. Diosbel Arias y Alexi Amarista destacaron con 2-5 cada uno. El conjunto insular mejora a 2-1, mientras los melenudos caen a 1-3.",
-        fecha: "16 Oct 2026",
+        titulo: "¡Se movió la tabla! Cardenales y Bravos escalan posiciones",
+        texto: "Tras la jornada del viernes 16 de octubre, Caribes y Tigres mantienen el liderato compartido con marca de 3-1, mientras Cardenales y Bravos escalan al tercer lugar con 2-1. Águilas y Tiburones ceden terreno al caer a 2-2.",
+        fecha: "17 Oct 2026",
         tag: "DESTACADO",
         imagen: "https://images.unsplash.com/photo-1508344928928-7165b67de128?w=800&q=80"
     },
     {
-        titulo: "Reacción insular silencia la capital en el segundo tramo",
-        texto: "Aunque los Leones pegaron primero en el segundo episodio con dos anotaciones impulsadas por Gabriel Lino, Bravos descontó en el tercer inning y tomó el control definitivo en la alta del quinto con un rally de tres carreras.",
+        titulo: "Bravos de Margarita embiste a Leones del Caracas 9-2",
+        texto: "Los Bravos desplegaron una letal ofensiva en la segunda mitad para superar holgadamente a los Leones. Diosbel Arias y Alexi Amarista destacaron con 2-5 cada uno. El conjunto insular mejora a 2-1.",
         fecha: "16 Oct 2026",
         tag: "RESULTADOS",
         imagen: "https://images.unsplash.com/photo-1529768167801-9173d94c2a42?w=800&q=80"
     },
     {
-        titulo: "Ofensiva oportuna y bateo clave de los Bravos",
-        texto: "A pesar de conectar 8 imparables (uno menos que los 9 del Caracas), la alineación insular sacó el máximo provecho al negociar 9 bases por bolas. José Martínez remató con 3 impulsadas en solo 1 turno al bate.",
+        titulo: "Tigres de Aragua vence 8-7 a Navegantes del Magallanes",
+        texto: "Los Tigres de Aragua lograron una ajustada victoria 8-7 sobre los Navegantes del Magallanes, quienes siguen sin conocer la victoria en la temporada y caen a marca de 0-4.",
         fecha: "16 Oct 2026",
-        tag: "ANÁLISIS",
+        tag: "RESULTADOS",
         imagen: "https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=800&q=80"
     },
     {
-        titulo: "Leandro Cedeño fue el punto alto de los Leones con 3-4",
-        texto: "Por el Caracas, la actuación de Leandro Cedeño fue el punto más alto tras batear de 4-3, aunque la ofensiva melenuda dejó a 17 corredores en base sin poder plasmar mayor daño en el marcador.",
+        titulo: "Cardenales de Lara supera 8-5 a Águilas del Zulia",
+        texto: "Los Cardenales de Lara se impusieron 8-5 a las Águilas del Zulia en un juego de alta anotación. Con este triunfo, los cardenales mejoran a 2-1 y escalan en la tabla de posiciones.",
         fecha: "16 Oct 2026",
-        tag: "ESTADÍSTICAS",
+        tag: "RESULTADOS",
         imagen: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=800&q=80"
     },
     {
-        titulo: "Escobar se lleva la victoria, González carga con la derrota",
-        texto: "La victoria desde la lomita se la acreditó el lanzador L. Escobar (1-0), mientras que el revés fue para el abridor melenudo Jo. González (0-1) en su apertura de la temporada.",
+        titulo: "Caribes de Anzoátegui vence 7-4 a Tiburones de La Guaira",
+        texto: "Los Caribes de Anzoátegui se impusieron 7-4 a los Tiburones de La Guaira, manteniendo su marca de 3-1 y compartiendo el liderato de la tabla con los Tigres de Aragua.",
         fecha: "16 Oct 2026",
-        tag: "PITCHEO",
+        tag: "RESULTADOS",
         imagen: "https://images.unsplash.com/photo-1577471488278-16eec37ffcc2?w=800&q=80"
     },
     {
-        titulo: "Jornada del viernes: Bravos vs Leones abre la acción a las 2:00 PM",
-        texto: "Este viernes 16 de octubre se disputaron 4 juegos. Bravos vs Leones a las 2:00 PM, y tres juegos a las 7:00 PM: Tiburones vs Caribes, Tigres vs Navegantes y Cardenales vs Águilas.",
+        titulo: "Navegantes del Magallanes sigue en cero: 0-4 en la temporada",
+        texto: "Los Navegantes del Magallanes continúan sin conocer la victoria en la temporada 2026-2027. Tras caer 8-7 ante los Tigres de Aragua, el equipo azul cae a marca de 0-4 y necesita una reacción urgente.",
         fecha: "16 Oct 2026",
-        tag: "CALENDARIO",
+        tag: "ANÁLISIS",
         imagen: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80"
     }
 ];
 
-// Resultados REALES del Jueves 15 de Octubre (actualizados con Bravos 9-2 Leones)
+// Resultados REALES del Viernes 16 de Octubre - Fuente: @lvbp_oficial
 const resultados = [
-    { local: "Tiburones", scoreLocal: 5, visitante: "Caribes", scoreVisitante: 15, fecha: "15 Oct", innings: 9 },
     { local: "Bravos", scoreLocal: 9, visitante: "Leones", scoreVisitante: 2, fecha: "16 Oct", innings: 9 },
-    { local: "Magallanes", scoreLocal: 3, visitante: "Tigres", scoreVisitante: 11, fecha: "15 Oct", innings: 9 },
-    { local: "Cardenales", scoreLocal: 0, visitante: "Águilas", scoreVisitante: 2, fecha: "15 Oct", innings: 9 }
+    { local: "Tiburones", scoreLocal: 4, visitante: "Caribes", scoreVisitante: 7, fecha: "16 Oct", innings: 9 },
+    { local: "Tigres", scoreLocal: 8, visitante: "Magallanes", scoreVisitante: 7, fecha: "16 Oct", innings: 9 },
+    { local: "Cardenales", scoreLocal: 8, visitante: "Águilas", scoreVisitante: 5, fecha: "16 Oct", innings: 9 }
 ];
 
-// Jornada del Viernes 16 de Octubre
+// Próxima jornada (Sábado 17 de Octubre - por definir)
 const calendario = [
-    { fecha: "16 Oct 2026", local: "Tiburones", visitante: "Caribes", hora: "7:00 PM", transmision: "📻 Baseball FM / 📺 Meridiano TV", lugar: "Estadio Universitario" },
-    { fecha: "16 Oct 2026", local: "Tigres", visitante: "Navegantes", hora: "7:00 PM", transmision: " BYM Sport", lugar: "Estadio José Pérez Colmenares" },
-    { fecha: "16 Oct 2026", local: "Cardenales", visitante: "Águilas", hora: "7:00 PM", transmision: "📺 V", lugar: "Estadio Antonio Herrera Gutiérrez" }
+    { fecha: "17 Oct 2026", local: "Por definir", visitante: "Por definir", hora: "Por definir", transmision: "Por anunciar", lugar: "Por confirmar" }
 ];
 
-// Líderes estadísticos (actualizados con datos reales del juego)
+// Líderes estadísticos (actualizados con datos reales)
 const lideres = {
     carreras: [
-        { nombre: "Carlos Pérez (MAR)", valor: 2 },
-        { nombre: "David Peralta (MAR)", valor: 2 },
-        { nombre: "Ramón Flores (MAR)", valor: 2 }
+        { nombre: "Carlos Pérez (MAR)", valor: 4 },
+        { nombre: "David Peralta (MAR)", valor: 4 },
+        { nombre: "Diosbel Arias (MAR)", valor: 3 }
     ],
     average: [
         { nombre: "Diosbel Arias (MAR)", valor: ".538" },
