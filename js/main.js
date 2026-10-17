@@ -273,6 +273,7 @@ function renderNoticias() {
 }
 
 // Renderizar resultados con diseño dividido
+// VISITANTE a la IZQUIERDA, LOCAL a la DERECHA
 function renderResultados() {
     const container = document.getElementById("resultados-container");
     resultados.forEach(r => {
@@ -287,21 +288,21 @@ function renderResultados() {
         card.className = "resultado-card";
         card.innerHTML = `
             <div class="mitades">
-                <div class="mitad mitad-local" style="background-color: ${colorLocal};">
-                    <img src="${logoLocal}" alt="${r.local}" class="logo-resultado">
-                    <div class="nombre-equipo-res" style="color: ${textoLocal};">${r.local}</div>
-                </div>
                 <div class="mitad mitad-visitante" style="background-color: ${colorVisitante};">
                     <img src="${logoVisitante}" alt="${r.visitante}" class="logo-resultado">
                     <div class="nombre-equipo-res" style="color: ${textoVisitante};">${r.visitante}</div>
+                </div>
+                <div class="mitad mitad-local" style="background-color: ${colorLocal};">
+                    <img src="${logoLocal}" alt="${r.local}" class="logo-resultado">
+                    <div class="nombre-equipo-res" style="color: ${textoLocal};">${r.local}</div>
                 </div>
                 <div class="vs-central">VS</div>
             </div>
             <div class="info-marcador">
                 <div class="marcador">
-                    <span class="carreras-local">${r.scoreLocal}</span>
-                    <span class="separador-marcador">-</span>
                     <span class="carreras-visitante">${r.scoreVisitante}</span>
+                    <span class="separador-marcador">-</span>
+                    <span class="carreras-local">${r.scoreLocal}</span>
                 </div>
                 <div class="innings-info">
                     <span class="innings-numero">${r.innings}</span>
@@ -315,6 +316,7 @@ function renderResultados() {
 }
 
 // Renderizar calendario con diseño dividido
+// VISITANTE a la IZQUIERDA, LOCAL (HOME) a la DERECHA
 function renderCalendario() {
     const container = document.getElementById("calendario-container");
     calendario.forEach(j => {
@@ -329,13 +331,13 @@ function renderCalendario() {
         card.className = "juego-card";
         card.innerHTML = `
             <div class="mitades-cal">
-                <div class="mitad-cal" style="background-color: ${colorLocal};">
-                    <img src="${logoLocal}" alt="${j.local}" class="logo-calendario">
-                    <div class="nombre-equipo-cal" style="color: ${textoLocal};">${j.local}</div>
-                </div>
                 <div class="mitad-cal" style="background-color: ${colorVisitante};">
                     <img src="${logoVisitante}" alt="${j.visitante}" class="logo-calendario">
                     <div class="nombre-equipo-cal" style="color: ${textoVisitante};">${j.visitante}</div>
+                </div>
+                <div class="mitad-cal" style="background-color: ${colorLocal};">
+                    <img src="${logoLocal}" alt="${j.local}" class="logo-calendario">
+                    <div class="nombre-equipo-cal" style="color: ${textoLocal};">${j.local}</div>
                 </div>
                 <div class="vs-central-cal">VS</div>
             </div>
