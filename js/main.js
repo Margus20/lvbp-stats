@@ -58,7 +58,7 @@ function generarTextoSeccion(tipo) {
             texto += `${j.visitante} vs ${j.local} - ${j.hora} ${marcador} [${estado}]\n`;
         });
     } else if (tipo === 'noticia') {
-        const noticia = DATOS.noticias.find(n => n.id === 1); // Asume la primera noticia
+        const noticia = DATOS.noticias[0]; // Toma la primera noticia como ejemplo
         texto = `📰 *${noticia.titulo}*\n\n${noticia.resumen}`;
     }
     
@@ -87,7 +87,6 @@ function compartirEnRed(red, tipo, textoCustom = '') {
             urlCompartir = `https://twitter.com/intent/tweet?text=${textoCodificado}`;
             break;
         case 'facebook':
-            // Facebook solo permite compartir URL, no texto predefinido
             urlCompartir = `https://www.facebook.com/sharer/sharer.php?u=${urlCodificada}`;
             break;
     }
