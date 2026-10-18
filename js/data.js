@@ -55,7 +55,7 @@ const DATOS = {
             local: "Tiburones", 
             visitante: "Tigres", 
             hora: "6:00 PM", 
-            transmision: " Baseball FM",
+            transmision: "📻 Baseball FM",
             lugar: "Estadio Universitario de La Guaira", 
             fecha: "17 Oct 2026",
             enVivo: false,
@@ -101,12 +101,14 @@ const DATOS = {
             fecha: "17 Oct 2026",
             tag: "RESULTADOS",
             imagen: "https://i.postimg.cc/d3h5b9Rh/1000419499.jpg",
-            contenido: "<p><strong>CARACAS.-</strong> Cardenales de Lara volvió a demostrar su solidez en el terreno de juego al derrotar 7-4 a los Navegantes del Magallanes, resultado que extiende la racha negativa de la nave turca y consolida el buen momento del conjunto crepuscular en el inicio de la temporada.</p><p>Con este triunfo, Lara mejora su registro a 3-1, manteniéndose firmemente en la parte alta de la tabla de posiciones y levantando vuelo en el campeonato. Por su parte, el equipo eléctrico continúa sin conocer la victoria y cae a un preocupante récord de 0-5, hundiéndose en el fondo de la clasificación.</p><p><strong>Las cifras del encuentro</strong></p><p>La ofensiva de Cardenales desplegó un ataque oportuno con 12 imparables sin cometer pifias a la defensiva (7 R, 12 H, 0 E). Magallanes conectó 11 hits y anotó 4 carreras, pero un pecado a la defensiva y el pitcheo en momentos clave terminaron por costarle el compromiso (4 R, 11 H, 1 E).</p><p>En el apartado del pitcheo:</p><p>• <strong>Pitcher Ganador:</strong> Rob Hernández (1-0, 0.00 ERA)</p><p>• <strong>Pitcher Perdedor:</strong> Chirinos (0-1, 21.60 ERA)</p><p>• <strong>Juego Salvado:</strong> Gu Rodríguez (2, 0.00 ERA)</p><p>Magallanes requerirá de ajustes urgentes en su cuerpo de lanzadores y en la efectividad con corredores en posición de anotar para revertir esta racha adversa en sus próximos compromisos.</p><div class=\"articulo-cta\"> ¿Crees que Magallanes logrará romper la racha negativa en su próximo partido? ¡Déjanos tu opinión!</div>"
+            contenido: "<p><strong>CARACAS.-</strong> Cardenales de Lara volvió a demostrar su solidez en el terreno de juego al derrotar 7-4 a los Navegantes del Magallanes, resultado que extiende la racha negativa de la nave turca y consolida el buen momento del conjunto crepuscular en el inicio de la temporada.</p><p>Con este triunfo, Lara mejora su registro a 3-1, manteniéndose firmemente en la parte alta de la tabla de posiciones y levantando vuelo en el campeonato. Por su parte, el equipo eléctrico continúa sin conocer la victoria y cae a un preocupante récord de 0-5, hundiéndose en el fondo de la clasificación.</p><p><strong>Las cifras del encuentro</strong></p><p>La ofensiva de Cardenales desplegó un ataque oportuno con 12 imparables sin cometer pifias a la defensiva (7 R, 12 H, 0 E). Magallanes conectó 11 hits y anotó 4 carreras, pero un pecado a la defensiva y el pitcheo en momentos clave terminaron por costarle el compromiso (4 R, 11 H, 1 E).</p><p>En el apartado del pitcheo:</p><p>• <strong>Pitcher Ganador:</strong> Rob Hernández (1-0, 0.00 ERA)</p><p>• <strong>Pitcher Perdedor:</strong> Chirinos (0-1, 21.60 ERA)</p><p>• <strong>Juego Salvado:</strong> Gu Rodríguez (2, 0.00 ERA)</p><p>Magallanes requerirá de ajustes urgentes en su cuerpo de lanzadores y en la efectividad con corredores en posición de anotar para revertir esta racha adversa en sus próximos compromisos.</p><div class=\"articulo-cta\">💬 ¿Crees que Magallanes logrará romper la racha negativa en su próximo partido? ¡Déjanos tu opinión!</div>"
         }
     ],
 
-    // ===== PUBLICIDAD (NUEVA IMAGEN) =====
+    // ===== PUBLICIDAD (DOS ANUNCIOS) =====
+    // Orden: PRIMERO arriba, SEGUNDO abajo
     publicidad: [
+        { imagen: "https://i.postimg.cc/Ls63NHxv/1000419154.jpg", alt: "Publicidad Slaki Dom" },
         { imagen: "https://i.postimg.cc/gJp0nMtD/1792281708726-11zon.jpg", alt: "Publicidad" }
     ],
 
