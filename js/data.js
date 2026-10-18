@@ -16,7 +16,7 @@ const DATOS = {
         { nombre: "Navegantes del Magallanes", nombreCorto: "Magallanes", abrev: "MAG", logo: "https://i.postimg.cc/ydNH8j6v/1791396497437-11zon.jpg", claseFila: "fila-magallanes", color: "#5BA9D9", colorTexto: "#ffffff" }
     ],
 
-    // ===== POSICIONES (ACTUALIZADO 18 OCT) =====
+    // ===== POSICIONES =====
     posiciones: [
         { nombre: "Caribes de Anzoátegui", jj: 5, jg: 4, jp: 1, racha: "G1" },
         { nombre: "Tigres de Aragua", jj: 5, jg: 4, jp: 1, racha: "G1" },
@@ -33,7 +33,7 @@ const DATOS = {
     // "visitante" = equipo visitante (va a la IZQUIERDA)
     resultados: [
         { local: "Cardenales", scoreLocal: 7, visitante: "Magallanes", scoreVisitante: 4, fecha: "17 Oct", innings: 9 },
-        { local: "Tiburones", scoreLocal: 6, visitante: "Tigres", scoreVisitante: 7, fecha: "17 Oct", innings: 9 },
+        { local: "Tiburones", scoreLocal: 6, visitante: "Tigres", scoreVisitante: 7, fecha: "17 Oct", innings: 10 },
         { local: "Caribes", scoreLocal: 9, visitante: "Leones", scoreVisitante: 8, fecha: "17 Oct", innings: 9 },
         { local: "Águilas", scoreLocal: 6, visitante: "Bravos", scoreVisitante: 7, fecha: "17 Oct", innings: 9 }
     ],
@@ -41,6 +41,7 @@ const DATOS = {
     // ===== JORNADA DE HOY - DOMINGO 18 DE OCTUBRE =====
     // "local" = equipo de casa (va a la DERECHA)
     // "visitante" = equipo visitante (va a la IZQUIERDA)
+    // Horarios y canales: "Por definir"
     calendario: [
         { 
             local: "Caribes", 
@@ -105,7 +106,7 @@ const DATOS = {
             fecha: "17 Oct 2026",
             tag: "RESULTADOS",
             imagen: "https://i.postimg.cc/d3h5b9Rh/1000419499.jpg",
-            contenido: "<p><strong>CARACAS.-</strong> Cardenales de Lara volvió a demostrar su solidez en el terreno de juego al derrotar 7-4 a los Navegantes del Magallanes, resultado que extiende la racha negativa de la nave turca y consolida el buen momento del conjunto crepuscular en el inicio de la temporada.</p><p>Con este triunfo, Lara mejora su registro a 3-1, manteniéndose firmemente en la parte alta de la tabla de posiciones y levantando vuelo en el campeonato. Por su parte, el equipo eléctrico continúa sin conocer la victoria y cae a un preocupante récord de 0-5, hundiéndose en el fondo de la clasificación.</p><p><strong>Las cifras del encuentro</strong></p><p>La ofensiva de Cardenales desplegó un ataque oportuno con 12 imparables sin cometer pifias a la defensiva (7 R, 12 H, 0 E). Magallanes conectó 11 hits y anotó 4 carreras, pero un pecado a la defensiva y el pitcheo en momentos clave terminaron por costarle el compromiso (4 R, 11 H, 1 E).</p><p>En el apartado del pitcheo:</p><p>• <strong>Pitcher Ganador:</strong> Rob Hernández (1-0, 0.00 ERA)</p><p>• <strong>Pitcher Perdedor:</strong> Chirinos (0-1, 21.60 ERA)</p><p>• <strong>Juego Salvado:</strong> Gu Rodríguez (2, 0.00 ERA)</p><p>Magallanes requerirá de ajustes urgentes en su cuerpo de lanzadores y en la efectividad con corredores en posición de anotar para revertir esta racha adversa en sus próximos compromisos.</p><div class=\"articulo-cta\">💬 ¿Crees que Magallanes logrará romper la racha negativa en su próximo partido? ¡Déjanos tu opinión!</div>"
+            contenido: "<p><strong>CARACAS.-</strong> Cardenales de Lara volvió a demostrar su solidez en el terreno de juego al derrotar 7-4 a los Navegantes del Magallanes, resultado que extiende la racha negativa de la nave turca y consolida el buen momento del conjunto crepuscular en el inicio de la temporada.</p><p>Con este triunfo, Lara mejora su registro a 3-1, manteniéndose firmemente en la parte alta de la tabla de posiciones y levantando vuelo en el campeonato. Por su parte, el equipo eléctrico continúa sin conocer la victoria y cae a un preocupante récord de 0-5, hundiéndose en el fondo de la clasificación.</p><p><strong>Las cifras del encuentro</strong></p><p>La ofensiva de Cardenales desplegó un ataque oportuno con 12 imparables sin cometer pifias a la defensiva (7 R, 12 H, 0 E). Magallanes conectó 11 hits y anotó 4 carreras, pero un pecado a la defensiva y el pitcheo en momentos clave terminaron por costarle el compromiso (4 R, 11 H, 1 E).</p><p>En el apartado del pitcheo:</p><p>• <strong>Pitcher Ganador:</strong> Rob Hernández (1-0, 0.00 ERA)</p><p>• <strong>Pitcher Perdedor:</strong> Chirinos (0-1, 21.60 ERA)</p><p>• <strong>Juego Salvado:</strong> Gu Rodríguez (2, 0.00 ERA)</p><p>Magallanes requerirá de ajustes urgentes en su cuerpo de lanzadores y en la efectividad con corredores en posición de anotar para revertir esta racha adversa en sus próximos compromisos.</p><div class=\"articulo-cta\"> ¿Crees que Magallanes logrará romper la racha negativa en su próximo partido? ¡Déjanos tu opinión!</div>"
         },
         {
             id: 2,
