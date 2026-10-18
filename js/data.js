@@ -92,7 +92,7 @@ const DATOS = {
         }
     ],
 
-    // ===== NOTICIAS =====
+    // ===== NOTICIAS (2 NOTICIAS) =====
     noticias: [
         {
             id: 1,
@@ -102,11 +102,19 @@ const DATOS = {
             tag: "RESULTADOS",
             imagen: "https://i.postimg.cc/d3h5b9Rh/1000419499.jpg",
             contenido: "<p><strong>CARACAS.-</strong> Cardenales de Lara volvió a demostrar su solidez en el terreno de juego al derrotar 7-4 a los Navegantes del Magallanes, resultado que extiende la racha negativa de la nave turca y consolida el buen momento del conjunto crepuscular en el inicio de la temporada.</p><p>Con este triunfo, Lara mejora su registro a 3-1, manteniéndose firmemente en la parte alta de la tabla de posiciones y levantando vuelo en el campeonato. Por su parte, el equipo eléctrico continúa sin conocer la victoria y cae a un preocupante récord de 0-5, hundiéndose en el fondo de la clasificación.</p><p><strong>Las cifras del encuentro</strong></p><p>La ofensiva de Cardenales desplegó un ataque oportuno con 12 imparables sin cometer pifias a la defensiva (7 R, 12 H, 0 E). Magallanes conectó 11 hits y anotó 4 carreras, pero un pecado a la defensiva y el pitcheo en momentos clave terminaron por costarle el compromiso (4 R, 11 H, 1 E).</p><p>En el apartado del pitcheo:</p><p>• <strong>Pitcher Ganador:</strong> Rob Hernández (1-0, 0.00 ERA)</p><p>• <strong>Pitcher Perdedor:</strong> Chirinos (0-1, 21.60 ERA)</p><p>• <strong>Juego Salvado:</strong> Gu Rodríguez (2, 0.00 ERA)</p><p>Magallanes requerirá de ajustes urgentes en su cuerpo de lanzadores y en la efectividad con corredores en posición de anotar para revertir esta racha adversa en sus próximos compromisos.</p><div class=\"articulo-cta\">💬 ¿Crees que Magallanes logrará romper la racha negativa en su próximo partido? ¡Déjanos tu opinión!</div>"
+        },
+        {
+            id: 2,
+            titulo: "¿Alarma en la nave? Magallanes sigue sin ganar y se hunde en el fondo de la LVBP",
+            resumen: "Con cuatro jornadas disputadas, Navegantes del Magallanes marcha en el sótano de la tabla con preocupante registro de 0-4.",
+            fecha: "17 Oct 2026",
+            tag: "ANÁLISIS",
+            imagen: "https://i.postimg.cc/7Pn1L0RW/1000419348.jpg",
+            contenido: "<p><strong>CARACAS.-</strong> La temporada de la Liga Venezolana de Béisbol Profesional (LVBP) apenas comienza, pero las alarmas ya empiezan a encenderse en las filas de los \"Eternos Rivales\". Con cuatro jornadas disputadas, Navegantes del Magallanes marcha en el sótano de la tabla de posiciones con un preocupante registro de 0-4, mientras que Leones del Caracas tampoco la pasa bien tras encajar su tercera derrota del torneo.</p><p>La nave turca no ha podido descifrar la fórmula ganadora en esta primera semana de acción, acumulando una racha negativa de cuatro reveses consecutivos que los mantiene como el único equipo de la liga que aún no conoce la victoria (.000 PCT), ubicándose a 3.0 juegos de la cima.</p><p><strong>Leones tropieza ante unos inspirados Bravos</strong></p><p>Por su parte, la afición melenuda sufrió un duro golpe este viernes 16 de octubre. Los Bravos de Margarita desplegaron una letal ofensiva para imponerse de forma contundente 9-2 sobre Leones del Caracas. Con este resultado, la tropa insular mejoró su marca a 2-1 para instalarse en el tercer lugar del torneo junto a Cardenales de Lara, mientras que el Caracas cayó al penúltimo peldaño de la clasificación con récord de 1-3.</p><p>En el otro extremo de la tabla, la contienda en la parte alta se mantiene al rojo vivo: Caribes de Anzoátegui y Tigres de Aragua comparten el liderato de la LVBP con balance de 3-1 (.750 PCT).</p><p>Con el calendario avanzando a ritmo acelerado, tanto turcos como melenudos están obligados a ajustar piezas de inmediato en su pitcheo y bateo oportuno para no ceder más terreno en la tabla de posiciones.</p><div class=\"articulo-cta\">💬 ¿Crees que Magallanes podrá reaccionar este fin de semana o la crisis se extenderá? ¡Déjanos tu comentario y comparte la nota!</div>"
         }
     ],
 
     // ===== PUBLICIDAD (DOS ANUNCIOS) =====
-    // Orden: PRIMERO arriba, SEGUNDO abajo
     publicidad: [
         { imagen: "https://i.postimg.cc/Ls63NHxv/1000419154.jpg", alt: "Publicidad Slaki Dom" },
         { imagen: "https://i.postimg.cc/gJp0nMtD/1792281708726-11zon.jpg", alt: "Publicidad" }
