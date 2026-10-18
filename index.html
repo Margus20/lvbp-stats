@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- ANALÍTICA GRATUITA (GoatCounter) -->
-    <!-- Regístrate gratis en https://www.goatcounter.com/ y reemplaza 'lvbp-al-dia' con tu propio código -->
-    <script data-goatcounter="https://lvbp-al-dia.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script data-goatcounter="https://margus20.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
     <!-- HEADER -->
@@ -73,7 +72,7 @@
                     <button class="btn-volver" onclick="cerrarArticulo()">← Volver a noticias</button>
                     <article class="articulo-contenido" id="articulo-contenido"></article>
                     <div class="seccion-comentarios">
-                        <h3>💬 Comentarios</h3>
+                        <h3> Comentarios</h3>
                         <form class="formulario-comentario" id="formulario-comentario">
                             <input type="text" placeholder="Tu nombre" required class="input-comentario">
                             <textarea placeholder="Escribe tu comentario..." required class="textarea-comentario" rows="4"></textarea>
@@ -84,10 +83,10 @@
                     <div class="seccion-compartir">
                         <h3>📢 Comparte esta noticia</h3>
                         <div class="botones-compartir">
-                            <a href="#" class="btn-compartir whatsapp" onclick="compartirEnRed('whatsapp', 'noticia')"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                            <a href="#" class="btn-compartir telegram" onclick="compartirEnRed('telegram', 'noticia')"><i class="fab fa-telegram"></i> Telegram</a>
-                            <a href="#" class="btn-compartir facebook" onclick="compartirEnRed('facebook', 'noticia')"><i class="fab fa-facebook"></i> Facebook</a>
-                            <a href="#" class="btn-compartir twitter" onclick="compartirEnRed('twitter', 'noticia')"><i class="fab fa-x-twitter"></i> X</a>
+                            <a href="#" class="btn-compartir whatsapp" onclick="compartirEnRed('whatsapp', 'noticia'); return false;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                            <a href="#" class="btn-compartir telegram" onclick="compartirEnRed('telegram', 'noticia'); return false;"><i class="fab fa-telegram"></i> Telegram</a>
+                            <a href="#" class="btn-compartir facebook" onclick="compartirEnRed('facebook', 'noticia'); return false;"><i class="fab fa-facebook"></i> Facebook</a>
+                            <a href="#" class="btn-compartir twitter" onclick="compartirEnRed('twitter', 'noticia'); return false;"><i class="fab fa-x-twitter"></i> X</a>
                         </div>
                     </div>
                 </div>
@@ -108,7 +107,6 @@
                             <tbody id="posiciones-body"></tbody>
                         </table>
                     </div>
-                    <!-- BOTONES PARA COMPARTIR ESTA SECCIÓN -->
                     <div class="acciones-seccion">
                         <p>Compartir esta sección:</p>
                         <div class="botones-compartir-mini">
@@ -129,7 +127,6 @@
                         Resultados del Viernes 16 de Octubre
                     </h2>
                     <div class="resultados-grid" id="resultados-container"></div>
-                    <!-- BOTONES PARA COMPARTIR ESTA SECCIÓN -->
                     <div class="acciones-seccion">
                         <p>Compartir esta sección:</p>
                         <div class="botones-compartir-mini">
@@ -150,7 +147,6 @@
                         Jornada del Sábado 17 de Octubre
                     </h2>
                     <div class="calendario-lista" id="calendario-container"></div>
-                    <!-- BOTONES PARA COMPARTIR ESTA SECCIÓN -->
                     <div class="acciones-seccion">
                         <p>Compartir esta sección:</p>
                         <div class="botones-compartir-mini">
@@ -188,7 +184,7 @@
     <footer>
         <div class="container">
             <img src="https://i.postimg.cc/Z5CRqQjK/1000411837.jpg" alt="LVBP al Día" class="logo-footer">
-            <p>⚾ LVBP al Día 2026 - Noticias y estadísticas de la Liga Venezolana de Béisbol Profesional</p>
+            <p> LVBP al Día 2026 - Noticias y estadísticas de la Liga Venezolana de Béisbol Profesional</p>
             <p>Desarrollado con ❤️ por Margus20</p>
             <div class="footer-social">
                 <a href="#"><i class="fab fa-instagram"></i></a>
