@@ -507,6 +507,8 @@ body {
     font-weight: 600;
     font-size: 0.95rem;
     transition: all 0.3s;
+    cursor: pointer;
+    border: none;
 }
 
 .btn-compartir:hover {
@@ -969,34 +971,32 @@ tr:hover {
     font-weight: bold;
 }
 
-/* ============ ESTADÍSTICAS ============ */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
+/* ============ BOTONES DE COMPARTIR SECCIONES ============ */
+.acciones-seccion {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px dashed #ccc;
+    text-align: center;
 }
 
-.stat-card {
-    background: #ffffff;
-    padding: 15px;
-    border-radius: 8px;
-    border-top: 4px solid #d32f2f;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.acciones-seccion p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    font-weight: 600;
 }
 
-.stat-card h3 {
-    color: #d32f2f;
-    margin-bottom: 12px;
-    font-size: 1rem;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #e0e0e0;
+.botones-compartir-mini {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
-.stat-card ol {
-    padding-left: 0;
-    list-style: none;
-    counter-reset: item;
-}
-
-.stat-card li {
-    padding: 8p
+.botones-compartir-mini button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    color: #fff;
+    font-size: 1.1rem;
+    curs
