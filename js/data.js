@@ -16,24 +16,24 @@ const DATOS = {
         { nombre: "Navegantes del Magallanes", nombreCorto: "Magallanes", abrev: "MAG", logo: "https://i.postimg.cc/ydNH8j6v/1791396497437-11zon.jpg", claseFila: "fila-magallanes", color: "#5BA9D9", colorTexto: "#ffffff" }
     ],
 
-    // ===== POSICIONES =====
+    // ===== POSICIONES (ACTUALIZADO 18 OCT) =====
     posiciones: [
-        { nombre: "Caribes de Anzoátegui", jj: 5, jg: 4, jp: 1, racha: "G2" },
-        { nombre: "Tigres de Aragua", jj: 5, jg: 4, jp: 1, racha: "G3" },
-        { nombre: "Cardenales de Lara", jj: 4, jg: 3, jp: 1, racha: "G2" },
-        { nombre: "Bravos de Margarita", jj: 4, jg: 3, jp: 1, racha: "G3" },
-        { nombre: "Águilas del Zulia", jj: 5, jg: 2, jp: 3, racha: "P2" },
-        { nombre: "Tiburones de La Guaira", jj: 5, jg: 2, jp: 3, racha: "P3" },
-        { nombre: "Leones del Caracas", jj: 5, jg: 2, jp: 3, racha: "G1" },
+        { nombre: "Caribes de Anzoátegui", jj: 5, jg: 4, jp: 1, racha: "G1" },
+        { nombre: "Tigres de Aragua", jj: 5, jg: 4, jp: 1, racha: "G1" },
+        { nombre: "Cardenales de Lara", jj: 4, jg: 3, jp: 1, racha: "G1" },
+        { nombre: "Bravos de Margarita", jj: 4, jg: 3, jp: 1, racha: "G1" },
+        { nombre: "Águilas del Zulia", jj: 5, jg: 2, jp: 3, racha: "P1" },
+        { nombre: "Tiburones de La Guaira", jj: 5, jg: 2, jp: 3, racha: "P1" },
+        { nombre: "Leones del Caracas", jj: 5, jg: 1, jp: 4, racha: "P1" },
         { nombre: "Navegantes del Magallanes", jj: 5, jg: 0, jp: 5, racha: "P5" }
     ],
 
-    // ===== RESULTADOS DE AYER =====
+    // ===== RESULTADOS DE AYER (18 OCT) =====
     resultados: [
-        { local: "Leones", scoreLocal: 2, visitante: "Bravos", scoreVisitante: 9, fecha: "16 Oct", innings: 9 },
-        { local: "Caribes", scoreLocal: 7, visitante: "Tiburones", scoreVisitante: 4, fecha: "16 Oct", innings: 9 },
-        { local: "Magallanes", scoreLocal: 7, visitante: "Tigres", scoreVisitante: 8, fecha: "16 Oct", innings: 9 },
-        { local: "Águilas", scoreLocal: 5, visitante: "Cardenales", scoreVisitante: 8, fecha: "16 Oct", innings: 9 }
+        { local: "Cardenales", scoreLocal: 7, visitante: "Magallanes", scoreVisitante: 4, fecha: "18 Oct", innings: 9 },
+        { local: "Tiburones", scoreLocal: 6, visitante: "Tigres", scoreVisitante: 7, fecha: "18 Oct", innings: 9 },
+        { local: "Caribes", scoreLocal: 9, visitante: "Leones", scoreVisitante: 8, fecha: "18 Oct", innings: 9 },
+        { local: "Águilas", scoreLocal: 6, visitante: "Bravos", scoreVisitante: 7, fecha: "18 Oct", innings: 9 }
     ],
 
     // ===== JORNADA DE HOY =====
@@ -59,10 +59,10 @@ const DATOS = {
             lugar: "Estadio Universitario de La Guaira", 
             fecha: "17 Oct 2026",
             enVivo: false,
-            finalizado: false,
-            inning: null,
-            scoreLocal: null,
-            scoreVisitante: null
+            finalizado: true,
+            inning: 9,
+            scoreLocal: 6,
+            scoreVisitante: 7
         },
         { 
             local: "Caribes", 
@@ -72,10 +72,10 @@ const DATOS = {
             lugar: "Estadio Alfonso Chico Carrasquel", 
             fecha: "17 Oct 2026",
             enVivo: false,
-            finalizado: false,
-            inning: null,
-            scoreLocal: null,
-            scoreVisitante: null
+            finalizado: true,
+            inning: 9,
+            scoreLocal: 9,
+            scoreVisitante: 8
         },
         { 
             local: "Águilas", 
@@ -85,14 +85,14 @@ const DATOS = {
             lugar: "Estadio Luis Aparicio El Grande", 
             fecha: "17 Oct 2026",
             enVivo: false,
-            finalizado: false,
-            inning: null,
-            scoreLocal: null,
-            scoreVisitante: null
+            finalizado: true,
+            inning: 9,
+            scoreLocal: 6,
+            scoreVisitante: 7
         }
     ],
 
-    // ===== NOTICIAS (2 NOTICIAS) =====
+    // ===== NOTICIAS =====
     noticias: [
         {
             id: 1,
@@ -114,7 +114,7 @@ const DATOS = {
         }
     ],
 
-    // ===== PUBLICIDAD (DOS ANUNCIOS) =====
+    // ===== PUBLICIDAD =====
     publicidad: [
         { imagen: "https://i.postimg.cc/Ls63NHxv/1000419154.jpg", alt: "Publicidad Slaki Dom" },
         { imagen: "https://i.postimg.cc/gJp0nMtD/1792281708726-11zon.jpg", alt: "Publicidad" }
