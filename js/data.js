@@ -28,67 +28,71 @@ const DATOS = {
         { nombre: "Navegantes del Magallanes", jj: 5, jg: 0, jp: 5, racha: "P5" }
     ],
 
-    // ===== RESULTADOS DE AYER (18 OCT) =====
+    // ===== RESULTADOS DEL SÁBADO 17 DE OCTUBRE =====
+    // "local" = equipo de casa (va a la DERECHA)
+    // "visitante" = equipo visitante (va a la IZQUIERDA)
     resultados: [
-        { local: "Cardenales", scoreLocal: 7, visitante: "Magallanes", scoreVisitante: 4, fecha: "18 Oct", innings: 9 },
-        { local: "Tiburones", scoreLocal: 6, visitante: "Tigres", scoreVisitante: 7, fecha: "18 Oct", innings: 9 },
-        { local: "Caribes", scoreLocal: 9, visitante: "Leones", scoreVisitante: 8, fecha: "18 Oct", innings: 9 },
-        { local: "Águilas", scoreLocal: 6, visitante: "Bravos", scoreVisitante: 7, fecha: "18 Oct", innings: 9 }
+        { local: "Cardenales", scoreLocal: 7, visitante: "Magallanes", scoreVisitante: 4, fecha: "17 Oct", innings: 9 },
+        { local: "Tiburones", scoreLocal: 6, visitante: "Tigres", scoreVisitante: 7, fecha: "17 Oct", innings: 9 },
+        { local: "Caribes", scoreLocal: 9, visitante: "Leones", scoreVisitante: 8, fecha: "17 Oct", innings: 9 },
+        { local: "Águilas", scoreLocal: 6, visitante: "Bravos", scoreVisitante: 7, fecha: "17 Oct", innings: 9 }
     ],
 
-    // ===== JORNADA DE HOY =====
+    // ===== JORNADA DE HOY - DOMINGO 18 DE OCTUBRE =====
+    // "local" = equipo de casa (va a la DERECHA)
+    // "visitante" = equipo visitante (va a la IZQUIERDA)
     calendario: [
-        { 
-            local: "Cardenales", 
-            visitante: "Magallanes", 
-            hora: "4:00 PM", 
-            transmision: "📺 IVC",
-            lugar: "Estadio Antonio Herrera Gutiérrez", 
-            fecha: "17 Oct 2026",
-            enVivo: false,
-            finalizado: true,
-            inning: 9,
-            scoreLocal: 7,
-            scoreVisitante: 4
-        },
-        { 
-            local: "Tiburones", 
-            visitante: "Tigres", 
-            hora: "6:00 PM", 
-            transmision: "📻 Baseball FM",
-            lugar: "Estadio Universitario de La Guaira", 
-            fecha: "17 Oct 2026",
-            enVivo: false,
-            finalizado: true,
-            inning: 9,
-            scoreLocal: 6,
-            scoreVisitante: 7
-        },
         { 
             local: "Caribes", 
             visitante: "Leones", 
-            hora: "6:00 PM", 
-            transmision: "📺 Televen",
+            hora: "Por definir", 
+            transmision: "Por definir",
             lugar: "Estadio Alfonso Chico Carrasquel", 
-            fecha: "17 Oct 2026",
+            fecha: "18 Oct 2026",
             enVivo: false,
-            finalizado: true,
-            inning: 9,
-            scoreLocal: 9,
-            scoreVisitante: 8
+            finalizado: false,
+            inning: null,
+            scoreLocal: null,
+            scoreVisitante: null
+        },
+        { 
+            local: "Tigres", 
+            visitante: "Tiburones", 
+            hora: "Por definir", 
+            transmision: "Por definir",
+            lugar: "Estadio José Pérez Colmenares", 
+            fecha: "18 Oct 2026",
+            enVivo: false,
+            finalizado: false,
+            inning: null,
+            scoreLocal: null,
+            scoreVisitante: null
+        },
+        { 
+            local: "Magallanes", 
+            visitante: "Cardenales", 
+            hora: "Por definir", 
+            transmision: "Por definir",
+            lugar: "Estadio José Bernardo Pérez", 
+            fecha: "18 Oct 2026",
+            enVivo: false,
+            finalizado: false,
+            inning: null,
+            scoreLocal: null,
+            scoreVisitante: null
         },
         { 
             local: "Águilas", 
             visitante: "Bravos", 
-            hora: "8:00 PM", 
-            transmision: "📺 BYM Sport",
+            hora: "Por definir", 
+            transmision: "Por definir",
             lugar: "Estadio Luis Aparicio El Grande", 
-            fecha: "17 Oct 2026",
+            fecha: "18 Oct 2026",
             enVivo: false,
-            finalizado: true,
-            inning: 9,
-            scoreLocal: 6,
-            scoreVisitante: 7
+            finalizado: false,
+            inning: null,
+            scoreLocal: null,
+            scoreVisitante: null
         }
     ],
 
