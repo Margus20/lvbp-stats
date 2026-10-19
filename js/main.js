@@ -51,14 +51,14 @@ function generarTextoSeccion(tipo) {
             texto += `${r.visitante} ${r.scoreVisitante} - ${r.scoreLocal} ${r.local} (Final)\n`;
         });
     } else if (tipo === 'calendario') {
-        texto = "📅 *JORNADA DE HOY* 📅\n";
+        texto = "📅 *PRÓXIMOS JUEGOS* 📅\n";
         DATOS.calendario.forEach(j => {
             const estado = j.finalizado ? "✅ FINAL" : (j.enVivo ? "🔴 EN VIVO" : "🕐 Programado");
             const marcador = (j.enVivo || j.finalizado) ? ` (${j.scoreVisitante}-${j.scoreLocal})` : "";
             texto += `${j.visitante} vs ${j.local} - ${j.hora} ${marcador} [${estado}]\n`;
         });
     } else if (tipo === 'noticia') {
-        const noticia = DATOS.noticias[0]; // Toma la primera noticia como ejemplo
+        const noticia = DATOS.noticias.find(n => n.id === 1); // Asume la primera noticia
         texto = `📰 *${noticia.titulo}*\n\n${noticia.resumen}`;
     }
     
@@ -177,28 +177,65 @@ function renderResultados() {
     });
 }
 
+// Renderizar calendario (AGRUPADO POR FECHA)
 function renderCalendario() {
     const container = document.getElementById("calendario-container");
     if (!container) return;
     container.innerHTML = '';
+
+    // Agrupar juegos por fecha
+    const juegosPorFecha = {};
     DATOS.calendario.forEach(j => {
-        const card = document.createElement("div");
-        card.className = "juego-card" + (j.enVivo ? " en-vivo" : "") + (j.finalizado ? " finalizado" : "");
-        let infoInferior = '';
-        if (j.finalizado && j.scoreLocal !== null) {
-            infoInferior = `<div class="info-juego-cal finalizado-info"><div class="marcador-vivo"><span class="carreras-visitante">${j.scoreVisitante}</span><span class="separador-marcador">-</span><span class="carreras-local">${j.scoreLocal}</span></div><div class="inning-info"><span class="finalizado-badge">FINAL</span><span class="inning-numero">${j.innings || 9} Innings</span></div></div>`;
-        } else if (j.enVivo && j.scoreLocal !== null) {
-            infoInferior = `<div class="info-juego-cal en-vivo-info"><div class="marcador-vivo"><span class="carreras-visitante">${j.scoreVisitante}</span><span class="separador-marcador">-</span><span class="carreras-local">${j.scoreLocal}</span></div><div class="inning-info"><span class="en-vivo-badge">🔴 EN VIVO</span><span class="inning-numero">Inning ${j.inning}</span></div></div>`;
-        } else {
-            infoInferior = `<div class="info-juego-cal"><div class="hora-cal">🕐 ${j.hora}</div><div class="transmision-cal">${j.transmision}</div></div>`;
+        if (!juegosPorFecha[j.fecha]) {
+            juegosPorFecha[j.fecha] = [];
         }
-        card.innerHTML = `
-            <div class="mitades-cal">
-                <div class="mitad-cal" style="background-color: ${getColor(j.visitante)}"><img src="${getLogo(j.visitante)}" class="logo-calendario"><div class="nombre-equipo-cal" style="color: ${getColorTexto(j.visitante)}">${j.visitante}</div></div>
-                <div class="mitad-cal" style="background-color: ${getColor(j.local)}"><img src="${getLogo(j.local)}" class="logo-calendario"><div class="nombre-equipo-cal" style="color: ${getColorTexto(j.local)}">${j.local}</div></div>
-                <div class="vs-central-cal">VS</div>
-            </div>${infoInferior}`;
-        container.appendChild(card);
+        juegosPorFecha[j.fecha].push(j);
+    });
+
+    // Renderizar grupos
+    Object.keys(juegosPorFecha).sort().forEach(fecha => {
+        // Crear título de fecha
+        const fechaTitulo = document.createElement("h3");
+        fechaTitulo.style.color = "#d32f2f";
+        fechaTitulo.style.margin = "20px 0 15px 0";
+        fechaTitulo.style.fontSize = "1.1rem";
+        fechaTitulo.style.borderBottom = "2px solid #ffd700";
+        fechaTitulo.style.paddingBottom = "5px";
+        
+        // Formatear fecha (ej: "Lunes 19 de Octubre")
+        const fechaObj = new Date(fecha);
+        const opciones = { weekday: 'long', day: 'numeric', month: 'long' };
+        fechaTitulo.textContent = fechaObj.toLocaleDateString('es-ES', opciones);
+        container.appendChild(fechaTitulo);
+
+        // Renderizar juegos de esa fecha
+        juegosPorFecha[fecha].forEach(j => {
+            const logoLocal = getLogo(j.local);
+            const logoVisitante = getLogo(j.visitante);
+            const colorLocal = getColor(j.local);
+            const colorVisitante = getColor(j.visitante);
+            const textoLocal = getColorTexto(j.local);
+            const textoVisitante = getColorTexto(j.visitante);
+            
+            const card = document.createElement("div");
+            card.className = "juego-card" + (j.enVivo ? " en-vivo" : "") + (j.finalizado ? " finalizado" : "");
+            let infoInferior = '';
+            
+            if (j.finalizado && j.scoreLocal !== null) {
+                infoInferior = `<div class="info-juego-cal finalizado-info"><div class="marcador-vivo"><span class="carreras-visitante">${j.scoreVisitante}</span><span class="separador-marcador">-</span><span class="carreras-local">${j.scoreLocal}</span></div><div class="inning-info"><span class="finalizado-badge">FINAL</span><span class="inning-numero">${j.innings || 9} Innings</span></div></div>`;
+            } else if (j.enVivo && j.scoreLocal !== null) {
+                infoInferior = `<div class="info-juego-cal en-vivo-info"><div class="marcador-vivo"><span class="carreras-visitante">${j.scoreVisitante}</span><span class="separador-marcador">-</span><span class="carreras-local">${j.scoreLocal}</span></div><div class="inning-info"><span class="en-vivo-badge">🔴 EN VIVO</span><span class="inning-numero">Inning ${j.inning}</span></div></div>`;
+            } else {
+                infoInferior = `<div class="info-juego-cal"><div class="hora-cal"> ${j.hora}</div><div class="transmision-cal">${j.transmision}</div></div>`;
+            }
+            card.innerHTML = `
+                <div class="mitades-cal">
+                    <div class="mitad-cal" style="background-color: ${colorVisitante}"><img src="${logoVisitante}" class="logo-calendario"><div class="nombre-equipo-cal" style="color: ${textoVisitante}">${j.visitante}</div></div>
+                    <div class="mitad-cal" style="background-color: ${colorLocal}"><img src="${logoLocal}" class="logo-calendario"><div class="nombre-equipo-cal" style="color: ${textoLocal}">${j.local}</div></div>
+                    <div class="vs-central-cal">VS</div>
+                </div>${infoInferior}`;
+            container.appendChild(card);
+        });
     });
 }
 
