@@ -163,7 +163,7 @@ body {
     color: #000;
 }
 
-/* ============ HERO NOTICIA ============ */
+/* ============ HERO NOTICIA CON MARCA DE AGUA ============ */
 .hero-noticia { width: 100%; }
 .hero-imagen {
     height: 400px;
@@ -179,6 +179,16 @@ body {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
     background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+}
+.hero-marca-agua {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 80px;
+    height: auto;
+    opacity: 0.4;
+    z-index: 2;
+    pointer-events: none;
 }
 .hero-contenido {
     position: relative; z-index: 2; padding: 30px; max-width: 800px;
@@ -243,6 +253,28 @@ body {
     font-weight: 600; color: #2c2c2c; text-align: center;
 }
 
+/* MARCA AL FINAL DEL ARTÍCULO */
+.marca-final-articulo {
+    text-align: center;
+    padding: 30px 20px;
+    margin: 30px 0;
+    background: linear-gradient(135deg, #f5f0e8 0%, #f0ebe3 100%);
+    border-radius: 12px;
+    border: 2px dashed #ffd700;
+}
+.logo-marca-final {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+.texto-marca-final {
+    color: #d32f2f;
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0;
+}
+
 /* ============ SECCIÓN DE COMENTARIOS ============ */
 .seccion-comentarios {
     background: #ffffff; padding: 30px; border-radius: 12px;
@@ -291,6 +323,14 @@ body {
 .btn-compartir.twitter:hover { background: #333333; }
 .btn-compartir i { font-size: 1.2rem; }
 
+/* LOGO DE X EN BOTÓN DE COMPARTIR */
+.logo-x-btn {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
 /* ============ SECCIONES GENERALES ============ */
 .seccion-oscura { padding: 40px 0; background: #ffffff; border-top: 3px solid #d32f2f; box-shadow: 0 -2px 8px rgba(0,0,0,0.05); }
 .seccion-clara { padding: 40px 0; background: #faf8f5; border-top: 3px solid #ffd700; }
@@ -317,7 +357,7 @@ td {
 }
 tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2s; }
 
-/* COLORES POR EQUIPO (ACTUALIZADO) */
+/* COLORES POR EQUIPO */
 .fila-caribes { background: #F2F2F2; }
 .fila-caribes td { color: #2c2c2c !important; font-weight: 600; }
 .fila-tigres { background: #042959; }
@@ -337,8 +377,9 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
 
 .equipo-con-logo { display: flex; align-items: center; gap: 8px; text-align: left; font-size: 0.85rem; }
 .logo-small {
-    width: 28px; height: 28px; object-fit: contain; background: #fff;
-    border-radius: 50%; padding: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    width: 28px; height: 28px; object-fit: contain;
+    border-radius: 50%; padding: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 /* ============ RESULTADOS ============ */
@@ -351,9 +392,10 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
 .resultado-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
 .resultado-card .mitades { display: flex; width: 100%; height: 150px; position: relative; }
 .resultado-card .mitad { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 8px; }
-.resultado-card .logo-resultado {
-    width: 60px; height: 60px; object-fit: contain; background: #fff;
-    border-radius: 50%; padding: 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.25); margin-bottom: 6px;
+.logo-resultado {
+    width: 60px; height: 60px; object-fit: contain;
+    border-radius: 50%; padding: 5px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.25); margin-bottom: 6px;
 }
 .resultado-card .nombre-equipo-res {
     color: #fff; font-weight: bold; font-size: 0.8rem;
@@ -390,9 +432,10 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
 .juego-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
 .juego-card .mitades-cal { display: flex; width: 100%; height: 140px; position: relative; }
 .juego-card .mitad-cal { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 8px; }
-.juego-card .logo-calendario {
-    width: 60px; height: 60px; object-fit: contain; background: #fff;
-    border-radius: 50%; padding: 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.25); margin-bottom: 6px;
+.logo-calendario {
+    width: 60px; height: 60px; object-fit: contain;
+    border-radius: 50%; padding: 5px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.25); margin-bottom: 6px;
 }
 .juego-card .nombre-equipo-cal {
     color: #fff; font-weight: bold; font-size: 0.8rem;
@@ -410,7 +453,21 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
     align-items: center; flex-wrap: wrap; gap: 8px; border-top: 2px solid #ffd700;
 }
 .juego-card .hora-cal { color: #ffd700; font-weight: bold; font-size: 0.95rem; }
-.juego-card .transmision-cal { color: #fff; font-size: 0.75rem; font-style: italic; }
+.transmision-cal {
+    color: #fff;
+    font-size: 0.75rem;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.logo-canal-cal {
+    height: 20px;
+    width: auto;
+    object-fit: contain;
+    vertical-align: middle;
+    filter: brightness(0) invert(1);
+}
 
 /* ============ JUEGOS EN VIVO Y FINALIZADOS ============ */
 .juego-card.en-vivo { border: 2px solid #d32f2f; animation: pulso-vivo 2s infinite; }
@@ -460,25 +517,13 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
 .botones-compartir-mini button:nth-child(3) { background: #000000; }
 .botones-compartir-mini button:nth-child(4) { background: #1877F2; }
 
-/* ============ ESTADÍSTICAS ============ */
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
-.stat-card {
-    background: #ffffff; padding: 15px; border-radius: 8px;
-    border-top: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+/* LOGO DE X EN BOTONES MINI */
+.logo-x-mini {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
-.stat-card h3 { color: #d32f2f; margin-bottom: 12px; font-size: 1rem; padding-bottom: 8px; border-bottom: 2px solid #e0e0e0; }
-.stat-card ol { padding-left: 0; list-style: none; counter-reset: item; }
-.stat-card li {
-    padding: 8px; border-bottom: 1px solid #e0e0e0; color: #2c2c2c;
-    position: relative; padding-left: 30px; font-size: 0.85rem;
-}
-.stat-card li:before {
-    counter-increment: item; content: counter(item); position: absolute; left: 0;
-    top: 50%; transform: translateY(-50%); background: #d32f2f; color: #fff;
-    width: 22px; height: 22px; border-radius: 50%; display: flex;
-    align-items: center; justify-content: center; font-weight: bold; font-size: 0.75rem;
-}
-.stat-card li:last-child { border-bottom: none; }
-.stat-card .valor { color: #d32f2f; font-weight: bold; float: right; font-size: 1rem; }
 
-/* ============ FOOTER ============ 
+/* ============ ESTADÍSTICAS ============ */
+.stats-grid { display: grid; grid-template-columns: re
