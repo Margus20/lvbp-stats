@@ -25,6 +25,11 @@ function getEquipo(nombre) {
     return equipo;
 }
 
+function getCanal(nombre) {
+    const nombreLower = nombre.toLowerCase().trim();
+    return DATOS.canales.find(c => c.nombre.toLowerCase() === nombreLower);
+}
+
 function getLogo(nombre) { const eq = getEquipo(nombre); return eq ? eq.logo : ''; }
 function getColor(nombre) { const eq = getEquipo(nombre); return eq ? eq.color : '#cccccc'; }
 function getColorTexto(nombre) { const eq = getEquipo(nombre); return eq ? eq.colorTexto : '#ffffff'; }
@@ -41,7 +46,7 @@ function generarTextoSeccion(tipo) {
             texto += `${i + 1}. ${pos.nombre} (${pos.jg}-${pos.jp}) ${pct} (DIF: ${dif})\n`;
         });
     } else if (tipo === 'resultados') {
-        texto = "⚾ *RESULTADOS DEL DÍA* ⚾\n";
+        texto = " *RESULTADOS DEL DÍA* ⚾\n";
         DATOS.resultados.forEach(r => { texto += `${r.visitante} ${r.scoreVisitante} - ${r.scoreLocal} ${r.local} (Final)\n`; });
     } else if (tipo === 'calendario') {
         texto = "📅 *PRÓXIMOS JUEGOS* 📅\n";
@@ -183,6 +188,9 @@ function renderCalendario() {
             const textoLocal = getColorTexto(j.local);
             const textoVisitante = getColorTexto(j.visitante);
             
+            const canal = getCanal(j.transmision);
+            const logoCanal = canal ? canal.logo : null;
+            
             const card = document.createElement("div");
             card.className = "juego-card" + (j.enVivo ? " en-vivo" : "") + (j.finalizado ? " finalizado" : "");
             let infoInferior = '';
@@ -192,7 +200,8 @@ function renderCalendario() {
             } else if (j.enVivo && j.scoreLocal !== null) {
                 infoInferior = `<div class="info-juego-cal en-vivo-info"><div class="marcador-vivo"><span class="carreras-visitante">${j.scoreVisitante}</span><span class="separador-marcador">-</span><span class="carreras-local">${j.scoreLocal}</span></div><div class="inning-info"><span class="en-vivo-badge">🔴 EN VIVO</span><span class="inning-numero">Inning ${j.inning}</span></div></div>`;
             } else {
-                infoInferior = `<div class="info-juego-cal"><div class="hora-cal">🕐 ${j.hora}</div><div class="transmision-cal">${j.transmision}</div></div>`;
+                const canalHTML = logoCanal ? `<img src="${logoCanal}" alt="${j.transmision}" class="logo-canal-cal">` : j.transmision;
+                infoInferior = `<div class="info-juego-cal"><div class="hora-cal">🕐 ${j.hora}</div><div class="transmision-cal">${canalHTML}</div></div>`;
             }
             card.innerHTML = `
                 <div class="mitades-cal">
