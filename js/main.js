@@ -5,7 +5,6 @@
 let comentarios = [];
 const URL_PAGINA = window.location.href;
 
-// Funciones de cálculo
 function calcularPCT(jg, jp) {
     if ((jg + jp) === 0) return ".000";
     const pct = (jg / (jg + jp));
@@ -30,13 +29,9 @@ function getLogo(nombre) { const eq = getEquipo(nombre); return eq ? eq.logo : '
 function getColor(nombre) { const eq = getEquipo(nombre); return eq ? eq.color : '#cccccc'; }
 function getColorTexto(nombre) { const eq = getEquipo(nombre); return eq ? eq.colorTexto : '#ffffff'; }
 
-// ==========================================
-// FUNCIONES PARA COMPARTIR SECCIONES
-// ==========================================
 function generarTextoSeccion(tipo) {
     let texto = "";
     const url = "\n\n🔗 Ver más: " + URL_PAGINA;
-    
     if (tipo === 'posiciones') {
         texto = "🏆 *TABLA DE POSICIONES LVBP* 🏆\n";
         const lider = DATOS.posiciones[0];
@@ -47,9 +42,7 @@ function generarTextoSeccion(tipo) {
         });
     } else if (tipo === 'resultados') {
         texto = "⚾ *RESULTADOS DEL DÍA* ⚾\n";
-        DATOS.resultados.forEach(r => {
-            texto += `${r.visitante} ${r.scoreVisitante} - ${r.scoreLocal} ${r.local} (Final)\n`;
-        });
+        DATOS.resultados.forEach(r => { texto += `${r.visitante} ${r.scoreVisitante} - ${r.scoreLocal} ${r.local} (Final)\n`; });
     } else if (tipo === 'calendario') {
         texto = "📅 *PRÓXIMOS JUEGOS* 📅\n";
         DATOS.calendario.forEach(j => {
@@ -58,47 +51,28 @@ function generarTextoSeccion(tipo) {
             texto += `${j.visitante} vs ${j.local} - ${j.hora} ${marcador} [${estado}]\n`;
         });
     } else if (tipo === 'noticia') {
-        const noticia = DATOS.noticias.find(n => n.id === 1); // Asume la primera noticia
+        const noticia = DATOS.noticias.find(n => n.id === 1);
         texto = `📰 *${noticia.titulo}*\n\n${noticia.resumen}`;
     }
-    
     return texto + url;
 }
 
-function compartirSeccion(tipo, red) {
-    const texto = generarTextoSeccion(tipo);
-    compartirEnRed(red, 'custom', texto);
-}
+function compartirSeccion(tipo, red) { compartirEnRed(red, 'custom', generarTextoSeccion(tipo)); }
 
 function compartirEnRed(red, tipo, textoCustom = '') {
     const texto = textoCustom || generarTextoSeccion(tipo);
     const textoCodificado = encodeURIComponent(texto);
     const urlCodificada = encodeURIComponent(URL_PAGINA);
     let urlCompartir = "";
-
     switch(red) {
-        case 'whatsapp':
-            urlCompartir = `https://wa.me/?text=${textoCodificado}`;
-            break;
-        case 'telegram':
-            urlCompartir = `https://t.me/share/url?url=${urlCodificada}&text=${textoCodificado}`;
-            break;
-        case 'twitter':
-            urlCompartir = `https://twitter.com/intent/tweet?text=${textoCodificado}`;
-            break;
-        case 'facebook':
-            urlCompartir = `https://www.facebook.com/sharer/sharer.php?u=${urlCodificada}`;
-            break;
+        case 'whatsapp': urlCompartir = `https://wa.me/?text=${textoCodificado}`; break;
+        case 'telegram': urlCompartir = `https://t.me/share/url?url=${urlCodificada}&text=${textoCodificado}`; break;
+        case 'twitter': urlCompartir = `https://twitter.com/intent/tweet?text=${textoCodificado}`; break;
+        case 'facebook': urlCompartir = `https://www.facebook.com/sharer/sharer.php?u=${urlCodificada}`; break;
     }
-    
-    if (urlCompartir) {
-        window.open(urlCompartir, '_blank', 'width=600,height=400');
-    }
+    if (urlCompartir) window.open(urlCompartir, '_blank', 'width=600,height=400');
 }
 
-// ==========================================
-// RENDERIZADO DE LA PÁGINA
-// ==========================================
 function renderPosiciones() {
     const tbody = document.getElementById("posiciones-body");
     if (!tbody) return;
@@ -177,24 +151,18 @@ function renderResultados() {
     });
 }
 
-// Renderizar calendario (AGRUPADO POR FECHA)
 function renderCalendario() {
     const container = document.getElementById("calendario-container");
     if (!container) return;
     container.innerHTML = '';
 
-    // Agrupar juegos por fecha
     const juegosPorFecha = {};
     DATOS.calendario.forEach(j => {
-        if (!juegosPorFecha[j.fecha]) {
-            juegosPorFecha[j.fecha] = [];
-        }
+        if (!juegosPorFecha[j.fecha]) juegosPorFecha[j.fecha] = [];
         juegosPorFecha[j.fecha].push(j);
     });
 
-    // Renderizar grupos
     Object.keys(juegosPorFecha).sort().forEach(fecha => {
-        // Crear título de fecha
         const fechaTitulo = document.createElement("h3");
         fechaTitulo.style.color = "#d32f2f";
         fechaTitulo.style.margin = "20px 0 15px 0";
@@ -202,13 +170,11 @@ function renderCalendario() {
         fechaTitulo.style.borderBottom = "2px solid #ffd700";
         fechaTitulo.style.paddingBottom = "5px";
         
-        // Formatear fecha (ej: "Lunes 19 de Octubre")
         const fechaObj = new Date(fecha);
         const opciones = { weekday: 'long', day: 'numeric', month: 'long' };
         fechaTitulo.textContent = fechaObj.toLocaleDateString('es-ES', opciones);
         container.appendChild(fechaTitulo);
 
-        // Renderizar juegos de esa fecha
         juegosPorFecha[fecha].forEach(j => {
             const logoLocal = getLogo(j.local);
             const logoVisitante = getLogo(j.visitante);
@@ -226,7 +192,7 @@ function renderCalendario() {
             } else if (j.enVivo && j.scoreLocal !== null) {
                 infoInferior = `<div class="info-juego-cal en-vivo-info"><div class="marcador-vivo"><span class="carreras-visitante">${j.scoreVisitante}</span><span class="separador-marcador">-</span><span class="carreras-local">${j.scoreLocal}</span></div><div class="inning-info"><span class="en-vivo-badge">🔴 EN VIVO</span><span class="inning-numero">Inning ${j.inning}</span></div></div>`;
             } else {
-                infoInferior = `<div class="info-juego-cal"><div class="hora-cal"> ${j.hora}</div><div class="transmision-cal">${j.transmision}</div></div>`;
+                infoInferior = `<div class="info-juego-cal"><div class="hora-cal">🕐 ${j.hora}</div><div class="transmision-cal">${j.transmision}</div></div>`;
             }
             card.innerHTML = `
                 <div class="mitades-cal">
@@ -268,7 +234,6 @@ function renderPublicidad() {
     });
 }
 
-// Inicialización
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("menuBtn").addEventListener("click", () => {
         document.getElementById("navMenu").classList.toggle("activo");
