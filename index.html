@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LVBP al Día - Liga Venezolana de Béisbol Profesional</title>
-    <link rel="stylesheet" href="css/styles.css?v=8">
+    
+    <!-- FAVICON (Ícono de la pestaña) -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png">
+    
+    <link rel="stylesheet" href="css/styles.css?v=9">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- ANALÍTICA GRATUITA (GoatCounter) -->
@@ -15,7 +19,7 @@
     <header class="header-principal">
         <div class="header-container">
             <div class="header-izquierda">
-                <img src="https://i.postimg.cc/Z5CRqQjK/1000411837.jpg" alt="LVBP al Día" class="logo-header">
+                <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="logo-header">
                 <button class="menu-hamburguesa" id="menuBtn">
                     <span></span>
                     <span></span>
@@ -46,14 +50,15 @@
     <div class="main-layout">
         <main class="contenido-principal">
             
-            <!-- HERO -->
+            <!-- HERO CON MARCA DE AGUA -->
             <section class="hero-noticia" id="noticias">
                 <div class="hero-imagen" style="background-image: url('https://images.unsplash.com/photo-1508344928928-7165b67de128?w=1400&q=80');">
                     <div class="hero-overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua">
                     <div class="hero-contenido">
                         <span class="hero-tag">RESULTADOS</span>
                         <h1 class="hero-titulo">Domingo 18 de Octubre: Resultados de la LVBP</h1>
-                        <p class="hero-subtitulo">Tigres 5-4 Tiburones, Leones 8-4 Caribes, Bravos 8-2 Águilas y Cardenales 8-5 Navegantes.</p>
+                        <p class="hero-subtitulo">Tigres 5-4 Tiburones, Leones 8-4 Caribes, Bravos 8-2 Águilas y Cardenales 8-5 Magallanes.</p>
                         <p class="hero-fecha">18 de octubre de 2026</p>
                     </div>
                 </div>
@@ -71,6 +76,13 @@
                 <div class="container">
                     <button class="btn-volver" onclick="cerrarArticulo()">← Volver a noticias</button>
                     <article class="articulo-contenido" id="articulo-contenido"></article>
+                    
+                    <!-- LOGO AL FINAL DEL ARTÍCULO -->
+                    <div class="marca-final-articulo">
+                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="logo-marca-final">
+                        <p class="texto-marca-final">LVBP al Día - Tu fuente de béisbol venezolano ⚾</p>
+                    </div>
+                    
                     <div class="seccion-comentarios">
                         <h3>💬 Comentarios</h3>
                         <form class="formulario-comentario" id="formulario-comentario">
@@ -86,7 +98,9 @@
                             <a href="#" class="btn-compartir whatsapp" onclick="compartirEnRed('whatsapp', 'noticia'); return false;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
                             <a href="#" class="btn-compartir telegram" onclick="compartirEnRed('telegram', 'noticia'); return false;"><i class="fab fa-telegram"></i> Telegram</a>
                             <a href="#" class="btn-compartir facebook" onclick="compartirEnRed('facebook', 'noticia'); return false;"><i class="fab fa-facebook"></i> Facebook</a>
-                            <a href="#" class="btn-compartir twitter" onclick="compartirEnRed('twitter', 'noticia'); return false;"><i class="fab fa-x-twitter"></i> X</a>
+                            <a href="#" class="btn-compartir twitter" onclick="compartirEnRed('twitter', 'noticia'); return false;">
+                                <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-btn"> X
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -96,7 +110,7 @@
             <section id="posiciones" class="seccion-oscura">
                 <div class="container">
                     <h2 class="titulo-seccion">
-                        <img src="https://i.postimg.cc/T29t9x9M/image-search-1791397173263.jpg" alt="LVBP" class="logo-seccion">
+                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
                         Tabla de Posiciones de la LVBP
                     </h2>
                     <div class="tabla-container">
@@ -112,7 +126,7 @@
                         <div class="botones-compartir-mini">
                             <button onclick="compartirSeccion('posiciones', 'whatsapp')"><i class="fab fa-whatsapp"></i></button>
                             <button onclick="compartirSeccion('posiciones', 'telegram')"><i class="fab fa-telegram"></i></button>
-                            <button onclick="compartirSeccion('posiciones', 'twitter')"><i class="fab fa-x-twitter"></i></button>
+                            <button onclick="compartirSeccion('posiciones', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
                             <button onclick="compartirSeccion('posiciones', 'facebook')"><i class="fab fa-facebook"></i></button>
                         </div>
                     </div>
@@ -123,7 +137,7 @@
             <section id="resultados" class="seccion-clara">
                 <div class="container">
                     <h2 class="titulo-seccion">
-                        <img src="https://i.postimg.cc/T29t9x9M/image-search-1791397173263.jpg" alt="LVBP" class="logo-seccion">
+                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
                         Resultados del Domingo 18 de Octubre
                     </h2>
                     <div class="resultados-grid" id="resultados-container"></div>
@@ -132,7 +146,7 @@
                         <div class="botones-compartir-mini">
                             <button onclick="compartirSeccion('resultados', 'whatsapp')"><i class="fab fa-whatsapp"></i></button>
                             <button onclick="compartirSeccion('resultados', 'telegram')"><i class="fab fa-telegram"></i></button>
-                            <button onclick="compartirSeccion('resultados', 'twitter')"><i class="fab fa-x-twitter"></i></button>
+                            <button onclick="compartirSeccion('resultados', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
                             <button onclick="compartirSeccion('resultados', 'facebook')"><i class="fab fa-facebook"></i></button>
                         </div>
                     </div>
@@ -143,7 +157,7 @@
             <section id="calendario" class="seccion-oscura">
                 <div class="container">
                     <h2 class="titulo-seccion">
-                        <img src="https://i.postimg.cc/T29t9x9M/image-search-1791397173263.jpg" alt="LVBP" class="logo-seccion">
+                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
                         Próximos Juegos (Lun 19 y Mar 20)
                     </h2>
                     <div class="calendario-lista" id="calendario-container"></div>
@@ -152,7 +166,7 @@
                         <div class="botones-compartir-mini">
                             <button onclick="compartirSeccion('calendario', 'whatsapp')"><i class="fab fa-whatsapp"></i></button>
                             <button onclick="compartirSeccion('calendario', 'telegram')"><i class="fab fa-telegram"></i></button>
-                            <button onclick="compartirSeccion('calendario', 'twitter')"><i class="fab fa-x-twitter"></i></button>
+                            <button onclick="compartirSeccion('calendario', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
                             <button onclick="compartirSeccion('calendario', 'facebook')"><i class="fab fa-facebook"></i></button>
                         </div>
                     </div>
@@ -163,7 +177,7 @@
             <section id="estadisticas" class="seccion-clara">
                 <div class="container">
                     <h2 class="titulo-seccion">
-                        <img src="https://i.postimg.cc/T29t9x9M/image-search-1791397173263.jpg" alt="LVBP" class="logo-seccion">
+                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
                         Líderes Estadísticos de la LVBP
                     </h2>
                     <div class="stats-grid">
@@ -180,12 +194,11 @@
         <aside class="sidebar-publicidad" id="sidebar-publicidad"></aside>
     </div>
 
-    <!-- FOOTER -->
+    <!-- FOOTER SUTIL -->
     <footer>
         <div class="container">
-            <img src="https://i.postimg.cc/Z5CRqQjK/1000411837.jpg" alt="LVBP al Día" class="logo-footer">
-            <p>⚾ LVBP al Día 2026 - Noticias y estadísticas de la Liga Venezolana de Béisbol Profesional</p>
-            <p>Desarrollado con ❤️ por Margus20</p>
+            <p class="footer-texto">⚾ LVBP al Día 2026 - Noticias y estadísticas de la Liga Venezolana de Béisbol Profesional</p>
+            <p class="footer-creditos">Desarrollado con ❤️ por <strong>Margus20</strong></p>
             <div class="footer-social">
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-x-twitter"></i></a>
@@ -195,7 +208,7 @@
         </div>
     </footer>
 
-    <script src="js/data.js?v=8"></script>
-    <script src="js/main.js?v=8"></script>
+    <script src="js/data.js?v=9"></script>
+    <script src="js/main.js?v=9"></script>
 </body>
 </html>
