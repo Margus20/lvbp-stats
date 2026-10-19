@@ -26,7 +26,6 @@ const DATOS = {
         { nombre: "Venezolana TV", logo: "https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/venezolanatv.png" },
         { nombre: "Tves", logo: "https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/tves.png" },
         { nombre: "Meridiano TV", logo: "https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/meridianotv.png" },
-        { nombre: "XApp", logo: "https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" },
         { nombre: "YouTube", logo: "https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/youtubetv.png" }
     ],
 
@@ -50,9 +49,10 @@ const DATOS = {
         { local: "Cardenales", scoreLocal: 8, visitante: "Magallanes", scoreVisitante: 5, fecha: "18 Oct", innings: 9 }
     ],
 
-    // ===== CALENDARIO (LUNES 19 Y MARTES 20) =====
+    // ===== CALENDARIO =====
+    // NOTA: Para múltiples canales, separa con " / " (ej: "Baseball / YouTube")
     calendario: [
-        { local: "Cardenales", visitante: "Magallanes", hora: "7:00 PM", transmision: "Baseball", lugar: "Estadio Antonio Herrera Gutiérrez", fecha: "19 Oct 2026", enVivo: false, finalizado: false, inning: null, scoreLocal: null, scoreVisitante: null },
+        { local: "Cardenales", visitante: "Magallanes", hora: "7:00 PM", transmision: "Baseball / YouTube", lugar: "Estadio Antonio Herrera Gutiérrez", fecha: "19 Oct 2026", enVivo: false, finalizado: false, inning: null, scoreLocal: null, scoreVisitante: null },
         { local: "Tiburones", visitante: "Leones", hora: "7:00 PM", transmision: "IVC", lugar: "Estadio Universitario", fecha: "20 Oct 2026", enVivo: false, finalizado: false, inning: null, scoreLocal: null, scoreVisitante: null },
         { local: "Bravos", visitante: "Caribes", hora: "7:00 PM", transmision: "BYM Sport", lugar: "Estadio Nueva Esparta", fecha: "20 Oct 2026", enVivo: false, finalizado: false, inning: null, scoreLocal: null, scoreVisitante: null },
         { local: "Águilas", visitante: "Tigres", hora: "7:00 PM", transmision: "Baseball", lugar: "Estadio Luis Aparicio", fecha: "20 Oct 2026", enVivo: false, finalizado: false, inning: null, scoreLocal: null, scoreVisitante: null }
