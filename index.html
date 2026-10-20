@@ -4,28 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LVBP al Día - Liga Venezolana de Béisbol Profesional</title>
-    
-    <!-- FAVICON -->
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png">
-    
-    <!-- ESTILOS -->
-    <link rel="stylesheet" href="css/styles.css?v=13">
+    <link rel="stylesheet" href="css/styles.css?v=14">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- ANALÍTICA GRATUITA -->
     <script data-goatcounter="https://margus20.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
-    <!-- HEADER -->
     <header class="header-principal">
         <div class="header-container">
             <div class="header-izquierda">
                 <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="logo-header">
-                <button class="menu-hamburguesa" id="menuBtn">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+                <button class="menu-hamburguesa" id="menuBtn"><span></span><span></span><span></span></button>
             </div>
             <div class="header-derecha">
                 <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
@@ -47,11 +36,8 @@
         </nav>
     </header>
 
-    <!-- LAYOUT PRINCIPAL -->
     <div class="main-layout">
         <main class="contenido-principal">
-            
-            <!-- HERO -->
             <section class="hero-noticia" id="noticias">
                 <div class="hero-imagen" style="background-image: url('https://images.unsplash.com/photo-1508344928928-7165b67de128?w=1400&q=80');">
                     <div class="hero-overlay"></div>
@@ -65,28 +51,23 @@
                 </div>
             </section>
 
-            <!-- NOTICIAS -->
             <section class="noticias-grid-section">
                 <div class="container">
                     <h2 class="titulo-seccion">
-                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
-                        Últimas Noticias
+                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion"> Últimas Noticias
                     </h2>
                     <div class="noticias-grid" id="noticias-container"></div>
                 </div>
             </section>
 
-            <!-- ARTÍCULO COMPLETO -->
             <section class="articulo-completo" id="articulo-completo" style="display: none;">
                 <div class="container">
-                    <button class="btn-volver" onclick="cerrarArticulo()">← Volver a noticias</button>
+                    <button class="btn-volver" onclick="window.cerrarArticulo()">← Volver a noticias</button>
                     <article class="articulo-contenido" id="articulo-contenido"></article>
-                    
                     <div class="marca-final-articulo">
                         <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="logo-marca-final">
-                        <p class="texto-marca-final">LVBP al Día - Tu fuente de béisbol venezolano</p>
+                        <p class="texto-marca-final">LVBP al Día - Tu fuente de béisbol venezolano ⚾</p>
                     </div>
-                    
                     <div class="seccion-comentarios">
                         <h3>💬 Comentarios</h3>
                         <form class="formulario-comentario" id="formulario-comentario">
@@ -99,10 +80,10 @@
                     <div class="seccion-compartir">
                         <h3>📢 Comparte esta noticia</h3>
                         <div class="botones-compartir">
-                            <a href="#" class="btn-compartir whatsapp" onclick="compartirEnRed('whatsapp', 'noticia'); return false;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                            <a href="#" class="btn-compartir telegram" onclick="compartirEnRed('telegram', 'noticia'); return false;"><i class="fab fa-telegram"></i> Telegram</a>
-                            <a href="#" class="btn-compartir facebook" onclick="compartirEnRed('facebook', 'noticia'); return false;"><i class="fab fa-facebook"></i> Facebook</a>
-                            <a href="#" class="btn-compartir twitter twitter-btn" onclick="compartirEnRed('twitter', 'noticia'); return false;">
+                            <a href="#" class="btn-compartir whatsapp" onclick="window.compartirEnRed('whatsapp', 'noticia'); return false;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                            <a href="#" class="btn-compartir telegram" onclick="window.compartirEnRed('telegram', 'noticia'); return false;"><i class="fab fa-telegram"></i> Telegram</a>
+                            <a href="#" class="btn-compartir facebook" onclick="window.compartirEnRed('facebook', 'noticia'); return false;"><i class="fab fa-facebook"></i> Facebook</a>
+                            <a href="#" class="btn-compartir twitter twitter-btn" onclick="window.compartirEnRed('twitter', 'noticia'); return false;">
                                 <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-btn"> X
                             </a>
                         </div>
@@ -110,71 +91,69 @@
                 </div>
             </section>
 
-            <!-- POSICIONES -->
             <section id="posiciones" class="seccion-oscura">
                 <div class="container">
                     <h2 class="titulo-seccion">
-                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
-                        Tabla de Posiciones de la LVBP
+                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion"> Tabla de Posiciones de la LVBP
                     </h2>
                     <div class="tabla-container">
                         <table id="tabla-posiciones">
-                            <thead>
-                                <tr><th>#</th><th>Equipo</th><th>JJ</th><th>JG</th><th>JP</th><th>PCT</th><th>DIF</th><th>RACHA</th></tr>
-                            </thead>
+                            <thead><tr><th>#</th><th>Equipo</th><th>JJ</th><th>JG</th><th>JP</th><th>PCT</th><th>DIF</th><th>RACHA</th></tr></thead>
                             <tbody id="posiciones-body"></tbody>
                         </table>
                     </div>
                     <div class="acciones-seccion">
                         <p>Compartir esta sección:</p>
                         <div class="botones-compartir-mini">
-                            <button onclick="compartirSeccion('posiciones', 'whatsapp')"><i class="fab fa-whatsapp"></i></button>
-                            <button onclick="compartirSeccion('posiciones', 'telegram')"><i class="fab fa-telegram"></i></button>
-                            <button class="twitter-btn" onclick="compartirSeccion('posiciones', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
-                            <button onclick="compartirSeccion('posiciones', 'facebook')"><i class="fab fa-facebook"></i></button>
+                            <button onclick="window.compartirSeccion('posiciones', 'whatsapp')"><i class="fab fa-whatsapp"></i></button>
+                            <button onclick="window.compartirSeccion('posiciones', 'telegram')"><i class="fab fa-telegram"></i></button>
+                            <button class="twitter-btn" onclick="window.compartirSeccion('posiciones', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
+                            <button onclick="window.compartirSeccion('posiciones', 'facebook')"><i class="fab fa-facebook"></i></button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- RESULTADOS -->
             <section id="resultados" class="seccion-clara">
                 <div class="container">
+                    <h2 class="titulo-seccion">
+                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion"> Resultados Recientes
+                    </h2>
                     <div class="resultados-grid" id="resultados-container"></div>
                     <div class="acciones-seccion">
                         <p>Compartir esta sección:</p>
                         <div class="botones-compartir-mini">
-                            <button onclick="compartirSeccion('resultados', 'whatsapp')"><i class="fab fa-whatsapp"></i></button>
-                            <button onclick="compartirSeccion('resultados', 'telegram')"><i class="fab fa-telegram"></i></button>
-                            <button class="twitter-btn" onclick="compartirSeccion('resultados', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
-                            <button onclick="compartirSeccion('resultados', 'facebook')"><i class="fab fa-facebook"></i></button>
+                            <button onclick="window.compartirSeccion('resultados', 'whatsapp')"><i class="fab fa-whatsapp"></i></button>
+                            <button onclick="window.compartirSeccion('resultados', 'telegram')"><i class="fab fa-telegram"></i></button>
+                            <button class="twitter-btn" onclick="window.compartirSeccion('resultados', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
+                            <button onclick="window.compartirSeccion('resultados', 'facebook')"><i class="fab fa-facebook"></i></button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- CALENDARIO -->
             <section id="calendario" class="seccion-oscura">
                 <div class="container">
+                    <h2 class="titulo-seccion">
+                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion"> Próximos Juegos
+                    </h2>
                     <div class="calendario-lista" id="calendario-container"></div>
                     <div class="acciones-seccion">
                         <p>Compartir esta sección:</p>
                         <div class="botones-compartir-mini">
-                            <button onclick="compartirSeccion('calendario', 'whatsapp')"><i class="fab fa-whatsapp"></i></button>
-                            <button onclick="compartirSeccion('calendario', 'telegram')"><i class="fab fa-telegram"></i></button>
-                            <button class="twitter-btn" onclick="compartirSeccion('calendario', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
-                            <button onclick="compartirSeccion('calendario', 'facebook')"><i class="fab fa-facebook"></i></button>
+                            <button onclick="window.compartirSeccion('calendario', 'whatsapp')"><i class="fab fa-whatsapp"></i></button>
+                            <button onclick="window.compartirSeccion('calendario', 'telegram')"><i class="fab fa-telegram"></i></button>
+                            <button class="twitter-btn" onclick="window.compartirSeccion('calendario', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
+                            <button onclick="window.compartirSeccion('calendario', 'facebook')"><i class="fab fa-facebook"></i></button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- ESTADÍSTICAS -->
             <section id="estadisticas" class="seccion-clara">
                 <div class="container">
                     <h2 class="titulo-seccion">
-                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
-                        Líderes Estadísticos de la LVBP
+                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion"> Líderes Estadísticos de la LVBP
                     </h2>
                     <div class="stats-grid">
                         <div class="stat-card"><h3>🏃 Carreras Anotadas</h3><ol id="lideres-carreras"></ol></div>
@@ -186,11 +165,9 @@
             </section>
         </main>
 
-        <!-- SIDEBAR PUBLICIDAD -->
         <aside class="sidebar-publicidad" id="sidebar-publicidad"></aside>
     </div>
 
-    <!-- FOOTER -->
     <footer>
         <div class="container">
             <p class="footer-texto">⚾ LVBP al Día 2026 - Noticias y estadísticas de la Liga Venezolana de Béisbol Profesional</p>
@@ -204,7 +181,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPT PRINCIPAL -->
-    <script src="js/app.js?v=1"></script>
+    <!-- SCRIPT PRINCIPAL COMO MÓDULO -->
+    <script type="module" src="js/logica/app.js?v=1"></script>
 </body>
-</html>
+    </html>
