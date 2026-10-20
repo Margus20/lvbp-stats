@@ -30,7 +30,6 @@ function getCanal(nombre) {
     return DATOS.canales.find(c => c.nombre.toLowerCase() === nombreLower);
 }
 
-// NUEVA FUNCIÓN: Renderiza múltiples canales si hay " / " en el texto
 function renderizarCanales(transmision) {
     if (!transmision) return '';
     const nombres = transmision.split('/').map(n => n.trim());
@@ -63,7 +62,7 @@ function generarTextoSeccion(tipo) {
         texto = "⚾ *RESULTADOS DEL DÍA* ⚾\n";
         DATOS.resultados.forEach(r => { texto += `${r.visitante} ${r.scoreVisitante} - ${r.scoreLocal} ${r.local} (Final)\n`; });
     } else if (tipo === 'calendario') {
-        texto = " *PRÓXIMOS JUEGOS* 📅\n";
+        texto = "📅 *PRÓXIMOS JUEGOS* 📅\n";
         DATOS.calendario.forEach(j => {
             const estado = j.finalizado ? "✅ FINAL" : (j.enVivo ? "🔴 EN VIVO" : "🕐 Programado");
             const marcador = (j.enVivo || j.finalizado) ? ` (${j.scoreVisitante}-${j.scoreLocal})` : "";
@@ -71,7 +70,7 @@ function generarTextoSeccion(tipo) {
         });
     } else if (tipo === 'noticia') {
         const noticia = DATOS.noticias.find(n => n.id === 1);
-        texto = ` *${noticia.titulo}*\n\n${noticia.resumen}`;
+        texto = `📰 *${noticia.titulo}*\n\n${noticia.resumen}`;
     }
     return texto + url;
 }
@@ -209,9 +208,8 @@ function renderCalendario() {
             if (j.finalizado && j.scoreLocal !== null) {
                 infoInferior = `<div class="info-juego-cal finalizado-info"><div class="marcador-vivo"><span class="carreras-visitante">${j.scoreVisitante}</span><span class="separador-marcador">-</span><span class="carreras-local">${j.scoreLocal}</span></div><div class="inning-info"><span class="finalizado-badge">FINAL</span><span class="inning-numero">${j.innings || 9} Innings</span></div></div>`;
             } else if (j.enVivo && j.scoreLocal !== null) {
-                infoInferior = `<div class="info-juego-cal en-vivo-info"><div class="marcador-vivo"><span class="carreras-visitante">${j.scoreVisitante}</span><span class="separador-marcador">-</span><span class="carreras-local">${j.scoreLocal}</span></div><div class="inning-info"><span class="en-vivo-badge"> EN VIVO</span><span class="inning-numero">Inning ${j.inning}</span></div></div>`;
+                infoInferior = `<div class="info-juego-cal en-vivo-info"><div class="marcador-vivo"><span class="carreras-visitante">${j.scoreVisitante}</span><span class="separador-marcador">-</span><span class="carreras-local">${j.scoreLocal}</span></div><div class="inning-info"><span class="en-vivo-badge">🔴 EN VIVO</span><span class="inning-numero">Inning ${j.inning}</span></div></div>`;
             } else {
-                // Renderiza múltiples canales si hay " / "
                 const canalesHTML = renderizarCanales(j.transmision);
                 infoInferior = `<div class="info-juego-cal"><div class="hora-cal">🕐 ${j.hora}</div><div class="transmision-cal">${canalesHTML}</div></div>`;
             }
