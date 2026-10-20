@@ -7,7 +7,7 @@
     
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png">
     
-    <link rel="stylesheet" href="css/styles.css?v=16">
+    <link rel="stylesheet" href="css/styles.css?v=17">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <script data-goatcounter="https://margus20.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -76,7 +76,7 @@
                     <article class="articulo-contenido" id="articulo-contenido"></article>
                     <div class="marca-final-articulo">
                         <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="logo-marca-final">
-                        <p class="texto-marca-final">LVBP al Día - Tu fuente de béisbol venezolano </p>
+                        <p class="texto-marca-final">LVBP al Día - Tu fuente de béisbol venezolano</p>
                     </div>
                     <div class="seccion-comentarios">
                         <h3>💬 Comentarios</h3>
@@ -197,57 +197,7 @@
         </div>
     </footer>
 
-    <script type="module" src="js/logica/app.js?v=1"></script>
-    
-    <!-- ============================================
-         SCRIPT DE DEPURACIÓN - MUESTRA ERRORES EN PANTALLA
-         ============================================ -->
-    <script>
-        // Capturar errores y mostrarlos en pantalla
-        window.addEventListener('error', function(e) {
-            const div = document.createElement('div');
-            div.style.cssText = 'background: #ff0000; color: white; padding: 15px; margin: 10px; border-radius: 5px; font-family: monospace; border: 2px solid #990000;';
-            div.innerHTML = '<strong style="font-size: 16px;">❌ ERROR DE JAVASCRIPT:</strong><br>' + 
-                           e.message + '<br><br>' +
-                           '<strong>Archivo:</strong> ' + e.filename + '<br>' +
-                           '<strong>Línea:</strong> ' + e.lineno + '<br>' +
-                           '<strong>Columna:</strong> ' + e.colno;
-            document.body.insertBefore(div, document.body.firstChild);
-            console.error('Error capturado:', e);
-        });
-        
-        // Sobrescribir console.log para mostrar en pantalla
-        const originalLog = console.log;
-        const originalError = console.error;
-        const originalWarn = console.warn;
-        
-        console.log = function(msg) {
-            originalLog.apply(console, arguments);
-            const div = document.createElement('div');
-            div.style.cssText = 'background: #333; color: #00ff00; padding: 8px; margin: 5px; font-family: monospace; font-size: 12px; border-radius: 3px;';
-            div.textContent = '✅ LOG: ' + msg;
-            document.body.appendChild(div);
-        };
-        
-        console.error = function(msg) {
-            originalError.apply(console, arguments);
-            const div = document.createElement('div');
-            div.style.cssText = 'background: #ff0000; color: #ffffff; padding: 8px; margin: 5px; font-family: monospace; font-size: 12px; border-radius: 3px; border-left: 4px solid #990000;';
-            div.textContent = '❌ ERROR: ' + msg;
-            document.body.appendChild(div);
-        };
-        
-        console.warn = function(msg) {
-            originalWarn.apply(console, arguments);
-            const div = document.createElement('div');
-            div.style.cssText = 'background: #ffaa00; color: #000; padding: 8px; margin: 5px; font-family: monospace; font-size: 12px; border-radius: 3px;';
-            div.textContent = '⚠️ WARNING: ' + msg;
-            document.body.appendChild(div);
-        };
-        
-        // Mensaje de inicio
-        console.log('=== SISTEMA DE DEPURACIÓN ACTIVADO ===');
-        console.log('Cargando LVBP al Día...');
-    </script>
+    <!-- SCRIPT PRINCIPAL (Módulo) -->
+    <script type="module" src="js/logica/app.js?v=17"></script>
 </body>
 </html>
