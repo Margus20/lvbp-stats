@@ -1,5 +1,5 @@
 // ============================================
-// LVBP AL DÍA - CÓDIGO PRINCIPAL
+// LVBP AL DÍA - CÓDIGO PRINCIPAL CORREGIDO
 // ============================================
 
 let comentarios = [];
@@ -16,8 +16,12 @@ function calcularDIF(jg, jp, liderJG, liderJP) {
     return diff > 0 ? diff.toFixed(1) : "-";
 }
 
+// ✅ CORRECCIÓN 1: Forzar reconocimiento de Magallanes para que tome su color azul y logo
 function getEquipo(nombre) {
     const nombreLower = nombre.toLowerCase().trim();
+    if (nombreLower.includes('navegantes') || nombreLower.includes('magallanes')) {
+        return DATOS.equipos.find(eq => eq.abrev === 'MAG');
+    }
     let equipo = DATOS.equipos.find(eq => eq.nombre.toLowerCase() === nombreLower || eq.nombreCorto.toLowerCase() === nombreLower);
     if (!equipo) {
         equipo = DATOS.equipos.find(eq => nombreLower.includes(eq.nombreCorto.toLowerCase()) || eq.nombreCorto.toLowerCase().includes(nombreLower.split(' ')[0]));
@@ -27,7 +31,7 @@ function getEquipo(nombre) {
 
 function getCanal(nombre) {
     const nombreLower = nombre.toLowerCase().trim();
-    return DATOS.canales.find(c => c.nombre.toLowerCase() === nombreLower);
+    return DATOS.canales.find(c => c.nombre.toLowerCase() === nombreLower || (nombreLower === 'x' && c.nombre === 'X'));
 }
 
 function renderizarCanales(transmision) {
@@ -36,7 +40,8 @@ function renderizarCanales(transmision) {
     const logos = nombres.map(nombre => {
         const canal = getCanal(nombre);
         if (canal) {
-            return `<img src="${canal.logo}" alt="${nombre}" class="logo-canal-cal" title="${nombre}">`;
+            const claseExtra = canal.esIcono ? 'es-icono' : '';
+            return `<img src="${canal.logo}" alt="${nombre}" class="logo-canal-cal ${claseExtra}" title="${nombre}">`;
         }
         return `<span class="canal-texto">${nombre}</span>`;
     });
@@ -59,14 +64,13 @@ function generarTextoSeccion(tipo) {
             texto += `${i + 1}. ${pos.nombre} (${pos.jg}-${pos.jp}) ${pct} (DIF: ${dif})\n`;
         });
     } else if (tipo === 'resultados') {
-        texto = "⚾ *RESULTADOS DEL DÍA* ⚾\n";
+        texto = "⚾ *RESULTADOS - LUNES 19 DE OCTUBRE* ⚾\n";
         DATOS.resultados.forEach(r => { texto += `${r.visitante} ${r.scoreVisitante} - ${r.scoreLocal} ${r.local} (Final)\n`; });
     } else if (tipo === 'calendario') {
-        texto = "📅 *PRÓXIMOS JUEGOS* 📅\n";
+        texto = "📅 *JORNADA - MARTES 20 DE OCTUBRE* 📅\n";
         DATOS.calendario.forEach(j => {
             const estado = j.finalizado ? "✅ FINAL" : (j.enVivo ? "🔴 EN VIVO" : "🕐 Programado");
-            const marcador = (j.enVivo || j.finalizado) ? ` (${j.scoreVisitante}-${j.scoreLocal})` : "";
-            texto += `${j.visitante} vs ${j.local} - ${j.hora} ${marcador} [${estado}]\n`;
+            texto += `${j.visitante} vs ${j.local} - ${j.hora} [${estado}]\n`;
         });
     } else if (tipo === 'noticia') {
         const noticia = DATOS.noticias.find(n => n.id === 1);
@@ -147,10 +151,17 @@ function renderizarComentarios() {
     });
 }
 
+// ✅ CORRECCIÓN 2: Título explícito para Resultados del Lunes 19
 function renderResultados() {
     const container = document.getElementById("resultados-container");
     if (!container) return;
     container.innerHTML = '';
+    
+    const titulo = document.createElement("h3");
+    titulo.className = "titulo-seccion";
+    titulo.innerHTML = '<img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" class="logo-seccion"> RESULTADOS - LUNES 19 DE OCTUBRE';
+    container.appendChild(titulo);
+
     DATOS.resultados.forEach(r => {
         const card = document.createElement("div");
         card.className = "resultado-card";
@@ -169,10 +180,16 @@ function renderResultados() {
     });
 }
 
+// ✅ CORRECCIÓN 3: Título explícito para Calendario del Martes 20
 function renderCalendario() {
     const container = document.getElementById("calendario-container");
     if (!container) return;
     container.innerHTML = '';
+
+    const tituloJornada = document.createElement("h3");
+    tituloJornada.className = "titulo-seccion";
+    tituloJornada.innerHTML = '<img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" class="logo-seccion"> JORNADA - MARTES 20 DE OCTUBRE';
+    container.appendChild(tituloJornada);
 
     const juegosPorFecha = {};
     DATOS.calendario.forEach(j => {
@@ -181,17 +198,7 @@ function renderCalendario() {
     });
 
     Object.keys(juegosPorFecha).sort().forEach(fecha => {
-        const fechaTitulo = document.createElement("h3");
-        fechaTitulo.style.color = "#d32f2f";
-        fechaTitulo.style.margin = "20px 0 15px 0";
-        fechaTitulo.style.fontSize = "1.1rem";
-        fechaTitulo.style.borderBottom = "2px solid #ffd700";
-        fechaTitulo.style.paddingBottom = "5px";
-        
-        const fechaObj = new Date(fecha);
-        const opciones = { weekday: 'long', day: 'numeric', month: 'long' };
-        fechaTitulo.textContent = fechaObj.toLocaleDateString('es-ES', opciones);
-        container.appendChild(fechaTitulo);
+        if (!fecha.includes("20")) return; 
 
         juegosPorFecha[fecha].forEach(j => {
             const logoLocal = getLogo(j.local);
@@ -254,9 +261,12 @@ function renderPublicidad() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("menuBtn").addEventListener("click", () => {
-        document.getElementById("navMenu").classList.toggle("activo");
-    });
+    const menuBtn = document.getElementById("menuBtn");
+    if (menuBtn) {
+        menuBtn.addEventListener("click", () => {
+            document.getElementById("navMenu").classList.toggle("activo");
+        });
+    }
     
     const formulario = document.getElementById("formulario-comentario");
     if (formulario) {
