@@ -50,7 +50,6 @@ const DATOS = {
     ],
 
     // ===== CALENDARIO =====
-    // NOTA: Para múltiples canales, separa con " / " (ej: "Baseball / YouTube")
     calendario: [
         { local: "Cardenales", visitante: "Magallanes", hora: "7:00 PM", transmision: "Baseball / YouTube", lugar: "Estadio Antonio Herrera Gutiérrez", fecha: "19 Oct 2026", enVivo: false, finalizado: false, inning: null, scoreLocal: null, scoreVisitante: null },
         { local: "Tiburones", visitante: "Leones", hora: "7:00 PM", transmision: "IVC", lugar: "Estadio Universitario", fecha: "20 Oct 2026", enVivo: false, finalizado: false, inning: null, scoreLocal: null, scoreVisitante: null },
