@@ -3,7 +3,7 @@
 // Actualiza solo los números cuando cambien
 // ============================================
 
-const POSICIONES = [
+export const POSICIONES = [
     { nombre: "Tigres de Aragua", jj: 6, jg: 5, jp: 1, racha: "G4" },
     { nombre: "Bravos de Margarita", jj: 5, jg: 4, jp: 1, racha: "G4" },
     { nombre: "Caribes de Anzoátegui", jj: 6, jg: 4, jp: 2, racha: "P1" },
