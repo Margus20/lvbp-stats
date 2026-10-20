@@ -2,9 +2,18 @@
 // RENDERIZADO VISUAL
 // ============================================
 
+import { POSICIONES } from '../datos/posiciones.js';
+import { NOTICIAS } from '../datos/noticias.js';
+import { RESULTADOS } from '../datos/resultados.js';
+import { CALENDARIO } from '../datos/calendario.js';
+import { LIDERES } from '../datos/lideres.js';
+import { PUBLICIDAD } from '../datos/publicidad.js';
+import { CANALES } from '../datos/canales.js';
+import { getEquipo, getLogo, getColor, getColorTexto, calcularPCT, calcularDIF } from './utils.js';
+
 let comentarios = [];
 
-function renderPosiciones() {
+export function renderPosiciones() {
     const tbody = document.getElementById("posiciones-body");
     if (!tbody) return;
     const lider = POSICIONES[0];
@@ -21,7 +30,7 @@ function renderPosiciones() {
     });
 }
 
-function renderNoticias() {
+export function renderNoticias() {
     const container = document.getElementById("noticias-container");
     if (!container) return;
     container.innerHTML = '';
@@ -33,53 +42,35 @@ function renderNoticias() {
         const card = document.createElement("div");
         card.className = "noticia-card";
         card.style.backgroundImage = `url('${n.imagen}')`;
-        card.onclick = () => abrirArticulo(n.id);
+        card.onclick = () => window.abrirArticulo(n.id);
         card.innerHTML = `<div class="noticia-contenido"><span class="noticia-tag">${n.tag}</span><h3>${n.titulo}</h3><p class="fecha">${n.fecha}</p></div>`;
         container.appendChild(card);
     });
 }
 
-function abrirArticulo(id) {
-    const noticia = NOTICIAS.find(n => n.id === id);
-    if (!noticia) return;
-    document.getElementById("articulo-contenido").innerHTML = `<h1 class="articulo-titulo">${noticia.titulo}</h1><p class="articulo-fecha">${noticia.fecha} | LVBP al Día</p><div class="articulo-texto">${noticia.contenido}</div>`;
-    document.getElementById("articulo-completo").style.display = "block";
-    document.getElementById("articulo-completo").scrollIntoView({ behavior: "smooth" });
-    renderizarComentarios();
-}
-
-function cerrarArticulo() {
-    document.getElementById("articulo-completo").style.display = "none";
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function renderizarComentarios() {
-    const container = document.getElementById("lista-comentarios");
-    if (!container) return;
-    container.innerHTML = comentarios.length === 0 ? '<p style="color: #999; text-align: center; padding: 20px;">Sé el primero en comentar</p>' : '';
-    comentarios.forEach(c => {
-        const div = document.createElement("div");
-        div.className = "comentario-item";
-        div.innerHTML = `<div class="comentario-autor">${c.autor}</div><div class="comentario-texto">${c.texto}</div><div class="comentario-fecha">${c.fecha}</div>`;
-        container.appendChild(div);
-    });
-}
-
-function renderResultados() {
+export function renderResultados() {
     const container = document.getElementById("resultados-container");
+    const section = document.getElementById("resultados");
+    const titulo = section ? section.querySelector(".titulo-seccion") : null;
+    
     if (!container) return;
     container.innerHTML = '';
     
+    // 🔄 TÍTULO AUTOMÁTICO SEGÚN LA FECHA DE LOS RESULTADOS
+    if (titulo) {
+        if (RESULTADOS.length === 0) {
+            titulo.innerHTML = `<img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" class="logo-seccion"> SIN RESULTADOS RECIENTES`;
+        } else {
+            const ultimaFecha = RESULTADOS[RESULTADOS.length - 1].fecha;
+            titulo.innerHTML = `<img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" class="logo-seccion"> RESULTADOS - ${ultimaFecha.toUpperCase()}`;
+        }
+    }
+
     if (RESULTADOS.length === 0) {
         container.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">Sin resultados recientes</p>';
         return;
     }
     
-    const titulo = document.createElement("h3");
-    titulo.className = "titulo-seccion";
-    titulo.innerHTML = `<img src="${CONFIG.logoLVBP}" class="logo-seccion"> ${generarTituloResultados()}`;
-    container.appendChild(titulo);
-
     RESULTADOS.forEach(r => {
         const card = document.createElement("div");
         card.className = "resultado-card";
@@ -98,60 +89,65 @@ function renderResultados() {
     });
 }
 
-function renderCalendario() {
+export function renderCalendario() {
     const container = document.getElementById("calendario-container");
+    const section = document.getElementById("calendario");
+    const titulo = section ? section.querySelector(".titulo-seccion") : null;
+    
     if (!container) return;
     container.innerHTML = '';
+
+    // 🔄 TÍTULO AUTOMÁTICO SEGÚN LA FECHA DEL CALENDARIO
+    if (titulo) {
+        if (CALENDARIO.length === 0) {
+            titulo.innerHTML = `<img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" class="logo-seccion"> SIN JUEGOS PROGRAMADOS`;
+        } else {
+            const fechasUnicas = [...new Set(CALENDARIO.map(j => j.fecha))];
+            const textoFecha = fechasUnicas.length === 1 ? fechasUnicas[0].toUpperCase() : "PRÓXIMOS JUEGOS";
+            titulo.innerHTML = `<img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" class="logo-seccion"> JORNADA - ${textoFecha}`;
+        }
+    }
 
     if (CALENDARIO.length === 0) {
         container.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">Sin juegos programados</p>';
         return;
     }
 
-    const tituloJornada = document.createElement("h3");
-    tituloJornada.className = "titulo-seccion";
-    tituloJornada.innerHTML = `<img src="${CONFIG.logoLVBP}" class="logo-seccion"> ${generarTituloCalendario()}`;
-    container.appendChild(tituloJornada);
-
-    const juegosPorFecha = {};
     CALENDARIO.forEach(j => {
-        if (!juegosPorFecha[j.fecha]) juegosPorFecha[j.fecha] = [];
-        juegosPorFecha[j.fecha].push(j);
-    });
-
-    Object.keys(juegosPorFecha).sort().forEach(fecha => {
-        juegosPorFecha[fecha].forEach(j => {
-            const logoLocal = getLogo(j.local);
-            const logoVisitante = getLogo(j.visitante);
-            const colorLocal = getColor(j.local);
-            const colorVisitante = getColor(j.visitante);
-            const textoLocal = getColorTexto(j.local);
-            const textoVisitante = getColorTexto(j.visitante);
-            
-            const card = document.createElement("div");
-            card.className = "juego-card" + (j.enVivo ? " en-vivo" : "") + (j.finalizado ? " finalizado" : "");
-            let infoInferior = '';
-            
-            if (j.finalizado && j.scoreLocal !== null) {
-                infoInferior = `<div class="info-juego-cal finalizado-info"><div class="marcador-vivo"><span class="carreras-visitante">${j.scoreVisitante}</span><span class="separador-marcador">-</span><span class="carreras-local">${j.scoreLocal}</span></div><div class="inning-info"><span class="finalizado-badge">FINAL</span><span class="inning-numero">${j.innings || 9} Innings</span></div></div>`;
-            } else if (j.enVivo && j.scoreLocal !== null) {
-                infoInferior = `<div class="info-juego-cal en-vivo-info"><div class="marcador-vivo"><span class="carreras-visitante">${j.scoreVisitante}</span><span class="separador-marcador">-</span><span class="carreras-local">${j.scoreLocal}</span></div><div class="inning-info"><span class="en-vivo-badge">🔴 EN VIVO</span><span class="inning-numero">Inning ${j.inning}</span></div></div>`;
-            } else {
-                const canalesHTML = renderizarCanales(j.transmision);
-                infoInferior = `<div class="info-juego-cal"><div class="hora-cal">🕐 ${j.hora}</div><div class="transmision-cal">${canalesHTML}</div></div>`;
-            }
-            card.innerHTML = `
-                <div class="mitades-cal">
-                    <div class="mitad-cal" style="background-color: ${colorVisitante}"><img src="${logoVisitante}" class="logo-calendario"><div class="nombre-equipo-cal" style="color: ${textoVisitante}">${j.visitante}</div></div>
-                    <div class="mitad-cal" style="background-color: ${colorLocal}"><img src="${logoLocal}" class="logo-calendario"><div class="nombre-equipo-cal" style="color: ${textoLocal}">${j.local}</div></div>
-                    <div class="vs-central-cal">VS</div>
-                </div>${infoInferior}`;
-            container.appendChild(card);
-        });
+        const logoLocal = getLogo(j.local);
+        const logoVisitante = getLogo(j.visitante);
+        const colorLocal = getColor(j.local);
+        const colorVisitante = getColor(j.visitante);
+        const textoLocal = getColorTexto(j.local);
+        const textoVisitante = getColorTexto(j.visitante);
+        
+        const card = document.createElement("div");
+        card.className = "juego-card" + (j.enVivo ? " en-vivo" : "") + (j.finalizado ? " finalizado" : "");
+        let infoInferior = '';
+        
+        if (j.finalizado && j.scoreLocal !== null) {
+            infoInferior = `<div class="info-juego-cal finalizado-info"><div class="marcador-vivo"><span class="carreras-visitante">${j.scoreVisitante}</span><span class="separador-marcador">-</span><span class="carreras-local">${j.scoreLocal}</span></div><div class="inning-info"><span class="finalizado-badge">FINAL</span><span class="inning-numero">${j.innings || 9} Innings</span></div></div>`;
+        } else if (j.enVivo && j.scoreLocal !== null) {
+            infoInferior = `<div class="info-juego-cal en-vivo-info"><div class="marcador-vivo"><span class="carreras-visitante">${j.scoreVisitante}</span><span class="separador-marcador">-</span><span class="carreras-local">${j.scoreLocal}</span></div><div class="inning-info"><span class="en-vivo-badge">🔴 EN VIVO</span><span class="inning-numero">Inning ${j.inning}</span></div></div>`;
+        } else {
+            const canalesHTML = j.transmision.split('/').map(c => {
+                const nombre = c.trim();
+                const canal = CANALES.find(cn => cn.nombre.toLowerCase() === nombre.toLowerCase());
+                return canal ? `<img src="${canal.logo}" alt="${nombre}" class="logo-canal-cal" title="${nombre}">` : `<span class="canal-texto">${nombre}</span>`;
+            }).join(' <span class="separador-canal">+</span> ');
+            infoInferior = `<div class="info-juego-cal"><div class="hora-cal">🕐 ${j.hora}</div><div class="transmision-cal">${canalesHTML}</div></div>`;
+        }
+        card.innerHTML = `
+            <div class="mitades-cal">
+                <div class="mitad-cal" style="background-color: ${colorVisitante}"><img src="${logoVisitante}" class="logo-calendario"><div class="nombre-equipo-cal" style="color: ${textoVisitante}">${j.visitante}</div></div>
+                <div class="mitad-cal" style="background-color: ${colorLocal}"><img src="${logoLocal}" class="logo-calendario"><div class="nombre-equipo-cal" style="color: ${textoLocal}">${j.local}</div></div>
+                <div class="vs-central-cal">VS</div>
+            </div>${infoInferior}`;
+        container.appendChild(card);
     });
 }
 
-function renderLideres() {
+export function renderLideres() {
     const crearLista = (id, datos) => {
         const ol = document.getElementById(id);
         if (!ol) return;
@@ -168,7 +164,7 @@ function renderLideres() {
     crearLista("lideres-era", LIDERES.era);
 }
 
-function renderPublicidad() {
+export function renderPublicidad() {
     const sidebar = document.getElementById("sidebar-publicidad");
     if (!sidebar) return;
     sidebar.innerHTML = '';
@@ -178,4 +174,34 @@ function renderPublicidad() {
         div.innerHTML = `<img src="${p.imagen}" alt="${p.alt}" class="anuncio-imagen">`;
         sidebar.appendChild(div);
     });
-                                                                                                       }
+}
+
+// ============================================
+// FUNCIONES GLOBALES PARA EL HTML
+// ============================================
+
+window.abrirArticulo = function(id) {
+    const noticia = NOTICIAS.find(n => n.id === id);
+    if (!noticia) return;
+    document.getElementById("articulo-contenido").innerHTML = `<h1 class="articulo-titulo">${noticia.titulo}</h1><p class="articulo-fecha">${noticia.fecha} | LVBP al Día</p><div class="articulo-texto">${noticia.contenido}</div>`;
+    document.getElementById("articulo-completo").style.display = "block";
+    document.getElementById("articulo-completo").scrollIntoView({ behavior: "smooth" });
+    renderizarComentarios();
+};
+
+window.cerrarArticulo = function() {
+    document.getElementById("articulo-completo").style.display = "none";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+function renderizarComentarios() {
+    const container = document.getElementById("lista-comentarios");
+    if (!container) return;
+    container.innerHTML = comentarios.length === 0 ? '<p style="color: #999; text-align: center; padding: 20px;">Sé el primero en comentar</p>' : '';
+    comentarios.forEach(c => {
+        const div = document.createElement("div");
+        div.className = "comentario-item";
+        div.innerHTML = `<div class="comentario-autor">${c.autor}</div><div class="comentario-texto">${c.texto}</div><div class="comentario-fecha">${c.fecha}</div>`;
+        container.appendChild(div);
+    });
+}
