@@ -339,16 +339,13 @@ body {
 .btn-compartir i { font-size: 1.2rem; }
 
 /* ============================================
-   LOGOS DE X (TWITTER) UNIFICADOS Y LIMPIOS
+   LOGOS DE X (TWITTER) - TAMAÑO CONTROLADO
    ============================================ */
 .logo-x-btn,
-.logo-x-mini,
-.botones-compartir-mini button.twitter-btn img {
+.logo-x-mini {
     width: 20px;
     height: 20px;
     object-fit: contain;
-    /* Si tu logo de X es negro y el fondo del botón es oscuro, descomenta la siguiente línea para hacerlo blanco: */
-    /* filter: brightness(0) invert(1); */
 }
 
 /* ============================================
@@ -406,7 +403,7 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
 .equipo-con-logo { display: flex; align-items: center; gap: 8px; text-align: left; font-size: 0.85rem; }
 
 /* ============================================
-   LOGOS DE EQUIPOS (SIN CÍRCULO, DIRECTO AL COLOR)
+   LOGOS DE EQUIPOS (SIN CÍRCULO)
    ============================================ */
 .logo-small {
     width: 32px;
@@ -490,7 +487,7 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
 .juego-card .hora-cal { color: #ffd700; font-weight: bold; font-size: 0.95rem; }
 
 /* ============================================
-   LOGOS DE CANALES DE TV (UNIFICADOS)
+   LOGOS DE CANALES DE TV
    ============================================ */
 .transmision-cal {
     color: #fff;
@@ -502,7 +499,7 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
 }
 
 .logo-canal-cal {
-    height: 26px; /* Tamaño perfecto, ni muy grande ni muy pequeño */
+    height: 26px;
     width: auto;
     object-fit: contain;
     vertical-align: middle;
@@ -552,4 +549,10 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
     background: #4caf50; color: #fff; padding: 3px 8px; border-radius: 4px;
     font-size: 0.7rem; font-weight: bold; letter-spacing: 1px;
 }
-@keyframes parpadeo { 0%, 100% {
+@keyframes parpadeo { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+.inning-numero { color: #ffd700; font-size: 0.75rem; font-weight: bold; }
+
+/* ============================================
+   BOTONES DE COMPARTIR SECCIONES (MINI)
+   ============================================ */
+.acciones-seccion { margin-top: 25px; p
