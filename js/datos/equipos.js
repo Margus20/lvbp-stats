@@ -2,7 +2,9 @@
 // EQUIPOS DE LA LVBP - TEMPORADA 2026-2027
 // ============================================
 
-const EQUIPOS = [
+import { CONFIG } from './config.js';
+
+export const EQUIPOS = [
     { nombre: "Caribes de Anzoátegui", nombreCorto: "Caribes", abrev: "ANZ", logo: CONFIG.repositorio + "caribes.png", claseFila: "fila-caribes", color: "#F2F2F2", colorTexto: "#2c2c2c" },
     { nombre: "Tigres de Aragua", nombreCorto: "Tigres", abrev: "ARA", logo: CONFIG.repositorio + "tigres.png", claseFila: "fila-tigres", color: "#042959", colorTexto: "#ffffff" },
     { nombre: "Cardenales de Lara", nombreCorto: "Cardenales", abrev: "LAR", logo: CONFIG.repositorio + "cardenales.png", claseFila: "fila-cardenales", color: "#D90D1E", colorTexto: "#ffffff" },
