@@ -8,13 +8,11 @@
     <!-- FAVICON -->
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png">
     
-    <!-- ESTILOS PRINCIPALES -->
-    <link rel="stylesheet" href="css/styles.css?v=12">
-    <!-- NUEVO: Estilos específicos para arreglar el logo de X sin tocar tu diseño -->
-    <link rel="stylesheet" href="css/estilos-x.css?v=1">
+    <!-- ESTILOS -->
+    <link rel="stylesheet" href="css/styles.css?v=13">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- ANALÍTICA GRATUITA (GoatCounter) -->
+    <!-- ANALÍTICA GRATUITA -->
     <script data-goatcounter="https://margus20.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
@@ -53,7 +51,7 @@
     <div class="main-layout">
         <main class="contenido-principal">
             
-            <!-- HERO CON MARCA DE AGUA (Título genérico, el JS lo puede manejar si quieres, o lo dejas así) -->
+            <!-- HERO -->
             <section class="hero-noticia" id="noticias">
                 <div class="hero-imagen" style="background-image: url('https://images.unsplash.com/photo-1508344928928-7165b67de128?w=1400&q=80');">
                     <div class="hero-overlay"></div>
@@ -61,13 +59,13 @@
                     <div class="hero-contenido">
                         <span class="hero-tag">ACTUALIDAD LVBP</span>
                         <h1 class="hero-titulo">Resultados y Noticias de la Jornada</h1>
-                        <p class="hero-subtitulo">Toda la información, estadísticas y resultados de la Liga Venezolana de Béisbol Profesional en un solo lugar.</p>
-                        <p class="hero-fecha" id="hero-fecha-dinamica">Temporada 2026-2027</p>
+                        <p class="hero-subtitulo">Toda la información, estadísticas y resultados de la Liga Venezolana de Béisbol Profesional.</p>
+                        <p class="hero-fecha">Temporada 2026-2027</p>
                     </div>
                 </div>
             </section>
 
-            <!-- GRID DE NOTICIAS -->
+            <!-- NOTICIAS -->
             <section class="noticias-grid-section">
                 <div class="container">
                     <h2 class="titulo-seccion">
@@ -84,7 +82,6 @@
                     <button class="btn-volver" onclick="cerrarArticulo()">← Volver a noticias</button>
                     <article class="articulo-contenido" id="articulo-contenido"></article>
                     
-                    <!-- LOGO AL FINAL DEL ARTÍCULO -->
                     <div class="marca-final-articulo">
                         <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="logo-marca-final">
                         <p class="texto-marca-final">LVBP al Día - Tu fuente de béisbol venezolano</p>
@@ -113,7 +110,7 @@
                 </div>
             </section>
 
-            <!-- TABLA DE POSICIONES -->
+            <!-- POSICIONES -->
             <section id="posiciones" class="seccion-oscura">
                 <div class="container">
                     <h2 class="titulo-seccion">
@@ -140,10 +137,9 @@
                 </div>
             </section>
 
-            <!-- RESULTADOS (El título específico lo inyecta el JS automáticamente) -->
+            <!-- RESULTADOS -->
             <section id="resultados" class="seccion-clara">
                 <div class="container">
-                    <!-- El JS insertará el título con la fecha aquí dentro -->
                     <div class="resultados-grid" id="resultados-container"></div>
                     <div class="acciones-seccion">
                         <p>Compartir esta sección:</p>
@@ -157,10 +153,9 @@
                 </div>
             </section>
 
-            <!-- CALENDARIO (El título específico lo inyecta el JS automáticamente) -->
+            <!-- CALENDARIO -->
             <section id="calendario" class="seccion-oscura">
                 <div class="container">
-                    <!-- El JS insertará el título con la fecha aquí dentro -->
                     <div class="calendario-lista" id="calendario-container"></div>
                     <div class="acciones-seccion">
                         <p>Compartir esta sección:</p>
@@ -195,7 +190,7 @@
         <aside class="sidebar-publicidad" id="sidebar-publicidad"></aside>
     </div>
 
-    <!-- FOOTER SUTIL -->
+    <!-- FOOTER -->
     <footer>
         <div class="container">
             <p class="footer-texto">⚾ LVBP al Día 2026 - Noticias y estadísticas de la Liga Venezolana de Béisbol Profesional</p>
@@ -209,26 +204,7 @@
         </div>
     </footer>
 
-    <!-- ============================================ -->
-    <!-- NUEVA ESTRUCTURA MODULAR DE JAVASCRIPT       -->
-    <!-- ============================================ -->
-    
-    <!-- 1. DATOS (Lo que tú editas) -->
-    <script src="js/datos/config.js"></script>
-    <script src="js/datos/equipos.js"></script>
-    <script src="js/datos/canales.js"></script>
-    <script src="js/datos/posiciones.js"></script>
-    <script src="js/datos/resultados.js"></script>
-    <script src="js/datos/calendario.js"></script>
-    <script src="js/datos/noticias.js"></script>
-    <script src="js/datos/publicidad.js"></script>
-    <script src="js/datos/lideres.js"></script>
-
-    <!-- 2. LÓGICA (No se toca) -->
-    <script src="js/logica/utils.js"></script>
-    <script src="js/logica/compartir.js"></script>
-    <script src="js/logica/render.js"></script>
-    <script src="js/logica/app.js"></script>
-
+    <!-- SCRIPT PRINCIPAL -->
+    <script src="js/app.js?v=1"></script>
 </body>
 </html>
