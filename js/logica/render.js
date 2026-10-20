@@ -7,7 +7,7 @@ import { NOTICIAS } from '../datos/noticias.js';
 import { RESULTADOS } from '../datos/resultados.js';
 import { CALENDARIO } from '../datos/calendario.js';
 import { LIDERES } from '../datos/lideres.js';
-import { PUBLICIDAD } from '../datos/publicidad.js';
+import { PUBLICIDAD } from '../datos/ppublicidad.js';
 import { CANALES } from '../datos/canales.js';
 import { getEquipo, getLogo, getColor, getColorTexto, calcularPCT, calcularDIF } from './utils.js';
 
