@@ -8,7 +8,10 @@
     <!-- FAVICON -->
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png">
     
-    <link rel="stylesheet" href="css/styles.css?v=11">
+    <!-- ESTILOS PRINCIPALES -->
+    <link rel="stylesheet" href="css/styles.css?v=12">
+    <!-- NUEVO: Estilos específicos para arreglar el logo de X sin tocar tu diseño -->
+    <link rel="stylesheet" href="css/estilos-x.css?v=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- ANALÍTICA GRATUITA (GoatCounter) -->
@@ -50,16 +53,16 @@
     <div class="main-layout">
         <main class="contenido-principal">
             
-            <!-- HERO CON MARCA DE AGUA -->
+            <!-- HERO CON MARCA DE AGUA (Título genérico, el JS lo puede manejar si quieres, o lo dejas así) -->
             <section class="hero-noticia" id="noticias">
                 <div class="hero-imagen" style="background-image: url('https://images.unsplash.com/photo-1508344928928-7165b67de128?w=1400&q=80');">
                     <div class="hero-overlay"></div>
                     <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua">
                     <div class="hero-contenido">
-                        <span class="hero-tag">RESULTADOS</span>
-                        <h1 class="hero-titulo">Domingo 18 de Octubre: Resultados de la LVBP</h1>
-                        <p class="hero-subtitulo">Tigres 5-4 Tiburones, Leones 8-4 Caribes, Bravos 8-2 Águilas y Cardenales 8-5 Magallanes.</p>
-                        <p class="hero-fecha">18 de octubre de 2026</p>
+                        <span class="hero-tag">ACTUALIDAD LVBP</span>
+                        <h1 class="hero-titulo">Resultados y Noticias de la Jornada</h1>
+                        <p class="hero-subtitulo">Toda la información, estadísticas y resultados de la Liga Venezolana de Béisbol Profesional en un solo lugar.</p>
+                        <p class="hero-fecha" id="hero-fecha-dinamica">Temporada 2026-2027</p>
                     </div>
                 </div>
             </section>
@@ -67,6 +70,10 @@
             <!-- GRID DE NOTICIAS -->
             <section class="noticias-grid-section">
                 <div class="container">
+                    <h2 class="titulo-seccion">
+                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
+                        Últimas Noticias
+                    </h2>
                     <div class="noticias-grid" id="noticias-container"></div>
                 </div>
             </section>
@@ -80,7 +87,7 @@
                     <!-- LOGO AL FINAL DEL ARTÍCULO -->
                     <div class="marca-final-articulo">
                         <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="logo-marca-final">
-                        <p class="texto-marca-final">LVBP al Día - Tu fuente de béisbol venezolano </p>
+                        <p class="texto-marca-final">LVBP al Día - Tu fuente de béisbol venezolano</p>
                     </div>
                     
                     <div class="seccion-comentarios">
@@ -98,7 +105,7 @@
                             <a href="#" class="btn-compartir whatsapp" onclick="compartirEnRed('whatsapp', 'noticia'); return false;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
                             <a href="#" class="btn-compartir telegram" onclick="compartirEnRed('telegram', 'noticia'); return false;"><i class="fab fa-telegram"></i> Telegram</a>
                             <a href="#" class="btn-compartir facebook" onclick="compartirEnRed('facebook', 'noticia'); return false;"><i class="fab fa-facebook"></i> Facebook</a>
-                            <a href="#" class="btn-compartir twitter" onclick="compartirEnRed('twitter', 'noticia'); return false;">
+                            <a href="#" class="btn-compartir twitter twitter-btn" onclick="compartirEnRed('twitter', 'noticia'); return false;">
                                 <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-btn"> X
                             </a>
                         </div>
@@ -126,47 +133,41 @@
                         <div class="botones-compartir-mini">
                             <button onclick="compartirSeccion('posiciones', 'whatsapp')"><i class="fab fa-whatsapp"></i></button>
                             <button onclick="compartirSeccion('posiciones', 'telegram')"><i class="fab fa-telegram"></i></button>
-                            <button onclick="compartirSeccion('posiciones', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
+                            <button class="twitter-btn" onclick="compartirSeccion('posiciones', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
                             <button onclick="compartirSeccion('posiciones', 'facebook')"><i class="fab fa-facebook"></i></button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- RESULTADOS -->
+            <!-- RESULTADOS (El título específico lo inyecta el JS automáticamente) -->
             <section id="resultados" class="seccion-clara">
                 <div class="container">
-                    <h2 class="titulo-seccion">
-                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
-                        Resultados del Domingo 18 de Octubre
-                    </h2>
+                    <!-- El JS insertará el título con la fecha aquí dentro -->
                     <div class="resultados-grid" id="resultados-container"></div>
                     <div class="acciones-seccion">
                         <p>Compartir esta sección:</p>
                         <div class="botones-compartir-mini">
                             <button onclick="compartirSeccion('resultados', 'whatsapp')"><i class="fab fa-whatsapp"></i></button>
                             <button onclick="compartirSeccion('resultados', 'telegram')"><i class="fab fa-telegram"></i></button>
-                            <button onclick="compartirSeccion('resultados', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
+                            <button class="twitter-btn" onclick="compartirSeccion('resultados', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
                             <button onclick="compartirSeccion('resultados', 'facebook')"><i class="fab fa-facebook"></i></button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- CALENDARIO -->
+            <!-- CALENDARIO (El título específico lo inyecta el JS automáticamente) -->
             <section id="calendario" class="seccion-oscura">
                 <div class="container">
-                    <h2 class="titulo-seccion">
-                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
-                        Próximos Juegos (Lun 19 y Mar 20)
-                    </h2>
+                    <!-- El JS insertará el título con la fecha aquí dentro -->
                     <div class="calendario-lista" id="calendario-container"></div>
                     <div class="acciones-seccion">
                         <p>Compartir esta sección:</p>
                         <div class="botones-compartir-mini">
                             <button onclick="compartirSeccion('calendario', 'whatsapp')"><i class="fab fa-whatsapp"></i></button>
                             <button onclick="compartirSeccion('calendario', 'telegram')"><i class="fab fa-telegram"></i></button>
-                            <button onclick="compartirSeccion('calendario', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
+                            <button class="twitter-btn" onclick="compartirSeccion('calendario', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
                             <button onclick="compartirSeccion('calendario', 'facebook')"><i class="fab fa-facebook"></i></button>
                         </div>
                     </div>
@@ -181,8 +182,8 @@
                         Líderes Estadísticos de la LVBP
                     </h2>
                     <div class="stats-grid">
-                        <div class="stat-card"><h3> Carreras Anotadas</h3><ol id="lideres-carreras"></ol></div>
-                        <div class="stat-card"><h3> Average de Bateo</h3><ol id="lideres-average"></ol></div>
+                        <div class="stat-card"><h3>🏃 Carreras Anotadas</h3><ol id="lideres-carreras"></ol></div>
+                        <div class="stat-card"><h3>🏏 Average de Bateo</h3><ol id="lideres-average"></ol></div>
                         <div class="stat-card"><h3>💥 Jonrones</h3><ol id="lideres-hr"></ol></div>
                         <div class="stat-card"><h3>🎯 Efectividad</h3><ol id="lideres-era"></ol></div>
                     </div>
@@ -208,7 +209,26 @@
         </div>
     </footer>
 
-    <script src="js/data.js?v=11"></script>
-    <script src="js/main.js?v=11"></script>
+    <!-- ============================================ -->
+    <!-- NUEVA ESTRUCTURA MODULAR DE JAVASCRIPT       -->
+    <!-- ============================================ -->
+    
+    <!-- 1. DATOS (Lo que tú editas) -->
+    <script src="js/datos/config.js"></script>
+    <script src="js/datos/equipos.js"></script>
+    <script src="js/datos/canales.js"></script>
+    <script src="js/datos/posiciones.js"></script>
+    <script src="js/datos/resultados.js"></script>
+    <script src="js/datos/calendario.js"></script>
+    <script src="js/datos/noticias.js"></script>
+    <script src="js/datos/publicidad.js"></script>
+    <script src="js/datos/lideres.js"></script>
+
+    <!-- 2. LÓGICA (No se toca) -->
+    <script src="js/logica/utils.js"></script>
+    <script src="js/logica/compartir.js"></script>
+    <script src="js/logica/render.js"></script>
+    <script src="js/logica/app.js"></script>
+
 </body>
 </html>
