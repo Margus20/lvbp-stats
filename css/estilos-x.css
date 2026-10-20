@@ -1,0 +1,56 @@
+/* ============================================
+   FIX DEFINITIVO: LOGO DE X CONTROLADO
+   Archivo independiente - no afecta nada más
+   ============================================ */
+
+.logo-canal-cal.es-icono {
+    width: 28px !important;
+    height: 28px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+    background: #000 !important;
+    border-radius: 50% !important;
+    padding: 5px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+
+.logo-canal-cal.es-icono img {
+    width: 16px !important;
+    height: 16px !important;
+    max-width: 16px !important;
+    max-height: 16px !important;
+    object-fit: contain !important;
+}
+
+.botones-compartir-mini button.twitter-btn img,
+.botones-compartir-mini button:nth-child(3) img {
+    width: 18px !important;
+    height: 18px !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
+    background: #fff !important;
+    border-radius: 50% !important;
+    padding: 2px !important;
+}
+
+.logo-x-btn {
+    width: 18px !important;
+    height: 18px !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
+    background: #fff !important;
+    border-radius: 50% !important;
+    padding: 2px !important;
+    display: inline-block !important;
+}
+
+img[src*="x-logo"] {
+    width: 20px !important;
+    height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+    object-fit: contain !important;
+}
