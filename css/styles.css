@@ -323,12 +323,15 @@ body {
 .btn-compartir.twitter:hover { background: #333333; }
 .btn-compartir i { font-size: 1.2rem; }
 
-/* LOGO DE X EN BOTÓN DE COMPARTIR - TAMAÑO PEQUEÑO Y A COLOR */
+/* LOGO DE X EN BOTÓN DE COMPARTIR - CONTENIDO EN CÍRCULO */
 .logo-x-btn {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     object-fit: contain;
-    /* SIN filter para que se vea el logo negro original */
+    background: #000;
+    border-radius: 50%;
+    padding: 3px;
+    display: inline-block;
 }
 
 /* ============ SECCIONES GENERALES ============ */
@@ -495,6 +498,24 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
     font-size: 0.8rem;
 }
 
+/* LOGO DE X EN CANALES DE TV - CONTENIDO EN CÍRCULO */
+.logo-canal-cal.es-icono {
+    width: 28px;
+    height: 28px;
+    background: #000;
+    border-radius: 50%;
+    padding: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-canal-cal.es-icono img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
 /* ============ JUEGOS EN VIVO Y FINALIZADOS ============ */
 .juego-card.en-vivo { border: 2px solid #d32f2f; animation: pulso-vivo 2s infinite; }
 @keyframes pulso-vivo {
@@ -535,11 +556,4 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
 .botones-compartir-mini button {
     width: 40px; height: 40px; border-radius: 50%; border: none; color: #fff;
     font-size: 1.1rem; cursor: pointer; transition: all 0.3s;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-}
-.botones-compartir-mini button:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-.botones-compartir-mini button:nth-child(1) { background: #25D366; }
-.botones-compartir-mini button:nth-child(2) { background: #0088cc; }
-.botones-compartir-mini button:nth-child(3) { background: #000000; }
-.botones-compartir-m
+    display: flex; align-items: center; 
