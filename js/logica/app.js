@@ -38,7 +38,7 @@ async function diagnosticar() {
         { nombre: 'calendario.js', ruta: '../datos/calendario.js' },
         { nombre: 'noticias.js', ruta: '../datos/noticias.js' },
         { nombre: 'lideres.js', ruta: '../datos/lideres.js' },
-        { nombre: 'publicidad.js', ruta: '../datos/publicidad.js' }
+        { nombre: 'publicidad.js', ruta: '../datos/ppublicidad.js' }
     ];
 
     const resultados = [];
