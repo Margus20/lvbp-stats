@@ -7,11 +7,9 @@ import { NOTICIAS } from '../datos/noticias.js';
 import { RESULTADOS } from '../datos/resultados.js';
 import { CALENDARIO } from '../datos/calendario.js';
 import { LIDERES } from '../datos/lideres.js';
-import { PUBLICIDAD } from '../datos/ppublicidad.js';
+import { PUBLICIDAD } from '../datos/ppublicidad.js'; // <-- Apunta a tu archivo con doble p
 import { CANALES } from '../datos/canales.js';
 import { getEquipo, getLogo, getColor, getColorTexto, calcularPCT, calcularDIF } from './utils.js';
-
-let comentarios = [];
 
 export function renderPosiciones() {
     const tbody = document.getElementById("posiciones-body");
@@ -56,7 +54,6 @@ export function renderResultados() {
     if (!container) return;
     container.innerHTML = '';
     
-    // 🔄 TÍTULO AUTOMÁTICO SEGÚN LA FECHA DE LOS RESULTADOS
     if (titulo) {
         if (RESULTADOS.length === 0) {
             titulo.innerHTML = `<img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" class="logo-seccion"> SIN RESULTADOS RECIENTES`;
@@ -97,7 +94,6 @@ export function renderCalendario() {
     if (!container) return;
     container.innerHTML = '';
 
-    // 🔄 TÍTULO AUTOMÁTICO SEGÚN LA FECHA DEL CALENDARIO
     if (titulo) {
         if (CALENDARIO.length === 0) {
             titulo.innerHTML = `<img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" class="logo-seccion"> SIN JUEGOS PROGRAMADOS`;
@@ -173,35 +169,5 @@ export function renderPublicidad() {
         div.className = "espacio-publicidad";
         div.innerHTML = `<img src="${p.imagen}" alt="${p.alt}" class="anuncio-imagen">`;
         sidebar.appendChild(div);
-    });
-}
-
-// ============================================
-// FUNCIONES GLOBALES PARA EL HTML
-// ============================================
-
-window.abrirArticulo = function(id) {
-    const noticia = NOTICIAS.find(n => n.id === id);
-    if (!noticia) return;
-    document.getElementById("articulo-contenido").innerHTML = `<h1 class="articulo-titulo">${noticia.titulo}</h1><p class="articulo-fecha">${noticia.fecha} | LVBP al Día</p><div class="articulo-texto">${noticia.contenido}</div>`;
-    document.getElementById("articulo-completo").style.display = "block";
-    document.getElementById("articulo-completo").scrollIntoView({ behavior: "smooth" });
-    renderizarComentarios();
-};
-
-window.cerrarArticulo = function() {
-    document.getElementById("articulo-completo").style.display = "none";
-    window.scrollTo({ top: 0, behavior: "smooth" });
-};
-
-function renderizarComentarios() {
-    const container = document.getElementById("lista-comentarios");
-    if (!container) return;
-    container.innerHTML = comentarios.length === 0 ? '<p style="color: #999; text-align: center; padding: 20px;">Sé el primero en comentar</p>' : '';
-    comentarios.forEach(c => {
-        const div = document.createElement("div");
-        div.className = "comentario-item";
-        div.innerHTML = `<div class="comentario-autor">${c.autor}</div><div class="comentario-texto">${c.texto}</div><div class="comentario-fecha">${c.fecha}</div>`;
-        container.appendChild(div);
     });
 }
