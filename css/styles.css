@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #f5f0e8 0%, #f0ebe3 100%);
     color: #2c2c2c;
     line-height: 1.6;
@@ -570,5 +570,4 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
     height: 45px;
     object-fit: contain;
     border-radius: 50%;
-    background: #ffffff;
-  
+    background: 
