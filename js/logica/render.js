@@ -6,7 +6,7 @@ import { POSICIONES } from '../datos/posiciones.js';
 import { NOTICIAS } from '../datos/noticias.js';
 import { RESULTADOS } from '../datos/resultados.js';
 import { CALENDARIO } from '../datos/calendario.js';
-// 🆕 CAMBIO 1: Agregamos 'obtenerMascota' a esta importación
+// 🆕 Importamos los datos de líderes y la función para obtener la mascota
 import { LIDERES, obtenerMascota } from '../datos/lideres.js';
 import { PUBLICIDAD } from '../datos/ppublicidad.js'; 
 import { CANALES } from '../datos/canales.js';
@@ -144,16 +144,39 @@ export function renderCalendario() {
     });
 }
 
-// 🆕 CAMBIO 2: Función renderLideres actualizada para usar mascotas
+// 🆕 FUNCIÓN RENDERLIDERES COMPLETA (26 CATEGORÍAS)
 export function renderLideres() {
-    // Mapeo de IDs del HTML a las claves del objeto LIDERES
+    // Mapeo de TODOS los IDs del HTML a las claves del objeto LIDERES
     const categoriasAMostrar = {
+        // BATEO (12 categorías)
         'contenedor-jonrones': 'jonrones',
         'contenedor-average': 'average',
         'contenedor-impulsadas': 'impulsadas',
+        'contenedor-slugging': 'slugging',
+        'contenedor-ops': 'ops',
+        'contenedor-hits': 'hits',
+        'contenedor-dobles': 'dobles',
+        'contenedor-triples': 'triples',
+        'contenedor-carrerasAnotadas': 'carrerasAnotadas',
+        'contenedor-basesRobadas': 'basesRobadas',
+        'contenedor-basesPorBolas': 'basesPorBolas',
+        'contenedor-ponchesBateo': 'ponchesBateo',
+        
+        // PITCHEO (14 categorías)
         'contenedor-efectividad': 'efectividad',
-        'contenedor-ponches': 'ponchesPitching'
-        // Puedes agregar más aquí si agregas más secciones al HTML (ej: 'contenedor-hits': 'hits')
+        'contenedor-ponches': 'ponchesPitching',
+        'contenedor-victorias': 'victorias',
+        'contenedor-salvados': 'salvados',
+        'contenedor-inningsLanzados': 'inningsLanzados',
+        'contenedor-whip': 'whip',
+        'contenedor-averageContra': 'averageContra',
+        'contenedor-strikes': 'strikes',
+        'contenedor-numeroPitches': 'numeroPitches',
+        'contenedor-hitsPermitidos': 'hitsPermitidos',
+        'contenedor-carrerasPermitidas': 'carrerasPermitidas',
+        'contenedor-carrerasLimpias': 'carrerasLimpias',
+        'contenedor-jonronesPermitidos': 'jonronesPermitidos',
+        'contenedor-basesPorBolasPitching': 'basesPorBolasPitching'
     };
 
     // Recorremos cada categoría y la dibujamos
@@ -201,4 +224,4 @@ export function renderPublicidad() {
         div.innerHTML = `<img src="${p.imagen}" alt="${p.alt}" class="anuncio-imagen">`;
         sidebar.appendChild(div);
     });
-}
+                }
