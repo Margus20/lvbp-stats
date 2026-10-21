@@ -6,8 +6,9 @@ import { POSICIONES } from '../datos/posiciones.js';
 import { NOTICIAS } from '../datos/noticias.js';
 import { RESULTADOS } from '../datos/resultados.js';
 import { CALENDARIO } from '../datos/calendario.js';
-import { LIDERES } from '../datos/lideres.js';
-import { PUBLICIDAD } from '../datos/ppublicidad.js'; // <-- Apunta a tu archivo con doble p
+// 🆕 CAMBIO 1: Agregamos 'obtenerMascota' a esta importación
+import { LIDERES, obtenerMascota } from '../datos/lideres.js';
+import { PUBLICIDAD } from '../datos/ppublicidad.js'; 
 import { CANALES } from '../datos/canales.js';
 import { getEquipo, getLogo, getColor, getColorTexto, calcularPCT, calcularDIF } from './utils.js';
 
@@ -143,21 +144,51 @@ export function renderCalendario() {
     });
 }
 
+// 🆕 CAMBIO 2: Función renderLideres actualizada para usar mascotas
 export function renderLideres() {
-    const crearLista = (id, datos) => {
-        const ol = document.getElementById(id);
-        if (!ol) return;
-        ol.innerHTML = '';
-        datos.forEach(d => {
-            const li = document.createElement("li");
-            li.innerHTML = `${d.nombre} <span class="valor">${d.valor}</span>`;
-            ol.appendChild(li);
-        });
+    // Mapeo de IDs del HTML a las claves del objeto LIDERES
+    const categoriasAMostrar = {
+        'contenedor-jonrones': 'jonrones',
+        'contenedor-average': 'average',
+        'contenedor-impulsadas': 'impulsadas',
+        'contenedor-efectividad': 'efectividad',
+        'contenedor-ponches': 'ponchesPitching'
+        // Puedes agregar más aquí si agregas más secciones al HTML (ej: 'contenedor-hits': 'hits')
     };
-    crearLista("lideres-carreras", LIDERES.carreras);
-    crearLista("lideres-average", LIDERES.average);
-    crearLista("lideres-hr", LIDERES.hr);
-    crearLista("lideres-era", LIDERES.era);
+
+    // Recorremos cada categoría y la dibujamos
+    for (const [idContenedor, claveCategoria] of Object.entries(categoriasAMostrar)) {
+        const contenedor = document.getElementById(idContenedor);
+        if (!contenedor) continue; // Si no existe el ID en el HTML, lo salta sin romper nada
+
+        const lideres = LIDERES[claveCategoria];
+        if (!lideres) continue;
+
+        contenedor.innerHTML = ''; // Limpiamos el contenedor antes de dibujar
+
+        lideres.forEach(lider => {
+            // Obtenemos la ruta de la mascota
+            const rutaMascota = obtenerMascota(lider.equipo);
+            
+            // Formateamos el nombre del equipo (ej: "navegantes" -> "Magallanes")
+            let nombreEquipo = lider.equipo.charAt(0).toUpperCase() + lider.equipo.slice(1);
+            if (lider.equipo === 'navegantes') nombreEquipo = 'Magallanes';
+
+            // Creamos la tarjetita de cada jugador
+            const item = document.createElement('div');
+            item.className = 'item-lider';
+            item.innerHTML = `
+                <div class="posicion">#${lider.posicion}</div>
+                <img src="${rutaMascota}" alt="Mascota de ${nombreEquipo}" class="mascota-img" onerror="this.src='mascotas/leo.jpg'">
+                <div class="info-jugador">
+                    <span class="nombre">${lider.nombre}</span>
+                    <span class="equipo">${nombreEquipo}</span>
+                </div>
+                <div class="valor">${lider.valor}</div>
+            `;
+            contenedor.appendChild(item);
+        });
+    }
 }
 
 export function renderPublicidad() {
