@@ -1,0 +1,50 @@
+/* ========================================== */
+/* 5. TARJETAS DE JUEGOS (RESULTADOS Y CALENDARIO) */
+/* ========================================== */
+.logo-resultado, .logo-calendario { width: 80px; height: 80px; object-fit: contain; margin-bottom: 6px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+
+.resultados-grid, .calendario-lista { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
+.resultado-card, .juego-card { position: relative; border-radius: 10px; overflow: hidden; box-shadow: 0 3px 12px rgba(0,0,0,0.15); transition: all 0.3s; cursor: pointer; background: #fff; }
+.resultado-card:hover, .juego-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+
+.resultado-card .mitades, .juego-card .mitades-cal { display: flex; width: 100%; height: 170px; position: relative; }
+.resultado-card .mitad, .juego-card .mitad-cal { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 8px; }
+.resultado-card .nombre-equipo-res, .juego-card .nombre-equipo-cal { color: #fff; font-weight: bold; font-size: 0.85rem; text-align: center; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); line-height: 1.2; }
+.resultado-card .vs-central, .juego-card .vs-central-cal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 3; background: #fff; color: #d32f2f; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.8rem; box-shadow: 0 3px 10px rgba(0,0,0,0.3); border: 2px solid #ffd700; }
+
+.resultado-card .info-marcador, .juego-card .info-juego-cal { background: linear-gradient(90deg, #1a1a1a 0%, #2c2c2c 100%); padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; border-top: 2px solid #ffd700; }
+.resultado-card .marcador { display: flex; align-items: center; gap: 8px; flex: 1; justify-content: center; }
+.resultado-card .carreras-local, .resultado-card .carreras-visitante { font-size: 1.4rem; font-weight: bold; color: #ffd700; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); min-width: 25px; text-align: center; }
+.resultado-card .separador-marcador { color: #fff; font-size: 1rem; font-weight: bold; }
+.resultado-card .innings-info { color: #fff; font-size: 0.7rem; text-align: right; min-width: 50px; }
+.resultado-card .innings-info .innings-numero { color: #ffd700; font-weight: bold; font-size: 0.85rem; display: block; }
+.resultado-card .innings-info .innings-label { color: #b0b0b0; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.resultado-card .fecha-juego-res { text-align: center; color: #b0b0b0; font-size: 0.7rem; padding: 5px; background: #0f0f0f; font-weight: 500; }
+
+.juego-card .hora-cal { color: #ffd700; font-weight: bold; font-size: 0.95rem; }
+
+/* 🏟️ ESTILO DEL ESTADIO */
+.estadio-cal {
+    color: #ffd700; font-size: 0.85rem; font-weight: 600; text-align: center;
+    margin: 5px 0; padding: 3px 10px; background: rgba(255, 215, 0, 0.1); border-radius: 4px;
+}
+
+.transmision-cal { color: #fff; font-size: 0.8rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.logo-canal-cal { height: 26px; width: auto; object-fit: contain; vertical-align: middle; }
+.separador-canal { color: #ffd700; font-weight: bold; font-size: 0.9rem; }
+.canal-texto { color: #fff; font-style: italic; font-size: 0.8rem; }
+
+.juego-card.en-vivo { border: 2px solid #d32f2f; animation: pulso-vivo 2s infinite; }
+@keyframes pulso-vivo { 0% { box-shadow: 0 3px 12px rgba(211, 47, 47, 0.3); } 50% { box-shadow: 0 3px 20px rgba(211, 47, 47, 0.6); } 100% { box-shadow: 0 3px 12px rgba(211, 47, 47, 0.3); } }
+.juego-card.finalizado { border: 2px solid #4caf50; opacity: 0.95; }
+.en-vivo-info, .finalizado-info { background: linear-gradient(90deg, #1a1a1a 0%, #2c2c2c 100%); padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.en-vivo-info { border-top: 2px solid #d32f2f; }
+.finalizado-info { border-top: 2px solid #4caf50; }
+.marcador-vivo { display: flex; align-items: center; gap: 8px; flex: 1; justify-content: center; }
+.marcador-vivo .carreras-local, .marcador-vivo .carreras-visitante { font-size: 1.4rem; font-weight: bold; color: #ffd700; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); min-width: 25px; text-align: center; }
+.marcador-vivo .separador-marcador { color: #fff; font-size: 1rem; font-weight: bold; }
+.inning-info { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; min-width: 80px; }
+.en-vivo-badge { background: #d32f2f; color: #fff; padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; letter-spacing: 1px; animation: parpadeo 1.5s infinite; }
+.finalizado-badge { background: #4caf50; color: #fff; padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; letter-spacing: 1px; }
+@keyframes parpadeo { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+.inning-numero { color: #ffd700; font-size: 0.75rem; font-weight: bold; }
