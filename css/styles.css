@@ -533,7 +533,7 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
 .stat-card h3 { color: #d32f2f; margin-bottom: 12px; font-size: 1rem; padding-bottom: 8px; border-bottom: 2px solid #e0e0e0; }
 
 /* ========================================== */
-/* 🆕 NUEVOS ESTILOS PARA LAS MASCOTAS EN ESTADÍSTICAS */
+/* 🆕 ESTILOS PARA LAS MASCOTAS EN ESTADÍSTICAS (CORREGIDO Y MEJORADO) */
 /* ========================================== */
 .lista-lideres {
     display: flex;
@@ -545,29 +545,16 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 10px;
-    background: #f8f9fa;
+    padding: 12px;
+    background: #ffffff; /* 🎨 CAMBIO: Fondo blanco puro para mayor contraste y limpieza */
     border-radius: 8px;
+    border: 1px solid #e0e0e0; /* 🎨 CAMBIO: Borde sutil para definirla mejor */
     border-left: 4px solid #d32f2f;
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .item-lider:hover {
     transform: translateX(5px);
-    background: #eef2f7;
+    background: #fdfdfd;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Sombra suave al pasar el mouse */
 }
-
-.item-lider .posicion {
-    font-weight: 900;
-    font-size: 1.1rem;
-    color: #d32f2f;
-    width: 30px;
-    text-align: center;
-}
-
-.item-lider .mascota-img {
-    width: 45px;
-    height: 45px;
-    object-fit: contain;
-    border-radius: 50%;
-    background: 
