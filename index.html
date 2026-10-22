@@ -4,15 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LVBP al Día - Liga Venezolana de Béisbol Profesional</title>
-    
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png">
-    
-    <!-- 🆕 FUENTES DE GOOGLE: Poppins, Oswald, Bebas Neue -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- 🆕 CSS MODULARIZADO EN 7 ARCHIVOS PEQUEÑOS -->
     <link rel="stylesheet" href="css/01-base.css?v=100">
     <link rel="stylesheet" href="css/02-header-nav.css?v=100">
     <link rel="stylesheet" href="css/03-noticias-articulos.css?v=100">
@@ -20,46 +15,15 @@
     <link rel="stylesheet" href="css/05-tarjetas-juegos.css?v=100">
     <link rel="stylesheet" href="css/06-estadisticas-mascotas.css?v=100">
     <link rel="stylesheet" href="css/07-sidebar-footer.css?v=100">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
     <script data-goatcounter="https://margus20.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
-    
-    <header class="header-principal">
-        <div class="header-container">
-            <div class="header-izquierda">
-                <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="logo-header">
-                <button class="menu-hamburguesa" id="menuBtn">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-            <div class="header-derecha">
-                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-x-twitter"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-            </div>
-        </div>
-        <nav class="nav-menu" id="navMenu">
-            <ul>
-                <li><a href="#noticias">Noticias</a></li>
-                <li><a href="#posiciones">Posiciones</a></li>
-                <li><a href="#resultados">Resultados</a></li>
-                <li><a href="#calendario">Calendario</a></li>
-                <li><a href="#estadisticas">Estadísticas</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- AQUÍ SE CARGARÁ EL HEADER DESDE componentes/header.html -->
+    <div id="header-placeholder"></div>
 
     <div class="main-layout">
         <main class="contenido-principal">
-            
             <section class="hero-noticia" id="noticias">
                 <div class="hero-imagen" style="background-image: url('https://images.unsplash.com/photo-1508344928928-7165b67de128?w=1400&q=80');">
                     <div class="hero-overlay"></div>
@@ -75,10 +39,7 @@
 
             <section class="noticias-grid-section">
                 <div class="container">
-                    <h2 class="titulo-seccion">
-                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
-                        Últimas Noticias
-                    </h2>
+                    <h2 class="titulo-seccion"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion"> Últimas Noticias</h2>
                     <div class="noticias-grid" id="noticias-container"></div>
                 </div>
             </section>
@@ -106,9 +67,7 @@
                             <a href="#" class="btn-compartir whatsapp" onclick="window.compartirEnRed('whatsapp', 'noticia'); return false;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
                             <a href="#" class="btn-compartir telegram" onclick="window.compartirEnRed('telegram', 'noticia'); return false;"><i class="fab fa-telegram"></i> Telegram</a>
                             <a href="#" class="btn-compartir facebook" onclick="window.compartirEnRed('facebook', 'noticia'); return false;"><i class="fab fa-facebook"></i> Facebook</a>
-                            <a href="#" class="btn-compartir twitter" onclick="window.compartirEnRed('twitter', 'noticia'); return false;">
-                                <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-btn"> X
-                            </a>
+                            <a href="#" class="btn-compartir twitter" onclick="window.compartirEnRed('twitter', 'noticia'); return false;"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-btn"> X</a>
                         </div>
                     </div>
                 </div>
@@ -116,158 +75,63 @@
 
             <section id="posiciones" class="seccion-oscura">
                 <div class="container">
-                    <h2 class="titulo-seccion">
-                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
-                        Tabla de Posiciones de la LVBP
-                    </h2>
+                    <h2 class="titulo-seccion"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion"> Tabla de Posiciones de la LVBP</h2>
                     <div class="tabla-container">
                         <table id="tabla-posiciones">
-                            <thead>
-                                <tr><th>#</th><th>Equipo</th><th>JJ</th><th>JG</th><th>JP</th><th>PCT</th><th>DIF</th><th>RACHA</th></tr>
-                            </thead>
+                            <thead><tr><th>#</th><th>Equipo</th><th>JJ</th><th>JG</th><th>JP</th><th>PCT</th><th>DIF</th><th>RACHA</th></tr></thead>
                             <tbody id="posiciones-body"></tbody>
                         </table>
-                    </div>
-                    <div class="acciones-seccion">
-                        <p>Compartir esta sección:</p>
-                        <div class="botones-compartir-mini">
-                            <button onclick="window.compartirSeccion('posiciones', 'whatsapp')"><i class="fab fa-whatsapp"></i></button>
-                            <button onclick="window.compartirSeccion('posiciones', 'telegram')"><i class="fab fa-telegram"></i></button>
-                            <button onclick="window.compartirSeccion('posiciones', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
-                            <button onclick="window.compartirSeccion('posiciones', 'facebook')"><i class="fab fa-facebook"></i></button>
-                        </div>
                     </div>
                 </div>
             </section>
 
             <section id="resultados" class="seccion-clara">
                 <div class="container">
-                    <h2 class="titulo-seccion">
-                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
-                        Resultados Recientes
-                    </h2>
+                    <h2 class="titulo-seccion"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion"> Resultados Recientes</h2>
                     <div class="resultados-grid" id="resultados-container"></div>
-                    <div class="acciones-seccion">
-                        <p>Compartir esta sección:</p>
-                        <div class="botones-compartir-mini">
-                            <button onclick="window.compartirSeccion('resultados', 'whatsapp')"><i class="fab fa-whatsapp"></i></button>
-                            <button onclick="window.compartirSeccion('resultados', 'telegram')"><i class="fab fa-telegram"></i></button>
-                            <button onclick="window.compartirSeccion('resultados', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
-                            <button onclick="window.compartirSeccion('resultados', 'facebook')"><i class="fab fa-facebook"></i></button>
-                        </div>
-                    </div>
                 </div>
             </section>
 
             <section id="calendario" class="seccion-oscura">
                 <div class="container">
-                    <h2 class="titulo-seccion">
-                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
-                        Próximos Juegos
-                    </h2>
+                    <h2 class="titulo-seccion"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion"> Próximos Juegos</h2>
                     <div class="calendario-lista" id="calendario-container"></div>
-                    <div class="acciones-seccion">
-                        <p>Compartir esta sección:</p>
-                        <div class="botones-compartir-mini">
-                            <button onclick="window.compartirSeccion('calendario', 'whatsapp')"><i class="fab fa-whatsapp"></i></button>
-                            <button onclick="window.compartirSeccion('calendario', 'telegram')"><i class="fab fa-telegram"></i></button>
-                            <button onclick="window.compartirSeccion('calendario', 'twitter')"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-mini"></button>
-                            <button onclick="window.compartirSeccion('calendario', 'facebook')"><i class="fab fa-facebook"></i></button>
-                        </div>
-                    </div>
                 </div>
             </section>
 
-            <!-- 🆕 SECCIÓN DE ESTADÍSTICAS COMPLETA (26 CATEGORÍAS) CON LOGOS ALTERNADOS -->
-            <section id="estadisticas" class="seccion-clara">
-                <div class="container">
-                    <h2 class="titulo-seccion">
-                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
-                        Líderes Estadísticos de la LVBP
-                    </h2>
-                    <div class="stats-grid">
-                        <!-- BATEO -->
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Jonrones (HR)</h3>
-                            <div class="lista-lideres" id="contenedor-jonrones"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Average de Bateo (AVE)</h3>
-                            <div class="lista-lideres" id="contenedor-average"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Carreras Impulsadas (CI)</h3>
-                            <div class="lista-lideres" id="contenedor-impulsadas"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Slugging (SLG)</h3>
-                            <div class="lista-lideres" id="contenedor-slugging"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">OPS</h3>
-                            <div class="lista-lideres" id="contenedor-ops"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Hits (H)</h3>
-                            <div class="lista-lideres" id="contenedor-hits"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Dobles (2B)</h3>
-                            <div class="lista-lideres" id="contenedor-dobles"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Triples (3B)</h3>
-                            <div class="lista-lideres" id="contenedor-triples"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Carreras Anotadas (CA)</h3>
-                            <div class="lista-lideres" id="contenedor-carrerasAnotadas"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Bases Robadas (BR)</h3>
-                            <div class="lista-lideres" id="contenedor-basesRobadas"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Bases por Bolas (BB)</h3>
-                            <div class="lista-lideres" id="contenedor-basesPorBolas"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Ponches Bateo (K)</h3>
-                            <div class="lista-lideres" id="contenedor-ponchesBateo"></div>
-                        </div>
-                        
-                        <!-- PITCHEO -->
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Efectividad (EFE)</h3>
-                            <div class="lista-lideres" id="contenedor-efectividad"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Ponches Pitcheo (K)</h3>
-                            <div class="lista-lideres" id="contenedor-ponches"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Victorias (G)</h3>
-                            <div class="lista-lideres" id="contenedor-victorias"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Salvados (SV)</h3>
-                            <div class="lista-lideres" id="contenedor-salvados"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Innings Lanzados (IP)</h3>
-                            <div class="lista-lideres" id="contenedor-inningsLanzados"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">WHIP</h3>
-                            <div class="lista-lideres" id="contenedor-whip"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Average Contra (AVE)</h3>
-                            <div class="lista-lideres" id="contenedor-averageContra"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Strikes (S)</h3>
-                            <div class="lista-lideres" id="contenedor-strikes"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="w
+            <!-- AQUÍ SE CARGARÁN LAS ESTADÍSTICAS DESDE componentes/estadisticas.html -->
+            <div id="estadisticas-placeholder"></div>
+        </main>
+
+        <aside class="sidebar-publicidad" id="sidebar-publicidad"></aside>
+    </div>
+
+    <!-- AQUÍ SE CARGARÁ EL FOOTER DESDE componentes/footer.html -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Script que carga los componentes y luego app.js -->
+    <script>
+        async function cargarComponentes() {
+            try {
+                const header = await fetch('componentes/header.html').then(r => r.text());
+                document.getElementById('header-placeholder').innerHTML = header;
+                
+                const estadisticas = await fetch('componentes/estadisticas.html').then(r => r.text());
+                document.getElementById('estadisticas-placeholder').innerHTML = estadisticas;
+                
+                const footer = await fetch('componentes/footer.html').then(r => r.text());
+                document.getElementById('footer-placeholder').innerHTML = footer;
+                
+                // Cargar app.js después de que los componentes estén listos
+                const script = document.createElement('script');
+                script.type = 'module';
+                script.src = 'js/logica/app.js?v=100';
+                document.body.appendChild(script);
+            } catch (error) {
+                console.error('Error cargando componentes:', error);
+            }
+        }
+        cargarComponentes();
+    </script>
+</body>
+</html>
