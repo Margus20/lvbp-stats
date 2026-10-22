@@ -7,7 +7,7 @@ on:
   workflow_dispatch: # Permite ejecución manual
 
 permissions:
-  contents: write # ESTO ES CRÍTICO - Permite modificar archivos
+  contents: write # Permite modificar archivos
 
 jobs:
   actualizar:
@@ -21,16 +21,13 @@ jobs:
         with:
           python-version: '3.10'
           
-      - name: Instalar Chrome y ChromeDriver
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y chromium-browser chromium-chromedriver
-          # 🆕 AGREGADO: Crear un "acceso directo" para asegurar que Python lo encuentre en la ruta exacta
-          if [ ! -f /usr/bin/chromium ]; then
-            sudo ln -s /usr/bin/chromium-browser /usr/bin/chromium
-          fi
+      # 🏆 ESTE ES EL SECRETO: Instala Chrome de forma portable y sin errores de Ubuntu
+      - name: Configurar Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
           
-      - name: Instalar dependencias
+      - name: Instalar dependencias de Python
         run: pip install requests beautifulsoup4 selenium
         
       - name: Configurar Git
@@ -40,5 +37,6 @@ jobs:
           
       - name: Ejecutar Script de Estadísticas
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          # Usamos GITHUB_TOKEN que ya viene integrado y tiene permisos de escritura
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python actualizar_lideres.py
