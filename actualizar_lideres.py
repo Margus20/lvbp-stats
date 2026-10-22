@@ -63,7 +63,7 @@ ESTADISTICAS_PITCHEO_AVANZADAS = {
     'whip': 'WHIP', 'averageContra': 'AVE', 'strikes': 'S', 'numeroPitches': 'NP'
 }
 
-# ESTADÍSTICAS DONDE "MENOR ES MEJOR" (se ordenan ascendente)
+# ESTADÍSTICAS DONDE "MENOR ES MEJOR"
 ESTADISTICAS_MENOR_ES_MEJOR = ['efectividad', 'whip', 'averageContra']
 
 def cambiar_a_pitcheo(driver):
@@ -96,7 +96,7 @@ def hacer_clic_en_pestania(driver, nombre_pestania):
                 driver.execute_script("arguments[0].click();", tab)
                 time.sleep(2.5)
                 return True
-        print(f"⚠️ No se encontró '{nombre_pestania}'")
+        print(f"️ No se encontró '{nombre_pestania}'")
         return False
     except Exception as e:
         print(f"❌ Error: {e}")
@@ -104,63 +104,42 @@ def hacer_clic_en_pestania(driver, nombre_pestania):
 
 def hacer_clic_en_columna(driver, abreviatura, categoria):
     try:
-        print(f"🔍 Buscando columna '{abreviatura}'...")
+        print(f" Buscando columna '{abreviatura}'...")
         
         # Scroll horizontal máximo
         driver.execute_script("""
             var container = document.querySelector('.table-responsive') || document.querySelector('table') || document.body;
             if (container) container.scrollLeft = container.scrollWidth;
         """)
-        time.sleep(2) # Más tiempo para que el scroll se complete
+        time.sleep(2)
         
-        encabezados = driver.find_elements(By.TAG_NAME, "th")
+        # Usar BeautifulSoup para buscar la columna (más confiable)
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
+        encabezados = soup.find_all('th')
         indice_columna = -1
         
         for i, encabezado in enumerate(encabezados):
             texto = encabezado.get_text(strip=True).upper()
-            # Búsqueda flexible: coincide si la abreviatura está en el texto, o si es AVE/AVG
-            if (abreviatura.upper() in texto or 
-                texto in abreviatura.upper() or 
-                (abreviatura.upper() == 'AVE' and 'AVG' in texto)):
-                
+            if abreviatura.upper() in texto or texto == abreviatura.upper() or (abreviatura == 'AVE' and 'AVG' in texto):
                 print(f"✅ Encontrada columna '{abreviatura}' (texto: '{texto}') en posición {i}. Ordenando...")
-                driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});", encabezado)
-                time.sleep(1)
                 
-                # Primer clic
-                driver.execute_script("arguments[0].click();", encabezado)
-                time.sleep(2)
-                
-                # Si es "menor es mejor", hacer SEGUNDO clic para ordenar ascendente
-                if categoria in ESTADISTICAS_MENOR_ES_MEJOR:
-                    print(f"📉 '{categoria}' es 'menor es mejor'. Haciendo segundo clic...")
-                    driver.execute_script("arguments[0].click();", encabezado)
+                # Ahora buscar el elemento en Selenium para hacer clic
+                encabezados_selenium = driver.find_elements(By.TAG_NAME, "th")
+                if i < len(encabezados_selenium):
+                    driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});", encabezados_selenium[i])
+                    time.sleep(0.5)
+                    driver.execute_script("arguments[0].click();", encabezados_selenium[i])
                     time.sleep(2)
-                
-                indice_columna = i
-                
-                # Scroll de vuelta al inicio
-                driver.execute_script("""
-                    var container = document.querySelector('.table-responsive') || document.querySelector('table');
-                    if (container) container.scrollLeft = 0;
-                    window.scrollTo(0, 0);
-                """)
-                time.sleep(1.5)
-                break
+                    
+                    # Doble clic si es "menor es mejor"
+                    if categoria in ESTADISTICAS_MENOR_ES_MEJOR:
+                        print(f"📉 '{categoria}' es 'menor es mejor'. Segundo clic...")
+                        driver.execute_script("arguments[0].click();", encabezados_selenium[i])
+                        time.sleep(2)
+                    
+                    indice_columna = i
         
-        if indice_columna == -1:
-            # Debug: mostrar qué encabezados sí encontró para diagnosticar
-            headers_visibles = [h.get_text(strip=True).upper() for h in encabezados[:12]]
-            print(f"⚠️ No se encontró la columna '{abreviatura}'. Encabezados visibles: {headers_visibles}")
-            return -1
-        
-        return indice_columna
-    except Exception as e:
-        print(f"❌ Error: {e}")
-        return -1
-
-def extraer_top3_con_columna(driver, indice_columna_objetivo, nombre_categoria):
-    try:
+        # Scroll de vuelta al inicio
         driver.execute_script("""
             var container = document.querySelector('.table-responsive') || document.querySelector('table');
             if (container) container.scrollLeft = 0;
@@ -168,28 +147,36 @@ def extraer_top3_con_columna(driver, indice_columna_objetivo, nombre_categoria):
         """)
         time.sleep(1.5)
         
+        return indice_columna
+    except Exception as e:
+        print(f" Error: {e}")
+        import traceback
+        traceback.print_exc()
+        return -1
+
+def extraer_top3_con_columna(driver, indice_columna_objetivo, nombre_categoria):
+    try:
+        # Usar BeautifulSoup para extraer datos
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         tablas = soup.find_all('table')
         if not tablas:
             return []
             
         tabla = max(tablas, key=lambda t: len(t.find_all('tr')))
-        filas = tabla.find_all('tr')[1:]
+        filas = tabla.find_all('tr')[1:]  # Saltar encabezado
         
         jugadores = []
-        for fila in filas[:20]:  # Revisar hasta 20 filas para asegurar top 3
+        for fila in filas[:20]:
             celdas = fila.find_all('td')
             if not celdas or len(celdas) < 2:
                 continue
-                
-            # 🧠 HEURÍSTICA INTELIGENTE: Encontrar la celda del nombre
-            # A veces la columna 0 es el rank (1, 2, 3), a veces es el nombre.
+            
+            # Encontrar automáticamente la celda del nombre
             nombre_idx = 0
             equipo_idx = 1
             
             for i in range(min(3, len(celdas))):
                 texto = celdas[i].get_text(strip=True)
-                # Si tiene más de 2 caracteres y no es solo un número, es el nombre
                 if len(texto) >= 3 and not texto.isdigit() and not texto.replace('.','').isdigit():
                     nombre_idx = i
                     equipo_idx = i + 1 if i + 1 < len(celdas) else i
@@ -226,29 +213,23 @@ def extraer_top3_con_columna(driver, indice_columna_objetivo, nombre_categoria):
             
             nombre_final = f"{nombre_formateado} ({abrev_equipo})"
             
-            # 🎯 LEER EL VALOR CON FALLBACK
+            # Leer valor de la columna objetivo
             valor = "0"
-            
-            # 1. Intentar leer del índice objetivo exacto
             if indice_columna_objetivo < len(celdas):
                 valor_celda = celdas[indice_columna_objetivo].get_text(strip=True)
                 try:
                     float(valor_celda.replace(',', '.'))
                     valor = valor_celda
                 except ValueError:
-                    pass
-            
-            # 2. Fallback: Si no se encontró un número válido, buscar en las celdas restantes de esa fila
-            if valor == "0":
-                inicio_busqueda = max(2, indice_columna_objetivo)
-                for celda in celdas[inicio_busqueda:]:
-                    texto = celda.get_text(strip=True)
-                    try:
-                        float(texto.replace(',', '.'))
-                        valor = texto
-                        break
-                    except ValueError:
-                        continue
+                    # Fallback: buscar número en otras celdas
+                    for celda in celdas[max(2, indice_columna_objetivo):]:
+                        texto = celda.get_text(strip=True)
+                        try:
+                            float(texto.replace(',', '.'))
+                            valor = texto
+                            break
+                        except ValueError:
+                            continue
             
             if valor != "0" and valor != "":
                 jugadores.append({
@@ -257,12 +238,11 @@ def extraer_top3_con_columna(driver, indice_columna_objetivo, nombre_categoria):
                     "valor": valor
                 })
                 
-            # 🛑 DETENERSE AL LLEGAR A 3
             if len(jugadores) >= 3:
                 break
-                
+        
         if len(jugadores) < 3:
-            print(f"⚠️ Solo se pudieron extraer {len(jugadores)} jugadores para {nombre_categoria}.")
+            print(f"️ Solo se extrajeron {len(jugadores)} jugadores para {nombre_categoria}.")
             
         return jugadores
     except Exception as e:
@@ -416,7 +396,7 @@ export function obtenerMascota(equipo) {
     
     content_encoded = base64.b64encode(contenido.encode('utf-8')).decode('utf-8')
     data = {
-        "message": "🤖 Actualización automática (26 categorías corregidas y robustas)",
+        "message": " Actualización automática (26 categorías - código corregido)",
         "content": content_encoded,
         "sha": sha
     }
@@ -429,7 +409,7 @@ export function obtenerMascota(equipo) {
 
 def main():
     print("🚀 Iniciando Bot LVBP...")
-    print(f"🔑 Token: {'SÍ' if TOKEN else 'NO'}")
+    print(f" Token: {'SÍ' if TOKEN else 'NO'}")
     
     datos = obtener_datos_lvbp()
     if datos and len(datos) > 0:
