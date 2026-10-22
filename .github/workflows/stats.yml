@@ -4,10 +4,10 @@ on:
   schedule:
     # Se ejecuta todos los días a las 8:00 AM UTC (4:00 AM en Venezuela)
     - cron: '0 8 * * *'
-  workflow_dispatch: # Permite ejecución manual
+  workflow_dispatch: # Permite ejecución manual desde la pestaña Actions
 
 permissions:
-  contents: write # Permite modificar archivos
+  contents: write # Permite modificar archivos del repositorio
 
 jobs:
   actualizar:
@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: '3.10'
           
-      # 🏆 ESTE ES EL SECRETO: Instala Chrome de forma portable y sin errores de Ubuntu
+      # 🏆 SECRETO: Esta acción instala Chrome y lo añade al PATH del sistema automáticamente
       - name: Configurar Chrome
         uses: browser-actions/setup-chrome@v1
         with:
@@ -37,6 +37,6 @@ jobs:
           
       - name: Ejecutar Script de Estadísticas
         env:
-          # Usamos GITHUB_TOKEN que ya viene integrado y tiene permisos de escritura
+          # GitHub provee este token automáticamente con permisos de escritura
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python actualizar_lideres.py
