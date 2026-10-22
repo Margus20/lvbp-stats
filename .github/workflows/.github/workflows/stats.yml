@@ -2,21 +2,22 @@ name: Actualizar Estadísticas LVBP
 
 on:
   schedule:
-    # Se ejecuta todos los días a las 8:00 AM UTC (que son 4:00 AM en Venezuela)
+    # Se ejecuta todos los días a las 8:00 AM UTC (4:00 AM en Venezuela)
     - cron: '0 8 * * *'
-  workflow_dispatch: # Esto te permite ejecutarlo manualmente cuando quieras
+  workflow_dispatch: # Permite ejecución manual
 
 jobs:
   actualizar:
     runs-on: ubuntu-latest
     steps:
       - name: Clonar repositorio
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Actualizado a v4
         
       - name: Configurar Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5 # Actualizado a v5
         with:
           python-version: '3.10'
+          cache: 'pip' # Recomendado: cachea las dependencias para acelerar el workflow
           
       - name: Instalar dependencias
         run: pip install requests beautifulsoup4
@@ -24,4 +25,5 @@ jobs:
       - name: Ejecutar Script de Estadísticas
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: python actualizar_lideres.py
+        run: python actualizar_lideres.
+        py
