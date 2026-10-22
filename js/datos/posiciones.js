@@ -1,73 +1,81 @@
 export const POSICIONES = [
     {
-        "nombre": "Caribes de Anzoátegui",
+        "numero": 1,
+        "nombre": "Caribes",
         "jj": "8",
         "jg": "6",
         "jp": "2",
-        "pct": "0",
+        "pct": ".750",
         "dif": "0",
         "racha": "G2"
     },
     {
-        "nombre": "Tigres de Aragua",
+        "numero": 2,
+        "nombre": "Tigres",
         "jj": "8",
         "jg": "6",
         "jp": "2",
-        "pct": "0",
+        "pct": ".750",
         "dif": "0",
         "racha": "P1"
     },
     {
-        "nombre": "Cardenales de Lara",
+        "numero": 3,
+        "nombre": "Cardenales",
         "jj": "6",
         "jg": "4",
         "jp": "2",
-        "pct": "1",
+        "pct": ".667",
         "dif": "1",
         "racha": "P1"
     },
     {
-        "nombre": "Bravos de Margarita",
+        "numero": 4,
+        "nombre": "Bravos",
         "jj": "7",
         "jg": "4",
         "jp": "3",
-        "pct": "1.5",
+        "pct": ".571",
         "dif": "1.5",
         "racha": "P2"
     },
     {
-        "nombre": "Tiburones de La Guaira",
+        "numero": 5,
+        "nombre": "Tiburones",
         "jj": "8",
         "jg": "4",
         "jp": "4",
-        "pct": "2",
+        "pct": ".500",
         "dif": "2",
         "racha": "G2"
     },
     {
-        "nombre": "Águilas del Zulia",
+        "numero": 6,
+        "nombre": "Águilas",
         "jj": "8",
         "jg": "3",
         "jp": "5",
-        "pct": "3",
+        "pct": ".375",
         "dif": "3",
         "racha": "G1"
     },
     {
-        "nombre": "Leones del Caracas",
+        "numero": 7,
+        "nombre": "Leones",
         "jj": "7",
         "jg": "2",
         "jp": "5",
-        "pct": "3.5",
+        "pct": ".286",
         "dif": "3.5",
         "racha": "P1"
     },
     {
-        "nombre": "Navegantes del Magallanes",
+        "numero": 8,
+        "nombre": "Magallanes",
         "jj": "8",
         "jg": "1",
         "jp": "7",
-        "pct": "5",
+        "pct": ".125",
         "dif": "5",
         "racha": "P1"
     }
