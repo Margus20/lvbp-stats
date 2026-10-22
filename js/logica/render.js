@@ -132,7 +132,13 @@ export function renderCalendario() {
                 const canal = CANALES.find(cn => cn.nombre.toLowerCase() === nombre.toLowerCase());
                 return canal ? `<img src="${canal.logo}" alt="${nombre}" class="logo-canal-cal" title="${nombre}">` : `<span class="canal-texto">${nombre}</span>`;
             }).join(' <span class="separador-canal">+</span> ');
-            infoInferior = `<div class="info-juego-cal"><div class="hora-cal">🕐 ${j.hora}</div><div class="transmision-cal">${canalesHTML}</div></div>`;
+            
+            // 🆕 CAMBIO: Agregamos el estadio entre la hora y la transmisión
+            infoInferior = `<div class="info-juego-cal">
+                <div class="hora-cal">🕐 ${j.hora}</div>
+                <div class="estadio-cal">🏟️ ${j.lugar || 'Estadio por confirmar'}</div>
+                <div class="transmision-cal">${canalesHTML}</div>
+            </div>`;
         }
         card.innerHTML = `
             <div class="mitades-cal">
@@ -224,4 +230,4 @@ export function renderPublicidad() {
         div.innerHTML = `<img src="${p.imagen}" alt="${p.alt}" class="anuncio-imagen">`;
         sidebar.appendChild(div);
     });
-                }
+}
