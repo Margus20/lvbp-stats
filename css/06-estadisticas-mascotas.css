@@ -1,0 +1,27 @@
+/* ========================================== */
+/* 6. ESTADÍSTICAS Y MASCOTAS */
+/* ========================================== */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+.stat-card { background: #ffffff; padding: 15px; border-radius: 8px; border-top: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.stat-card h3 { color: #d32f2f; margin-bottom: 12px; font-size: 1rem; padding-bottom: 8px; border-bottom: 2px solid #e0e0e0; }
+
+.lista-lideres { display: flex; flex-direction: column; gap: 10px; }
+
+.item-lider {
+    display: flex; align-items: center; gap: 12px; padding: 12px;
+    background: #ffffff; border-radius: 8px; border: 1px solid #e0e0e0;
+    border-left: 4px solid #d32f2f; transition: transform 0.2s, box-shadow 0.2s;
+}
+.item-lider:hover { transform: translateX(5px); background: #fdfdfd; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+.item-lider .posicion { font-weight: 900; font-size: 1.1rem; color: #d32f2f; width: 30px; text-align: center; }
+
+/* 🐾 CORRECCIÓN DE MASCOTAS: Tamaño fijo y fondo limpio */
+.item-lider .mascota-img {
+    width: 45px; height: 45px; object-fit: contain; border-radius: 50%;
+    background: #ffffff; border: 2px solid #eee; padding: 4px; flex-shrink: 0;
+}
+
+.item-lider .info-jugador { flex-grow: 1; display: flex; flex-direction: column; }
+.item-lider .nombre { font-weight: 700; color: #2c2c2c; font-size: 0.9rem; line-height: 1.2; }
+.item-lider .equipo { font-size: 0.75rem; color: #666; margin-top: 2px; }
+.item-lider .valor { font-weight: 900; font-size: 1.1rem; color: #d32f2f; background: #fff0f0; padding: 4px 10px; border-radius: 15px; min-width: 50px; text-align: center; }
