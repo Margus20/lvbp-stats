@@ -6,6 +6,7 @@ import time
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service  # 🆕 AGREGADO: Herramienta para ubicar el controlador
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -47,9 +48,12 @@ def obtener_datos_lvbp():
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
     
+    # 🆕 AGREGADO: Le decimos explícitamente dónde está el navegador en los servidores de GitHub
+    chrome_options.binary_location = "/usr/bin/chromium"
+    
     try:
-        # Iniciar el navegador
-        driver = webdriver.Chrome(options=chrome_options)
+        # 🆕 AGREGADO: Iniciamos el navegador conectando el Service (controlador) con las opciones
+        driver = webdriver.Chrome(service=Service('/usr/bin/chromedriver'), options=chrome_options)
         driver.get(URL_LVBP)
         
         print("⏳ Esperando a que JavaScript cargue la tabla de estadísticas...")
