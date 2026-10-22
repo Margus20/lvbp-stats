@@ -470,6 +470,17 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
     font-size: 0.8rem;
 }
 
+.estadio-cal {
+    color: #ffd700;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    margin: 5px 0;
+    padding: 3px 10px;
+    background: rgba(255, 215, 0, 0.1);
+    border-radius: 4px;
+}
+
 .juego-card.en-vivo { border: 2px solid #d32f2f; animation: pulso-vivo 2s infinite; }
 @keyframes pulso-vivo {
     0% { box-shadow: 0 3px 12px rgba(211, 47, 47, 0.3); }
@@ -533,7 +544,7 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
 .stat-card h3 { color: #d32f2f; margin-bottom: 12px; font-size: 1rem; padding-bottom: 8px; border-bottom: 2px solid #e0e0e0; }
 
 /* ========================================== */
-/* 🆕 ESTILOS PARA LAS MASCOTAS EN ESTADÍSTICAS (CORREGIDO Y MEJORADO) */
+/* 🆕 ESTILOS PARA LAS MASCOTAS EN ESTADÍSTICAS (COMPLETO) */
 /* ========================================== */
 .lista-lideres {
     display: flex;
@@ -546,15 +557,13 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
     align-items: center;
     gap: 12px;
     padding: 12px;
-    background: #ffffff; /* 🎨 CAMBIO: Fondo blanco puro para mayor contraste y limpieza */
+    background: #ffffff;
     border-radius: 8px;
-    border: 1px solid #e0e0e0; /* 🎨 CAMBIO: Borde sutil para definirla mejor */
+    border: 1px solid #e0e0e0;
     border-left: 4px solid #d32f2f;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .item-lider:hover {
     transform: translateX(5px);
-    background: #fdfdfd;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Sombra suave al pasar el mouse */
-}
+    background: #fdfdf
