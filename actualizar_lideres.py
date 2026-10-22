@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait, Select  # 🆕 Agregado Select
 from selenium.webdriver.support import expected_conditions as EC
 
 # ==========================================
@@ -63,6 +63,27 @@ ESTADISTICAS_PITCHEO_AVANZADAS = {
     'whip': 'WHIP', 'averageContra': 'AVE', 'strikes': 'S', 'numeroPitches': 'NP'
 }
 
+# 🆕 FUNCIÓN NUEVA: Para manejar el dropdown de Bateo/Pitcheo
+def cambiar_a_pitcheo(driver):
+    """Cambia el dropdown de Bateo a Pitcheo"""
+    try:
+        print("🔄 Buscando dropdown para cambiar a Pitcheo...")
+        selects = driver.find_elements(By.TAG_NAME, "select")
+        for select_elem in selects:
+            options = select_elem.find_elements(By.TAG_NAME, "option")
+            for option in options:
+                if 'pitcheo' in option.text.lower() or 'pitching' in option.text.lower():
+                    print(f"✅ Encontrada opción 'Pitcheo'. Seleccionando...")
+                    select = Select(select_elem)
+                    select.select_by_visible_text(option.text)
+                    time.sleep(3)  # Esperar a que cargue la tabla de pitcheo
+                    return True
+        print("⚠️ No se encontró el dropdown de Pitcheo")
+        return False
+    except Exception as e:
+        print(f"❌ Error al cambiar a Pitcheo: {e}")
+        return False
+
 def hacer_clic_en_pestania(driver, nombre_pestania):
     """Busca y hace clic en una pestaña (Bateo, Avanzadas, Pitcheo, etc.)"""
     try:
@@ -81,18 +102,42 @@ def hacer_clic_en_pestania(driver, nombre_pestania):
         print(f"❌ Error al hacer clic en pestaña {nombre_pestania}: {e}")
         return False
 
+# 🆕 FUNCIÓN MEJORADA: Ahora hace scroll horizontal antes de buscar la columna
 def hacer_clic_en_columna(driver, abreviatura):
-    """Busca y hace clic en el encabezado de columna para ordenar"""
+    """Busca y hace clic en el encabezado de columna, haciendo scroll horizontal si es necesario"""
     try:
         print(f"🔍 Buscando columna '{abreviatura}' para ordenar...")
+        
+        # 1. Hacer scroll horizontal hacia la derecha para encontrar columnas ocultas (AVE, SLG, OPS, etc.)
+        driver.execute_script("""
+            var container = document.querySelector('.table-responsive') || document.querySelector('table');
+            if (container) {
+                container.scrollLeft = container.scrollWidth;
+            }
+        """)
+        time.sleep(1)
+        
+        # 2. Buscar el encabezado
         encabezados = driver.find_elements(By.TAG_NAME, "th")
         for encabezado in encabezados:
             if abreviatura.lower() in encabezado.text.lower():
                 print(f"✅ Encontrada columna '{abreviatura}'. Ordenando...")
-                driver.execute_script("arguments[0].scrollIntoView(true);", encabezado)
+                driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", encabezado)
+                time.sleep(0.5)
                 driver.execute_script("arguments[0].click();", encabezado)
                 time.sleep(2)  # Esperar a que se ordene la tabla
+                
+                # 3. Scroll de vuelta al inicio para poder leer los nombres de los jugadores
+                driver.execute_script("""
+                    var container = document.querySelector('.table-responsive') || document.querySelector('table');
+                    if (container) {
+                        container.scrollLeft = 0;
+                    }
+                    window.scrollTo(0, 0);
+                """)
+                time.sleep(1)
                 return True
+                
         print(f"⚠️ No se encontró la columna '{abreviatura}'")
         return False
     except Exception as e:
@@ -102,6 +147,14 @@ def hacer_clic_en_columna(driver, abreviatura):
 def extraer_top3_actual(driver):
     """Extrae los primeros 3 jugadores de la tabla visible en este momento"""
     try:
+        # Asegurar que el scroll esté al inicio antes de leer
+        driver.execute_script("""
+            var container = document.querySelector('.table-responsive') || document.querySelector('table');
+            if (container) container.scrollLeft = 0;
+            window.scrollTo(0, 0);
+        """)
+        time.sleep(1)
+        
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         tablas = soup.find_all('table')
         if not tablas:
@@ -201,6 +254,7 @@ def obtener_datos_lvbp():
                     if top3:
                         todos_los_lideres[categoria] = top3
                         print(f"     ✅ {top3[0]['nombre']} ({top3[0]['valor']})")
+                    time.sleep(0.5)
 
         # 2. BATEO AVANZADO
         print("\n=== 📊 PROCESANDO BATEO AVANZADO ===")
@@ -212,10 +266,13 @@ def obtener_datos_lvbp():
                     if top3:
                         todos_los_lideres[categoria] = top3
                         print(f"     ✅ {top3[0]['nombre']} ({top3[0]['valor']})")
+                    time.sleep(0.5)
 
-        # 3. PITCHEO BÁSICO
+        # 3. PITCHEO BÁSICO 🆕 AHORA USA EL DROPDOWN
         print("\n=== ⚾ PROCESANDO PITCHEO BÁSICO ===")
-        if hacer_clic_en_pestania(driver, "Pitcheo"):
+        if cambiar_a_pitcheo(driver):
+            # Opcional: intentar hacer clic en pestaña "Pitcheo" si existe dentro de la vista
+            hacer_clic_en_pestania(driver, "Pitcheo") 
             for categoria, abreviatura in ESTADISTICAS_PITCHEO.items():
                 print(f"  → {categoria.upper()} ({abreviatura})")
                 if hacer_clic_en_columna(driver, abreviatura):
@@ -223,6 +280,7 @@ def obtener_datos_lvbp():
                     if top3:
                         todos_los_lideres[categoria] = top3
                         print(f"     ✅ {top3[0]['nombre']} ({top3[0]['valor']})")
+                    time.sleep(0.5)
 
         # 4. PITCHEO AVANZADO
         print("\n=== 📈 PROCESANDO PITCHEO AVANZADO ===")
@@ -234,6 +292,7 @@ def obtener_datos_lvbp():
                     if top3:
                         todos_los_lideres[categoria] = top3
                         print(f"     ✅ {top3[0]['nombre']} ({top3[0]['valor']})")
+                    time.sleep(0.5)
         
         driver.quit()
         return todos_los_lideres
@@ -251,12 +310,15 @@ def actualizar_github(todos_los_lideres):
         "Accept": "application/vnd.github.v3+json"
     }
     
+    # 1. Obtener la versión actual (SHA) del archivo
     response = requests.get(url, headers=headers)
     if response.status_code != 200:
         print(f"❌ No se pudo leer el archivo actual: {response.text}")
         return
         
     sha = response.json().get('sha')
+    
+    # 2. Creamos el nuevo contenido del archivo JS
     fecha_actual = time.strftime('%Y-%m-%d %H:%M:%S')
     
     # Orden deseado de las categorías en el archivo final
@@ -307,6 +369,7 @@ export function obtenerMascota(equipo) {
 }
 """
     
+    # 3. Codificar y subir
     content_encoded = base64.b64encode(contenido.encode('utf-8')).decode('utf-8')
     data = {
         "message": "🤖 Actualización automática de las 26 estadísticas (Formato: M. Vargas (ARA))",
