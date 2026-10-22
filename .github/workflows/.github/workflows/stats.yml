@@ -6,24 +6,31 @@ on:
     - cron: '0 8 * * *'
   workflow_dispatch: # Permite ejecución manual
 
+permissions:
+  contents: write # ESTO ES CRÍTICO - Permite modificar archivos
+
 jobs:
   actualizar:
     runs-on: ubuntu-latest
     steps:
       - name: Clonar repositorio
-        uses: actions/checkout@v4 # Actualizado a v4
+        uses: actions/checkout@v4
         
       - name: Configurar Python
-        uses: actions/setup-python@v5 # Actualizado a v5
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-          cache: 'pip' # Recomendado: cachea las dependencias para acelerar el workflow
+          cache: 'pip'
           
       - name: Instalar dependencias
         run: pip install requests beautifulsoup4
         
+      - name: Configurar Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
       - name: Ejecutar Script de Estadísticas
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: python actualizar_lideres.
-        py
+        run: python actualizar_lideres.py
