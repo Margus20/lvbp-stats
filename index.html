@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- 🆕 CSS MODULARIZADO EN 7 ARCHIVOS PEQUEÑOS (PARA EVITAR CORTES EN TABLET) -->
+    <!-- 🆕 CSS MODULARIZADO EN 7 ARCHIVOS PEQUEÑOS -->
     <link rel="stylesheet" href="css/01-base.css?v=100">
     <link rel="stylesheet" href="css/02-header-nav.css?v=100">
     <link rel="stylesheet" href="css/03-noticias-articulos.css?v=100">
@@ -178,7 +178,7 @@
                 </div>
             </section>
 
-            <!-- 🆕 SECCIÓN DE ESTADÍSTICAS COMPLETA (26 CATEGORÍAS) -->
+            <!-- 🆕 SECCIÓN DE ESTADÍSTICAS COMPLETA (26 CATEGORÍAS) CON LOGOS ALTERNADOS -->
             <section id="estadisticas" class="seccion-clara">
                 <div class="container">
                     <h2 class="titulo-seccion">
@@ -188,133 +188,86 @@
                     <div class="stats-grid">
                         <!-- BATEO -->
                         <div class="stat-card">
-                            <h3>💥 Jonrones (HR)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Jonrones (HR)</h3>
                             <div class="lista-lideres" id="contenedor-jonrones"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>🏏 Average de Bateo (AVE)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Average de Bateo (AVE)</h3>
                             <div class="lista-lideres" id="contenedor-average"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>🏃 Carreras Impulsadas (CI)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Carreras Impulsadas (CI)</h3>
                             <div class="lista-lideres" id="contenedor-impulsadas"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>🎯 Slugging (SLG)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Slugging (SLG)</h3>
                             <div class="lista-lideres" id="contenedor-slugging"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>📊 OPS</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">OPS</h3>
                             <div class="lista-lideres" id="contenedor-ops"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>🔨 Hits (H)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Hits (H)</h3>
                             <div class="lista-lideres" id="contenedor-hits"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>2️⃣ Dobles (2B)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Dobles (2B)</h3>
                             <div class="lista-lideres" id="contenedor-dobles"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>3️⃣ Triples (3B)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Triples (3B)</h3>
                             <div class="lista-lideres" id="contenedor-triples"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>🏃‍♂️ Carreras Anotadas (CA)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Carreras Anotadas (CA)</h3>
                             <div class="lista-lideres" id="contenedor-carrerasAnotadas"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>🦵 Bases Robadas (BR)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Bases Robadas (BR)</h3>
                             <div class="lista-lideres" id="contenedor-basesRobadas"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>🎟️ Bases por Bolas (BB)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Bases por Bolas (BB)</h3>
                             <div class="lista-lideres" id="contenedor-basesPorBolas"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>❌ Ponches Bateo (K)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Ponches Bateo (K)</h3>
                             <div class="lista-lideres" id="contenedor-ponchesBateo"></div>
                         </div>
                         
                         <!-- PITCHEO -->
                         <div class="stat-card">
-                            <h3>🎯 Efectividad (EFE)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Efectividad (EFE)</h3>
                             <div class="lista-lideres" id="contenedor-efectividad"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>🔥 Ponches Pitcheo (K)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Ponches Pitcheo (K)</h3>
                             <div class="lista-lideres" id="contenedor-ponches"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>✅ Victorias (G)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Victorias (G)</h3>
                             <div class="lista-lideres" id="contenedor-victorias"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>💾 Salvados (SV)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Salvados (SV)</h3>
                             <div class="lista-lideres" id="contenedor-salvados"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>⚾ Innings Lanzados (IP)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Innings Lanzados (IP)</h3>
                             <div class="lista-lideres" id="contenedor-inningsLanzados"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>📉 WHIP</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">WHIP</h3>
                             <div class="lista-lideres" id="contenedor-whip"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>🎯 Average Contra (AVE)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Average Contra (AVE)</h3>
                             <div class="lista-lideres" id="contenedor-averageContra"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>⚡ Strikes (S)</h3>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="Logo" style="width: 22px; height: 22px; vertical-align: middle; margin-right: 8px;">Strikes (S)</h3>
                             <div class="lista-lideres" id="contenedor-strikes"></div>
                         </div>
                         <div class="stat-card">
-                            <h3>🔢 Número de Pitches (NP)</h3>
-                            <div class="lista-lideres" id="contenedor-numeroPitches"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3>🎯 Hits Permitidos (H)</h3>
-                            <div class="lista-lideres" id="contenedor-hitsPermitidos"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3>📉 Carreras Permitidas (CP)</h3>
-                            <div class="lista-lideres" id="contenedor-carrerasPermitidas"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3>🎯 Carreras Limpias (CL)</h3>
-                            <div class="lista-lideres" id="contenedor-carrerasLimpias"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3>💥 Jonrones Permitidos (HR)</h3>
-                            <div class="lista-lideres" id="contenedor-jonronesPermitidos"></div>
-                        </div>
-                        <div class="stat-card">
-                            <h3>🎟️ BB Pitcheo</h3>
-                            <div class="lista-lideres" id="contenedor-basesPorBolasPitching"></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <aside class="sidebar-publicidad" id="sidebar-publicidad"></aside>
-    </div>
-
-    <footer>
-        <div class="container">
-            <p class="footer-texto">⚾ LVBP al Día 2026 - Noticias y estadísticas de la Liga Venezolana de Béisbol Profesional</p>
-            <p class="footer-creditos">Desarrollado con ❤️ por <strong>Margus20</strong></p>
-            <div class="footer-social">
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-x-twitter"></i></a>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- SCRIPT PRINCIPAL (Módulo) -->
-    <script type="module" src="js/logica/app.js?v=100"></script>
-</body>
-</html>
+                            <h3><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="Logo" style="w
