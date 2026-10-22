@@ -1,0 +1,69 @@
+/* ========================================== */
+/* 3. NOTICIAS Y ARTÍCULOS */
+/* ========================================== */
+.hero-noticia { width: 100%; }
+.hero-imagen {
+    height: 400px; background-size: cover; background-position: center;
+    position: relative; display: flex; align-items: flex-end; border-radius: 12px; overflow: hidden;
+}
+.hero-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+}
+.hero-marca-agua { position: absolute; top: 15px; right: 15px; width: 80px; height: auto; opacity: 0.4; z-index: 2; pointer-events: none; }
+.hero-contenido { position: relative; z-index: 2; padding: 30px; max-width: 800px; }
+.hero-tag { display: inline-block; background: #d32f2f; color: #fff; padding: 5px 15px; font-size: 0.85rem; font-weight: bold; border-radius: 3px; margin-bottom: 15px; letter-spacing: 1px; }
+.hero-titulo { font-size: 2.2rem; color: #fff; line-height: 1.2; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+.hero-subtitulo { color: #e0e0e0; font-size: 1rem; margin-bottom: 15px; line-height: 1.5; }
+.hero-fecha { color: #ffd700; font-size: 0.95rem; font-weight: 500; }
+
+.noticias-grid-section { padding: 30px 0; background: transparent; }
+.noticias-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%; }
+.noticia-card {
+    height: 220px; background-size: cover; background-position: center;
+    position: relative; border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.noticia-card:hover { transform: scale(1.02); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+.noticia-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.1) 100%); z-index: 1;
+}
+.noticia-contenido { position: absolute; bottom: 0; left: 0; right: 0; padding: 15px; z-index: 2; }
+.noticia-tag { display: inline-block; background: #d32f2f; color: #fff; padding: 3px 10px; font-size: 0.7rem; font-weight: bold; border-radius: 3px; margin-bottom: 8px; letter-spacing: 1px; }
+.noticia-card h3 { color: #fff; font-size: 1.1rem; line-height: 1.3; margin-bottom: 8px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
+.noticia-card .fecha { color: #ffd700; font-size: 0.85rem; }
+
+.articulo-completo { padding: 40px 0; background: #ffffff; border-top: 3px solid #d32f2f; }
+.btn-volver { background: #d32f2f; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: 600; margin-bottom: 20px; transition: all 0.3s; }
+.btn-volver:hover { background: #b71c1c; transform: translateX(-5px); }
+.articulo-contenido { background: #faf8f5; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 30px; }
+.articulo-contenido .articulo-titulo { font-size: 2rem; color: #d32f2f; margin-bottom: 15px; line-height: 1.3; }
+.articulo-contenido .articulo-fecha { color: #666; font-size: 0.9rem; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #ffd700; }
+.articulo-contenido .articulo-texto { font-size: 1.05rem; line-height: 1.8; color: #2c2c2c; }
+.articulo-contenido .articulo-texto p { margin-bottom: 15px; }
+.articulo-contenido .articulo-texto strong { color: #d32f2f; font-weight: 700; }
+.articulo-contenido .articulo-cta { background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); padding: 20px; border-radius: 8px; margin-top: 20px; font-weight: 600; color: #2c2c2c; text-align: center; }
+
+.seccion-comentarios, .seccion-compartir { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 30px; border-top: 4px solid #ffd700; }
+.seccion-comentarios h3, .seccion-compartir h3 { color: #d32f2f; font-size: 1.5rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #e0e0e0; }
+.formulario-comentario { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
+.input-comentario, .textarea-comentario { width: 100%; padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; font-family: inherit; transition: border-color 0.3s; }
+.input-comentario:focus, .textarea-comentario:focus { outline: none; border-color: #d32f2f; }
+.textarea-comentario { resize: vertical; min-height: 100px; }
+.btn-comentar { background: #d32f2f; color: #fff; border: none; padding: 12px 25px; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; align-self: flex-start; }
+.btn-comentar:hover { background: #b71c1c; transform: translateY(-2px); }
+.lista-comentarios { display: flex; flex-direction: column; gap: 15px; }
+.comentario-item { background: #f5f0e8; padding: 15px; border-radius: 8px; border-left: 4px solid #d32f2f; }
+.comentario-item .comentario-autor { font-weight: bold; color: #d32f2f; margin-bottom: 5px; font-size: 0.95rem; }
+.comentario-item .comentario-texto { color: #2c2c2c; font-size: 0.95rem; line-height: 1.5; }
+.comentario-item .comentario-fecha { color: #999; font-size: 0.8rem; margin-top: 8px; }
+
+.botones-compartir { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn-compartir { display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 8px; text-decoration: none; color: #fff; font-weight: 600; font-size: 0.95rem; transition: all 0.3s; cursor: pointer; border: none; }
+.btn-compartir:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
+.btn-compartir.whatsapp { background: #25D366; } .btn-compartir.whatsapp:hover { background: #128C7E; }
+.btn-compartir.telegram { background: #0088cc; } .btn-compartir.telegram:hover { background: #006699; }
+.btn-compartir.facebook { background: #1877F2; } .btn-compartir.facebook:hover { background: #0d5bbd; }
+.btn-compartir.twitter { background: #000000; } .btn-compartir.twitter:hover { background: #333333; }
+.btn-compartir i { font-size: 1.2rem; }
+.logo-x-btn, .logo-x-mini { width: 20px; height: 20px; object-fit: contain; }
