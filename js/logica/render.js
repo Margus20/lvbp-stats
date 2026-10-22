@@ -199,7 +199,7 @@ export function renderLideres() {
             // Obtenemos la ruta de la mascota
             const rutaMascota = obtenerMascota(lider.equipo);
             
-            // Formateamos el nombre del equipo (ej: "navegantes" -> "Magallanes")
+            // Formateamos el nombre del equipo (ej: "navegantes" -> "Magallanes") para el atributo alt de la imagen
             let nombreEquipo = lider.equipo.charAt(0).toUpperCase() + lider.equipo.slice(1);
             if (lider.equipo === 'navegantes') nombreEquipo = 'Magallanes';
 
@@ -211,7 +211,6 @@ export function renderLideres() {
                 <img src="${rutaMascota}" alt="Mascota de ${nombreEquipo}" class="mascota-img" onerror="this.src='mascotas/leo.jpg'">
                 <div class="info-jugador">
                     <span class="nombre">${lider.nombre}</span>
-                    <span class="equipo">${nombreEquipo}</span>
                 </div>
                 <div class="valor">${lider.valor}</div>
             `;
