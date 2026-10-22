@@ -1,12 +1,10 @@
 import os
 import requests
 import base64
-import json
 import time
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service  # 🆕 AGREGADO: Herramienta para ubicar el controlador
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -14,7 +12,6 @@ from selenium.webdriver.support import expected_conditions as EC
 # ==========================================
 # CONFIGURACIÓN DEL BOT
 # ==========================================
-# ✅ CORRECCIÓN 1: Buscar GITHUB_TOKEN primero, luego GH_TOKEN
 TOKEN = os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN')
 
 if not TOKEN:
@@ -46,14 +43,15 @@ def obtener_datos_lvbp():
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
-    
-    # 🆕 AGREGADO: Le decimos explícitamente dónde está el navegador en los servidores de GitHub
-    chrome_options.binary_location = "/usr/bin/chromium"
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
     
     try:
-        # 🆕 AGREGADO: Iniciamos el navegador conectando el Service (controlador) con las opciones
-        driver = webdriver.Chrome(service=Service('/usr/bin/chromedriver'), options=chrome_options)
+        # 🆕 AJUSTE CLAVE: Selenium 4 detecta automáticamente Chrome 
+        # porque la acción de GitHub (setup-chrome) ya lo puso en el PATH del sistema.
+        # No necesitamos especificar rutas manuales que suelen fallar.
+        driver = webdriver.Chrome(options=chrome_options)
         driver.get(URL_LVBP)
         
         print("⏳ Esperando a que JavaScript cargue la tabla de estadísticas...")
@@ -115,7 +113,7 @@ def obtener_datos_lvbp():
         # Nos quedamos solo con el Top 3
         top_3 = jugadores[:3]
         
-        # ✅ CORRECCIÓN 3: Asegurar que siempre haya 3 elementos para que el f-string no falle
+        # Asegurar que siempre haya 3 elementos para que el f-string no falle
         while len(top_3) < 3:
             top_3.append({"nombre": "Por definir", "equipo": "leones", "valor": "0"})
         
@@ -124,6 +122,8 @@ def obtener_datos_lvbp():
         
     except Exception as e:
         print(f"❌ Error fatal con Selenium: {e}")
+        import traceback
+        traceback.print_exc()
         return None
 
 def actualizar_github(top_3):
@@ -141,10 +141,12 @@ def actualizar_github(top_3):
         
     sha = response.json().get('sha')
     
-    # 2. Creamos el nuevo contenido del archivo JS (f-string seguro)
+    # 2. Creamos el nuevo contenido del archivo JS
+    fecha_actual = time.strftime('%Y-%m-%d %H:%M:%S')
+    
     nuevo_contenido = f"""// ============================================
 // LÍDERES ESTADÍSTICOS - ACTUALIZACIÓN AUTOMÁTICA (SELENIUM)
-// Actualizado: {requests.get('https://api.github.com').headers.get('Date', 'Fecha desconocida')}
+// Actualizado: {fecha_actual}
 // ============================================
 
 export const LIDERES = {{
@@ -152,8 +154,7 @@ export const LIDERES = {{
         {{"posicion": 1, "nombre": "{top_3[0]['nombre']}", "equipo": "{top_3[0]['equipo']}", "valor": "{top_3[0]['valor']}"}},
         {{"posicion": 2, "nombre": "{top_3[1]['nombre']}", "equipo": "{top_3[1]['equipo']}", "valor": "{top_3[1]['valor']}"}},
         {{"posicion": 3, "nombre": "{top_3[2]['nombre']}", "equipo": "{top_3[2]['equipo']}", "valor": "{top_3[2]['valor']}"}}
-    ],
-    // ... (El resto de categorías se mantienen como las dejaste manualmente por ahora)
+    ]
 }};
 
 export const MASCOTAS = {{
@@ -177,7 +178,7 @@ export function obtenerMascota(equipo) {{
     }
     
     response = requests.put(url, headers=headers, json=data)
-    if response.status_code == 200:
+    if response.status_code in [200, 201]:
         print("✅ ¡Archivo lideres.js actualizado en GitHub con éxito!")
     else:
         print(f"❌ Error al subir: {response.text}")
