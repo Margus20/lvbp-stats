@@ -7,7 +7,13 @@ import json
 # ==========================================
 # CONFIGURACIÓN DEL BOT
 # ==========================================
-TOKEN = os.environ.get('GH_TOKEN') 
+# ✅ CORRECCIÓN 1: Buscar GITHUB_TOKEN primero, luego GH_TOKEN
+TOKEN = os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN')
+
+if not TOKEN:
+    print("❌ ERROR: No se encontró el token. Verifica que GH_TOKEN esté en los Secrets de GitHub.")
+    exit(1)
+
 REPO_OWNER = 'Margus20'
 REPO_NAME = 'lvbp-stats'
 FILE_PATH = 'js/datos/lideres.js'
@@ -27,7 +33,6 @@ MAPA_EQUIPOS = {
 
 def obtener_datos_lvbp():
     print(f"📡 Conectando a {URL_LVBP}...")
-    # Usamos un User-Agent para que la web crea que somos un navegador real
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
     response = requests.get(URL_LVBP, headers=headers)
     
@@ -36,25 +41,38 @@ def obtener_datos_lvbp():
         return None
         
     soup = BeautifulSoup(response.text, 'html.parser')
-    tabla = soup.find('table')
     
+    # ✅ CORRECCIÓN 2: Buscar tabla de forma más específica
+    # Primero intentar por clase común de tablas de estadísticas
+    tabla = soup.find('table', {'class': 'table'}) or soup.find('table', {'id': 'stats'})
+    
+    # Si no encuentra por clase/ID, buscar la tabla más grande (probablemente la de stats)
     if not tabla:
-        print("❌ No se encontró ninguna tabla en la página.")
-        return None
-        
-    print("✅ Tabla encontrada. Extrayendo los primeros 3 jugadores...")
+        tablas = soup.find_all('table')
+        if tablas:
+            # Tomar la tabla con más filas (probablemente la de estadísticas)
+            tabla = max(tablas, key=lambda t: len(t.find_all('tr')))
+        else:
+            print("❌ No se encontró ninguna tabla en la página.")
+            return None
+    
+    print("✅ Tabla encontrada. Extrayendo datos...")
     filas = tabla.find_all('tr')
     jugadores = []
     
-    for fila in filas[1:]: # Saltamos la fila de encabezados
+    for fila in filas[1:]:  # Saltamos la fila de encabezados
         celdas = fila.find_all('td')
         if len(celdas) >= 3:
             jugador = celdas[0].get_text(strip=True)
             equipo_raw = celdas[1].get_text(strip=True)
-            valor = celdas[2].get_text(strip=True) # Tomamos la 3ra columna como valor
+            valor = celdas[2].get_text(strip=True)
             
-            # Buscamos el equipo en nuestro traductor
-            equipo_key = 'leones' # Valor por defecto
+            # Validar que el jugador tenga nombre (no sea fila vacía)
+            if not jugador or jugador == '':
+                continue
+            
+            # Buscar el equipo en nuestro traductor
+            equipo_key = 'leones'  # Valor por defecto
             for nombre_web, clave in MAPA_EQUIPOS.items():
                 if nombre_web.lower() in equipo_raw.lower():
                     equipo_key = clave
@@ -68,6 +86,11 @@ def obtener_datos_lvbp():
             
     # Nos quedamos solo con el Top 3
     top_3 = jugadores[:3]
+    
+    # ✅ CORRECCIÓN 3: Asegurar que siempre haya 3 elementos
+    while len(top_3) < 3:
+        top_3.append({"nombre": "Por definir", "equipo": "leones", "valor": "0"})
+    
     print(f"📊 Datos extraídos: {top_3}")
     return top_3
 
@@ -86,18 +109,17 @@ def actualizar_github(top_3):
         
     sha = response.json().get('sha')
     
-    # 2. Creamos el nuevo contenido del archivo JS
-    # NOTA: Para esta prueba, actualizamos principalmente la categoría 'jonrones'
-    # para verificar que el bot funciona. Luego lo expandiremos.
+    # ✅ CORRECCIÓN 3 (continuación): Ahora el f-string es seguro
     nuevo_contenido = f"""// ============================================
 // LÍDERES ESTADÍSTICOS - ACTUALIZACIÓN AUTOMÁTICA
+// Actualizado: {requests.get('https://api.github.com').headers.get('Date', 'Fecha desconocida')}
 // ============================================
 
 export const LIDERES = {{
     jonrones: [
-        {{"posicion": 1, "nombre": "{top_3[0]['nombre'] if len(top_3)>0 else 'Por definir'}", "equipo": "{top_3[0]['equipo'] if len(top_3)>0 else 'leones'}", "valor": "{top_3[0]['valor'] if len(top_3)>0 else '0'}"}},
-        {{"posicion": 2, "nombre": "{top_3[1]['nombre'] if len(top_3)>1 else 'Por definir'}", "equipo": "{top_3[1]['equipo'] if len(top_3)>1 else 'leones'}", "valor": "{top_3[1]['valor'] if len(top_3)>1 else '0'}"}},
-        {{"posicion": 3, "nombre": "{top_3[2]['nombre'] if len(top_3)>2 else 'Por definir'}", "equipo": "{top_3[2]['equipo'] if len(top_3)>2 else 'leones'}", "valor": "{top_3[2]['valor'] if len(top_3)>2 else '0'}"}}
+        {{"posicion": 1, "nombre": "{top_3[0]['nombre']}", "equipo": "{top_3[0]['equipo']}", "valor": "{top_3[0]['valor']}"}},
+        {{"posicion": 2, "nombre": "{top_3[1]['nombre']}", "equipo": "{top_3[1]['equipo']}", "valor": "{top_3[1]['valor']}"}},
+        {{"posicion": 3, "nombre": "{top_3[2]['nombre']}", "equipo": "{top_3[2]['equipo']}", "valor": "{top_3[2]['valor']}"}}
     ],
     // ... (El resto de categorías se mantienen como las dejaste manualmente por ahora)
 }};
@@ -129,7 +151,8 @@ export function obtenerMascota(equipo) {{
         print(f"❌ Error al subir: {response.text}")
 
 def main():
-    print("🚀 Iniciando Bot de Estadísticas LVBP...")
+    print(" Iniciando Bot de Estadísticas LVBP...")
+    print(f"🔑 Token encontrado: {'SÍ' if TOKEN else 'NO'}")
     datos = obtener_datos_lvbp()
     if datos:
         actualizar_github(datos)
