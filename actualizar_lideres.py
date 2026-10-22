@@ -44,7 +44,7 @@ MAPA_EQUIPOS = {
     'Zulia': {'clave': 'aguilas', 'abrev': 'ZUL'}
 }
 
-# ✅ BATEO - SOLO PESTAÑA "Bateo" (13 datos)
+# ✅ BATEO - SOLO PESTAÑA "Bateo" (11 datos)
 ESTADISTICAS_BATEO = {
     'jonrones': 'HR',
     'hits': 'H',
@@ -59,7 +59,7 @@ ESTADISTICAS_BATEO = {
     'ops': 'OPS'
 }
 
-# ✅ PITCHEO - SOLO PESTAÑA "Pitcheo" (10 datos)
+# ✅ PITCHEO - SOLO PESTAÑA "Pitcheo" (8 datos)
 ESTADISTICAS_PITCHEO = {
     'efectividad': 'EFE',
     'victorias': 'G',
@@ -71,12 +71,12 @@ ESTADISTICAS_PITCHEO = {
     'averageContra': 'AVE'
 }
 
-# 📉 ESTADÍSTICAS DONDE "MENOR ES MEJOR"
+# 📉 ESTADÍSTICAS DONDE "MENOR ES MEJOR" (se ordenan ascendente)
 ESTADISTICAS_MENOR_ES_MEJOR = ['efectividad', 'whip', 'averageContra']
 
 def cambiar_a_pitcheo(driver):
     try:
-        print(" Buscando dropdown para cambiar a Pitcheo...")
+        print("🔄 Buscando dropdown para cambiar a Pitcheo...")
         selects = driver.find_elements(By.TAG_NAME, "select")
         for select_elem in selects:
             options = select_elem.find_elements(By.TAG_NAME, "option")
@@ -113,7 +113,7 @@ def hacer_clic_en_pestania(driver, nombre_pestania):
 def hacer_clic_en_columna(driver, abreviatura, categoria):
     """Busca columna con prioridad: EXACTA > SIN / > CON /"""
     try:
-        print(f" Buscando columna '{abreviatura}'...")
+        print(f"🔍 Buscando columna '{abreviatura}'...")
         
         # Scroll horizontal máximo
         driver.execute_script("""
@@ -143,7 +143,7 @@ def hacer_clic_en_columna(driver, abreviatura, categoria):
                     indice_columna = i
                     break
         
-        # 3️ PRIORIDAD 3: Contiene la abreviatura (solo si no encontró las anteriores)
+        # 3️⃣ PRIORIDAD 3: Contiene la abreviatura (solo si no encontró las anteriores)
         if indice_columna == -1:
             for i, encabezado in enumerate(encabezados):
                 texto = encabezado.get_text(strip=True).upper()
@@ -153,7 +153,6 @@ def hacer_clic_en_columna(driver, abreviatura, categoria):
                     break
         
         if indice_columna >= 0:
-            # Hacer clic con Selenium
             encabezados_selenium = driver.find_elements(By.TAG_NAME, "th")
             if indice_columna < len(encabezados_selenium):
                 driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});", encabezados_selenium[indice_columna])
@@ -161,7 +160,6 @@ def hacer_clic_en_columna(driver, abreviatura, categoria):
                 driver.execute_script("arguments[0].click();", encabezados_selenium[indice_columna])
                 time.sleep(2.5)
                 
-                # Doble clic si es "menor es mejor"
                 if categoria in ESTADISTICAS_MENOR_ES_MEJOR:
                     print(f"📉 '{categoria}' es 'menor es mejor'. Segundo clic...")
                     driver.execute_script("arguments[0].click();", encabezados_selenium[indice_columna])
@@ -184,9 +182,9 @@ def hacer_clic_en_columna(driver, abreviatura, categoria):
         traceback.print_exc()
         return -1
 
-def extraer_top3_con_columna(driver, indice_columna_objetivo, nombre_categoria):
+def extraer_TODOS_los_jugadores(driver, indice_columna_objetivo, nombre_categoria):
+    """Extrae TODOS los jugadores, leyendo EXCLUSIVAMENTE la columna objetivo"""
     try:
-        # Scroll al inicio
         driver.execute_script("""
             var container = document.querySelector('.table-responsive') || document.querySelector('table');
             if (container) container.scrollLeft = 0;
@@ -203,7 +201,7 @@ def extraer_top3_con_columna(driver, indice_columna_objetivo, nombre_categoria):
         filas = tabla.find_all('tr')[1:]
         
         jugadores = []
-        for fila in filas[:20]:
+        for fila in filas[:50]:
             celdas = fila.find_all('td')
             if not celdas or len(celdas) < 2:
                 continue
@@ -250,43 +248,58 @@ def extraer_top3_con_columna(driver, indice_columna_objetivo, nombre_categoria):
             
             nombre_final = f"{nombre_formateado} ({abrev_equipo})"
             
-            # Leer valor de la columna objetivo
+            # 🎯 LECTURA ESTRICTA POR COLUMNA OBJETIVO
             valor = "0"
             if indice_columna_objetivo < len(celdas):
                 valor_celda = celdas[indice_columna_objetivo].get_text(strip=True)
-                try:
-                    float(valor_celda.replace(',', '.'))
-                    valor = valor_celda
-                except ValueError:
-                    # Fallback: buscar número en otras celdas
-                    for celda in celdas[max(2, indice_columna_objetivo):]:
-                        texto = celda.get_text(strip=True)
-                        try:
-                            float(texto.replace(',', '.'))
-                            valor = texto
-                            break
-                        except ValueError:
-                            continue
+                
+                # Si es un guion o vacío, es 0. Si no, intentamos convertirlo a número.
+                if valor_celda in ['-', '', 'N/A']:
+                    valor = "0"
+                else:
+                    try:
+                        # Validamos que sea un número (acepta coma o punto decimal)
+                        float(valor_celda.replace(',', '.'))
+                        valor = valor_celda
+                    except ValueError:
+                        valor = "0" # Si hay texto extraño en esa columna, lo tratamos como 0
             
-            if valor != "0" and valor != "":
+            if valor != "0" or valor == "0": # Guardamos todos los que tengan valor válido (incluyendo 0)
                 jugadores.append({
                     "nombre": nombre_final,
                     "equipo": equipo_key,
-                    "valor": valor
+                    "valor": valor,
+                    "valor_numerico": float(valor.replace(',', '.'))
                 })
-                
-            if len(jugadores) >= 3:
-                break
         
-        if len(jugadores) < 3:
-            print(f"⚠️ Solo se extrajeron {len(jugadores)} jugadores para {nombre_categoria}.")
-            
+        print(f"📊 Extraídos {len(jugadores)} jugadores para {nombre_categoria}")
         return jugadores
     except Exception as e:
         print(f"❌ Error al extraer: {e}")
         import traceback
         traceback.print_exc()
         return []
+
+def ordenar_y_tomar_top3(jugadores, categoria):
+    """Ordena los jugadores matemáticamente y toma los 3 primeros"""
+    if not jugadores:
+        return []
+    
+    menor_es_mejor = categoria in ESTADISTICAS_MENOR_ES_MEJOR
+    
+    if menor_es_mejor:
+        # Ascendente (menor primero): EFE, WHIP, AVE
+        jugadores_ordenados = sorted(jugadores, key=lambda x: x['valor_numerico'])
+    else:
+        # Descendente (mayor primero): HR, H, CI, etc.
+        jugadores_ordenados = sorted(jugadores, key=lambda x: x['valor_numerico'], reverse=True)
+    
+    top3 = jugadores_ordenados[:3]
+    
+    for i, jugador in enumerate(top3, 1):
+        jugador['posicion'] = i
+    
+    return top3
 
 def obtener_datos_lvbp():
     print(f"📡 Conectando a {URL_LVBP}...")
@@ -308,31 +321,33 @@ def obtener_datos_lvbp():
         
         todos_los_lideres = {}
         
-        # 1️⃣ BATEO - SOLO PESTAÑA "Bateo"
+        # 1️⃣ BATEO
         print("\n=== 🏏 BATEO (SOLO PESTAÑA 'Bateo') ===")
         if hacer_clic_en_pestania(driver, "Bateo"):
             for cat, abr in ESTADISTICAS_BATEO.items():
                 print(f"  → {cat.upper()} ({abr})")
                 indice = hacer_clic_en_columna(driver, abr, cat)
                 if indice >= 0:
-                    top3 = extraer_top3_con_columna(driver, indice, cat)
+                    todos_jugadores = extraer_TODOS_los_jugadores(driver, indice, cat)
+                    top3 = ordenar_y_tomar_top3(todos_jugadores, cat)
                     if top3:
                         todos_los_lideres[cat] = top3
-                        print(f"     ✅ {top3[0]['nombre']} ({top3[0]['valor']})")
+                        print(f"     ✅ #{top3[0]['posicion']} {top3[0]['nombre']} ({top3[0]['valor']})")
                     time.sleep(0.5)
 
-        # 2️⃣ PITCHEO - Cambiar dropdown y SOLO pestaña "Pitcheo"
-        print("\n===  PITCHEO (SOLO PESTAÑA 'Pitcheo') ===")
+        # 2️⃣ PITCHEO
+        print("\n=== ⚾ PITCHEO (SOLO PESTAÑA 'Pitcheo') ===")
         if cambiar_a_pitcheo(driver):
             hacer_clic_en_pestania(driver, "Pitcheo")
             for cat, abr in ESTADISTICAS_PITCHEO.items():
                 print(f"  → {cat.upper()} ({abr})")
                 indice = hacer_clic_en_columna(driver, abr, cat)
                 if indice >= 0:
-                    top3 = extraer_top3_con_columna(driver, indice, cat)
+                    todos_jugadores = extraer_TODOS_los_jugadores(driver, indice, cat)
+                    top3 = ordenar_y_tomar_top3(todos_jugadores, cat)
                     if top3:
                         todos_los_lideres[cat] = top3
-                        print(f"     ✅ {top3[0]['nombre']} ({top3[0]['valor']})")
+                        print(f"     ✅ #{top3[0]['posicion']} {top3[0]['nombre']} ({top3[0]['valor']})")
                     time.sleep(0.5)
         
         driver.quit()
@@ -359,7 +374,6 @@ def actualizar_github(todos_los_lideres):
     sha = response.json().get('sha')
     fecha_actual = time.strftime('%Y-%m-%d %H:%M:%S')
     
-    # Orden de las 23 categorías (11 bateo + 8 pitcheo)
     orden_categorias = [
         'jonrones', 'hits', 'dobles', 'triples', 'impulsadas',
         'basesRobadas', 'basesPorBolas', 'ponchesBateo',
@@ -407,7 +421,7 @@ export function obtenerMascota(equipo) {
     
     content_encoded = base64.b64encode(contenido.encode('utf-8')).decode('utf-8')
     data = {
-        "message": "🤖 Actualización automática (23 categorías - Bateo y Pitcheo básicos)",
+        "message": "🤖 Actualización automática (19 categorías - ordenamiento matemático estricto por columna)",
         "content": content_encoded,
         "sha": sha
     }
@@ -420,7 +434,7 @@ export function obtenerMascota(equipo) {
 
 def main():
     print("🚀 Iniciando Bot LVBP...")
-    print(f" Token: {'SÍ' if TOKEN else 'NO'}")
+    print(f"🔑 Token: {'SÍ' if TOKEN else 'NO'}")
     
     datos = obtener_datos_lvbp()
     if datos and len(datos) > 0:
