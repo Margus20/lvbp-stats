@@ -1,6 +1,6 @@
 // ============================================
 // ORQUESTADOR PRINCIPAL (app.js)
-// Versión final de producción (sin diagnóstico)
+// Versión final corregida para carga dinámica de componentes
 // ============================================
 
 import { 
@@ -53,9 +53,9 @@ function renderizarComentarios() {
 }
 
 // ============================================
-// INICIALIZACIÓN AL CARGAR LA PÁGINA
+// FUNCIÓN DE INICIALIZACIÓN
 // ============================================
-document.addEventListener("DOMContentLoaded", () => {
+function inicializarApp() {
     // 1. Menú hamburguesa
     const menuBtn = document.getElementById("menuBtn");
     if (menuBtn) {
@@ -88,4 +88,14 @@ document.addEventListener("DOMContentLoaded", () => {
     renderPublicidad();
     
     console.log("✅ LVBP al Día cargado correctamente (Estructura Modular)");
-});
+}
+
+// ============================================
+// EJECUCIÓN INTELIGENTE
+// Si el DOM ya está listo, ejecuta inmediatamente. Si no, espera.
+// ============================================
+if (document.readyState === 'loading') {
+    document.addEventListener("DOMContentLoaded", inicializarApp);
+} else {
+    inicializarApp();
+}
