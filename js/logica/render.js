@@ -133,7 +133,6 @@ export function renderCalendario() {
                 return canal ? `<img src="${canal.logo}" alt="${nombre}" class="logo-canal-cal" title="${nombre}">` : `<span class="canal-texto">${nombre}</span>`;
             }).join(' <span class="separador-canal">+</span> ');
             
-            // 🆕 CAMBIO: Agregamos el estadio entre la hora y la transmisión
             infoInferior = `<div class="info-juego-cal">
                 <div class="hora-cal">🕐 ${j.hora}</div>
                 <div class="estadio-cal">🏟️ ${j.lugar || 'Estadio por confirmar'}</div>
@@ -150,11 +149,11 @@ export function renderCalendario() {
     });
 }
 
-// 🆕 FUNCIÓN RENDERLIDERES COMPLETA (26 CATEGORÍAS)
+// 🆕 FUNCIÓN RENDERLIDERES ACTUALIZADA (19 CATEGORÍAS)
 export function renderLideres() {
-    // Mapeo de TODOS los IDs del HTML a las claves del objeto LIDERES
+    // Mapeo de los IDs del HTML a las claves del objeto LIDERES (Solo las 19 activas)
     const categoriasAMostrar = {
-        // BATEO (12 categorías)
+        // BATEO (11 categorías)
         'contenedor-jonrones': 'jonrones',
         'contenedor-average': 'average',
         'contenedor-impulsadas': 'impulsadas',
@@ -163,26 +162,19 @@ export function renderLideres() {
         'contenedor-hits': 'hits',
         'contenedor-dobles': 'dobles',
         'contenedor-triples': 'triples',
-        'contenedor-carrerasAnotadas': 'carrerasAnotadas',
         'contenedor-basesRobadas': 'basesRobadas',
         'contenedor-basesPorBolas': 'basesPorBolas',
         'contenedor-ponchesBateo': 'ponchesBateo',
         
-        // PITCHEO (14 categorías)
+        // PITCHEO (8 categorías)
         'contenedor-efectividad': 'efectividad',
-        'contenedor-ponches': 'ponchesPitching',
         'contenedor-victorias': 'victorias',
         'contenedor-salvados': 'salvados',
         'contenedor-inningsLanzados': 'inningsLanzados',
+        'contenedor-ponches': 'ponchesPitching',
+        'contenedor-hold': 'hold', // ✅ AGREGADO: Hold
         'contenedor-whip': 'whip',
-        'contenedor-averageContra': 'averageContra',
-        'contenedor-strikes': 'strikes',
-        'contenedor-numeroPitches': 'numeroPitches',
-        'contenedor-hitsPermitidos': 'hitsPermitidos',
-        'contenedor-carrerasPermitidas': 'carrerasPermitidas',
-        'contenedor-carrerasLimpias': 'carrerasLimpias',
-        'contenedor-jonronesPermitidos': 'jonronesPermitidos',
-        'contenedor-basesPorBolasPitching': 'basesPorBolasPitching'
+        'contenedor-averageContra': 'averageContra'
     };
 
     // Recorremos cada categoría y la dibujamos
