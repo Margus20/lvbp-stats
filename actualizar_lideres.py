@@ -44,31 +44,39 @@ MAPA_EQUIPOS = {
     'Zulia': {'clave': 'aguilas', 'abrev': 'ZUL'}
 }
 
-# Diccionarios de estadísticas
+# ✅ BATEO - SOLO PESTAÑA "Bateo" (13 datos)
 ESTADISTICAS_BATEO = {
-    'jonrones': 'HR', 'impulsadas': 'CI', 'hits': 'H', 'dobles': '2B',
-    'triples': '3B', 'carrerasAnotadas': 'C', 'basesRobadas': 'BR',
-    'basesPorBolas': 'BB', 'ponchesBateo': 'K'
-}
-ESTADISTICAS_BATEO_AVANZADAS = {
-    'average': 'AVE', 'slugging': 'SLG', 'ops': 'OPS'
-}
-ESTADISTICAS_PITCHEO = {
-    'efectividad': 'EFE', 'ponchesPitching': 'K', 'victorias': 'G',
-    'salvados': 'SV', 'inningsLanzados': 'IP', 'hitsPermitidos': 'H',
-    'carrerasPermitidas': 'CP', 'carrerasLimpias': 'CL', 'jonronesPermitidos': 'HR',
-    'basesPorBolasPitching': 'BB'
-}
-ESTADISTICAS_PITCHEO_AVANZADAS = {
-    'whip': 'WHIP', 'averageContra': 'AVE', 'strikes': 'S', 'numeroPitches': 'NP'
+    'jonrones': 'HR',
+    'hits': 'H',
+    'dobles': '2B',
+    'triples': '3B',
+    'impulsadas': 'CI',
+    'basesRobadas': 'BR',
+    'basesPorBolas': 'BB',
+    'ponchesBateo': 'K',
+    'average': 'AVE',
+    'slugging': 'SLG',
+    'ops': 'OPS'
 }
 
-# ESTADÍSTICAS DONDE "MENOR ES MEJOR"
+# ✅ PITCHEO - SOLO PESTAÑA "Pitcheo" (10 datos)
+ESTADISTICAS_PITCHEO = {
+    'efectividad': 'EFE',
+    'victorias': 'G',
+    'salvados': 'SV',
+    'inningsLanzados': 'IP',
+    'ponchesPitching': 'K',
+    'hold': 'HLD',
+    'whip': 'WHIP',
+    'averageContra': 'AVE'
+}
+
+# 📉 ESTADÍSTICAS DONDE "MENOR ES MEJOR"
 ESTADISTICAS_MENOR_ES_MEJOR = ['efectividad', 'whip', 'averageContra']
 
 def cambiar_a_pitcheo(driver):
     try:
-        print("🔄 Buscando dropdown para cambiar a Pitcheo...")
+        print(" Buscando dropdown para cambiar a Pitcheo...")
         selects = driver.find_elements(By.TAG_NAME, "select")
         for select_elem in selects:
             options = select_elem.find_elements(By.TAG_NAME, "option")
@@ -96,13 +104,14 @@ def hacer_clic_en_pestania(driver, nombre_pestania):
                 driver.execute_script("arguments[0].click();", tab)
                 time.sleep(2.5)
                 return True
-        print(f"️ No se encontró '{nombre_pestania}'")
+        print(f"⚠️ No se encontró '{nombre_pestania}'")
         return False
     except Exception as e:
         print(f"❌ Error: {e}")
         return False
 
 def hacer_clic_en_columna(driver, abreviatura, categoria):
+    """Busca columna con prioridad: EXACTA > SIN / > CON /"""
     try:
         print(f" Buscando columna '{abreviatura}'...")
         
@@ -113,31 +122,52 @@ def hacer_clic_en_columna(driver, abreviatura, categoria):
         """)
         time.sleep(2)
         
-        # Usar BeautifulSoup para buscar la columna (más confiable)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         encabezados = soup.find_all('th')
         indice_columna = -1
         
+        # 1️⃣ PRIORIDAD 1: Coincidencia EXACTA (sin /)
         for i, encabezado in enumerate(encabezados):
             texto = encabezado.get_text(strip=True).upper()
-            if abreviatura.upper() in texto or texto == abreviatura.upper() or (abreviatura == 'AVE' and 'AVG' in texto):
-                print(f"✅ Encontrada columna '{abreviatura}' (texto: '{texto}') en posición {i}. Ordenando...")
-                
-                # Ahora buscar el elemento en Selenium para hacer clic
-                encabezados_selenium = driver.find_elements(By.TAG_NAME, "th")
-                if i < len(encabezados_selenium):
-                    driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});", encabezados_selenium[i])
-                    time.sleep(0.5)
-                    driver.execute_script("arguments[0].click();", encabezados_selenium[i])
-                    time.sleep(2)
-                    
-                    # Doble clic si es "menor es mejor"
-                    if categoria in ESTADISTICAS_MENOR_ES_MEJOR:
-                        print(f"📉 '{categoria}' es 'menor es mejor'. Segundo clic...")
-                        driver.execute_script("arguments[0].click();", encabezados_selenium[i])
-                        time.sleep(2)
-                    
+            if texto == abreviatura.upper() and '/' not in texto:
+                print(f"✅ Coincidencia EXACTA: '{texto}' en posición {i}")
+                indice_columna = i
+                break
+        
+        # 2️⃣ PRIORIDAD 2: Empieza con la abreviatura (sin /)
+        if indice_columna == -1:
+            for i, encabezado in enumerate(encabezados):
+                texto = encabezado.get_text(strip=True).upper()
+                if texto.startswith(abreviatura.upper()) and '/' not in texto:
+                    print(f"✅ Coincidencia por inicio: '{texto}' en posición {i}")
                     indice_columna = i
+                    break
+        
+        # 3️ PRIORIDAD 3: Contiene la abreviatura (solo si no encontró las anteriores)
+        if indice_columna == -1:
+            for i, encabezado in enumerate(encabezados):
+                texto = encabezado.get_text(strip=True).upper()
+                if abreviatura.upper() in texto and '/' not in texto:
+                    print(f"⚠️ Coincidencia parcial: '{texto}' en posición {i}")
+                    indice_columna = i
+                    break
+        
+        if indice_columna >= 0:
+            # Hacer clic con Selenium
+            encabezados_selenium = driver.find_elements(By.TAG_NAME, "th")
+            if indice_columna < len(encabezados_selenium):
+                driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});", encabezados_selenium[indice_columna])
+                time.sleep(0.5)
+                driver.execute_script("arguments[0].click();", encabezados_selenium[indice_columna])
+                time.sleep(2.5)
+                
+                # Doble clic si es "menor es mejor"
+                if categoria in ESTADISTICAS_MENOR_ES_MEJOR:
+                    print(f"📉 '{categoria}' es 'menor es mejor'. Segundo clic...")
+                    driver.execute_script("arguments[0].click();", encabezados_selenium[indice_columna])
+                    time.sleep(2.5)
+        else:
+            print(f"❌ No se encontró NINGUNA columna para '{abreviatura}'")
         
         # Scroll de vuelta al inicio
         driver.execute_script("""
@@ -149,21 +179,28 @@ def hacer_clic_en_columna(driver, abreviatura, categoria):
         
         return indice_columna
     except Exception as e:
-        print(f" Error: {e}")
+        print(f"❌ Error: {e}")
         import traceback
         traceback.print_exc()
         return -1
 
 def extraer_top3_con_columna(driver, indice_columna_objetivo, nombre_categoria):
     try:
-        # Usar BeautifulSoup para extraer datos
+        # Scroll al inicio
+        driver.execute_script("""
+            var container = document.querySelector('.table-responsive') || document.querySelector('table');
+            if (container) container.scrollLeft = 0;
+            window.scrollTo(0, 0);
+        """)
+        time.sleep(1.5)
+        
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         tablas = soup.find_all('table')
         if not tablas:
             return []
             
         tabla = max(tablas, key=lambda t: len(t.find_all('tr')))
-        filas = tabla.find_all('tr')[1:]  # Saltar encabezado
+        filas = tabla.find_all('tr')[1:]
         
         jugadores = []
         for fila in filas[:20]:
@@ -242,7 +279,7 @@ def extraer_top3_con_columna(driver, indice_columna_objetivo, nombre_categoria):
                 break
         
         if len(jugadores) < 3:
-            print(f"️ Solo se extrajeron {len(jugadores)} jugadores para {nombre_categoria}.")
+            print(f"⚠️ Solo se extrajeron {len(jugadores)} jugadores para {nombre_categoria}.")
             
         return jugadores
     except Exception as e:
@@ -271,8 +308,8 @@ def obtener_datos_lvbp():
         
         todos_los_lideres = {}
         
-        # 1. BATEO BÁSICO
-        print("\n=== 🏏 BATEO BÁSICO ===")
+        # 1️⃣ BATEO - SOLO PESTAÑA "Bateo"
+        print("\n=== 🏏 BATEO (SOLO PESTAÑA 'Bateo') ===")
         if hacer_clic_en_pestania(driver, "Bateo"):
             for cat, abr in ESTADISTICAS_BATEO.items():
                 print(f"  → {cat.upper()} ({abr})")
@@ -284,37 +321,11 @@ def obtener_datos_lvbp():
                         print(f"     ✅ {top3[0]['nombre']} ({top3[0]['valor']})")
                     time.sleep(0.5)
 
-        # 2. BATEO AVANZADO
-        print("\n=== 📊 BATEO AVANZADO ===")
-        if hacer_clic_en_pestania(driver, "Avanzadas de Bateo"):
-            for cat, abr in ESTADISTICAS_BATEO_AVANZADAS.items():
-                print(f"  → {cat.upper()} ({abr})")
-                indice = hacer_clic_en_columna(driver, abr, cat)
-                if indice >= 0:
-                    top3 = extraer_top3_con_columna(driver, indice, cat)
-                    if top3:
-                        todos_los_lideres[cat] = top3
-                        print(f"     ✅ {top3[0]['nombre']} ({top3[0]['valor']})")
-                    time.sleep(0.5)
-
-        # 3. PITCHEO
-        print("\n=== ⚾ PITCHEO ===")
+        # 2️⃣ PITCHEO - Cambiar dropdown y SOLO pestaña "Pitcheo"
+        print("\n===  PITCHEO (SOLO PESTAÑA 'Pitcheo') ===")
         if cambiar_a_pitcheo(driver):
             hacer_clic_en_pestania(driver, "Pitcheo")
             for cat, abr in ESTADISTICAS_PITCHEO.items():
-                print(f"  → {cat.upper()} ({abr})")
-                indice = hacer_clic_en_columna(driver, abr, cat)
-                if indice >= 0:
-                    top3 = extraer_top3_con_columna(driver, indice, cat)
-                    if top3:
-                        todos_los_lideres[cat] = top3
-                        print(f"     ✅ {top3[0]['nombre']} ({top3[0]['valor']})")
-                    time.sleep(0.5)
-
-        # 4. PITCHEO AVANZADO
-        print("\n=== 📈 PITCHEO AVANZADO ===")
-        if hacer_clic_en_pestania(driver, "Avanzadas de Pitcheo"):
-            for cat, abr in ESTADISTICAS_PITCHEO_AVANZADAS.items():
                 print(f"  → {cat.upper()} ({abr})")
                 indice = hacer_clic_en_columna(driver, abr, cat)
                 if indice >= 0:
@@ -348,13 +359,13 @@ def actualizar_github(todos_los_lideres):
     sha = response.json().get('sha')
     fecha_actual = time.strftime('%Y-%m-%d %H:%M:%S')
     
+    # Orden de las 23 categorías (11 bateo + 8 pitcheo)
     orden_categorias = [
-        'jonrones', 'average', 'impulsadas', 'slugging', 'ops',
-        'hits', 'dobles', 'triples', 'carrerasAnotadas', 'basesRobadas',
-        'basesPorBolas', 'ponchesBateo', 'efectividad', 'ponchesPitching',
-        'victorias', 'salvados', 'inningsLanzados', 'whip', 'averageContra',
-        'strikes', 'numeroPitches', 'hitsPermitidos', 'carrerasPermitidas',
-        'carrerasLimpias', 'jonronesPermitidos', 'basesPorBolasPitching'
+        'jonrones', 'hits', 'dobles', 'triples', 'impulsadas',
+        'basesRobadas', 'basesPorBolas', 'ponchesBateo',
+        'average', 'slugging', 'ops',
+        'efectividad', 'victorias', 'salvados', 'inningsLanzados',
+        'ponchesPitching', 'hold', 'whip', 'averageContra'
     ]
     
     contenido = f"""// ============================================
@@ -396,7 +407,7 @@ export function obtenerMascota(equipo) {
     
     content_encoded = base64.b64encode(contenido.encode('utf-8')).decode('utf-8')
     data = {
-        "message": " Actualización automática (26 categorías - código corregido)",
+        "message": "🤖 Actualización automática (23 categorías - Bateo y Pitcheo básicos)",
         "content": content_encoded,
         "sha": sha
     }
@@ -413,7 +424,7 @@ def main():
     
     datos = obtener_datos_lvbp()
     if datos and len(datos) > 0:
-        print(f"\n📊 Éxito: {len(datos)} de 26 categorías.")
+        print(f"\n📊 Éxito: {len(datos)} de 19 categorías.")
         actualizar_github(datos)
     else:
         print("⚠️ No se extrajeron datos.")
