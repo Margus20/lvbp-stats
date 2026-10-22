@@ -1,6 +1,6 @@
 // ============================================
 // LÍDERES ESTADÍSTICOS - ACTUALIZACIÓN AUTOMÁTICA (SELENIUM)
-// Actualizado: 2026-10-22 17:13:22
+// Actualizado: 2026-10-22 17:35:04
 // ============================================
 
 export const LIDERES = {
@@ -65,29 +65,29 @@ export const LIDERES = {
         {"posicion": 3, "nombre": "S. Muzziotti (LAG)", "equipo": "tiburones", "valor": "8"}
     ],
     efectividad: [
-        {"posicion": 1, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 2, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 3, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"}
+        {"posicion": 1, "nombre": "B. aceres (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 2, "nombre": "M. Diaz (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 3, "nombre": "J. into (ARA)", "equipo": "tigres", "valor": "0"}
     ],
     ponchesPitching: [
-        {"posicion": 1, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 2, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 3, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"}
+        {"posicion": 1, "nombre": "B. aceres (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 2, "nombre": "M. Diaz (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 3, "nombre": "J. into (ARA)", "equipo": "tigres", "valor": "0"}
     ],
     victorias: [
-        {"posicion": 1, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 2, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 3, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"}
+        {"posicion": 1, "nombre": "B. aceres (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 2, "nombre": "M. Diaz (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 3, "nombre": "J. into (ARA)", "equipo": "tigres", "valor": "0"}
     ],
     salvados: [
-        {"posicion": 1, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 2, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 3, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"}
+        {"posicion": 1, "nombre": "B. aceres (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 2, "nombre": "M. Diaz (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 3, "nombre": "J. into (ARA)", "equipo": "tigres", "valor": "0"}
     ],
     inningsLanzados: [
-        {"posicion": 1, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 2, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 3, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"}
+        {"posicion": 1, "nombre": "B. aceres (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 2, "nombre": "M. Diaz (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 3, "nombre": "J. into (ARA)", "equipo": "tigres", "valor": "0"}
     ],
     whip: [
         {"posicion": 1, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
@@ -100,39 +100,39 @@ export const LIDERES = {
         {"posicion": 3, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"}
     ],
     strikes: [
-        {"posicion": 1, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 2, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 3, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"}
+        {"posicion": 1, "nombre": "B. aceres (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 2, "nombre": "M. Diaz (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 3, "nombre": "J. into (ARA)", "equipo": "tigres", "valor": "0"}
     ],
     numeroPitches: [
-        {"posicion": 1, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 2, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 3, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"}
+        {"posicion": 1, "nombre": "B. aceres (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 2, "nombre": "M. Diaz (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 3, "nombre": "J. into (ARA)", "equipo": "tigres", "valor": "0"}
     ],
     hitsPermitidos: [
-        {"posicion": 1, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 2, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 3, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"}
+        {"posicion": 1, "nombre": "B. aceres (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 2, "nombre": "M. Diaz (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 3, "nombre": "J. into (ARA)", "equipo": "tigres", "valor": "0"}
     ],
     carrerasPermitidas: [
-        {"posicion": 1, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 2, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 3, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"}
+        {"posicion": 1, "nombre": "B. aceres (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 2, "nombre": "M. Diaz (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 3, "nombre": "J. into (ARA)", "equipo": "tigres", "valor": "0"}
     ],
     carrerasLimpias: [
-        {"posicion": 1, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 2, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 3, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"}
+        {"posicion": 1, "nombre": "B. aceres (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 2, "nombre": "M. Diaz (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 3, "nombre": "J. into (ARA)", "equipo": "tigres", "valor": "0"}
     ],
     jonronesPermitidos: [
-        {"posicion": 1, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 2, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 3, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"}
+        {"posicion": 1, "nombre": "B. aceres (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 2, "nombre": "M. Diaz (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 3, "nombre": "J. into (ARA)", "equipo": "tigres", "valor": "0"}
     ],
     basesPorBolasPitching: [
-        {"posicion": 1, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 2, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"},
-        {"posicion": 3, "nombre": "Por definir (CAR)", "equipo": "leones", "valor": "0"}
+        {"posicion": 1, "nombre": "B. aceres (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 2, "nombre": "M. Diaz (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 3, "nombre": "J. into (ARA)", "equipo": "tigres", "valor": "0"}
     ],
 };
 
