@@ -4,10 +4,11 @@
 // ============================================
 
 export const LIDERES = {
+    // BATEO (11 categorías)
     jonrones: [
         {"posicion": 1, "nombre": "D. Rodríguez (ARA)", "equipo": "tigres", "valor": "4"},
-        {"posicion": 2, "nombre": "H. érez (ANZ)", "equipo": "caribes", "valor": "4"},
-        {"posicion": 3, "nombre": "D. eralta (MAR)", "equipo": "bravos", "valor": "3"}
+        {"posicion": 2, "nombre": "H. Pérez (ANZ)", "equipo": "caribes", "valor": "4"},
+        {"posicion": 3, "nombre": "D. Peralta (MAR)", "equipo": "bravos", "valor": "3"}
     ],
     hits: [
         {"posicion": 1, "nombre": "D. Rodríguez (ARA)", "equipo": "tigres", "valor": "16"},
@@ -17,7 +18,7 @@ export const LIDERES = {
     dobles: [
         {"posicion": 1, "nombre": "S. Muzziotti (LAG)", "equipo": "tiburones", "valor": "5"},
         {"posicion": 2, "nombre": "J. Rivas (LAG)", "equipo": "tiburones", "valor": "4"},
-        {"posicion": 3, "nombre": "L. edeño (CAR)", "equipo": "leones", "valor": "3"}
+        {"posicion": 3, "nombre": "L. Cedeño (CAR)", "equipo": "leones", "valor": "3"}
     ],
     triples: [
         {"posicion": 1, "nombre": "D. Rodríguez (ARA)", "equipo": "tigres", "valor": "1"},
@@ -32,7 +33,7 @@ export const LIDERES = {
     basesRobadas: [
         {"posicion": 1, "nombre": "Y. Hernández (LAR)", "equipo": "cardenales", "valor": "3"},
         {"posicion": 2, "nombre": "V. Arias (ZUL)", "equipo": "aguilas", "valor": "2"},
-        {"posicion": 3, "nombre": "L. edrola (ARA)", "equipo": "tigres", "valor": "2"}
+        {"posicion": 3, "nombre": "L. Cedeño (CAR)", "equipo": "leones", "valor": "2"}
     ],
     basesPorBolas: [
         {"posicion": 1, "nombre": "D. Montano (LAG)", "equipo": "tiburones", "valor": "10"},
@@ -40,7 +41,7 @@ export const LIDERES = {
         {"posicion": 3, "nombre": "R. Ortega (LAR)", "equipo": "cardenales", "valor": "6"}
     ],
     ponchesBateo: [
-        {"posicion": 1, "nombre": "L. edeño (CAR)", "equipo": "leones", "valor": "9"},
+        {"posicion": 1, "nombre": "L. Cedeño (CAR)", "equipo": "leones", "valor": "9"},
         {"posicion": 2, "nombre": "D. Rodríguez (ARA)", "equipo": "tigres", "valor": "6"},
         {"posicion": 3, "nombre": "D. Arias (MAR)", "equipo": "bravos", "valor": "6"}
     ],
@@ -51,27 +52,29 @@ export const LIDERES = {
     ],
     slugging: [
         {"posicion": 1, "nombre": "D. Rodríguez (ARA)", "equipo": "tigres", "valor": ".914"},
-        {"posicion": 2, "nombre": "D. eralta (MAR)", "equipo": "bravos", "valor": ".826"},
-        {"posicion": 3, "nombre": "L. edeño (CAR)", "equipo": "leones", "valor": ".750"}
+        {"posicion": 2, "nombre": "D. Peralta (MAR)", "equipo": "bravos", "valor": ".826"},
+        {"posicion": 3, "nombre": "L. Cedeño (CAR)", "equipo": "leones", "valor": ".750"}
     ],
     ops: [
         {"posicion": 1, "nombre": "D. Rodríguez (ARA)", "equipo": "tigres", "valor": "1.400"},
-        {"posicion": 2, "nombre": "D. eralta (MAR)", "equipo": "bravos", "valor": "1.326"},
-        {"posicion": 3, "nombre": "L. edeño (CAR)", "equipo": "leones", "valor": "1.250"}
+        {"posicion": 2, "nombre": "D. Peralta (MAR)", "equipo": "bravos", "valor": "1.326"},
+        {"posicion": 3, "nombre": "L. Cedeño (CAR)", "equipo": "leones", "valor": "1.250"}
     ],
+    
+    // PITCHEO (8 categorías)
     efectividad: [
-        {"posicion": 1, "nombre": "B. aceres (ANZ)", "equipo": "caribes", "valor": "0.00"},
+        {"posicion": 1, "nombre": "B. Cáceres (ANZ)", "equipo": "caribes", "valor": "0.00"},
         {"posicion": 2, "nombre": "M. Diaz (ANZ)", "equipo": "caribes", "valor": "0.00"},
-        {"posicion": 3, "nombre": "J. into (ARA)", "equipo": "tigres", "valor": "0.00"}
+        {"posicion": 3, "nombre": "J. Pinto (ARA)", "equipo": "tigres", "valor": "0.00"}
     ],
     victorias: [
-        {"posicion": 1, "nombre": "J. ousin (ANZ)", "equipo": "caribes", "valor": "2"},
+        {"posicion": 1, "nombre": "J. Cousin (ANZ)", "equipo": "caribes", "valor": "2"},
         {"posicion": 2, "nombre": "G. Velasquez (ZUL)", "equipo": "aguilas", "valor": "1"},
         {"posicion": 3, "nombre": "J. Garcia (MAR)", "equipo": "bravos", "valor": "1"}
     ],
     salvados: [
-        {"posicion": 1, "nombre": "E. aredes (LAG)", "equipo": "tiburones", "valor": "2"},
-        {"posicion": 2, "nombre": "B. aceres (ANZ)", "equipo": "caribes", "valor": "0"},
+        {"posicion": 1, "nombre": "E. Paredes (LAG)", "equipo": "tiburones", "valor": "2"},
+        {"posicion": 2, "nombre": "B. Cáceres (ANZ)", "equipo": "caribes", "valor": "0"},
         {"posicion": 3, "nombre": "M. Diaz (ANZ)", "equipo": "caribes", "valor": "0"}
     ],
     inningsLanzados: [
@@ -91,14 +94,14 @@ export const LIDERES = {
     ],
     whip: [
         {"posicion": 1, "nombre": "G. Velasquez (ZUL)", "equipo": "aguilas", "valor": "0.40"},
-        {"posicion": 2, "nombre": "J. into (ARA)", "equipo": "tigres", "valor": "0.44"},
-        {"posicion": 3, "nombre": "J. ousin (ANZ)", "equipo": "caribes", "valor": "0.50"}
+        {"posicion": 2, "nombre": "J. Pinto (ARA)", "equipo": "tigres", "valor": "0.44"},
+        {"posicion": 3, "nombre": "J. Cousin (ANZ)", "equipo": "caribes", "valor": "0.50"}
     ],
     averageContra: [
         {"posicion": 1, "nombre": "G. Velasquez (ZUL)", "equipo": "aguilas", "valor": ".065"},
-        {"posicion": 2, "nombre": "J. into (ARA)", "equipo": "tigres", "valor": ".074"},
+        {"posicion": 2, "nombre": "J. Pinto (ARA)", "equipo": "tigres", "valor": ".074"},
         {"posicion": 3, "nombre": "R. Santos (LAG)", "equipo": "tiburones", "valor": ".087"}
-    ],
+    ]
 };
 
 export const MASCOTAS = {
