@@ -11,7 +11,7 @@ import json
 TOKEN = os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN')
 
 if not TOKEN:
-    print("❌ ERROR: No se encontró el token. Verifica que GH_TOKEN esté en los Secrets de GitHub.")
+    print("❌ ERROR: No se encontró el token. Verifica que esté en los Secrets de GitHub.")
     exit(1)
 
 REPO_OWNER = 'Margus20'
@@ -33,7 +33,8 @@ MAPA_EQUIPOS = {
 
 def obtener_datos_lvbp():
     print(f"📡 Conectando a {URL_LVBP}...")
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+    # User-Agent más completo para evitar bloqueos básicos
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'}
     response = requests.get(URL_LVBP, headers=headers)
     
     if response.status_code != 200:
@@ -42,19 +43,23 @@ def obtener_datos_lvbp():
         
     soup = BeautifulSoup(response.text, 'html.parser')
     
-    # ✅ CORRECCIÓN 2: Buscar tabla de forma más específica
-    # Primero intentar por clase común de tablas de estadísticas
-    tabla = soup.find('table', {'class': 'table'}) or soup.find('table', {'id': 'stats'})
+    # ✅ CORRECCIÓN 2: Búsqueda de tabla en 3 niveles de inteligencia
+    # Nivel 1: Buscar por clases o IDs comunes de tablas de estadísticas
+    tabla = soup.find('table', class_='table') or soup.find('table', id='stats') or soup.find('table', class_='table-striped')
     
-    # Si no encuentra por clase/ID, buscar la tabla más grande (probablemente la de stats)
+    # Nivel 2: Si no encuentra por clase, buscar la tabla con más filas (ignorando las pequeñas de menús)
     if not tabla:
-        tablas = soup.find_all('table')
-        if tablas:
-            # Tomar la tabla con más filas (probablemente la de estadísticas)
-            tabla = max(tablas, key=lambda t: len(t.find_all('tr')))
-        else:
-            print("❌ No se encontró ninguna tabla en la página.")
-            return None
+        todas_las_tablas = soup.find_all('table')
+        tablas_validas = [t for t in todas_las_tablas if len(t.find_all('tr')) > 4]
+        if tablas_validas:
+            tabla = max(tablas_validas, key=lambda t: len(t.find_all('tr')))
+    
+    # Nivel 3: Diagnóstico si sigue sin encontrar tabla
+    if not tabla:
+        print("❌ No se encontró ninguna tabla válida en la página.")
+        print("🔍 DIAGNÓSTICO: Primeros 300 caracteres del HTML recibido:")
+        print(response.text[:300])
+        return None
     
     print("✅ Tabla encontrada. Extrayendo datos...")
     filas = tabla.find_all('tr')
@@ -67,8 +72,8 @@ def obtener_datos_lvbp():
             equipo_raw = celdas[1].get_text(strip=True)
             valor = celdas[2].get_text(strip=True)
             
-            # Validar que el jugador tenga nombre (no sea fila vacía)
-            if not jugador or jugador == '':
+            # Validar que el jugador tenga nombre (no sea fila vacía o de publicidad)
+            if not jugador or jugador == '' or 'publicidad' in equipo_raw.lower():
                 continue
             
             # Buscar el equipo en nuestro traductor
@@ -87,7 +92,7 @@ def obtener_datos_lvbp():
     # Nos quedamos solo con el Top 3
     top_3 = jugadores[:3]
     
-    # ✅ CORRECCIÓN 3: Asegurar que siempre haya 3 elementos
+    # ✅ CORRECCIÓN 3: Asegurar que siempre haya 3 elementos para que el f-string no falle
     while len(top_3) < 3:
         top_3.append({"nombre": "Por definir", "equipo": "leones", "valor": "0"})
     
@@ -109,7 +114,7 @@ def actualizar_github(top_3):
         
     sha = response.json().get('sha')
     
-    # ✅ CORRECCIÓN 3 (continuación): Ahora el f-string es seguro
+    # 2. Creamos el nuevo contenido del archivo JS (f-string seguro)
     nuevo_contenido = f"""// ============================================
 // LÍDERES ESTADÍSTICOS - ACTUALIZACIÓN AUTOMÁTICA
 // Actualizado: {requests.get('https://api.github.com').headers.get('Date', 'Fecha desconocida')}
@@ -151,13 +156,13 @@ export function obtenerMascota(equipo) {{
         print(f"❌ Error al subir: {response.text}")
 
 def main():
-    print(" Iniciando Bot de Estadísticas LVBP...")
+    print("🚀 Iniciando Bot de Estadísticas LVBP...")
     print(f"🔑 Token encontrado: {'SÍ' if TOKEN else 'NO'}")
     datos = obtener_datos_lvbp()
     if datos:
         actualizar_github(datos)
     else:
-        print("⚠️ No se pudieron extraer datos. Revisa los logs.")
+        print("⚠️ No se pudieron extraer datos. Revisa el diagnóstico en los logs.")
 
 if __name__ == '__main__':
     main()
