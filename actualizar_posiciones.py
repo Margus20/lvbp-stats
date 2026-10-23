@@ -95,7 +95,7 @@ def extraer_posiciones(driver):
         idx_jj = next((i for i, th in enumerate(ths) if th == 'JJ'), 2)
         idx_jg = next((i for i, th in enumerate(ths) if th == 'JG'), 3)
         idx_jp = next((i for i, th in enumerate(ths) if th == 'JP'), 4)
-        idx_pct = next((i for i, th in enumerate(ths) if 'PCT' in th), 5)
+        idx_pct = next((i for i, th in enumerate(ths) if 'AVE' in th or 'PCT' in th), 5)  # ✅ CORREGIDO
         idx_dif = next((i for i, th in enumerate(ths) if 'DIF' in th), 6)
         idx_racha = next((i for i, th in enumerate(ths) if 'RACHA' in th), 7)
         
