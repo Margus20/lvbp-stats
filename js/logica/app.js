@@ -12,11 +12,13 @@ import {
     renderPublicidad 
 } from './render.js';
 
-import { compartirEnRed, compartirSeccion } from './compartir.js';
+// 🆕 Agregamos renderizarBotonesCompartir a la importación
+import { compartirEnRed, compartirSeccion, renderizarBotonesCompartir } from './compartir.js';
 import { NOTICIAS } from '../datos/noticias.js';
 
 // ============================================
 // EXPOSICIÓN GLOBAL PARA EL HTML
+// (Se mantiene para que funcione el compartir de artículos individuales)
 // ============================================
 window.compartirEnRed = compartirEnRed;
 window.compartirSeccion = compartirSeccion;
@@ -86,6 +88,10 @@ function inicializarApp() {
     renderCalendario();
     renderLideres();
     renderPublicidad();
+    
+    // 🆕 4. Inyectar los botones de compartir en cada sección
+    // (Debe ir DESPUÉS de renderizar las secciones para que encuentre los contenedores en el DOM)
+    renderizarBotonesCompartir();
     
     console.log("✅ LVBP al Día cargado correctamente (Estructura Modular)");
 }
