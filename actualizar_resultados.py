@@ -55,65 +55,174 @@ def obtener_nombre_corto(nombre_completo):
             return nombre_corto
     return nombre_completo.split()[0] if nombre_completo else ''
 
-def navegar_a_ayer(driver):
+def leer_fecha_pagina(driver):
+    """Lee la fecha que muestra la página actualmente"""
     try:
-        fecha_ayer = datetime.now() - timedelta(days=1)
-        logger.info(f" Fecha objetivo: {fecha_ayer.strftime('%d/%m/%Y')}")
-        
         soup = BeautifulSoup(driver.page_source, 'html.parser')
-        fecha_texto = soup.find(string=re.compile(r'\d{1,2}\s+de\s+\w+\s+\d{4}'))
         
-        if fecha_texto:
-            match = re.search(r'(\d{1,2})\s+de\s+(\w+)\s+(\d{4})', str(fecha_texto))
+        # Buscar texto con formato de fecha
+        # Patrones: "22 de octubre 2026", "22 octubre 2026"
+        elementos = soup.find_all(['div', 'span', 'h2', 'h3', 'p', 'button'])
+        
+        for elem in elementos:
+            texto = elem.get_text(strip=True)
+            
+            # Solo textos cortos (evitar calendarios completos)
+            if len(texto) > 60:
+                continue
+            
+            # Patrón: "22 de octubre 2026"
+            match = re.search(r'(\d{1,2})\s+de\s+(\w+)\s+(\d{4})', texto, re.IGNORECASE)
             if match:
                 dia = int(match.group(1))
-                mes = MESES_ESPANOL.get(match.group(2).lower())
+                mes_texto = match.group(2).lower()
                 anio = int(match.group(3))
+                mes = MESES_ESPANOL.get(mes_texto)
                 if mes:
-                    fecha_actual = datetime(anio, mes, dia)
-                    diferencia = (fecha_actual - fecha_ayer).days
-                    
-                    if diferencia == 0:
-                        logger.info("✅ Ya estamos en ayer")
-                        return True
-                    
-                    logger.info(f"📊 Diferencia: {diferencia} días")
-                    
-                    if diferencia > 0:
-                        simbolo = '<'
-                    else:
-                        simbolo = '>'
-                        diferencia = abs(diferencia)
-                    
-                    for i in range(min(diferencia, 10)):
-                        botones = driver.find_elements(By.CSS_SELECTOR, "button, a")
-                        for boton in botones:
-                            if boton.text.strip() == simbolo:
-                                driver.execute_script("arguments[0].click();", boton)
-                                logger.info(f"✅ Clic {i+1}")
-                                time.sleep(2)
-                                break
-                        time.sleep(1)
-                    
-                    return True
+                    fecha = datetime(anio, mes, dia)
+                    logger.info(f" Fecha detectada en página: {fecha.strftime('%d/%m/%Y')} (texto: '{texto}')")
+                    return fecha
+            
+            # Patrón: "22 octubre 2026"
+            match2 = re.search(r'(\d{1,2})\s+(\w+)\s+(\d{4})', texto, re.IGNORECASE)
+            if match2:
+                dia = int(match2.group(1))
+                mes_texto = match2.group(2).lower()
+                anio = int(match2.group(3))
+                mes = MESES_ESPANOL.get(mes_texto)
+                if mes:
+                    fecha = datetime(anio, mes, dia)
+                    logger.info(f"📅 Fecha detectada: {fecha.strftime('%d/%m/%Y')} (texto: '{texto}')")
+                    return fecha
         
-        return False
+        logger.warning("⚠️ No se pudo detectar la fecha en la página")
+        return None
+        
     except Exception as e:
-        logger.error(f"❌ Error navegando: {e}")
+        logger.error(f"❌ Error leyendo fecha: {e}")
+        return None
+
+def navegar_a_ayer(driver):
+    """Lee la fecha actual y navega hasta ayer"""
+    try:
+        fecha_ayer = datetime.now() - timedelta(days=1)
+        logger.info(f"🎯 Fecha objetivo (ayer): {fecha_ayer.strftime('%d/%m/%Y')}")
+        
+        # PASO 1: Leer fecha actual de la página
+        fecha_actual = leer_fecha_pagina(driver)
+        
+        if not fecha_actual:
+            logger.warning("⚠️ No se pudo leer la fecha, intentando clic en flecha izquierda por defecto")
+            # Intentar clic directo en flecha izquierda
+            try:
+                botones = driver.find_elements(By.XPATH, "//button | //a | //*[@role='button']")
+                for boton in botones:
+                    texto = boton.text.strip()
+                    if texto in ['<', '‹', '«']:
+                        driver.execute_script("arguments[0].click();", boton)
+                        logger.info("✅ Clic en flecha izquierda (por defecto)")
+                        time.sleep(3)
+                        return True
+            except Exception as e:
+                logger.error(f"❌ Error: {e}")
+            return False
+        
+        # PASO 2: Calcular diferencia
+        diferencia = (fecha_actual - fecha_ayer).days
+        logger.info(f" Diferencia: {diferencia} días")
+        
+        if diferencia == 0:
+            logger.info("✅ Ya estamos en la fecha de ayer, no se necesita navegación")
+            return True
+        
+        # PASO 3: Determinar dirección y cantidad de clics
+        if diferencia > 0:
+            # Fecha actual es FUTURA (hoy o mañana) → ir hacia atrás (izquierda)
+            direccion = "izquierda"
+            simbolo_buscar = ['<', '‹', '«']
+            cantidad = diferencia
+        else:
+            # Fecha actual es PASADA (anteayer o antes) → ir hacia adelante (derecha)
+            direccion = "derecha"
+            simbolo_buscar = ['>', '›', '»']
+            cantidad = abs(diferencia)
+        
+        logger.info(f"👉 Necesitamos {cantidad} clics hacia la {direccion}")
+        
+        # Limitar a 10 clics máximo
+        if cantidad > 10:
+            logger.warning(f"⚠️ Demasiados clics ({cantidad}), limitando a 10")
+            cantidad = 10
+        
+        # PASO 4: Hacer los clics necesarios
+        for i in range(cantidad):
+            try:
+                botones = driver.find_elements(By.XPATH, "//button | //a | //*[@role='button']")
+                clic_hecho = False
+                
+                for boton in botones:
+                    texto = boton.text.strip()
+                    aria_label = boton.get_attribute('aria-label') or ''
+                    
+                    if texto in simbolo_buscar or 'anterior' in aria_label.lower() or 'previous' in aria_label.lower() or 'siguiente' in aria_label.lower() or 'next' in aria_label.lower():
+                        # Verificar dirección correcta
+                        if direccion == "izquierda" and (texto in ['<', '‹', '«'] or 'anterior' in aria_label.lower() or 'previous' in aria_label.lower()):
+                            driver.execute_script("arguments[0].click();", boton)
+                            clic_hecho = True
+                            break
+                        elif direccion == "derecha" and (texto in ['>', '›', '»'] or 'siguiente' in aria_label.lower() or 'next' in aria_label.lower()):
+                            driver.execute_script("arguments[0].click();", boton)
+                            clic_hecho = True
+                            break
+                
+                if clic_hecho:
+                    logger.info(f"✅ Clic {i+1}/{cantidad} hacia la {direccion}")
+                    time.sleep(3)  # Esperar a que cargue
+                else:
+                    logger.warning(f"⚠️ No se encontró botón en clic {i+1}")
+                    break
+                    
+            except Exception as e:
+                logger.error(f"❌ Error en clic {i+1}: {e}")
+                break
+        
+        # PASO 5: Verificar que llegamos a la fecha correcta
+        fecha_final = leer_fecha_pagina(driver)
+        if fecha_final:
+            if fecha_final == fecha_ayer:
+                logger.info(f"✅ Fecha confirmada: {fecha_final.strftime('%d/%m/%Y')}")
+                return True
+            else:
+                logger.warning(f"⚠️ Fecha final: {fecha_final.strftime('%d/%m/%Y')}, esperada: {fecha_ayer.strftime('%d/%m/%Y')}")
+                # Si la diferencia es pequeña, reintentar
+                nueva_diferencia = (fecha_final - fecha_ayer).days
+                if abs(nueva_diferencia) <= 3:
+                    logger.info(f"🔄 Reintentando navegación ({abs(nueva_diferencia)} días de diferencia)...")
+                    return navegar_a_ayer(driver)
+        return False
+        
+    except Exception as e:
+        logger.error(f"❌ Error en navegación: {e}")
         return False
 
-def extraer_tarjetas_juego(driver):
-    logger.info(" Extrayendo resultados (DEBUG)...")
+def extraer_resultados(driver):
+    """Extrae juegos finalizados con debugging"""
+    logger.info(" Extrayendo resultados...")
     
     try:
         soup = BeautifulSoup(driver.page_source, 'html.parser')
+        
+        # DEBUG: Mostrar fecha actual de la página
+        fecha_actual = leer_fecha_pagina(driver)
+        if fecha_actual:
+            logger.info(f"📅 Fecha actual en página: {fecha_actual.strftime('%d/%m/%Y')}")
         
         # Buscar TODOS los divs
         todos_divs = soup.find_all('div')
         logger.info(f"📊 Total de divs encontrados: {len(todos_divs)}")
         
-        # DEBUG: Mostrar divs que contienen "Finalizado"
-        logger.info("🔍 Buscando divs con 'Finalizado' o 'final':")
+        # DEBUG: Buscar divs con "Finalizado"
+        logger.info(" Buscando divs con 'Finalizado' o 'final':")
         divs_con_final = []
         for i, div in enumerate(todos_divs):
             texto = div.get_text()
@@ -127,33 +236,26 @@ def extraer_tarjetas_juego(driver):
                 logger.info(f"  ✅ Div {idx}: '{texto}'")
         else:
             logger.info("⚠️ No se encontró 'Finalizado' en ningún div")
-            # Mostrar algunos divs grandes para ver la estructura
+            # Mostrar algunos divs grandes
             logger.info("🔍 Divs grandes encontrados:")
             for i, div in enumerate(todos_divs[:30]):
                 texto = div.get_text()
                 if len(texto) > 100:
                     logger.info(f"  Div {i} ({len(texto)} chars): '{texto[:150]}...'")
         
-        # Buscar tarjetas de juego
-        tarjetas = soup.find_all('div', class_=lambda x: x and any(kw in x.lower() for kw in ['game', 'card', 'match', 'resultado']))
-        
-        if not tarjetas:
-            tarjetas = soup.find_all('div')
-        
-        logger.info(f" Tarjetas candidatas: {len(tarjetas)}")
-        
+        # Extraer juegos
         juegos = []
         juegos_procesados = set()
         
-        for tarjeta in tarjetas:
+        for div in todos_divs:
             try:
-                texto = tarjeta.get_text()
+                texto = div.get_text()
                 
                 # FILTRO: Solo juegos finalizados
                 if 'Finalizado' not in texto and 'finalizado' not in texto:
                     continue
                 
-                # Extraer equipos en orden
+                # Buscar equipos en orden
                 equipos_encontrados = []
                 for nombre_largo, nombre_corto in NOMBRES_EQUIPOS.items():
                     if nombre_corto in texto:
@@ -182,23 +284,13 @@ def extraer_tarjetas_juego(driver):
                     lines = texto.split('\n')
                     for j, line in enumerate(lines):
                         if 'R' in line and 'H' in line and 'E' in line:
-                            numeros_encontrados = []
                             for k in range(j+1, min(j+4, len(lines))):
-                                nums = re.findall(r'\b(\d+)\b', lines[k])
-                                if nums:
-                                    numeros_encontrados.extend(nums)
+                                numeros = re.findall(r'\b(\d+)\b', lines[k])
+                                if numeros and len(numeros) >= 2:
+                                    score_visitante = numeros[0]
+                                    score_local = numeros[1]
                                     break
-                            
-                            if len(numeros_encontrados) >= 2:
-                                score_visitante = numeros_encontrados[0]
-                                score_local = numeros_encontrados[1]
                             break
-                    
-                    if score_visitante == "0" or score_local == "0":
-                        match_scores = re.search(r'(\d{1,2})\s+\d+\s+\d+.*?(\d{1,2})\s+\d+\s+\d+', texto, re.DOTALL)
-                        if match_scores:
-                            score_visitante = match_scores.group(1)
-                            score_local = match_scores.group(2)
                     
                     # Innings
                     innings = "9"
@@ -209,7 +301,7 @@ def extraer_tarjetas_juego(driver):
                     # Pitchers
                     pitcher_ganador = pitcher_perdedor = pitcher_salvador = ""
                     
-                    if 'G:' in texto or 'g:' in texto.lower():
+                    if 'G:' in texto:
                         match_g = re.search(r'G:\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s,\.]+?)(?:\s+P:|\s+S:|\s+BOXSCORE|\n\n|$)', texto, re.IGNORECASE)
                         if match_g:
                             pitcher_ganador = match_g.group(1).strip().split(',')[0].strip()
@@ -223,7 +315,7 @@ def extraer_tarjetas_juego(driver):
                             pitcher_salvador = match_s.group(1).strip().split(',')[0].strip()
                     
                     juegos.append({
-                        'fecha': (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d"),
+                        'fecha': fecha_ayer.strftime("%Y-%m-%d") if fecha_actual else (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d"),
                         'visitante': visitante,
                         'local': local,
                         'scoreVisitante': score_visitante,
@@ -238,10 +330,9 @@ def extraer_tarjetas_juego(driver):
                     logger.info(f"✅ Juego: {visitante} {score_visitante} - {score_local} {local}")
                 
             except Exception as e:
-                logger.warning(f"⚠️ Error procesando tarjeta: {e}")
                 continue
         
-        logger.info(f"📊 Total de juegos extraídos: {len(juegos)}")
+        logger.info(f"📊 Total extraídos: {len(juegos)}")
         return juegos if juegos else None
         
     except Exception as e:
@@ -290,10 +381,14 @@ def main():
         WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
         time.sleep(3)
         
-        navegar_a_ayer(driver)
+        # PASO 1: Navegar a ayer (lee fecha y ajusta)
+        if not navegar_a_ayer(driver):
+            logger.warning("⚠️ No se pudo navegar a ayer con certeza")
+        
         time.sleep(2)
         
-        resultados = extraer_tarjetas_juego(driver)
+        # PASO 2: Extraer resultados
+        resultados = extraer_resultados(driver)
         
         if resultados and len(resultados) > 0:
             logger.info(f"✅ Extraídos {len(resultados)} juegos")
