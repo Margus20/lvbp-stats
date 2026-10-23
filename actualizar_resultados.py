@@ -7,6 +7,10 @@ import re
 from datetime import datetime, timedelta, timezone
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
+import cv2
+import numpy as np
+from PIL import Image
+import io
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -45,8 +49,7 @@ def obtener_nombre_corto(nombre_completo):
 
 def obtener_fecha_venezuela():
     ahora_utc = datetime.now(timezone.utc)
-    ahora_vzla = ahora_utc.astimezone(VENEZUELA_OFFSET)
-    return ahora_vzla
+    return ahora_utc.astimezone(VENEZUELA_OFFSET)
 
 def leer_fecha_principal(page):
     try:
@@ -75,192 +78,321 @@ def leer_fecha_principal(page):
                     logger.info(f" Fecha detectada: {fecha.strftime('%d/%m/%Y')} (texto: '{fecha_texto}')")
                     return fecha
         
-        logger.warning("⚠️ No se pudo detectar la fecha")
+        logger.warning("️ No se pudo detectar la fecha")
         return None
         
     except Exception as e:
         logger.error(f"❌ Error leyendo fecha: {e}")
         return None
 
-def hacer_clic_flecha(page, direccion):
-    """Intenta múltiples estrategias para hacer clic en la flecha"""
+def buscar_flechas_con_vision(page, direccion):
+    """
+    ESTRATEGIA DE VISIÓN: Toma un screenshot y busca visualmente las flechas
+    usando OpenCV (detección de patrones visuales)
+    """
     try:
-        logger.info(f"🔍 Buscando botón {direccion}...")
+        logger.info(f"👁️ Estrategia VISIÓN: Buscando flecha {direccion}...")
         
-        # Estrategia 1: Buscar por texto "<" o ">"
-        try:
-            if direccion == "izquierda":
-                page.click('button:has-text("<"), a:has-text("<")', timeout=3000)
+        # 1. Tomar screenshot
+        screenshot_bytes = page.screenshot()
+        img_array = np.frombuffer(screenshot_bytes, np.uint8)
+        img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
+        
+        if img is None:
+            logger.error(" No se pudo procesar el screenshot")
+            return False
+        
+        alto, ancho = img.shape[:2]
+        logger.info(f" Screenshot: {ancho}x{alto} píxeles")
+        
+        # 2. Convertir a escala de grises
+        gris = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        
+        # 3. Buscar la zona de la fecha (parte superior central)
+        # Las flechas suelen estar en la franja superior, a los lados de la fecha
+        zona_superior = gris[0:int(alto*0.25), :]  # Primer 25% de la imagen
+        
+        # 4. Buscar zonas oscuras (las flechas suelen ser oscuras sobre fondo claro)
+        _, umbral = cv2.threshold(zona_superior, 100, 255, cv2.THRESH_BINARY_INV)
+        
+        # 5. Encontrar contornos (formas)
+        contornos, _ = cv2.findContours(umbral, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        
+        # 6. Filtrar contornos que parezcan flechas (tamaño y forma específicos)
+        flechas_candidatas = []
+        for contorno in contornos:
+            area = cv2.contourArea(contorno)
+            if 50 < area < 2000:  # Tamaño típico de una flecha
+                x, y, w, h = cv2.boundingRect(contorno)
+                aspect_ratio = float(w) / h if h > 0 else 0
+                
+                # Las flechas suelen ser más anchas que altas
+                if 0.5 < aspect_ratio < 3.0:
+                    flechas_candidatas.append((x, y, w, h, area))
+        
+        logger.info(f" Encontradas {len(flechas_candidatas)} formas candidatas a flechas")
+        
+        if len(flechas_candidatas) == 0:
+            logger.warning("️ No se encontraron flechas visualmente")
+            return False
+        
+        # 7. Ordenar por posición horizontal (x)
+        flechas_candidatas.sort(key=lambda f: f[0])
+        
+        # 8. Seleccionar la flecha correcta
+        # La flecha IZQUIERDA (<) suele estar a la izquierda del centro
+        # La flecha DERECHA (>) suele estar a la derecha del centro
+        centro_x = ancho // 2
+        
+        if direccion == "izquierda":
+            # Buscar flecha a la izquierda del centro
+            flechas_izq = [f for f in flechas_candidatas if f[0] < centro_x]
+            if flechas_izq:
+                # Tomar la más a la izquierda
+                flecha = flechas_izq[0]
             else:
-                page.click('button:has-text(">"), a:has-text(">")', timeout=3000)
-            logger.info(f"✅ Estrategia 1: Clic por texto")
-            return True
-        except:
-            pass
-        
-        # Estrategia 2: Buscar por aria-label
-        try:
-            if direccion == "izquierda":
-                page.click('[aria-label*="anterior"], [aria-label*="previous"], [aria-label*="Previous"]', timeout=3000)
+                flecha = flechas_candidatas[0]
+        else:
+            # Buscar flecha a la derecha del centro
+            flechas_der = [f for f in flechas_candidatas if f[0] > centro_x]
+            if flechas_der:
+                # Tomar la más a la derecha
+                flecha = flechas_der[-1]
             else:
-                page.click('[aria-label*="siguiente"], [aria-label*="next"], [aria-label*="Next"]', timeout=3000)
-            logger.info(f"✅ Estrategia 2: Clic por aria-label")
-            return True
-        except:
-            pass
+                flecha = flechas_candidatas[-1]
         
-        # Estrategia 3: Buscar por clase CSS común
-        try:
-            if direccion == "izquierda":
-                page.click('.prev, .previous, .arrow-left, .fa-chevron-left, .btn-prev', timeout=3000)
-            else:
-                page.click('.next, .arrow-right, .fa-chevron-right, .btn-next', timeout=3000)
-            logger.info(f"✅ Estrategia 3: Clic por clase CSS")
-            return True
-        except:
-            pass
+        x, y, w, h, area = flecha
+        centro_flecha_x = x + w // 2
+        centro_flecha_y = y + h // 2
         
-        # Estrategia 4: Usar JavaScript para encontrar y hacer clic
+        logger.info(f"✅ Flecha encontrada en ({centro_flecha_x}, {centro_flecha_y}) - área: {area}")
+        
+        # 9. Hacer clic en las coordenadas
+        page.mouse.click(centro_flecha_x, centro_flecha_y)
+        logger.info(f"✅ Clic visual en ({centro_flecha_x}, {centro_flecha_y})")
+        return True
+        
+    except Exception as e:
+        logger.error(f"❌ Error en visión: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+def buscar_flechas_con_template(page, direccion):
+    """
+    ESTRATEGIA AVANZADA DE VISIÓN: Usa plantillas (templates) de flechas
+    para hacer matching de patrones
+    """
+    try:
+        logger.info(f"🎯 Estrategia TEMPLATE: Buscando flecha {direccion}...")
+        
+        # Crear plantillas de flechas (imágenes pequeñas de < y >)
+        # Flecha izquierda: <
+        template_izq = np.zeros((40, 40), dtype=np.uint8)
+        cv2.arrowedLine(template_izq, (30, 20), (10, 20), 255, 3, tipLength=0.5)
+        
+        # Flecha derecha: >
+        template_der = np.zeros((40, 40), dtype=np.uint8)
+        cv2.arrowedLine(template_der, (10, 20), (30, 20), 255, 3, tipLength=0.5)
+        
+        template = template_izq if direccion == "izquierda" else template_der
+        
+        # Tomar screenshot
+        screenshot_bytes = page.screenshot()
+        img_array = np.frombuffer(screenshot_bytes, np.uint8)
+        img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
+        gris = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        
+        # Aplicar template matching
+        resultado = cv2.matchTemplate(gris, template, cv2.TM_CCOEFF_NORMED)
+        _, max_val, _, max_loc = cv2.minMaxLoc(resultado)
+        
+        logger.info(f"📊 Coincidencia máxima: {max_val:.3f}")
+        
+        # Si la coincidencia es buena (>0.5), hacer clic
+        if max_val > 0.5:
+            h, w = template.shape
+            centro_x = max_loc[0] + w // 2
+            centro_y = max_loc[1] + h // 2
+            page.mouse.click(centro_x, centro_y)
+            logger.info(f"✅ Clic template en ({centro_x}, {centro_y})")
+            return True
+        else:
+            logger.info(f"⚠️ Coincidencia muy baja ({max_val:.3f})")
+            return False
+            
+    except Exception as e:
+        logger.error(f"❌ Error en template: {e}")
+        return False
+
+def intentar_clic_flecha(page, direccion):
+    """Intenta múltiples estrategias en orden de efectividad"""
+    
+    # ESTRATEGIA 1: Teclas de flecha (la más simple)
+    try:
+        tecla = 'ArrowLeft' if direccion == 'izquierda' else 'ArrowRight'
+        page.keyboard.press(tecla)
+        logger.info(f"✅ Estrategia 1: Tecla {tecla}")
+        return True
+    except:
+        pass
+    
+    # ESTRATEGIA 2: Buscar por texto
+    try:
+        selector = 'button:has-text("<"), a:has-text("<")' if direccion == 'izquierda' else 'button:has-text(">"), a:has-text(">")'
+        page.click(selector, timeout=2000)
+        logger.info(f"✅ Estrategia 2: Clic por texto")
+        return True
+    except:
+        pass
+    
+    # ESTRATEGIA 3: JavaScript por posición
+    try:
         resultado = page.evaluate(f"""
             () => {{
-                // Buscar todos los botones y enlaces
-                var botones = document.querySelectorAll('button, a, [role="button"]');
-                for (var i = 0; i < botones.length; i++) {{
-                    var boton = botones[i];
-                    var texto = boton.innerText.trim();
-                    var ariaLabel = boton.getAttribute('aria-label') || '';
-                    var clase = boton.className || '';
-                    
-                    // Si es la dirección izquierda
-                    if ('{direccion}' === 'izquierda') {{
-                        if (texto === '<' || texto === '‹' || texto === '«' || 
-                            ariaLabel.toLowerCase().includes('anterior') || 
-                            ariaLabel.toLowerCase().includes('previous') ||
-                            clase.includes('prev') || clase.includes('left')) {{
-                            boton.click();
-                            return 'Clic realizado en: ' + texto;
-                        }}
-                    }} else {{
-                        if (texto === '>' || texto === '›' || texto === '»' || 
-                            ariaLabel.toLowerCase().includes('siguiente') || 
-                            ariaLabel.toLowerCase().includes('next') ||
-                            clase.includes('next') || clase.includes('right')) {{
-                            boton.click();
-                            return 'Clic realizado en: ' + texto;
-                        }}
-                    }}
-                }}
-                
-                // Si no encontró por texto/aria/clase, buscar por posición (botones cerca de la fecha)
-                var fechaElemento = null;
-                var elementos = document.querySelectorAll('div, span, h2, h3');
+                var fechaElem = null;
+                var elementos = document.querySelectorAll('div, span, h2, h3, button');
                 for (var i = 0; i < elementos.length; i++) {{
                     var texto = elementos[i].innerText.trim();
                     if (texto.match(/\d{{1,2}}\s+de\s+\w+\s+\d{{4}}/) && texto.length < 50) {{
-                        fechaElemento = elementos[i];
+                        fechaElem = elementos[i];
                         break;
                     }}
                 }}
                 
-                if (fechaElemento) {{
-                    var hermanos = fechaElemento.parentElement.children;
-                    for (var i = 0; i < hermanos.length; i++) {{
-                        var hermano = hermanos[i];
-                        if ('{direccion}' === 'izquierda' && hermano.offsetLeft < fechaElemento.offsetLeft) {{
-                            hermano.click();
-                            return 'Clic en elemento a la izquierda de la fecha';
-                        }}
-                        if ('{direccion}' === 'derecha' && hermano.offsetLeft > fechaElemento.offsetLeft) {{
-                            hermano.click();
-                            return 'Clic en elemento a la derecha de la fecha';
-                        }}
+                if (fechaElem) {{
+                    var padre = fechaElem.parentElement;
+                    var hijos = padre.children;
+                    var indiceFecha = Array.from(hijos).indexOf(fechaElem);
+                    
+                    if ('{direccion}' === 'izquierda' && indiceFecha > 0) {{
+                        var botonIzq = hijos[indiceFecha - 1];
+                        var botones = botonIzq.querySelectorAll('button, a, [role="button"]');
+                        if (botones.length > 0) {{ botones[0].click(); return 'ok'; }}
+                        botonIzq.click();
+                        return 'ok';
+                    }}
+                    if ('{direccion}' === 'derecha' && indiceFecha < hijos.length - 1) {{
+                        var botonDer = hijos[indiceFecha + 1];
+                        var botones = botonDer.querySelectorAll('button, a, [role="button"]');
+                        if (botones.length > 0) {{ botones[0].click(); return 'ok'; }}
+                        botonDer.click();
+                        return 'ok';
                     }}
                 }}
-                
                 return null;
             }}
         """)
         
         if resultado:
-            logger.info(f"✅ Estrategia 4 (JavaScript): {resultado}")
+            logger.info(f"✅ Estrategia 3 (JS): {resultado}")
             return True
-        else:
-            logger.warning(f"⚠️ No se encontró botón {direccion} con ninguna estrategia")
-            return False
-            
-    except Exception as e:
-        logger.error(f"❌ Error haciendo clic {direccion}: {e}")
-        return False
+    except:
+        pass
+    
+    # ESTRATEGIA 4: VISIÓN con OpenCV (detección de formas)
+    if buscar_flechas_con_vision(page, direccion):
+        return True
+    
+    # ESTRATEGIA 5: VISIÓN con template matching
+    if buscar_flechas_con_template(page, direccion):
+        return True
+    
+    logger.error(f"❌ Ninguna estrategia funcionó para {direccion}")
+    return False
 
 def navegar_a_ayer(page):
     try:
         ahora_vzla = obtener_fecha_venezuela()
-        hoy_vzla = ahora_vzla.replace(hour=0, minute=0, second=0, microsecond=0)
-        ayer_vzla = hoy_vzla - timedelta(days=1)
+        hoy_vzla_naive = datetime(ahora_vzla.year, ahora_vzla.month, ahora_vzla.day)
+        ayer_vzla_naive = hoy_vzla_naive - timedelta(days=1)
         
         logger.info(f"🇻🇪 Hora Venezuela: {ahora_vzla.strftime('%d/%m/%Y %H:%M')}")
-        logger.info(f" Hoy en Venezuela: {hoy_vzla.strftime('%d/%m/%Y')}")
-        logger.info(f"🎯 Ayer en Venezuela: {ayer_vzla.strftime('%d/%m/%Y')}")
+        logger.info(f"📅 Hoy: {hoy_vzla_naive.strftime('%d/%m/%Y')}")
+        logger.info(f"🎯 Ayer: {ayer_vzla_naive.strftime('%d/%m/%Y')}")
         
         page.wait_for_load_state('networkidle')
+        page.wait_for_timeout(2000)
         
+        # ESTRATEGIA 0: URL directa
+        logger.info("🔍 Estrategia 0: URL directa...")
+        fecha_url = ayer_vzla_naive.strftime('%Y-%m-%d')
+        url_directa = f"{URL_RESULTADOS}?fecha={fecha_url}"
+        
+        try:
+            page.goto(url_directa, wait_until='networkidle', timeout=10000)
+            fecha_despues = leer_fecha_principal(page)
+            if fecha_despues and fecha_despues == ayer_vzla_naive:
+                logger.info(f"✅ URL directa funcionó")
+                return True
+            else:
+                page.goto(URL_RESULTADOS, wait_until='networkidle', timeout=10000)
+                page.wait_for_timeout(2000)
+        except:
+            pass
+        
+        # Leer fecha actual
         fecha_pagina = leer_fecha_principal(page)
         
         if not fecha_pagina:
-            logger.warning("⚠️ No se pudo leer la fecha, intentando clic izquierdo por defecto")
-            if hacer_clic_flecha(page, "izquierda"):
+            logger.warning("⚠️ No se pudo leer la fecha")
+            if intentar_clic_flecha(page, "izquierda"):
                 page.wait_for_timeout(3000)
                 return True
             return False
         
-        diferencia = (fecha_pagina - hoy_vzla).days
+        diferencia = (fecha_pagina - hoy_vzla_naive).days
         
         logger.info(f"📊 Fecha página: {fecha_pagina.strftime('%d/%m/%Y')}")
-        logger.info(f"📊 Diferencia con hoy (Venezuela): {diferencia} días")
+        logger.info(f"📊 Diferencia: {diferencia} días")
         
         if diferencia == 0:
-            logger.info("📍 La página muestra HOY (Venezuela), retrocediendo 1 día")
+            logger.info(" Página muestra HOY, retrocediendo 1 día")
             diferencia_clics = 1
             direccion = "izquierda"
         elif diferencia > 0:
-            logger.info(f" La página muestra {diferencia} días en el futuro")
+            logger.info(f"📍 Página muestra {diferencia} días en el futuro")
             diferencia_clics = diferencia + 1
             direccion = "izquierda"
         elif diferencia == -1:
-            logger.info("✅ La página ya muestra ayer (Venezuela)")
+            logger.info("✅ Página ya muestra ayer")
             return True
         else:
             dias_atras = abs(diferencia)
-            logger.info(f"📍 La página muestra {dias_atras} días en el pasado")
+            logger.info(f"📍 Página muestra {dias_atras} días en el pasado")
             diferencia_clics = dias_atras - 1
             direccion = "derecha"
         
-        logger.info(f"👉 Necesitamos {diferencia_clics} clics hacia la {direccion}")
+        logger.info(f"👉 {diferencia_clics} clics hacia la {direccion}")
         
         if diferencia_clics > 10:
-            logger.warning(f"⚠️ Demasiados clics ({diferencia_clics}), limitando a 10")
             diferencia_clics = 10
         
         for i in range(diferencia_clics):
-            if hacer_clic_flecha(page, direccion):
-                logger.info(f"✅ Clic {i+1}/{diferencia_clics} hacia la {direccion}")
+            if intentar_clic_flecha(page, direccion):
+                logger.info(f"✅ Clic {i+1}/{diferencia_clics}")
                 page.wait_for_timeout(3000)
+                
+                fecha_actual = leer_fecha_principal(page)
+                if fecha_actual and fecha_actual == ayer_vzla_naive:
+                    logger.info(f"✅ Llegamos a ayer en {i+1} clics")
+                    return True
             else:
                 logger.error(f"❌ No se pudo hacer clic {i+1}")
                 break
         
         fecha_final = leer_fecha_principal(page)
-        if fecha_final:
-            if fecha_final == ayer_vzla:
-                logger.info(f"✅ Fecha confirmada: {fecha_final.strftime('%d/%m/%Y')}")
-                return True
-            else:
-                logger.warning(f"⚠️ Fecha final: {fecha_final.strftime('%d/%m/%Y')}, esperada: {ayer_vzla.strftime('%d/%m/%Y')}")
-                return False
-        return False
+        if fecha_final and fecha_final == ayer_vzla_naive:
+            logger.info(f"✅ Fecha confirmada: {fecha_final.strftime('%d/%m/%Y')}")
+            return True
+        else:
+            logger.warning(f"⚠️ Fecha final: {fecha_final}")
+            return False
         
     except Exception as e:
         logger.error(f"❌ Error en navegación: {e}")
+        import traceback
+        traceback.print_exc()
         return False
 
 def extraer_resultados(page):
@@ -293,7 +425,7 @@ def extraer_resultados(page):
             for idx, texto in divs_con_final:
                 logger.info(f"  ✅ Div {idx}: '{texto}'")
         else:
-            logger.info("⚠️ No se encontró 'Finalizado'")
+            logger.info("️ No se encontró 'Finalizado'")
             logger.info("🔍 Divs grandes:")
             for i, div in enumerate(todos_divs[:30]):
                 texto = div.get_text()
@@ -364,97 +496,10 @@ def extraer_resultados(page):
                         if match_s:
                             pitcher_salvador = match_s.group(1).strip().split(',')[0].strip()
                     
-                    ayer_vzla = obtener_fecha_venezuela().replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=1)
+                    ayer_vzla = datetime.now(timezone.utc).astimezone(VENEZUELA_OFFSET)
+                    ayer_naive = datetime(ayer_vzla.year, ayer_vzla.month, ayer_vzla.day)
                     
                     juegos.append({
-                        'fecha': ayer_vzla.strftime("%Y-%m-%d"),
+                        'fecha': ayer_naive.strftime("%Y-%m-%d"),
                         'visitante': visitante,
-                        'local': local,
-                        'scoreVisitante': score_visitante,
-                        'scoreLocal': score_local,
-                        'innings': innings,
-                        'finalizado': True,
-                        'pitcherGanador': pitcher_ganador,
-                        'pitcherPerdedor': pitcher_perdedor,
-                        'pitcherSalvador': pitcher_salvador
-                    })
-                    
-                    logger.info(f"✅ Juego: {visitante} {score_visitante} - {score_local} {local}")
-                
-            except Exception as e:
-                continue
-        
-        logger.info(f"📊 Total extraídos: {len(juegos)}")
-        return juegos if juegos else None
-        
-    except Exception as e:
-        logger.error(f"❌ Error crítico: {e}")
-        return None
-
-def actualizar_github(file_path, datos, mensaje):
-    if not datos:
-        logger.warning(f"⚠️ Lista vacía para {file_path}")
-        return False
-    
-    url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{file_path}"
-    headers = {"Authorization": f"token {TOKEN}", "Accept": "application/vnd.github.v3+json"}
-    
-    response = requests.get(url, headers=headers, timeout=10)
-    sha = response.json().get('sha') if response.status_code == 200 else None
-    
-    nombre_constante = file_path.split('/')[-1].replace('.js', '').upper()
-    js_content = f"export const {nombre_constante} = {json.dumps(datos, indent=4, ensure_ascii=False)};\n"
-    
-    data = {
-        "message": mensaje,
-        "content": base64.b64encode(js_content.encode('utf-8')).decode('utf-8'),
-    }
-    if sha:
-        data["sha"] = sha
-    
-    put_response = requests.put(url, headers=headers, json=data, timeout=10)
-    if put_response.status_code in [200, 201]:
-        logger.info(f"✅ {file_path} actualizado")
-        return True
-    else:
-        logger.error(f"❌ Error: {put_response.text}")
-        return False
-
-def main():
-    logger.info(" Iniciando Bot de Resultados (Playwright)...")
-    if not TOKEN:
-        logger.error("❌ No hay GITHUB_TOKEN")
-        return
-    
-    try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            context = browser.new_context(
-                viewport={'width': 1920, 'height': 1080},
-                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                timezone_id='America/Caracas'
-            )
-            page = context.new_page()
-            
-            logger.info("🌐 Navegando a stats.lvbp.com...")
-            page.goto(URL_RESULTADOS, wait_until='networkidle', timeout=30000)
-            
-            if not navegar_a_ayer(page):
-                logger.warning("️ No se pudo navegar a ayer con certeza")
-            
-            resultados = extraer_resultados(page)
-            
-            if resultados and len(resultados) > 0:
-                logger.info(f"✅ Extraídos {len(resultados)} juegos")
-                actualizar_github('js/datos/resultados.js', resultados, "🤖 Bot: Resultados")
-            else:
-                logger.error("❌ No se extrajeron juegos")
-            
-            browser.close()
-            logger.info("🏁 Bot finalizado")
-            
-    except Exception as e:
-        logger.exception(f"❌ Error fatal: {e}")
-
-if __name__ == '__main__':
-    main()
+              
