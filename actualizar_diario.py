@@ -23,7 +23,6 @@ URL_POSICIONES = 'https://stats.lvbp.com/posiciones.php'
 URL_RESULTADOS = 'https://stats.lvbp.com/resultados.php'
 URL_CALENDARIO = 'https://stats.lvbp.com/calendario.php'
 
-# Mapeo de nombres de equipos a nombres cortos
 NOMBRES_EQUIPOS = {
     'Caribes de Anzoátegui': 'Caribes',
     'Tigres de Aragua': 'Tigres',
@@ -35,7 +34,6 @@ NOMBRES_EQUIPOS = {
     'Navegantes del Magallanes': 'Magallanes'
 }
 
-# Mapeo de meses en español
 MESES_ESPANOL = {
     'enero': 'january', 'febrero': 'february', 'marzo': 'march',
     'abril': 'april', 'mayo': 'may', 'junio': 'june',
@@ -43,15 +41,10 @@ MESES_ESPANOL = {
     'octubre': 'october', 'noviembre': 'november', 'diciembre': 'december'
 }
 
-# 📺 CANALES DE TV
 CANALES_TV = {
     'ivc': 'IVC', 'ivctv': 'IVC', 'tves': 'TVES',
-    'bym': 'BYM Sport', 'bymtv': 'BYM Sport', 'bym sport': 'BYM Sport',
+    'bym': 'BYM Sport', 'bymtv': 'BYM Sport',
     'baseball': 'Baseball', 'baseballtv': 'Baseball',
-    'youtube': 'YouTube', 'youtubetv': 'YouTube',
-    'televen': 'Televen', 'televentv': 'Televen',
-    'venevis': 'Venevisión', 'venevisontv': 'Venevisión', 'venevisión': 'Venevisión',
-    'venezolana': 'Venezolana TV', 'venezolanatv': 'Venezolana TV',
     'meridiano': 'Meridiano TV', 'meridianotv': 'Meridiano TV'
 }
 
@@ -62,6 +55,7 @@ def iniciar_driver():
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     return webdriver.Chrome(options=chrome_options)
 
 def obtener_nombre_corto(nombre_completo):
@@ -91,62 +85,17 @@ def obtener_nombre_corto(nombre_completo):
 
 def detectar_canales(juego):
     canales_detectados = []
-    imagenes = juego.find_all('img')
-    
+    imagenes = juego.find_all('img') if hasattr(juego, 'find_all') else []
     for img in imagenes:
         alt = img.get('alt', '').lower()
         src = img.get('src', '').lower()
         texto_completo = alt + ' ' + src
-        
         for clave, nombre_canal in CANALES_TV.items():
             if clave in texto_completo:
                 if nombre_canal not in canales_detectados:
                     canales_detectados.append(nombre_canal)
                 break
-    
     return canales_detectados
-
-def es_juego_finalizado(texto_juego):
-    texto_lower = texto_juego.lower()
-    
-    # PATRÓN 1: Tiene 9 innings o más
-    inning_match = re.search(r'inning\s*(\d+)', texto_juego, re.IGNORECASE)
-    tiene_innings = False
-    if inning_match:
-        innings = int(inning_match.group(1))
-        tiene_innings = innings >= 9
-    
-    # PATRÓN 2: Tiene pitchers (G:, P:, o S:)
-    tiene_pitchers = bool(re.search(r'G:\s*[A-Za-z', texto_juego, re.IGNORECASE)) or \
-                     bool(re.search(r'P:\s*[A-Za-z', texto_juego, re.IGNORECASE))
-    
-    # PATRÓN 3: NO es un juego programado (no tiene "PREVIA")
-    no_es_previa = 'previa' not in texto_lower
-    
-    es_finalizado = (tiene_innings and tiene_pitchers) or (tiene_pitchers and no_es_previa)
-    
-    return es_finalizado, tiene_innings, tiene_pitchers
-
-def es_juego_programado(texto_juego):
-    texto_lower = texto_juego.lower()
-    
-    # PATRÓN 1: Tiene logos de TV
-    tiene_logos_tv = bool(re.search(r'<img[^>]+', texto_juego))
-    
-    # PATRÓN 2: Tiene hora anunciada
-    tiene_hora = bool(re.search(r'\d{1,2}:\d{2}\s*[AP]M', texto_juego, re.IGNORECASE))
-    
-    # PATRÓN 3: Tiene estadio
-    tiene_estadio = bool(re.search(r'estadio\s+[A-Za-z', texto_juego, re.IGNORECASE))
-    
-    # PATRÓN 4: Dice "PREVIA"
-    es_previa = 'previa' in texto_lower
-    
-    # Un juego es programado si tiene al menos 2 de estos 4 patrones
-    coincidencias = sum([tiene_logos_tv, tiene_hora, tiene_estadio, es_previa])
-    es_programado = coincidencias >= 2
-    
-    return es_programado, tiene_hora, tiene_estadio, tiene_logos_tv
 
 def extraer_posiciones(driver):
     print("📊 Extrayendo Posiciones...")
@@ -161,7 +110,6 @@ def extraer_posiciones(driver):
                 driver.execute_script("arguments[0].click();", tab)
                 time.sleep(1.5)
                 break
-        
         selects = driver.find_elements(By.TAG_NAME, "select")
         for select_elem in selects:
             options = select_elem.find_elements(By.TAG_NAME, "option")
@@ -175,12 +123,12 @@ def extraer_posiciones(driver):
                         pass
                     break
     except Exception as e:
-        print(f"⚠️ Aviso al configurar filtros: {e}")
+        print(f"⚠️ Aviso: {e}")
     
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     tablas = soup.find_all('table')
     if not tablas:
-        print("⚠️ No se encontró tabla de posiciones")
+        print("⚠️ No se encontró tabla")
         return []
     
     tabla = max(tablas, key=lambda t: len(t.find_all('tr')))
@@ -190,9 +138,9 @@ def extraer_posiciones(driver):
     idx_jj = next((i for i, th in enumerate(ths) if th == 'JJ'), 2)
     idx_jg = next((i for i, th in enumerate(ths) if th == 'JG'), 3)
     idx_jp = next((i for i, th in enumerate(ths) if th == 'JP'), 4)
-    idx_pct = next((i for i, th in enumerate(ths) if 'PCT' in th or '%' in th or 'AVE' in th), 5)
-    idx_dif = next((i for i, th in enumerate(ths) if 'DIF' in th or 'GB' in th), 6)
-    idx_racha = next((i for i, th in enumerate(ths) if 'RACHA' in th or 'STR' in th), 7)
+    idx_pct = next((i for i, th in enumerate(ths) if 'PCT' in th), 5)
+    idx_dif = next((i for i, th in enumerate(ths) if 'DIF' in th), 6)
+    idx_racha = next((i for i, th in enumerate(ths) if 'RACHA' in th), 7)
     
     datos = []
     for i, tr in enumerate(tabla.find_all('tr')[1:], 1):
@@ -200,7 +148,6 @@ def extraer_posiciones(driver):
         if len(tds) > idx_eq:
             nombre_completo = tds[idx_eq].get_text(strip=True)
             nombre_corto = obtener_nombre_corto(nombre_completo)
-            
             datos.append({
                 'numero': i,
                 'nombre': nombre_corto,
@@ -216,85 +163,106 @@ def extraer_posiciones(driver):
     return datos
 
 def extraer_resultados(driver):
-    print(" Extrayendo Resultados...")
+    """Método AGRESIVO: Extrae TODO y busca patrones"""
+    print("🏆 Extrayendo Resultados (Método Agresivo)...")
     driver.get(URL_RESULTADOS)
     WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
     time.sleep(3)
     
-    soup = BeautifulSoup(driver.page_source, 'html.parser')
+    # 📸 CAPTURAR SCREENSHOT PARA DEBUG
+    screenshot = driver.get_screenshot_as_png()
+    with open('/tmp/resultados.png', 'wb') as f:
+        f.write(screenshot)
+    print("📸 Screenshot guardado: /tmp/resultados.png")
     
-    juegos = soup.find_all('div', class_='game-card')
-    if not juegos:
-        juegos = soup.find_all('div', {'class': lambda x: x and 'game' in x.lower()})
+    # 🔍 OBTENER TODO EL HTML SIN FILTROS
+    html_completo = driver.page_source
+    print(f"📄 Tamaño del HTML: {len(html_completo)} bytes")
     
-    print(f"🔍 Encontradas {len(juegos)} tarjetas de juego")
+    soup = BeautifulSoup(html_completo, 'html.parser')
+    
+    # MÉTODO 1: Buscar TODOS los divs
+    todos_divs = soup.find_all('div')
+    print(f" Total de divs encontrados: {len(todos_divs)}")
+    
+    # MÉTODO 2: Buscar por texto "Finalizado"
+    juegos = []
+    for div in todos_divs:
+        texto = div.get_text()
+        if 'Finalizado' in texto or 'finalizado' in texto:
+            juegos.append(div)
+    
+    print(f"✅ Divs con 'Finalizado': {len(juegos)}")
+    
+    # MÉTODO 3: Buscar por nombres de equipos + scores
+    if len(juegos) == 0:
+        for div in todos_divs:
+            texto = div.get_text()
+            # Buscar patrones: Equipo + número + Equipo + número
+            if any(eq in texto for eq in ['Águilas', 'Caribes', 'Tiburones', 'Cardenales', 'Navegantes', 'Bravos', 'Tigres', 'Leones']):
+                if re.search(r'\d+\s*\d+', texto):  # Al menos 2 números
+                    juegos.append(div)
+        
+        print(f"✅ Divs con equipos y scores: {len(juegos)}")
+    
+    # MÉTODO 4: Buscar por "BOXSCORE"
+    if len(juegos) == 0:
+        for div in todos_divs:
+            texto = div.get_text()
+            if 'BOXSCORE' in texto:
+                juegos.append(div)
+        print(f"✅ Divs con BOXSCORE: {len(juegos)}")
+    
+    # Si no encuentra nada, mostrar el HTML completo
+    if len(juegos) == 0:
+        print(" NO SE ENCONTRARON JUEGOS. Mostrando HTML completo:")
+        print(html_completo[:5000])  # Primeros 5000 caracteres
+        return None
     
     datos = []
-    juegos_validos_encontrados = 0
-    
     for juego in juegos[:8]:
         try:
-            texto_juego = juego.get_text()
+            texto = juego.get_text()
             
-            es_finalizado, tiene_innings, tiene_pitchers = es_juego_finalizado(texto_juego)
+            # Extraer equipos
+            equipos = []
+            for nombre_largo, nombre_corto in NOMBRES_EQUIPOS.items():
+                if nombre_corto in texto:
+                    equipos.append(nombre_corto)
             
-            if not es_finalizado:
-                print(f"⚠️ Juego no finalizado (innings: {tiene_innings}, pitchers: {tiene_pitchers}) - Saltando")
+            if len(equipos) < 2:
                 continue
             
-            equipos_divs = juego.find_all('div', class_='team-name')
-            if not equipos_divs:
-                equipos_divs = juego.find_all('div', style=True)
+            visitante = equipos[0]
+            local = equipos[1]
             
-            if len(equipos_divs) < 2:
-                print("⚠️ No se encontraron 2 equipos - Saltando")
-                continue
-            
-            visitante_completo = equipos_divs[0].get_text(strip=True)
-            local_completo = equipos_divs[1].get_text(strip=True)
-            
-            visitante = obtener_nombre_corto(visitante_completo)
-            local = obtener_nombre_corto(local_completo)
-            
-            inning_match = re.search(r'Inning\s*(\d+)', texto_juego, re.IGNORECASE)
-            innings = inning_match.group(1) if inning_match else "9"
-            
-            scores = []
-            lines = texto_juego.split('\n')
-            for i, line in enumerate(lines):
-                if 'R' in line and 'H' in line and 'E' in line:
-                    for j in range(i+1, min(i+3, len(lines))):
-                        numeros = re.findall(r'\d+', lines[j])
-                        if numeros:
-                            scores.extend(numeros[:2])
-                            break
-            
-            if len(scores) < 2:
-                todos_numeros = re.findall(r'\d+', texto_juego)
-                posibles_scores = [n for n in todos_numeros if 0 <= int(n) < 30]
-                if len(posibles_scores) >= 2:
-                    scores = posibles_scores[:2]
+            # Extraer scores (buscar números grandes)
+            numeros = re.findall(r'\b\d{1,2}\b', texto)
+            scores = [n for n in numeros if 0 <= int(n) <= 25]
             
             score_visitante = scores[0] if len(scores) > 0 else "0"
             score_local = scores[1] if len(scores) > 1 else "0"
             
+            # Extraer innings
+            inning_match = re.search(r'Inning\s*(\d+)', texto, re.IGNORECASE)
+            innings = inning_match.group(1) if inning_match else "9"
+            
+            # Extraer pitchers
             pitcher_ganador = ""
             pitcher_perdedor = ""
             pitcher_salvador = ""
             
-            match_g = re.search(r'G:\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s\.]+?)(?:\s*\||\s+P:|\s+S:|\s+BOXSCORE|\n|$)', texto_juego, re.IGNORECASE)
+            match_g = re.search(r'G:\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s\.]+?)(?:\s*\||\s+P:|\s+S:|\s+BOXSCORE|\n|$)', texto, re.IGNORECASE)
             if match_g:
-                pitcher_ganador = match_g.group(1).strip().replace('BOXSCORE', '').strip()
+                pitcher_ganador = match_g.group(1).strip()
             
-            match_p = re.search(r'P:\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s\.]+?)(?:\s*\||\s+S:|\s+BOXSCORE|\n|$)', texto_juego, re.IGNORECASE)
+            match_p = re.search(r'P:\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s\.]+?)(?:\s*\||\s+S:|\s+BOXSCORE|\n|$)', texto, re.IGNORECASE)
             if match_p:
-                pitcher_perdedor = match_p.group(1).strip().replace('BOXSCORE', '').strip()
+                pitcher_perdedor = match_p.group(1).strip()
             
-            match_s = re.search(r'S:\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s\.]+?)(?:\s*\||\s+BOXSCORE|\n|$)', texto_juego, re.IGNORECASE)
+            match_s = re.search(r'S:\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s\.]+?)(?:\s*\||\s+BOXSCORE|\n|$)', texto, re.IGNORECASE)
             if match_s:
-                pitcher_salvador = match_s.group(1).strip().replace('BOXSCORE', '').strip()
-            
-            juegos_validos_encontrados += 1
+                pitcher_salvador = match_s.group(1).strip()
             
             datos.append({
                 'fecha': datetime.now().strftime("%Y-%m-%d"),
@@ -309,100 +277,98 @@ def extraer_resultados(driver):
                 'pitcherSalvador': pitcher_salvador
             })
             
-            print(f"✅ Juego extraído: {visitante} {score_visitante} - {score_local} {local} ({innings} innings)")
+            print(f"✅ Juego: {visitante} {score_visitante} - {score_local} {local}")
             
         except Exception as e:
-            print(f"⚠️ Error procesando juego: {e}")
-            import traceback
-            traceback.print_exc()
+            print(f"️ Error: {e}")
             continue
     
-    if juegos_validos_encontrados == 0:
-        print(" NO hay juegos finalizados válidos")
+    if len(datos) == 0:
+        print("❌ No se extrajeron juegos válidos")
         return None
-        
+    
     print(f"✅ Extraídos {len(datos)} resultados")
     return datos
 
 def extraer_calendario(driver):
-    print("📅 Extrayendo Calendario...")
+    """Método AGRESIVO: Busca TODO lo que parezca juego programado"""
+    print("📅 Extrayendo Calendario (Método Agresivo)...")
     driver.get(URL_CALENDARIO)
     WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
     time.sleep(3)
     
-    soup = BeautifulSoup(driver.page_source, 'html.parser')
+    # 📸 SCREENSHOT
+    screenshot = driver.get_screenshot_as_png()
+    with open('/tmp/calendario.png', 'wb') as f:
+        f.write(screenshot)
+    print("📸 Screenshot guardado: /tmp/calendario.png")
+    
+    html_completo = driver.page_source
+    soup = BeautifulSoup(html_completo, 'html.parser')
     
     hoy_dia = datetime.now().strftime("%d").lstrip('0')
     hoy_mes = datetime.now().strftime("%B").lower()
-    hoy_mes_es = None
-    for mes_es, mes_en in MESES_ESPANOL.items():
-        if mes_en == hoy_mes:
-            hoy_mes_es = mes_es
-            break
     
-    print(f"📅 Buscando juegos del día: {hoy_dia} de {hoy_mes_es or hoy_mes}")
+    print(f"📅 Buscando: {hoy_dia} de {hoy_mes}")
     
-    todas_secciones = soup.find_all(['h2', 'h3', 'h4'])
-    
-    seccion_hoy = None
-    for seccion in todas_secciones:
-        texto = seccion.get_text(strip=True).lower()
-        if (hoy_dia in texto and (hoy_mes_es in texto or hoy_mes in texto)) or \
-           (f"viernes {hoy_dia}" in texto) or \
-           (f"{hoy_dia} de {hoy_mes_es}" in texto if hoy_mes_es else False):
-            seccion_hoy = seccion
-            print(f"✅ Sección de hoy encontrada: {seccion.get_text(strip=True)}")
-            break
-    
-    if not seccion_hoy:
-        print(f"⚠️ No se encontró sección específica para el día {hoy_dia}")
-        return []
-    
+    # MÉTODO 1: Buscar TODOS los divs que contengan "PREVIA"
+    todos_divs = soup.find_all('div')
     juegos = []
-    hermano = seccion_hoy.find_next_sibling()
-    while hermano and hermano.name in ['div', 'section']:
-        if hermano.get('class') and any('card' in str(c).lower() for c in hermano.get('class')):
-            juegos.append(hermano)
-        elif len(juegos) < 10 and ('@' in hermano.get_text() or 'vs' in hermano.get_text().lower()):
-            juegos.append(hermano)
-        hermano = hermano.find_next_sibling()
     
-    print(f"🔍 Encontradas {len(juegos)} tarjetas candidatas")
+    for div in todos_divs:
+        texto = div.get_text()
+        if 'PREVIA' in texto and ('7:00 PM' in texto or '6:00 PM' in texto or 'Estadio' in texto):
+            juegos.append(div)
+    
+    print(f"✅ Divs con PREVIA y hora/estadio: {len(juegos)}")
+    
+    # MÉTODO 2: Buscar por logos de TV
+    if len(juegos) == 0:
+        for div in todos_divs:
+            imgs = div.find_all('img')
+            if len(imgs) > 0:
+                texto = div.get_text()
+                if '7:00 PM' in texto or 'Estadio' in texto:
+                    juegos.append(div)
+        
+        print(f"✅ Divs con logos e info: {len(juegos)}")
+    
+    if len(juegos) == 0:
+        print("❌ NO SE ENCONTRARON JUEGOS PROGRAMADOS")
+        print("HTML completo (primeros 3000 chars):")
+        print(html_completo[:3000])
+        return []
     
     datos = []
     for juego in juegos[:6]:
         try:
-            texto_juego = juego.get_text()
+            texto = juego.get_text()
             
-            es_programado, tiene_hora, tiene_estadio, tiene_logos = es_juego_programado(texto_juego)
+            # Extraer equipos
+            equipos = []
+            for nombre_largo, nombre_corto in NOMBRES_EQUIPOS.items():
+                if nombre_corto in texto:
+                    equipos.append(nombre_corto)
             
-            if not es_programado:
-                print(f"⚠️ Juego no es programado (hora: {tiene_hora}, estadio: {tiene_estadio}, logos: {tiene_logos}) - Saltando")
+            if len(equipos) < 2:
                 continue
             
-            equipos_divs = juego.find_all('div', class_='team-name')
-            if not equipos_divs:
-                equipos_divs = juego.find_all('div', style=True)
+            visitante = equipos[0]
+            local = equipos[1]
             
-            if len(equipos_divs) < 2:
-                continue
-            
-            visitante_completo = equipos_divs[0].get_text(strip=True)
-            local_completo = equipos_divs[1].get_text(strip=True)
-            
-            visitante = obtener_nombre_corto(visitante_completo)
-            local = obtener_nombre_corto(local_completo)
-            
+            # Extraer hora
             hora = "7:00 PM"
-            hora_match = re.search(r'(\d{1,2}:\d{2}\s*[AP]M)', texto_juego, re.IGNORECASE)
+            hora_match = re.search(r'(\d{1,2}:\d{2}\s*[AP]M)', texto, re.IGNORECASE)
             if hora_match:
                 hora = hora_match.group(1)
             
+            # Extraer estadio
             estadio = "Por confirmar"
-            estadio_match = re.search(r'(Estadio\s+[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+?)(?:\s+PREVIA|\n)', texto_juego, re.IGNORECASE)
+            estadio_match = re.search(r'(Estadio\s+[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+?)(?:\s+PREVIA|\n)', texto, re.IGNORECASE)
             if estadio_match:
                 estadio = estadio_match.group(1).strip()
             
+            # Extraer televisoras
             canales_detectados = detectar_canales(juego)
             transmision = " / ".join(canales_detectados) if canales_detectados else "Por confirmar"
             
@@ -417,10 +383,10 @@ def extraer_calendario(driver):
                 'finalizado': False
             })
             
-            print(f"✅ Juego programado: {visitante} vs {local} - {hora} - {estadio} - {transmision}")
+            print(f"✅ Juego: {visitante} vs {local} - {hora}")
             
         except Exception as e:
-            print(f"️ Error procesando juego del calendario: {e}")
+            print(f"⚠️ Error: {e}")
             continue
     
     print(f"✅ Extraídos {len(datos)} juegos del calendario")
@@ -445,37 +411,33 @@ def actualizar_archivo_github(file_path, datos_lista, mensaje_commit):
         
     response = requests.put(url, headers=headers, json=data)
     if response.status_code in [200, 201]:
-        print(f"✅ {file_path} actualizado correctamente.")
+        print(f"✅ {file_path} actualizado.")
     else:
-        print(f"❌ Error al actualizar {file_path}: {response.text}")
+        print(f"❌ Error: {response.text}")
 
 def main():
-    print("🚀 Iniciando Bot Diario LVBP...")
+    print("🚀 Iniciando Bot Diario LVBP (Método Agresivo)...")
     if not TOKEN:
-        print("❌ ERROR: No se encontró el GITHUB_TOKEN")
+        print("❌ ERROR: No GITHUB_TOKEN")
         return
         
     driver = iniciar_driver()
     try:
-        # 1. Posiciones
         posiciones = extraer_posiciones(driver)
         if posiciones:
-            actualizar_archivo_github('js/datos/posiciones.js', posiciones, "🤖 Bot: Actualización diaria de Posiciones")
+            actualizar_archivo_github('js/datos/posiciones.js', posiciones, "🤖 Bot: Posiciones")
         
-        # 2. Resultados
         resultados = extraer_resultados(driver)
-        if resultados is not None:
-            if len(resultados) > 0:
-                actualizar_archivo_github('js/datos/resultados.js', resultados, "🤖 Bot: Actualización diaria de Resultados")
-            else:
-                print("⚠️ Lista de resultados vacía - No se actualiza")
+        if resultados is not None and len(resultados) > 0:
+            actualizar_archivo_github('js/datos/resultados.js', resultados, " Bot: Resultados")
         else:
             print("🔒 Resultados: NO se actualiza")
         
-        # 3. Calendario
         calendario = extraer_calendario(driver)
-        if calendario:
-            actualizar_archivo_github('js/datos/calendario.js', calendario, "🤖 Bot: Actualización diaria de Calendario")
+        if calendario and len(calendario) > 0:
+            actualizar_archivo_github('js/datos/calendario.js', calendario, "🤖 Bot: Calendario")
+        else:
+            print("🔒 Calendario: NO se actualiza")
         
     except Exception as e:
         print(f"❌ Error fatal: {e}")
@@ -483,7 +445,7 @@ def main():
         traceback.print_exc()
     finally:
         driver.quit()
-        print("🏁 Bot Diario finalizado.")
+        print(" Bot finalizado.")
 
 if __name__ == '__main__':
     main()
