@@ -25,3 +25,19 @@ body {
     overflow: hidden; margin-bottom: 15px;
 }
 .anuncio-imagen { width: 100%; height: auto; display: block; border-radius: 6px; }
+
+/* 🆕 TEXTURA DE BÉISBOL DE FONDO */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../img/textura-beisbol.png');
+    background-repeat: repeat;
+    background-size: 250px 250px;
+    opacity: 0.06; /* Muy sutil (6%) para no competir con el gradiente */
+    pointer-events: none; /* No interfiere con clics */
+    z-index: -1; /* Detrás de todo el contenido */
+}
