@@ -1,6 +1,33 @@
 /* ========================================== */
 /* 7. SIDEBAR, FOOTER Y ACCIONES */
 /* ========================================== */
+
+/*  TEXTURA DE BÉISBOL PARA EL SIDEBAR */
+.sidebar-publicidad {
+    position: relative;
+    background-image: url('../img/textura-beisbol.png');
+    background-repeat: repeat;
+    background-size: 300px 300px;
+    min-height: 100vh;
+}
+
+.sidebar-publicidad::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.85); /* Capa blanca semitransparente para suavizar */
+    pointer-events: none;
+    z-index: 0;
+}
+
+.sidebar-publicidad .espacio-publicidad {
+    position: relative;
+    z-index: 1;
+}
+
 .marca-final-articulo {
     text-align: center; padding: 30px 20px; margin: 30px 0;
     background: linear-gradient(135deg, #f5f0e8 0%, #f0ebe3 100%);
@@ -9,23 +36,73 @@
 .logo-marca-final { width: 100px; height: auto; margin-bottom: 10px; opacity: 0.9; }
 .texto-marca-final { color: #d32f2f; font-weight: 600; font-size: 1rem; margin: 0; }
 
-.acciones-seccion { margin-top: 25px; padding-top: 20px; border-top: 1px dashed #ccc; text-align: center; }
-.acciones-seccion p { color: #666; font-size: 0.9rem; margin-bottom: 10px; font-weight: 600; }
-.botones-compartir-mini { display: flex; justify-content: center; gap: 10px; }
-.botones-compartir-mini button {
-    width: 40px; height: 40px; border-radius: 50%; border: none; color: #fff;
-    font-size: 1.1rem; cursor: pointer; transition: all 0.3s; display: flex;
-    align-items: center; justify-content: center; overflow: hidden;
+/* 🆕 BOTONES DE COMPARTIR EN SECCIONES */
+.acciones-seccion { 
+    margin-top: 25px; 
+    padding-top: 20px; 
+    border-top: 1px dashed #ccc; 
+    text-align: center; 
 }
-.botones-compartir-mini button:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+.acciones-seccion p { 
+    color: #666; 
+    font-size: 0.9rem; 
+    margin-bottom: 10px; 
+    font-weight: 600; 
+}
+.botones-compartir-mini { 
+    display: flex; 
+    justify-content: center; 
+    gap: 10px; 
+}
+.botones-compartir-mini button {
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    border: none; 
+    color: #fff;
+    font-size: 1.1rem; 
+    cursor: pointer; 
+    transition: all 0.3s; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    overflow: hidden;
+}
+.botones-compartir-mini button:hover { 
+    transform: translateY(-3px); 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+}
 .botones-compartir-mini button:nth-child(1) { background: #25D366; }
 .botones-compartir-mini button:nth-child(2) { background: #0088cc; }
 .botones-compartir-mini button:nth-child(3) { background: #000000; }
 .botones-compartir-mini button:nth-child(4) { background: #1877F2; }
 
-footer { background: #1a1a1a; padding: 30px 0 20px; text-align: center; border-top: 3px solid #ffd700; }
-.footer-texto { color: #fff; font-size: 0.9rem; margin-bottom: 10px; }
-.footer-creditos { color: #ffd700; font-size: 0.85rem; margin-bottom: 15px; }
-.footer-social { display: flex; justify-content: center; gap: 15px; }
-.footer-social a { color: #fff; font-size: 1.2rem; transition: color 0.3s; }
-.footer-social a:hover { color: #ffd700; }
+footer { 
+    background: #1a1a1a; 
+    padding: 30px 0 20px; 
+    text-align: center; 
+    border-top: 3px solid #ffd700; 
+}
+.footer-texto { 
+    color: #fff; 
+    font-size: 0.9rem; 
+    margin-bottom: 10px; 
+}
+.footer-creditos { 
+    color: #ffd700; 
+    font-size: 0.85rem; 
+    margin-bottom: 15px; 
+}
+.footer-social { 
+    display: flex; 
+    justify-content: center; 
+    gap: 15px; 
+}
+.footer-social a { 
+    color: #fff; 
+    font-size: 1.2rem; 
+    transition: color 0.3s; 
+}
+.footer-social a:hover { 
+    color: #ffd700; 
+}
