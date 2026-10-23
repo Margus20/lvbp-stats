@@ -3,14 +3,15 @@
 /* ========================================== */
 
 .boton-flotante-nav {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 9999;
+    position: fixed !important;
+    bottom: 30px !important;
+    right: 30px !important;
+    z-index: 99999 !important; /* Prioridad máxima absoluta para estar sobre todo */
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     gap: 10px;
+    animation: fadeInUp 0.5s ease;
 }
 
 /* Botón principal */
@@ -29,7 +30,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    z-index: 10000;
+    z-index: 100000 !important;
 }
 
 .btn-flotante-principal:hover {
@@ -59,7 +60,7 @@
     visibility: hidden;
     transform: translateY(20px);
     transition: all 0.3s ease;
-    z-index: 9998;
+    z-index: 99998 !important;
 }
 
 .menu-flotante.visible {
@@ -105,11 +106,11 @@
     margin: 5px 0;
 }
 
-/* Responsive */
+/* Responsive para tablets y móviles */
 @media (max-width: 768px) {
     .boton-flotante-nav {
-        bottom: 20px;
-        right: 20px;
+        bottom: 20px !important;
+        right: 20px !important;
     }
     
     .btn-flotante-principal {
@@ -139,8 +140,4 @@
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-.boton-flotante-nav {
-    animation: fadeInUp 0.5s ease;
 }
