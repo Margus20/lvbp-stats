@@ -1,46 +1,52 @@
-// ============================================
-// CALENDARIO DE JUEGOS
-// Juegos del Jueves 22 de octubre
-// ============================================
-
 export const CALENDARIO = [
-    { 
-        local: "Cardenales", 
-        visitante: "Águilas", 
-        hora: "7:00 PM", 
-        transmision: "IVC", 
-        lugar: "Estadio Antonio Herrera Gutiérrez", 
-        fecha: "22 Oct 2026", 
-        enVivo: false, 
-        finalizado: false, 
-        inning: null, 
-        scoreLocal: null, 
-        scoreVisitante: null 
+    {
+        "fecha": "2026-10-23",
+        "hora": "7:00 PM",
+        "visitante": "Caribes",
+        "local": "Tigres",
+        "lugar": "Estadio José Bernardo Pérez",
+        "transmision": "BYM Sport / Meridiano TV / Baseball",
+        "enVivo": false,
+        "finalizado": false
     },
-    { 
-        local: "Navegantes", 
-        visitante: "Caribes", 
-        hora: "7:00 PM", 
-        transmision: "BYM Sport/Venezolana TV", 
-        lugar: "Estadio José Bernardo Pérez", 
-        fecha: "22 Oct 2026", 
-        enVivo: false, 
-        finalizado: false, 
-        inning: null, 
-        scoreLocal: null, 
-        scoreVisitante: null 
+    {
+        "fecha": "2026-10-23",
+        "hora": "7:00 PM",
+        "visitante": "Caribes",
+        "local": "Tigres",
+        "lugar": "Estadio José Bernardo Pérez",
+        "transmision": "BYM Sport / Meridiano TV / Baseball",
+        "enVivo": false,
+        "finalizado": false
     },
-    { 
-        local: "Bravos", 
-        visitante: "Tiburones", 
-        hora: "7:00 PM", 
-        transmision: "Baseball", 
-        lugar: "Estadio Nueva Esparta", 
-        fecha: "22 Oct 2026", 
-        enVivo: false, 
-        finalizado: false, 
-        inning: null, 
-        scoreLocal: null, 
-        scoreVisitante: null 
+    {
+        "fecha": "2026-10-23",
+        "hora": "7:00 PM",
+        "visitante": "Caribes",
+        "local": "Tigres",
+        "lugar": "Estadio José Bernardo Pérez",
+        "transmision": "BYM Sport / Meridiano TV / Baseball",
+        "enVivo": false,
+        "finalizado": false
+    },
+    {
+        "fecha": "2026-10-23",
+        "hora": "7:00 PM",
+        "visitante": "Caribes",
+        "local": "Tigres",
+        "lugar": "Estadio José Bernardo Pérez",
+        "transmision": "BYM Sport / Meridiano TV / Baseball",
+        "enVivo": false,
+        "finalizado": false
+    },
+    {
+        "fecha": "2026-10-23",
+        "hora": "7:00 PM",
+        "visitante": "Caribes",
+        "local": "Tigres",
+        "lugar": "Estadio José Bernardo Pérez",
+        "transmision": "BYM Sport / Meridiano TV / Baseball",
+        "enVivo": false,
+        "finalizado": false
     }
 ];
