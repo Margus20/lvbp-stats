@@ -12,9 +12,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 
-# ==========================================
-# CONFIGURACIÓN DEL BOT DIARIO
-# ==========================================
 TOKEN = os.environ.get('GITHUB_TOKEN')
 REPO_OWNER = 'Margus20'
 REPO_NAME = 'lvbp-stats'
@@ -55,7 +52,6 @@ def iniciar_driver():
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--window-size=1920,1080")
-    chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     return webdriver.Chrome(options=chrome_options)
 
 def obtener_nombre_corto(nombre_completo):
@@ -163,82 +159,81 @@ def extraer_posiciones(driver):
     return datos
 
 def extraer_resultados(driver):
-    """Método AGRESIVO: Extrae TODO y busca patrones"""
-    print("🏆 Extrayendo Resultados (Método Agresivo)...")
+    """Extrae resultados FILTRANDO divs anidados y DEDUPLICANDO"""
+    print("🏆 Extrayendo Resultados...")
     driver.get(URL_RESULTADOS)
     WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
     time.sleep(3)
     
-    # 📸 CAPTURAR SCREENSHOT PARA DEBUG
-    screenshot = driver.get_screenshot_as_png()
-    with open('/tmp/resultados.png', 'wb') as f:
-        f.write(screenshot)
-    print("📸 Screenshot guardado: /tmp/resultados.png")
+    soup = BeautifulSoup(driver.page_source, 'html.parser')
     
-    # 🔍 OBTENER TODO EL HTML SIN FILTROS
-    html_completo = driver.page_source
-    print(f"📄 Tamaño del HTML: {len(html_completo)} bytes")
-    
-    soup = BeautifulSoup(html_completo, 'html.parser')
-    
-    # MÉTODO 1: Buscar TODOS los divs
+    # MÉTODO 1: Buscar divs con "Finalizado"
     todos_divs = soup.find_all('div')
-    print(f" Total de divs encontrados: {len(todos_divs)}")
+    candidatos = []
     
-    # MÉTODO 2: Buscar por texto "Finalizado"
-    juegos = []
     for div in todos_divs:
         texto = div.get_text()
         if 'Finalizado' in texto or 'finalizado' in texto:
-            juegos.append(div)
-    
-    print(f"✅ Divs con 'Finalizado': {len(juegos)}")
-    
-    # MÉTODO 3: Buscar por nombres de equipos + scores
-    if len(juegos) == 0:
-        for div in todos_divs:
-            texto = div.get_text()
-            # Buscar patrones: Equipo + número + Equipo + número
-            if any(eq in texto for eq in ['Águilas', 'Caribes', 'Tiburones', 'Cardenales', 'Navegantes', 'Bravos', 'Tigres', 'Leones']):
-                if re.search(r'\d+\s*\d+', texto):  # Al menos 2 números
-                    juegos.append(div)
-        
-        print(f"✅ Divs con equipos y scores: {len(juegos)}")
-    
-    # MÉTODO 4: Buscar por "BOXSCORE"
-    if len(juegos) == 0:
-        for div in todos_divs:
-            texto = div.get_text()
-            if 'BOXSCORE' in texto:
-                juegos.append(div)
-        print(f"✅ Divs con BOXSCORE: {len(juegos)}")
-    
-    # Si no encuentra nada, mostrar el HTML completo
-    if len(juegos) == 0:
-        print(" NO SE ENCONTRARON JUEGOS. Mostrando HTML completo:")
-        print(html_completo[:5000])  # Primeros 5000 caracteres
-        return None
-    
-    datos = []
-    for juego in juegos[:8]:
-        try:
-            texto = juego.get_text()
-            
-            # Extraer equipos
-            equipos = []
+            # Verificar que tenga al menos 2 equipos diferentes
+            equipos_en_div = []
             for nombre_largo, nombre_corto in NOMBRES_EQUIPOS.items():
                 if nombre_corto in texto:
-                    equipos.append(nombre_corto)
+                    equipos_en_div.append(nombre_corto)
             
-            if len(equipos) < 2:
-                continue
-            
+            if len(equipos_en_div) >= 2:
+                candidatos.append((div, equipos_en_div, texto))
+    
+    print(f"🔍 Candidatos iniciales: {len(candidatos)}")
+    
+    # 🔍 FILTRAR DIVS ANIDADOS: Solo tomar el más específico (menor)
+    divs_finales = []
+    for i, (div1, eq1, txt1) in enumerate(candidatos):
+        es_anidado = False
+        for j, (div2, eq2, txt2) in enumerate(candidatos):
+            if i != j and div1 in div2.find_all('div'):
+                es_anidado = True
+                break
+        if not es_anidado:
+            divs_finales.append((div1, eq1, txt1))
+    
+    print(f"✅ Después de filtrar anidados: {len(divs_finales)}")
+    
+    # EXTRAER DATOS Y DEDUPLICAR
+    datos = []
+    juegos_vistos = set()  # Para evitar duplicados
+    
+    for div, equipos, texto in divs_finales[:8]:
+        try:
             visitante = equipos[0]
             local = equipos[1]
             
-            # Extraer scores (buscar números grandes)
-            numeros = re.findall(r'\b\d{1,2}\b', texto)
-            scores = [n for n in numeros if 0 <= int(n) <= 25]
+            # Crear clave única para deduplicar
+            clave = f"{visitante}-{local}"
+            if clave in juegos_vistos:
+                print(f"⚠️ Duplicado detectado: {clave} - Saltando")
+                continue
+            juegos_vistos.add(clave)
+            
+            # Extraer scores buscando específicamente después de "R H E"
+            scores = []
+            lines = texto.split('\n')
+            for i, line in enumerate(lines):
+                if 'R' in line and 'H' in line and 'E' in line:
+                    # Buscar en las siguientes 2 líneas
+                    for j in range(i+1, min(i+3, len(lines))):
+                        numeros = re.findall(r'\d+', lines[j])
+                        if numeros and len(numeros) >= 2:
+                            scores = [numeros[0], numeros[1]]
+                            break
+                    break
+            
+            # Si no encuentra por R H E, buscar números aislados (no en secuencia larga)
+            if len(scores) < 2:
+                numeros_aislados = re.findall(r'\b\d{1,2}\b', texto)
+                # Filtrar números que parecen scores (0-20)
+                posibles = [n for n in numeros_aislados if 0 <= int(n) <= 20]
+                if len(posibles) >= 2:
+                    scores = [posibles[0], posibles[1]]
             
             score_visitante = scores[0] if len(scores) > 0 else "0"
             score_local = scores[1] if len(scores) > 1 else "0"
@@ -277,7 +272,7 @@ def extraer_resultados(driver):
                 'pitcherSalvador': pitcher_salvador
             })
             
-            print(f"✅ Juego: {visitante} {score_visitante} - {score_local} {local}")
+            print(f"✅ Juego: {visitante} {score_visitante} - {score_local} {local} ({innings} inn)")
             
         except Exception as e:
             print(f"️ Error: {e}")
@@ -287,62 +282,76 @@ def extraer_resultados(driver):
         print("❌ No se extrajeron juegos válidos")
         return None
     
-    print(f"✅ Extraídos {len(datos)} resultados")
+    print(f"✅ Extraídos {len(datos)} resultados únicos")
     return datos
 
 def extraer_calendario(driver):
-    """Método AGRESIVO: Busca TODO lo que parezca juego programado"""
-    print("📅 Extrayendo Calendario (Método Agresivo)...")
+    """Extrae calendario FILTRANDO divs anidados y DEDUPLICANDO"""
+    print("📅 Extrayendo Calendario...")
     driver.get(URL_CALENDARIO)
     WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
     time.sleep(3)
     
-    # 📸 SCREENSHOT
-    screenshot = driver.get_screenshot_as_png()
-    with open('/tmp/calendario.png', 'wb') as f:
-        f.write(screenshot)
-    print("📸 Screenshot guardado: /tmp/calendario.png")
-    
-    html_completo = driver.page_source
-    soup = BeautifulSoup(html_completo, 'html.parser')
+    soup = BeautifulSoup(driver.page_source, 'html.parser')
     
     hoy_dia = datetime.now().strftime("%d").lstrip('0')
     hoy_mes = datetime.now().strftime("%B").lower()
+    hoy_mes_es = None
+    for mes_es, mes_en in MESES_ESPANOL.items():
+        if mes_en == hoy_mes:
+            hoy_mes_es = mes_es
+            break
     
-    print(f"📅 Buscando: {hoy_dia} de {hoy_mes}")
+    print(f"📅 Buscando: {hoy_dia} de {hoy_mes_es or hoy_mes}")
     
-    # MÉTODO 1: Buscar TODOS los divs que contengan "PREVIA"
-    todos_divs = soup.find_all('div')
-    juegos = []
+    # Buscar sección de hoy
+    todas_secciones = soup.find_all(['h2', 'h3', 'h4', 'strong', 'b'])
+    seccion_hoy = None
     
-    for div in todos_divs:
-        texto = div.get_text()
-        if 'PREVIA' in texto and ('7:00 PM' in texto or '6:00 PM' in texto or 'Estadio' in texto):
-            juegos.append(div)
+    for seccion in todas_secciones:
+        texto = seccion.get_text(strip=True).lower()
+        if hoy_dia in texto and (hoy_mes_es in texto or hoy_mes in texto):
+            seccion_hoy = seccion
+            print(f"✅ Sección encontrada: {seccion.get_text(strip=True)}")
+            break
     
-    print(f"✅ Divs con PREVIA y hora/estadio: {len(juegos)}")
-    
-    # MÉTODO 2: Buscar por logos de TV
-    if len(juegos) == 0:
-        for div in todos_divs:
-            imgs = div.find_all('img')
-            if len(imgs) > 0:
-                texto = div.get_text()
-                if '7:00 PM' in texto or 'Estadio' in texto:
-                    juegos.append(div)
-        
-        print(f"✅ Divs con logos e info: {len(juegos)}")
-    
-    if len(juegos) == 0:
-        print("❌ NO SE ENCONTRARON JUEGOS PROGRAMADOS")
-        print("HTML completo (primeros 3000 chars):")
-        print(html_completo[:3000])
+    if not seccion_hoy:
+        print(f"️ No se encontró sección para {hoy_dia}")
         return []
     
+    # Buscar divs con "PREVIA" después de la sección
+    hermanos = []
+    hermano = seccion_hoy.find_next_sibling()
+    while hermano and hermano.name in ['div', 'section']:
+        texto = hermano.get_text()
+        if 'PREVIA' in texto:
+            hermanos.append(hermano)
+        if len(hermanos) >= 10:
+            break
+        hermano = hermano.find_next_sibling()
+    
+    print(f"🔍 Divs con PREVIA: {len(hermanos)}")
+    
+    # FILTRAR DIVS ANIDADOS
+    divs_finales = []
+    for i, div1 in enumerate(hermanos):
+        es_anidado = False
+        for j, div2 in enumerate(hermanos):
+            if i != j and div1 in div2.find_all('div'):
+                es_anidado = True
+                break
+        if not es_anidado:
+            divs_finales.append(div1)
+    
+    print(f"✅ Después de filtrar anidados: {len(divs_finales)}")
+    
+    # EXTRAER Y DEDUPLICAR
     datos = []
-    for juego in juegos[:6]:
+    juegos_vistos = set()
+    
+    for div in divs_finales[:6]:
         try:
-            texto = juego.get_text()
+            texto = div.get_text()
             
             # Extraer equipos
             equipos = []
@@ -355,6 +364,13 @@ def extraer_calendario(driver):
             
             visitante = equipos[0]
             local = equipos[1]
+            
+            # Deduplicar
+            clave = f"{visitante}-{local}"
+            if clave in juegos_vistos:
+                print(f"⚠️ Duplicado: {clave} - Saltando")
+                continue
+            juegos_vistos.add(clave)
             
             # Extraer hora
             hora = "7:00 PM"
@@ -369,7 +385,7 @@ def extraer_calendario(driver):
                 estadio = estadio_match.group(1).strip()
             
             # Extraer televisoras
-            canales_detectados = detectar_canales(juego)
+            canales_detectados = detectar_canales(div)
             transmision = " / ".join(canales_detectados) if canales_detectados else "Por confirmar"
             
             datos.append({
@@ -383,13 +399,13 @@ def extraer_calendario(driver):
                 'finalizado': False
             })
             
-            print(f"✅ Juego: {visitante} vs {local} - {hora}")
+            print(f"✅ Juego: {visitante} vs {local} - {hora} - {estadio}")
             
         except Exception as e:
             print(f"⚠️ Error: {e}")
             continue
     
-    print(f"✅ Extraídos {len(datos)} juegos del calendario")
+    print(f"✅ Extraídos {len(datos)} juegos únicos")
     return datos
 
 def actualizar_archivo_github(file_path, datos_lista, mensaje_commit):
@@ -416,7 +432,7 @@ def actualizar_archivo_github(file_path, datos_lista, mensaje_commit):
         print(f"❌ Error: {response.text}")
 
 def main():
-    print("🚀 Iniciando Bot Diario LVBP (Método Agresivo)...")
+    print("🚀 Iniciando Bot Diario LVBP...")
     if not TOKEN:
         print("❌ ERROR: No GITHUB_TOKEN")
         return
@@ -429,7 +445,7 @@ def main():
         
         resultados = extraer_resultados(driver)
         if resultados is not None and len(resultados) > 0:
-            actualizar_archivo_github('js/datos/resultados.js', resultados, " Bot: Resultados")
+            actualizar_archivo_github('js/datos/resultados.js', resultados, "🤖 Bot: Resultados")
         else:
             print("🔒 Resultados: NO se actualiza")
         
@@ -445,7 +461,7 @@ def main():
         traceback.print_exc()
     finally:
         driver.quit()
-        print(" Bot finalizado.")
+        print("🏁 Bot finalizado.")
 
 if __name__ == '__main__':
     main()
