@@ -34,7 +34,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-      - name: Ejecutar Script Diario
+      - name: Ejecutar Bot de Posiciones
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python actualizar_diario.py
+        run: python actualizar_posiciones.py
