@@ -22,7 +22,7 @@ jobs:
           
       - name: Instalar Playwright y dependencias
         run: |
-          pip install playwright beautifulsoup4 requests
+          pip install playwright beautifulsoup4 requests opencv-python-headless Pillow numpy
           playwright install chromium
           playwright install-deps chromium
           
@@ -31,7 +31,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-      - name: Ejecutar Bot de Resultados (Playwright)
+      - name: Ejecutar Bot de Resultados (Playwright + Visión)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python actualizar_resultados.py
