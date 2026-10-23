@@ -1,223 +1,168 @@
 /* ========================================== */
 /* 6. ESTADÍSTICAS Y MASCOTAS */
 /* ========================================== */
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
-.stat-card { background: #ffffff; padding: 15px; border-radius: 8px; border-top: 4px solid #d32f2f; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-.stat-card h3 { color: #d32f2f; margin-bottom: 12px; font-size: 1rem; padding-bottom: 8px; border-bottom: 2px solid #e0e0e0; }
-
-.lista-lideres { display: flex; flex-direction: column; gap: 10px; }
-
-/* ========================================== */
-/* COLORES ALTERNADOS POR CATEGORÍA */
-/* ========================================== */
-
-/* AMARILLO OSCURO - Categorías: Jonrones, Efectividad, Innings Lanzados, Slugging, OPS */
-#contenedor-jonrones .item-lider,
-#contenedor-efectividad .item-lider,
-#contenedor-inningsLanzados .item-lider,
-#contenedor-slugging .item-lider,
-#contenedor-ops .item-lider {
-    background: linear-gradient(135deg, #8b6914 0%, #6b4f10 100%);
-    border: 1px solid #a07818;
-    border-left: 4px solid #ffd700;
+.stats-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+    gap: 15px; 
 }
 
-#contenedor-jonrones .item-lider:hover,
-#contenedor-efectividad .item-lider:hover,
-#contenedor-inningsLanzados .item-lider:hover,
-#contenedor-slugging .item-lider:hover,
-#contenedor-ops .item-lider:hover {
-    background: linear-gradient(135deg, #9b7924 0%, #7b5f20 100%);
-    box-shadow: 0 4px 12px rgba(139, 105, 20, 0.4);
+.stat-card { 
+    background: #ffffff; 
+    padding: 15px; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+    overflow: hidden;
 }
 
-#contenedor-jonrones .item-lider .posicion,
-#contenedor-efectividad .item-lider .posicion,
-#contenedor-inningsLanzados .item-lider .posicion,
-#contenedor-slugging .item-lider .posicion,
-#contenedor-ops .item-lider .posicion {
-    color: #d0d0d0;
-}
-
-#contenedor-jonrones .item-lider .nombre,
-#contenedor-efectividad .item-lider .nombre,
-#contenedor-inningsLanzados .item-lider .nombre,
-#contenedor-slugging .item-lider .nombre,
-#contenedor-ops .item-lider .nombre {
-    color: #f0f0f0;
-}
-
-#contenedor-jonrones .item-lider .equipo,
-#contenedor-efectividad .item-lider .equipo,
-#contenedor-inningsLanzados .item-lider .equipo,
-#contenedor-slugging .item-lider .equipo,
-#contenedor-ops .item-lider .equipo {
-    color: #ffffff;
+.stat-card h3 { 
+    margin-bottom: 12px; 
+    font-size: 1rem; 
+    padding-bottom: 8px; 
+    border-bottom: 2px solid #e0e0e0; 
     font-weight: 700;
 }
 
-#contenedor-jonrones .item-lider .valor,
-#contenedor-efectividad .item-lider .valor,
-#contenedor-inningsLanzados .item-lider .valor,
-#contenedor-slugging .item-lider .valor,
-#contenedor-ops .item-lider .valor {
-    color: #e0e0e0;
-    background: rgba(255, 255, 255, 0.15);
-}
-
-/* AZUL OSCURO - Categorías: Average, Victorias, Hold, Hits, Dobles, Bases Robadas */
-#contenedor-average .item-lider,
-#contenedor-victorias .item-lider,
-#contenedor-hold .item-lider,
-#contenedor-hits .item-lider,
-#contenedor-dobles .item-lider,
-#contenedor-basesRobadas .item-lider {
-    background: linear-gradient(135deg, #0f2744 0%, #0a1a2e 100%);
-    border: 1px solid #1e3a5f;
-    border-left: 4px solid #4a90e2;
-}
-
-#contenedor-average .item-lider:hover,
-#contenedor-victorias .item-lider:hover,
-#contenedor-hold .item-lider:hover,
-#contenedor-hits .item-lider:hover,
-#contenedor-dobles .item-lider:hover,
-#contenedor-basesRobadas .item-lider:hover {
-    background: linear-gradient(135deg, #1f3754 0%, #1a2a3e 100%);
-    box-shadow: 0 4px 12px rgba(15, 39, 68, 0.5);
-}
-
-#contenedor-average .item-lider .posicion,
-#contenedor-victorias .item-lider .posicion,
-#contenedor-hold .item-lider .posicion,
-#contenedor-hits .item-lider .posicion,
-#contenedor-dobles .item-lider .posicion,
-#contenedor-basesRobadas .item-lider .posicion {
-    color: #d0d0d0;
-}
-
-#contenedor-average .item-lider .nombre,
-#contenedor-victorias .item-lider .nombre,
-#contenedor-hold .item-lider .nombre,
-#contenedor-hits .item-lider .nombre,
-#contenedor-dobles .item-lider .nombre,
-#contenedor-basesRobadas .item-lider .nombre {
-    color: #f0f0f0;
-}
-
-#contenedor-average .item-lider .equipo,
-#contenedor-victorias .item-lider .equipo,
-#contenedor-hold .item-lider .equipo,
-#contenedor-hits .item-lider .equipo,
-#contenedor-dobles .item-lider .equipo,
-#contenedor-basesRobadas .item-lider .equipo {
-    color: #ffffff;
-    font-weight: 700;
-}
-
-#contenedor-average .item-lider .valor,
-#contenedor-victorias .item-lider .valor,
-#contenedor-hold .item-lider .valor,
-#contenedor-hits .item-lider .valor,
-#contenedor-dobles .item-lider .valor,
-#contenedor-basesRobadas .item-lider .valor {
-    color: #e0e0e0;
-    background: rgba(255, 255, 255, 0.15);
-}
-
-/* ROJO OSCURO - Categorías: Impulsadas, Salvados, Ponches, Triples, Bases por Bolas, Ponches Bateo, Average Contra, WHIP */
-#contenedor-impulsadas .item-lider,
-#contenedor-salvados .item-lider,
-#contenedor-ponches .item-lider,
-#contenedor-triples .item-lider,
-#contenedor-basesPorBolas .item-lider,
-#contenedor-ponchesBateo .item-lider,
-#contenedor-averageContra .item-lider,
-#contenedor-whip .item-lider {
-    background: linear-gradient(135deg, #6b0f1a 0%, #4a0a12 100%);
-    border: 1px solid #8b0000;
-    border-left: 4px solid #dc143c;
-}
-
-#contenedor-impulsadas .item-lider:hover,
-#contenedor-salvados .item-lider:hover,
-#contenedor-ponches .item-lider:hover,
-#contenedor-triples .item-lider:hover,
-#contenedor-basesPorBolas .item-lider:hover,
-#contenedor-ponchesBateo .item-lider:hover,
-#contenedor-averageContra .item-lider:hover,
-#contenedor-whip .item-lider:hover {
-    background: linear-gradient(135deg, #7b1f2a 0%, #5a1a22 100%);
-    box-shadow: 0 4px 12px rgba(107, 15, 26, 0.5);
-}
-
-#contenedor-impulsadas .item-lider .posicion,
-#contenedor-salvados .item-lider .posicion,
-#contenedor-ponches .item-lider .posicion,
-#contenedor-triples .item-lider .posicion,
-#contenedor-basesPorBolas .item-lider .posicion,
-#contenedor-ponchesBateo .item-lider .posicion,
-#contenedor-averageContra .item-lider .posicion,
-#contenedor-whip .item-lider .posicion {
-    color: #d0d0d0;
-}
-
-#contenedor-impulsadas .item-lider .nombre,
-#contenedor-salvados .item-lider .nombre,
-#contenedor-ponches .item-lider .nombre,
-#contenedor-triples .item-lider .nombre,
-#contenedor-basesPorBolas .item-lider .nombre,
-#contenedor-ponchesBateo .item-lider .nombre,
-#contenedor-averageContra .item-lider .nombre,
-#contenedor-whip .item-lider .nombre {
-    color: #f0f0f0;
-}
-
-#contenedor-impulsadas .item-lider .equipo,
-#contenedor-salvados .item-lider .equipo,
-#contenedor-ponches .item-lider .equipo,
-#contenedor-triples .item-lider .equipo,
-#contenedor-basesPorBolas .item-lider .equipo,
-#contenedor-ponchesBateo .item-lider .equipo,
-#contenedor-averageContra .item-lider .equipo,
-#contenedor-whip .item-lider .equipo {
-    color: #ffffff;
-    font-weight: 700;
-}
-
-#contenedor-impulsadas .item-lider .valor,
-#contenedor-salvados .item-lider .valor,
-#contenedor-ponches .item-lider .valor,
-#contenedor-triples .item-lider .valor,
-#contenedor-basesPorBolas .item-lider .valor,
-#contenedor-ponchesBateo .item-lider .valor,
-#contenedor-averageContra .item-lider .valor,
-#contenedor-whip .item-lider .valor {
-    color: #e0e0e0;
-    background: rgba(255, 255, 255, 0.15);
+.lista-lideres { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
 }
 
 /* ========================================== */
-/* ESTILOS BASE DE ITEM-LÍDER (mantenidos) */
+/* PATRÓN DE COLORES: AMARILLO, AZUL, ROJO */
+/* ========================================== */
+
+/* 1. AMARILLO OSCURO (Jonrones, Slugging, Dobles, BB, Ponches Picheo, Innings, Avg Contra) */
+.stats-grid .stat-card:nth-child(3n+1) {
+    border-top: 4px solid #ffd700 !important;
+}
+.stats-grid .stat-card:nth-child(3n+1) h3 {
+    color: #ffd700 !important;
+    border-bottom-color: #a07818 !important;
+}
+.stats-grid .stat-card:nth-child(3n+1) .item-lider {
+    background: linear-gradient(135deg, #8b6914 0%, #6b4f10 100%) !important;
+    border: 1px solid #a07818 !important;
+    border-left: 4px solid #ffd700 !important;
+}
+.stats-grid .stat-card:nth-child(3n+1) .item-lider .posicion,
+.stats-grid .stat-card:nth-child(3n+1) .item-lider .nombre,
+.stats-grid .stat-card:nth-child(3n+1) .item-lider .valor {
+    color: #f0f0f0 !important;
+}
+.stats-grid .stat-card:nth-child(3n+1) .item-lider .equipo {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+/* 2. AZUL OSCURO (Average, OPS, Triples, Ponches Bateo, Victorias, Hold) */
+.stats-grid .stat-card:nth-child(3n+2) {
+    border-top: 4px solid #4a90e2 !important;
+}
+.stats-grid .stat-card:nth-child(3n+2) h3 {
+    color: #4a90e2 !important;
+    border-bottom-color: #1e3a5f !important;
+}
+.stats-grid .stat-card:nth-child(3n+2) .item-lider {
+    background: linear-gradient(135deg, #0f2744 0%, #0a1a2e 100%) !important;
+    border: 1px solid #1e3a5f !important;
+    border-left: 4px solid #4a90e2 !important;
+}
+.stats-grid .stat-card:nth-child(3n+2) .item-lider .posicion,
+.stats-grid .stat-card:nth-child(3n+2) .item-lider .nombre,
+.stats-grid .stat-card:nth-child(3n+2) .item-lider .valor {
+    color: #f0f0f0 !important;
+}
+.stats-grid .stat-card:nth-child(3n+2) .item-lider .equipo {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+/* 3. ROJO OSCURO (Impulsadas, Hits, Bases Robadas, Efectividad, Salvados, WHIP) */
+.stats-grid .stat-card:nth-child(3n) {
+    border-top: 4px solid #dc143c !important;
+}
+.stats-grid .stat-card:nth-child(3n) h3 {
+    color: #dc143c !important;
+    border-bottom-color: #8b0000 !important;
+}
+.stats-grid .stat-card:nth-child(3n) .item-lider {
+    background: linear-gradient(135deg, #6b0f1a 0%, #4a0a12 100%) !important;
+    border: 1px solid #8b0000 !important;
+    border-left: 4px solid #dc143c !important;
+}
+.stats-grid .stat-card:nth-child(3n) .item-lider .posicion,
+.stats-grid .stat-card:nth-child(3n) .item-lider .nombre,
+.stats-grid .stat-card:nth-child(3n) .item-lider .valor {
+    color: #f0f0f0 !important;
+}
+.stats-grid .stat-card:nth-child(3n) .item-lider .equipo {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+/* ========================================== */
+/* ESTILOS BASE DE LAS TARJETAS DE JUGADORES */
 /* ========================================== */
 .item-lider {
-    display: flex; align-items: center; gap: 12px; padding: 12px;
-    border-radius: 8px; transition: transform 0.2s, box-shadow 0.2s;
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    padding: 12px;
+    border-radius: 8px; 
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.item-lider .posicion { font-weight: 900; font-size: 1.1rem; width: 30px; text-align: center; }
-
-.item-lider .mascota-img {
-    width: 45px; height: 45px; object-fit: contain; border-radius: 50%;
-    background: #ffffff; border: 2px solid #eee; padding: 4px; flex-shrink: 0;
+.item-lider:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-.item-lider .info-jugador { flex-grow: 1; display: flex; flex-direction: column; }
-.item-lider .nombre { font-weight: 700; font-size: 0.9rem; line-height: 1.2; }
-.item-lider .equipo { font-size: 0.75rem; margin-top: 2px; }
-.item-lider .valor { font-weight: 900; font-size: 1.1rem; padding: 4px 10px; border-radius: 15px; min-width: 50px; text-align: center; }
+.item-lider .posicion { 
+    font-weight: 900; 
+    font-size: 1.1rem; 
+    width: 30px; 
+    text-align: center; 
+}
 
-/* Ajuste para mascotas con fondo oscuro */
 .item-lider .mascota-img {
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+    width: 45px; 
+    height: 45px; 
+    object-fit: contain; 
+    border-radius: 50%;
+    background: #ffffff; 
+    border: 2px solid rgba(255,255,255,0.3); 
+    padding: 4px; 
+    flex-shrink: 0;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.4));
+}
+
+.item-lider .info-jugador { 
+    flex-grow: 1; 
+    display: flex; 
+    flex-direction: column; 
+}
+
+.item-lider .nombre { 
+    font-weight: 700; 
+    font-size: 0.9rem; 
+    line-height: 1.2; 
+}
+
+.item-lider .equipo { 
+    font-size: 0.75rem; 
+    margin-top: 2px; 
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.item-lider .valor { 
+    font-weight: 900; 
+    font-size: 1.1rem; 
+    padding: 4px 10px; 
+    border-radius: 15px; 
+    min-width: 50px; 
+    text-align: center;
+    background: rgba(255, 255, 255, 0.15) !important;
 }
