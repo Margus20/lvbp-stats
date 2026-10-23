@@ -187,15 +187,15 @@ def extraer_posiciones(driver):
         return []
         
         def extraer_resultados(driver):
-        logger.info(" Extrayendo Resultados...")
-        try:
-        driver.get(URL_RESULTADOS)
-        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
-        time.sleep(3)
+            logger.info(" Extrayendo Resultados...")
+            try:
+                driver.get(URL_RESULTADOS)
+                WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+                time.sleep(3)
         
-        soup = BeautifulSoup(driver.page_source, 'html.parser')
-        todos_divs = soup.find_all('div')
-        candidatos = []
+                soup = BeautifulSoup(driver.page_source, 'html.parser')
+                todos_divs = soup.find_all('div')
+                candidatos = []
         
         # MÉTODO 1: Buscar "Finalizado"
         for div in todos_divs:
