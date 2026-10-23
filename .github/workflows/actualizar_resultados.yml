@@ -2,9 +2,8 @@ name: Actualizar Resultados LVBP
 
 on:
   schedule:
-    # Se ejecuta todos los días a las 8:00 AM UTC (4:00 AM en Venezuela)
     - cron: '0 8 * * *'
-  workflow_dispatch: # Permite ejecución manual
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -21,20 +20,18 @@ jobs:
         with:
           python-version: '3.10'
           
-      - name: Configurar Chrome
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: stable
+      - name: Instalar Playwright y dependencias
+        run: |
+          pip install playwright beautifulsoup4 requests
+          playwright install chromium
+          playwright install-deps chromium
           
-      - name: Instalar dependencias de Python
-        run: pip install requests beautifulsoup4 selenium
-        
       - name: Configurar Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-      - name: Ejecutar Bot de Resultados
+      - name: Ejecutar Bot de Resultados (Playwright)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python actualizar_resultados.py
