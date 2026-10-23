@@ -6,7 +6,6 @@ import { POSICIONES } from '../datos/posiciones.js';
 import { NOTICIAS } from '../datos/noticias.js';
 import { RESULTADOS } from '../datos/resultados.js';
 import { CALENDARIO } from '../datos/calendario.js';
-// 🆕 Importamos los datos de líderes y la función para obtener la mascota
 import { LIDERES, obtenerMascota } from '../datos/lideres.js';
 import { PUBLICIDAD } from '../datos/ppublicidad.js'; 
 import { CANALES } from '../datos/canales.js';
@@ -149,9 +148,8 @@ export function renderCalendario() {
     });
 }
 
-// 🆕 FUNCIÓN RENDERLIDERES ACTUALIZADA (19 CATEGORÍAS)
+// 🆕 FUNCIÓN RENDERLIDERES ACTUALIZADA (CON NOMBRE DE EQUIPO INCLUIDO)
 export function renderLideres() {
-    // Mapeo de los IDs del HTML a las claves del objeto LIDERES (Solo las 19 activas)
     const categoriasAMostrar = {
         // BATEO (11 categorías)
         'contenedor-jonrones': 'jonrones',
@@ -172,30 +170,26 @@ export function renderLideres() {
         'contenedor-salvados': 'salvados',
         'contenedor-inningsLanzados': 'inningsLanzados',
         'contenedor-ponches': 'ponchesPitching',
-        'contenedor-hold': 'hold', // ✅ AGREGADO: Hold
+        'contenedor-hold': 'hold',
         'contenedor-whip': 'whip',
         'contenedor-averageContra': 'averageContra'
     };
 
-    // Recorremos cada categoría y la dibujamos
     for (const [idContenedor, claveCategoria] of Object.entries(categoriasAMostrar)) {
         const contenedor = document.getElementById(idContenedor);
-        if (!contenedor) continue; // Si no existe el ID en el HTML, lo salta sin romper nada
+        if (!contenedor) continue;
 
         const lideres = LIDERES[claveCategoria];
         if (!lideres) continue;
 
-        contenedor.innerHTML = ''; // Limpiamos el contenedor antes de dibujar
+        contenedor.innerHTML = '';
 
         lideres.forEach(lider => {
-            // Obtenemos la ruta de la mascota
             const rutaMascota = obtenerMascota(lider.equipo);
             
-            // Formateamos el nombre del equipo (ej: "navegantes" -> "Magallanes") para el atributo alt de la imagen
             let nombreEquipo = lider.equipo.charAt(0).toUpperCase() + lider.equipo.slice(1);
             if (lider.equipo === 'navegantes') nombreEquipo = 'Magallanes';
 
-            // Creamos la tarjetita de cada jugador
             const item = document.createElement('div');
             item.className = 'item-lider';
             item.innerHTML = `
@@ -203,6 +197,7 @@ export function renderLideres() {
                 <img src="${rutaMascota}" alt="Mascota de ${nombreEquipo}" class="mascota-img" onerror="this.src='mascotas/leo.jpg'">
                 <div class="info-jugador">
                     <span class="nombre">${lider.nombre}</span>
+                    <span class="equipo">${nombreEquipo}</span> 
                 </div>
                 <div class="valor">${lider.valor}</div>
             `;
