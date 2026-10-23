@@ -185,6 +185,7 @@ def extraer_posiciones(driver):
     except Exception as e:
         logger.error(f" Error crítico en posiciones: {e}")
         return []
+        
         def extraer_resultados(driver):
     logger.info(" Extrayendo Resultados...")
     try:
