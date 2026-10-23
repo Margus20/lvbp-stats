@@ -9,7 +9,7 @@ import { CALENDARIO } from '../datos/calendario.js';
 import { LIDERES, obtenerMascota } from '../datos/lideres.js';
 import { PUBLICIDAD } from '../datos/ppublicidad.js'; 
 import { CANALES } from '../datos/canales.js';
-import { getEquipo, getLogo, getColor, getColorTexto, calcularPCT, calcularDIF } from './utils.js';
+import { getEquipo, getLogo, getColor, getColorTexto, calcularDIF } from './utils.js';
 
 export function renderPosiciones() {
     const tbody = document.getElementById("posiciones-body");
@@ -19,7 +19,8 @@ export function renderPosiciones() {
     POSICIONES.forEach((pos, i) => {
         const equipo = getEquipo(pos.nombre);
         if (!equipo) return;
-        const pct = calcularPCT(pos.jg, pos.jp);
+        // ✅ USAR el pct que extrajo el bot, no calcularlo
+        const pct = pos.pct || '.000';
         const dif = calcularDIF(pos.jg, pos.jp, lider.jg, lider.jp);
         const tr = document.createElement("tr");
         tr.className = equipo.claseFila;
@@ -133,7 +134,7 @@ export function renderCalendario() {
             }).join(' <span class="separador-canal">+</span> ');
             
             infoInferior = `<div class="info-juego-cal">
-                <div class="hora-cal">🕐 ${j.hora}</div>
+                <div class="hora-cal"> ${j.hora}</div>
                 <div class="estadio-cal">🏟️ ${j.lugar || 'Estadio por confirmar'}</div>
                 <div class="transmision-cal">${canalesHTML}</div>
             </div>`;
