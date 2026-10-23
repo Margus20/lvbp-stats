@@ -502,4 +502,92 @@ def extraer_resultados(page):
                     juegos.append({
                         'fecha': ayer_naive.strftime("%Y-%m-%d"),
                         'visitante': visitante,
-              
+'local': local,
+                        'scoreVisitante': score_visitante,
+                        'scoreLocal': score_local,
+                        'innings': innings,
+                        'finalizado': True,
+                        'pitcherGanador': pitcher_ganador,
+                        'pitcherPerdedor': pitcher_perdedor,
+                        'pitcherSalvador': pitcher_salvador
+                    })
+                    
+                    logger.info(f"✅ Juego: {visitante} {score_visitante} - {score_local} {local}")
+                
+            except Exception as e:
+                continue
+        
+        logger.info(f"📊 Total extraídos: {len(juegos)}")
+        return juegos if juegos else None
+        
+    except Exception as e:
+        logger.error(f"❌ Error crítico: {e}")
+        return None
+
+def actualizar_github(file_path, datos, mensaje):
+    if not datos:
+        logger.warning(f"⚠️ Lista vacía para {file_path}")
+        return False
+    
+    url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{file_path}"
+    headers = {"Authorization": f"token {TOKEN}", "Accept": "application/vnd.github.v3+json"}
+    
+    response = requests.get(url, headers=headers, timeout=10)
+    sha = response.json().get('sha') if response.status_code == 200 else None
+    
+    nombre_constante = file_path.split('/')[-1].replace('.js', '').upper()
+    js_content = f"export const {nombre_constante} = {json.dumps(datos, indent=4, ensure_ascii=False)};\n"
+    
+    data = {
+        "message": mensaje,
+        "content": base64.b64encode(js_content.encode('utf-8')).decode('utf-8'),
+    }
+    if sha:
+        data["sha"] = sha
+    
+    put_response = requests.put(url, headers=headers, json=data, timeout=10)
+    if put_response.status_code in [200, 201]:
+        logger.info(f"✅ {file_path} actualizado")
+        return True
+    else:
+        logger.error(f"❌ Error: {put_response.text}")
+        return False
+
+def main():
+    logger.info("🚀 Iniciando Bot de Resultados (Playwright + Visión)...")
+    if not TOKEN:
+        logger.error("❌ No hay GITHUB_TOKEN")
+        return
+    
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            context = browser.new_context(
+                viewport={'width': 1920, 'height': 1080},
+                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                timezone_id='America/Caracas'
+            )
+            page = context.new_page()
+            
+            logger.info("🌐 Navegando a stats.lvbp.com...")
+            page.goto(URL_RESULTADOS, wait_until='networkidle', timeout=30000)
+            
+            if not navegar_a_ayer(page):
+                logger.warning("⚠️ No se pudo navegar a ayer con certeza")
+            
+            resultados = extraer_resultados(page)
+            
+            if resultados and len(resultados) > 0:
+                logger.info(f"✅ Extraídos {len(resultados)} juegos")
+                actualizar_github('js/datos/resultados.js', resultados, "🤖 Bot: Resultados")
+            else:
+                logger.error("❌ No se extrajeron juegos")
+            
+            browser.close()
+            logger.info("🏁 Bot finalizado")
+            
+    except Exception as e:
+        logger.exception(f"❌ Error fatal: {e}")
+
+if __name__ == '__main__':
+    main()
