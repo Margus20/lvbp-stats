@@ -197,8 +197,8 @@ def extraer_posiciones(driver):
                 todos_divs = soup.find_all('div')
                 candidatos = []
         
-        # MÉTODO 1: Buscar "Finalizado"
-        for div in todos_divs:
+                # MÉTODO 1: Buscar "Finalizado"
+                for div in todos_divs:
             try:
                 texto = div.get_text()
                 if 'Finalizado' in texto or 'finalizado' in texto:
