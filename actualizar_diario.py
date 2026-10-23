@@ -90,7 +90,6 @@ def obtener_nombre_corto(nombre_completo):
     return nombre_completo.split()[0] if nombre_completo else ''
 
 def detectar_canales(juego):
-    """Detecta logos de canales de TV"""
     canales_detectados = []
     imagenes = juego.find_all('img')
     
@@ -108,12 +107,6 @@ def detectar_canales(juego):
     return canales_detectados
 
 def es_juego_finalizado(texto_juego):
-    """
-    Determina si un juego está finalizado basándose en patrones específicos:
-    ✅ Tiene "9 innings" o más
-    ✅ Tiene pitchers (G:, P:, S:)
-    ✅ NO tiene "PREVIA"
-    """
     texto_lower = texto_juego.lower()
     
     # PATRÓN 1: Tiene 9 innings o más
@@ -130,21 +123,11 @@ def es_juego_finalizado(texto_juego):
     # PATRÓN 3: NO es un juego programado (no tiene "PREVIA")
     no_es_previa = 'previa' not in texto_lower
     
-    # Un juego es finalizado si:
-    # - Tiene 9+ innings Y tiene pitchers, O
-    # - Tiene pitchers y no es previa
     es_finalizado = (tiene_innings and tiene_pitchers) or (tiene_pitchers and no_es_previa)
     
     return es_finalizado, tiene_innings, tiene_pitchers
 
 def es_juego_programado(texto_juego):
-    """
-    Determina si un juego está programado (de la jornada):
-    ✅ Tiene logos de TV
-    ✅ Tiene hora (ej: 7:00 PM)
-    ✅ Tiene estadio
-    ✅ Dice "PREVIA"
-    """
     texto_lower = texto_juego.lower()
     
     # PATRÓN 1: Tiene logos de TV
@@ -166,7 +149,6 @@ def es_juego_programado(texto_juego):
     return es_programado, tiene_hora, tiene_estadio, tiene_logos_tv
 
 def extraer_posiciones(driver):
-    """Extrae la tabla de posiciones"""
     print("📊 Extrayendo Posiciones...")
     driver.get(URL_POSICIONES)
     WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "table")))
@@ -193,12 +175,12 @@ def extraer_posiciones(driver):
                         pass
                     break
     except Exception as e:
-        print(f"️ Aviso al configurar filtros: {e}")
+        print(f"⚠️ Aviso al configurar filtros: {e}")
     
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     tablas = soup.find_all('table')
     if not tablas:
-        print("️ No se encontró tabla de posiciones")
+        print("⚠️ No se encontró tabla de posiciones")
         return []
     
     tabla = max(tablas, key=lambda t: len(t.find_all('tr')))
@@ -234,15 +216,13 @@ def extraer_posiciones(driver):
     return datos
 
 def extraer_resultados(driver):
-    """Extrae resultados de juegos FINALIZADOS usando patrones específicos"""
-    print("🏆 Extrayendo Resultados...")
+    print(" Extrayendo Resultados...")
     driver.get(URL_RESULTADOS)
     WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
     time.sleep(3)
     
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     
-    # Buscar tarjetas de juego
     juegos = soup.find_all('div', class_='game-card')
     if not juegos:
         juegos = soup.find_all('div', {'class': lambda x: x and 'game' in x.lower()})
@@ -256,14 +236,12 @@ def extraer_resultados(driver):
         try:
             texto_juego = juego.get_text()
             
-            #  VERIFICAR SI ES JUEGO FINALIZADO
             es_finalizado, tiene_innings, tiene_pitchers = es_juego_finalizado(texto_juego)
             
             if not es_finalizado:
                 print(f"⚠️ Juego no finalizado (innings: {tiene_innings}, pitchers: {tiene_pitchers}) - Saltando")
                 continue
             
-            # Extraer equipos
             equipos_divs = juego.find_all('div', class_='team-name')
             if not equipos_divs:
                 equipos_divs = juego.find_all('div', style=True)
@@ -278,23 +256,19 @@ def extraer_resultados(driver):
             visitante = obtener_nombre_corto(visitante_completo)
             local = obtener_nombre_corto(local_completo)
             
-            # Extraer innings
             inning_match = re.search(r'Inning\s*(\d+)', texto_juego, re.IGNORECASE)
             innings = inning_match.group(1) if inning_match else "9"
             
-            # Extraer scores (buscar números después de R H E o en líneas separadas)
             scores = []
             lines = texto_juego.split('\n')
             for i, line in enumerate(lines):
                 if 'R' in line and 'H' in line and 'E' in line:
-                    # Buscar en las siguientes 2 líneas
                     for j in range(i+1, min(i+3, len(lines))):
                         numeros = re.findall(r'\d+', lines[j])
                         if numeros:
                             scores.extend(numeros[:2])
                             break
             
-            # Si no encuentra por RHE, buscar scores grandes
             if len(scores) < 2:
                 todos_numeros = re.findall(r'\d+', texto_juego)
                 posibles_scores = [n for n in todos_numeros if 0 <= int(n) < 30]
@@ -304,7 +278,6 @@ def extraer_resultados(driver):
             score_visitante = scores[0] if len(scores) > 0 else "0"
             score_local = scores[1] if len(scores) > 1 else "0"
             
-            # EXTRAER PITCHERS
             pitcher_ganador = ""
             pitcher_perdedor = ""
             pitcher_salvador = ""
@@ -345,14 +318,13 @@ def extraer_resultados(driver):
             continue
     
     if juegos_validos_encontrados == 0:
-        print("❌ NO hay juegos finalizados válidos")
+        print(" NO hay juegos finalizados válidos")
         return None
         
     print(f"✅ Extraídos {len(datos)} resultados")
     return datos
 
 def extraer_calendario(driver):
-    """Extrae SOLO juegos PROGRAMADOS (jornada) usando patrones específicos"""
     print("📅 Extrayendo Calendario...")
     driver.get(URL_CALENDARIO)
     WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
@@ -360,7 +332,6 @@ def extraer_calendario(driver):
     
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     
-    # Obtener fecha de HOY
     hoy_dia = datetime.now().strftime("%d").lstrip('0')
     hoy_mes = datetime.now().strftime("%B").lower()
     hoy_mes_es = None
@@ -371,7 +342,6 @@ def extraer_calendario(driver):
     
     print(f"📅 Buscando juegos del día: {hoy_dia} de {hoy_mes_es or hoy_mes}")
     
-    # Buscar TODAS las secciones
     todas_secciones = soup.find_all(['h2', 'h3', 'h4'])
     
     seccion_hoy = None
@@ -388,7 +358,6 @@ def extraer_calendario(driver):
         print(f"⚠️ No se encontró sección específica para el día {hoy_dia}")
         return []
     
-    # Buscar juegos DESPUÉS de la sección de hoy
     juegos = []
     hermano = seccion_hoy.find_next_sibling()
     while hermano and hermano.name in ['div', 'section']:
@@ -405,14 +374,12 @@ def extraer_calendario(driver):
         try:
             texto_juego = juego.get_text()
             
-            # 🔍 VERIFICAR SI ES JUEGO PROGRAMADO
             es_programado, tiene_hora, tiene_estadio, tiene_logos = es_juego_programado(texto_juego)
             
             if not es_programado:
                 print(f"⚠️ Juego no es programado (hora: {tiene_hora}, estadio: {tiene_estadio}, logos: {tiene_logos}) - Saltando")
                 continue
             
-            # Extraer equipos
             equipos_divs = juego.find_all('div', class_='team-name')
             if not equipos_divs:
                 equipos_divs = juego.find_all('div', style=True)
@@ -426,19 +393,16 @@ def extraer_calendario(driver):
             visitante = obtener_nombre_corto(visitante_completo)
             local = obtener_nombre_corto(local_completo)
             
-            # Extraer hora
             hora = "7:00 PM"
             hora_match = re.search(r'(\d{1,2}:\d{2}\s*[AP]M)', texto_juego, re.IGNORECASE)
             if hora_match:
                 hora = hora_match.group(1)
             
-            # Extraer estadio
             estadio = "Por confirmar"
             estadio_match = re.search(r'(Estadio\s+[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+?)(?:\s+PREVIA|\n)', texto_juego, re.IGNORECASE)
             if estadio_match:
                 estadio = estadio_match.group(1).strip()
             
-            # Extraer televisoras
             canales_detectados = detectar_canales(juego)
             transmision = " / ".join(canales_detectados) if canales_detectados else "Por confirmar"
             
@@ -499,4 +463,27 @@ def main():
             actualizar_archivo_github('js/datos/posiciones.js', posiciones, "🤖 Bot: Actualización diaria de Posiciones")
         
         # 2. Resultados
-        resultados = extraer_resultados(
+        resultados = extraer_resultados(driver)
+        if resultados is not None:
+            if len(resultados) > 0:
+                actualizar_archivo_github('js/datos/resultados.js', resultados, "🤖 Bot: Actualización diaria de Resultados")
+            else:
+                print("⚠️ Lista de resultados vacía - No se actualiza")
+        else:
+            print("🔒 Resultados: NO se actualiza")
+        
+        # 3. Calendario
+        calendario = extraer_calendario(driver)
+        if calendario:
+            actualizar_archivo_github('js/datos/calendario.js', calendario, "🤖 Bot: Actualización diaria de Calendario")
+        
+    except Exception as e:
+        print(f"❌ Error fatal: {e}")
+        import traceback
+        traceback.print_exc()
+    finally:
+        driver.quit()
+        print("🏁 Bot Diario finalizado.")
+
+if __name__ == '__main__':
+    main()
