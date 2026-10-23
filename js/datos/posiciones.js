@@ -5,7 +5,7 @@ export const POSICIONES = [
         "jj": "8",
         "jg": "6",
         "jp": "2",
-        "pct": "0",
+        "pct": ".750",
         "dif": "0",
         "racha": "P1"
     },
@@ -15,7 +15,7 @@ export const POSICIONES = [
         "jj": "7",
         "jg": "5",
         "jp": "2",
-        "pct": "0.5",
+        "pct": ".714",
         "dif": "0.5",
         "racha": "G1"
     },
@@ -25,7 +25,7 @@ export const POSICIONES = [
         "jj": "9",
         "jg": "6",
         "jp": "3",
-        "pct": "0.5",
+        "pct": ".667",
         "dif": "0.5",
         "racha": "P1"
     },
@@ -35,7 +35,7 @@ export const POSICIONES = [
         "jj": "8",
         "jg": "5",
         "jp": "3",
-        "pct": "1",
+        "pct": ".625",
         "dif": "1",
         "racha": "G1"
     },
@@ -45,7 +45,7 @@ export const POSICIONES = [
         "jj": "9",
         "jg": "4",
         "jp": "5",
-        "pct": "2.5",
+        "pct": ".444",
         "dif": "2.5",
         "racha": "P1"
     },
@@ -55,7 +55,7 @@ export const POSICIONES = [
         "jj": "9",
         "jg": "3",
         "jp": "6",
-        "pct": "3.5",
+        "pct": ".333",
         "dif": "3.5",
         "racha": "P1"
     },
@@ -65,7 +65,7 @@ export const POSICIONES = [
         "jj": "7",
         "jg": "2",
         "jp": "5",
-        "pct": "3.5",
+        "pct": ".286",
         "dif": "3.5",
         "racha": "P1"
     },
@@ -75,7 +75,7 @@ export const POSICIONES = [
         "jj": "9",
         "jg": "2",
         "jp": "7",
-        "pct": "4.5",
+        "pct": ".222",
         "dif": "4.5",
         "racha": "G1"
     }
