@@ -124,16 +124,12 @@
                 const footer = await fetch('componentes/footer.html').then(r => r.text());
                 document.getElementById('footer-placeholder').innerHTML = footer;
                 
-                // 1. Cargar app.js (este archivo ya se encarga de renderizar todo y de activar los botones de compartir)
+                // 🆕 Cargar app.js (versión 101 para forzar caché nueva). 
+                // Este archivo ya contiene la lógica del botón flotante y los botones de compartir.
                 const scriptApp = document.createElement('script');
                 scriptApp.type = 'module';
-                scriptApp.src = 'js/logica/app.js?v=100';
+                scriptApp.src = 'js/logica/app.js?v=101';
                 document.body.appendChild(scriptApp);
-
-                // 2. Cargar el botón flotante de navegación
-                const scriptFlotante = document.createElement('script');
-                scriptFlotante.src = 'js/logica/boton-flotante.js?v=100';
-                document.body.appendChild(scriptFlotante);
 
             } catch (error) {
                 console.error('Error cargando componentes:', error);
