@@ -43,7 +43,7 @@ CANALES_TV = {
     'meridiano': 'Meridiano TV', 'meridianotv': 'Meridiano TV'
 }
 
-# Regex compilados para mejor rendimiento
+# Regex compilados
 PATTERNS = {
     'hora': re.compile(r'(\d{1,2}:\d{2}\s*[AP]M)', re.IGNORECASE),
     'estadio': re.compile(r'(Estadio\s+[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+?)(?:\s+PREVIA|\n)', re.IGNORECASE),
@@ -62,7 +62,6 @@ def iniciar_driver():
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--window-size=1920,1080")
-    chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     return webdriver.Chrome(options=chrome_options)
 
 def obtener_nombre_corto(nombre_completo):
@@ -88,7 +87,7 @@ def obtener_nombre_corto(nombre_completo):
                 return corto
         return nombre_completo.split()[0] if nombre_completo else ''
     except Exception as e:
-        logger.error(f"Error procesando nombre '{nombre_completo}': {e}")
+        logger.error(f"Error procesando nombre: {e}")
         return ''
 
 def detectar_canales(juego):
@@ -109,21 +108,17 @@ def detectar_canales(juego):
         return []
 
 def extraer_fecha_del_texto(texto):
-    """Extrae la fecha real del texto en lugar de usar datetime.now()"""
     try:
-        # Buscar patrones de fecha: "2026-10-23", "23 de octubre", "Octubre 23, 2026"
         patron_iso = re.compile(r'(\d{4}-\d{2}-\d{2})')
         match = patron_iso.search(texto)
         if match:
             return match.group(1)
-        
-        # Si no encuentra fecha ISO, retornar None (usará fecha actual como fallback)
         return None
     except:
         return None
 
 def extraer_posiciones(driver):
-    logger.info("📊 Extrayendo Posiciones...")
+    logger.info(" Extrayendo Posiciones...")
     try:
         driver.get(URL_POSICIONES)
         WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "table")))
@@ -151,7 +146,7 @@ def extraer_posiciones(driver):
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         tablas = soup.find_all('table')
         if not tablas:
-            logger.error("❌ No se encontró ninguna tabla de posiciones")
+            logger.error(" No se encontró tabla de posiciones")
             return []
         
         tabla = max(tablas, key=lambda t: len(t.find_all('tr')))
@@ -185,19 +180,18 @@ def extraer_posiciones(driver):
                 logger.warning(f"Error procesando fila {i}: {e}")
                 continue
         
-        # VALIDACIÓN: Debe tener al menos 8 equipos
         if len(datos) < 8:
-            logger.error(f"❌ Datos incompletos: solo {len(datos)} equipos (mínimo 8)")
+            logger.error(f" Datos incompletos: solo {len(datos)} equipos")
             return []
         
-        logger.info(f"✅ Extraídas {len(datos)} posiciones correctamente")
+        logger.info(f" Extraídas {len(datos)} posiciones")
         return datos
     except Exception as e:
-        logger.error(f"❌ Error crítico en extraer_posiciones: {e}")
+        logger.error(f" Error crítico en posiciones: {e}")
         return []
 
 def extraer_resultados(driver):
-    logger.info("🏆 Extrayendo Resultados...")
+    logger.info(" Extrayendo Resultados...")
     try:
         driver.get(URL_RESULTADOS)
         WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
@@ -218,12 +212,11 @@ def extraer_resultados(driver):
                     if len(equipos_en_div) >= 2:
                         candidatos.append((div, equipos_en_div, texto))
             except Exception as e:
-                logger.warning(f"Error procesando div candidato: {e}")
+                logger.warning(f"Error procesando div: {e}")
                 continue
         
         logger.info(f" Candidatos iniciales: {len(candidatos)}")
         
-        # Filtrar divs anidados
         divs_finales = []
         for i, (div1, eq1, txt1) in enumerate(candidatos):
             try:
@@ -238,7 +231,7 @@ def extraer_resultados(driver):
                 logger.warning(f"Error filtrando anidados: {e}")
                 continue
         
-        logger.info(f"✅ Después de filtrar anidados: {len(divs_finales)}")
+        logger.info(f" Después de filtrar anidados: {len(divs_finales)}")
         
         datos = []
         juegos_vistos = set()
@@ -249,11 +242,9 @@ def extraer_resultados(driver):
                 local = equipos[1]
                 clave = f"{visitante}-{local}"
                 if clave in juegos_vistos:
-                    logger.debug(f"⚠️ Duplicado detectado: {clave}")
                     continue
                 juegos_vistos.add(clave)
                 
-                # Extraer scores
                 scores = []
                 lines = texto.split('\n')
                 for i, line in enumerate(lines):
@@ -280,19 +271,17 @@ def extraer_resultados(driver):
                 score_visitante = scores[0] if len(scores) > 0 else "0"
                 score_local = scores[1] if len(scores) > 1 else "0"
                 
-                # Extraer innings
                 try:
                     inning_match = PATTERNS['inning'].search(texto)
                     innings = inning_match.group(1) if inning_match else "9"
                 except:
                     innings = "9"
                 
-                # Extraer pitchers
+                pitcher_ganador = ""
+                pitcher_perdedor = ""
+                pitcher_salvador = ""
+                
                 try:
-                    pitcher_ganador = ""
-                    pitcher_perdedor = ""
-                    pitcher_salvador = ""
-                    
                     match_g = PATTERNS['pitcher_g'].search(texto)
                     if match_g:
                         pitcher_ganador = match_g.group(1).strip()
@@ -306,9 +295,7 @@ def extraer_resultados(driver):
                         pitcher_salvador = match_s.group(1).strip()
                 except Exception as e:
                     logger.warning(f"Error extrayendo pitchers: {e}")
-                    pitcher_ganador = pitcher_perdedor = pitcher_salvador = ""
                 
-                # Extraer fecha real del texto
                 fecha_extraida = extraer_fecha_del_texto(texto)
                 fecha_final = fecha_extraida if fecha_extraida else datetime.now().strftime("%Y-%m-%d")
                 
@@ -325,24 +312,23 @@ def extraer_resultados(driver):
                     'pitcherSalvador': pitcher_salvador
                 })
                 
-                logger.info(f"✅ Juego: {visitante} {score_visitante} - {score_local} {local} ({innings} inn)")
+                logger.info(f" Juego: {visitante} {score_visitante} - {score_local} {local}")
             except Exception as e:
-                logger.error(f"❌ Error procesando juego: {e}")
+                logger.error(f" Error procesando juego: {e}")
                 continue
         
-        # VALIDACIÓN: Debe tener al menos 1 juego
         if len(datos) == 0:
-            logger.error("❌ No se extrajeron juegos válidos")
+            logger.error(" No se extrajeron juegos válidos")
             return None
         
-        logger.info(f"✅ Extraídos {len(datos)} resultados únicos")
+        logger.info(f" Extraídos {len(datos)} resultados")
         return datos
     except Exception as e:
-        logger.error(f"❌ Error crítico en extraer_resultados: {e}")
+        logger.error(f" Error crítico en resultados: {e}")
         return None
 
 def extraer_calendario(driver):
-    logger.info("📅 Extrayendo Calendario...")
+    logger.info(" Extrayendo Calendario...")
     try:
         driver.get(URL_CALENDARIO)
         WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
@@ -363,12 +349,11 @@ def extraer_calendario(driver):
                     if len(equipos_encontrados) >= 2:
                         divs_con_previa.append((div, equipos_encontrados, texto))
             except Exception as e:
-                logger.warning(f"Error procesando div con PREVIA: {e}")
+                logger.warning(f"Error procesando div: {e}")
                 continue
         
-        logger.info(f"🔍 Divs con PREVIA y 2+ equipos: {len(divs_con_previa)}")
+        logger.info(f" Divs con PREVIA: {len(divs_con_previa)}")
         
-        # Filtrar anidados
         divs_finales = []
         for i, (div1, eq1, txt1) in enumerate(divs_con_previa):
             try:
@@ -380,10 +365,10 @@ def extraer_calendario(driver):
                 if not es_anidado:
                     divs_finales.append((div1, eq1, txt1))
             except Exception as e:
-                logger.warning(f"Error filtrando anidados: {e}")
+                logger.warning(f"Error filtrando: {e}")
                 continue
         
-        logger.info(f"✅ Después de filtrar anidados: {len(divs_finales)}")
+        logger.info(f" Después de filtrar: {len(divs_finales)}")
         
         datos = []
         juegos_vistos = set()
@@ -394,36 +379,31 @@ def extraer_calendario(driver):
                 local = equipos[1]
                 clave = f"{visitante}-{local}"
                 if clave in juegos_vistos:
-                    logger.debug(f"⚠️ Duplicado: {clave}")
                     continue
                 juegos_vistos.add(clave)
                 
-                # Extraer hora
+                hora = "7:00 PM"
                 try:
-                    hora = "7:00 PM"
                     hora_match = PATTERNS['hora'].search(texto)
                     if hora_match:
                         hora = hora_match.group(1)
                 except:
-                    hora = "7:00 PM"
+                    pass
                 
-                # Extraer estadio
+                estadio = "Por confirmar"
                 try:
-                    estadio = "Por confirmar"
                     estadio_match = PATTERNS['estadio'].search(texto)
                     if estadio_match:
                         estadio = estadio_match.group(1).strip()
                 except:
-                    estadio = "Por confirmar"
+                    pass
                 
-                # Extraer televisoras
                 try:
                     canales_detectados = detectar_canales(div)
                     transmision = " / ".join(canales_detectados) if canales_detectados else "Por confirmar"
                 except:
                     transmision = "Por confirmar"
                 
-                # Extraer fecha real
                 fecha_extraida = extraer_fecha_del_texto(texto)
                 fecha_final = fecha_extraida if fecha_extraida else datetime.now().strftime("%Y-%m-%d")
                 
@@ -438,33 +418,30 @@ def extraer_calendario(driver):
                     'finalizado': False
                 })
                 
-                logger.info(f"✅ Juego: {visitante} vs {local} - {hora} - {estadio} - {transmision}")
+                logger.info(f" Juego: {visitante} vs {local} - {hora}")
             except Exception as e:
-                logger.error(f"❌ Error procesando juego de calendario: {e}")
+                logger.error(f" Error procesando juego: {e}")
                 continue
         
-        # VALIDACIÓN: Debe tener al menos 1 juego
         if len(datos) == 0:
-            logger.warning("⚠️ No se extrajeron juegos del calendario")
+            logger.warning(" No se extrajeron juegos")
             return []
         
-        logger.info(f"✅ Extraídos {len(datos)} juegos únicos")
+        logger.info(f" Extraídos {len(datos)} juegos")
         return datos
     except Exception as e:
-        logger.error(f"❌ Error crítico en extraer_calendario: {e}")
+        logger.error(f" Error crítico en calendario: {e}")
         return []
 
 def actualizar_archivo_github(file_path, datos_lista, mensaje_commit):
-    """Actualiza archivo en GitHub con validaciones y reintentos"""
     try:
         if not datos_lista:
-            logger.warning(f"⚠️ Lista vacía para {file_path}. No se actualizará GitHub.")
+            logger.warning(f" Lista vacía para {file_path}")
             return False
         
         url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{file_path}"
         headers = {"Authorization": f"token {TOKEN}", "Accept": "application/vnd.github.v3+json"}
         
-        # Obtener SHA actual
         response = requests.get(url, headers=headers, timeout=10)
         sha = response.json().get('sha') if response.status_code == 200 else None
         
@@ -473,4 +450,46 @@ def actualizar_archivo_github(file_path, datos_lista, mensaje_commit):
         
         data = {
             "message": mensaje_commit,
-            "content": base64.b64e
+            "content": base64.b64encode(js_content.encode('utf-8')).decode('utf-8'),
+        }
+        if sha:
+            data["sha"] = sha
+        
+        for intento in range(3):
+            try:
+                put_response = requests.put(url, headers=headers, json=data, timeout=10)
+                if put_response.status_code in [200, 201]:
+                    logger.info(f" {file_path} actualizado")
+                    return True
+                elif put_response.status_code == 409 and intento < 2:
+                    logger.warning(f" Conflicto en {file_path}, reintentando...")
+                    time.sleep(2)
+                    continue
+                else:
+                    logger.error(f" Error en {file_path}: {put_response.text}")
+                    return False
+            except requests.exceptions.RequestException as e:
+                logger.error(f" Error de red intento {intento+1}: {e}")
+                if intento < 2:
+                    time.sleep(2)
+                continue
+        
+        return False
+    except Exception as e:
+        logger.error(f" Error crítico actualizando {file_path}: {e}")
+        return False
+
+def main():
+    logger.info(" Iniciando Bot Diario LVBP...")
+    
+    if not TOKEN:
+        logger.error(" ERROR: No se encontró GITHUB_TOKEN")
+        return
+    
+    driver = None
+    try:
+        driver = iniciar_driver()
+        
+        posiciones = extraer_posiciones(driver)
+        if posiciones:
+            actualizar_archivo_github('js/datos/posic
