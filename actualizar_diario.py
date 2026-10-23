@@ -199,15 +199,15 @@ def extraer_posiciones(driver):
         
                 # MÉTODO 1: Buscar "Finalizado"
                 for div in todos_divs:
-            try:
-                texto = div.get_text()
-                if 'Finalizado' in texto or 'finalizado' in texto:
-                    equipos_en_div = []
-                    for nombre_largo, nombre_corto in NOMBRES_EQUIPOS.items():
+                try:
+                    texto = div.get_text()
+                    if 'Finalizado' in texto or 'finalizado' in texto:
+                        equipos_en_div = []
+                        for nombre_largo, nombre_corto in NOMBRES_EQUIPOS.items():
                         if nombre_corto in texto:
                             equipos_en_div.append(nombre_corto)
-                    if len(equipos_en_div) >= 2:
-                        candidatos.append((div, equipos_en_div, texto))
+                            if len(equipos_en_div) >= 2:
+                            candidatos.append((div, equipos_en_div, texto))
             except:
                 continue
         
