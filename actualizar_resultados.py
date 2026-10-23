@@ -4,7 +4,7 @@ import base64
 import json
 import logging
 import re
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 
@@ -33,6 +33,8 @@ MESES_ESPANOL = {
     'septiembre': 9, 'octubre': 10, 'noviembre': 11, 'diciembre': 12
 }
 
+VENEZUELA_OFFSET = timezone(timedelta(hours=-4))
+
 def obtener_nombre_corto(nombre_completo):
     if not nombre_completo:
         return ''
@@ -41,8 +43,12 @@ def obtener_nombre_corto(nombre_completo):
             return nombre_corto
     return nombre_completo.split()[0] if nombre_completo else ''
 
+def obtener_fecha_venezuela():
+    ahora_utc = datetime.now(timezone.utc)
+    ahora_vzla = ahora_utc.astimezone(VENEZUELA_OFFSET)
+    return ahora_vzla
+
 def leer_fecha_principal(page):
-    """Lee la fecha principal usando JavaScript"""
     try:
         fecha_texto = page.evaluate("""
             () => {
@@ -66,93 +72,190 @@ def leer_fecha_principal(page):
                 mes = MESES_ESPANOL.get(mes_texto)
                 if mes:
                     fecha = datetime(anio, mes, dia)
-                    logger.info(f"📅 Fecha detectada: {fecha.strftime('%d/%m/%Y')} (texto: '{fecha_texto}')")
+                    logger.info(f" Fecha detectada: {fecha.strftime('%d/%m/%Y')} (texto: '{fecha_texto}')")
                     return fecha
         
-        logger.warning("️ No se pudo detectar la fecha")
+        logger.warning("⚠️ No se pudo detectar la fecha")
         return None
         
     except Exception as e:
         logger.error(f"❌ Error leyendo fecha: {e}")
         return None
 
-def navegar_a_ayer(page):
-    """Navega a la fecha de ayer usando Playwright"""
+def hacer_clic_flecha(page, direccion):
+    """Intenta múltiples estrategias para hacer clic en la flecha"""
     try:
-        hoy = datetime.now()
-        fecha_ayer = hoy - timedelta(days=1)
-        logger.info(f"🎯 Fecha objetivo (ayer): {fecha_ayer.strftime('%d/%m/%Y')}")
-        logger.info(f"📅 Hoy es: {hoy.strftime('%d/%m/%Y')}")
+        logger.info(f"🔍 Buscando botón {direccion}...")
         
-        # Esperar a que cargue
+        # Estrategia 1: Buscar por texto "<" o ">"
+        try:
+            if direccion == "izquierda":
+                page.click('button:has-text("<"), a:has-text("<")', timeout=3000)
+            else:
+                page.click('button:has-text(">"), a:has-text(">")', timeout=3000)
+            logger.info(f"✅ Estrategia 1: Clic por texto")
+            return True
+        except:
+            pass
+        
+        # Estrategia 2: Buscar por aria-label
+        try:
+            if direccion == "izquierda":
+                page.click('[aria-label*="anterior"], [aria-label*="previous"], [aria-label*="Previous"]', timeout=3000)
+            else:
+                page.click('[aria-label*="siguiente"], [aria-label*="next"], [aria-label*="Next"]', timeout=3000)
+            logger.info(f"✅ Estrategia 2: Clic por aria-label")
+            return True
+        except:
+            pass
+        
+        # Estrategia 3: Buscar por clase CSS común
+        try:
+            if direccion == "izquierda":
+                page.click('.prev, .previous, .arrow-left, .fa-chevron-left, .btn-prev', timeout=3000)
+            else:
+                page.click('.next, .arrow-right, .fa-chevron-right, .btn-next', timeout=3000)
+            logger.info(f"✅ Estrategia 3: Clic por clase CSS")
+            return True
+        except:
+            pass
+        
+        # Estrategia 4: Usar JavaScript para encontrar y hacer clic
+        resultado = page.evaluate(f"""
+            () => {{
+                // Buscar todos los botones y enlaces
+                var botones = document.querySelectorAll('button, a, [role="button"]');
+                for (var i = 0; i < botones.length; i++) {{
+                    var boton = botones[i];
+                    var texto = boton.innerText.trim();
+                    var ariaLabel = boton.getAttribute('aria-label') || '';
+                    var clase = boton.className || '';
+                    
+                    // Si es la dirección izquierda
+                    if ('{direccion}' === 'izquierda') {{
+                        if (texto === '<' || texto === '‹' || texto === '«' || 
+                            ariaLabel.toLowerCase().includes('anterior') || 
+                            ariaLabel.toLowerCase().includes('previous') ||
+                            clase.includes('prev') || clase.includes('left')) {{
+                            boton.click();
+                            return 'Clic realizado en: ' + texto;
+                        }}
+                    }} else {{
+                        if (texto === '>' || texto === '›' || texto === '»' || 
+                            ariaLabel.toLowerCase().includes('siguiente') || 
+                            ariaLabel.toLowerCase().includes('next') ||
+                            clase.includes('next') || clase.includes('right')) {{
+                            boton.click();
+                            return 'Clic realizado en: ' + texto;
+                        }}
+                    }}
+                }}
+                
+                // Si no encontró por texto/aria/clase, buscar por posición (botones cerca de la fecha)
+                var fechaElemento = null;
+                var elementos = document.querySelectorAll('div, span, h2, h3');
+                for (var i = 0; i < elementos.length; i++) {{
+                    var texto = elementos[i].innerText.trim();
+                    if (texto.match(/\d{{1,2}}\s+de\s+\w+\s+\d{{4}}/) && texto.length < 50) {{
+                        fechaElemento = elementos[i];
+                        break;
+                    }}
+                }}
+                
+                if (fechaElemento) {{
+                    var hermanos = fechaElemento.parentElement.children;
+                    for (var i = 0; i < hermanos.length; i++) {{
+                        var hermano = hermanos[i];
+                        if ('{direccion}' === 'izquierda' && hermano.offsetLeft < fechaElemento.offsetLeft) {{
+                            hermano.click();
+                            return 'Clic en elemento a la izquierda de la fecha';
+                        }}
+                        if ('{direccion}' === 'derecha' && hermano.offsetLeft > fechaElemento.offsetLeft) {{
+                            hermano.click();
+                            return 'Clic en elemento a la derecha de la fecha';
+                        }}
+                    }}
+                }}
+                
+                return null;
+            }}
+        """)
+        
+        if resultado:
+            logger.info(f"✅ Estrategia 4 (JavaScript): {resultado}")
+            return True
+        else:
+            logger.warning(f"⚠️ No se encontró botón {direccion} con ninguna estrategia")
+            return False
+            
+    except Exception as e:
+        logger.error(f"❌ Error haciendo clic {direccion}: {e}")
+        return False
+
+def navegar_a_ayer(page):
+    try:
+        ahora_vzla = obtener_fecha_venezuela()
+        hoy_vzla = ahora_vzla.replace(hour=0, minute=0, second=0, microsecond=0)
+        ayer_vzla = hoy_vzla - timedelta(days=1)
+        
+        logger.info(f"🇻🇪 Hora Venezuela: {ahora_vzla.strftime('%d/%m/%Y %H:%M')}")
+        logger.info(f" Hoy en Venezuela: {hoy_vzla.strftime('%d/%m/%Y')}")
+        logger.info(f"🎯 Ayer en Venezuela: {ayer_vzla.strftime('%d/%m/%Y')}")
+        
         page.wait_for_load_state('networkidle')
         
-        # Leer fecha actual
         fecha_pagina = leer_fecha_principal(page)
         
         if not fecha_pagina:
-            logger.warning("⚠️ No se pudo leer la fecha, haciendo clic por seguridad")
-            try:
-                page.click('button:has-text("<"), a:has-text("<")', timeout=5000)
-                logger.info("✅ Clic en flecha izquierda")
+            logger.warning("⚠️ No se pudo leer la fecha, intentando clic izquierdo por defecto")
+            if hacer_clic_flecha(page, "izquierda"):
                 page.wait_for_timeout(3000)
                 return True
-            except:
-                pass
             return False
         
-        diferencia_con_hoy = (fecha_pagina - hoy).days
+        diferencia = (fecha_pagina - hoy_vzla).days
         
         logger.info(f"📊 Fecha página: {fecha_pagina.strftime('%d/%m/%Y')}")
-        logger.info(f"📊 Diferencia con hoy: {diferencia_con_hoy} días")
+        logger.info(f"📊 Diferencia con hoy (Venezuela): {diferencia} días")
         
-        if diferencia_con_hoy == 0:
-            logger.info(" La página muestra HOY, retrocediendo 1 día")
-            diferencia = 1
+        if diferencia == 0:
+            logger.info("📍 La página muestra HOY (Venezuela), retrocediendo 1 día")
+            diferencia_clics = 1
             direccion = "izquierda"
-        elif diferencia_con_hoy > 0:
-            logger.info(f"📍 La página muestra {diferencia_con_hoy} días en el futuro")
-            diferencia = diferencia_con_hoy + 1
+        elif diferencia > 0:
+            logger.info(f" La página muestra {diferencia} días en el futuro")
+            diferencia_clics = diferencia + 1
             direccion = "izquierda"
+        elif diferencia == -1:
+            logger.info("✅ La página ya muestra ayer (Venezuela)")
+            return True
         else:
-            dias_pasados = abs(diferencia_con_hoy)
-            if dias_pasados == 1:
-                logger.info("✅ La página ya muestra ayer")
-                return True
-            else:
-                logger.info(f"📍 La página muestra {dias_pasados} días en el pasado")
-                diferencia = dias_pasados - 1
-                direccion = "derecha"
+            dias_atras = abs(diferencia)
+            logger.info(f"📍 La página muestra {dias_atras} días en el pasado")
+            diferencia_clics = dias_atras - 1
+            direccion = "derecha"
         
-        logger.info(f"👉 Necesitamos {diferencia} clics hacia la {direccion}")
+        logger.info(f"👉 Necesitamos {diferencia_clics} clics hacia la {direccion}")
         
-        if diferencia > 10:
-            logger.warning(f"⚠️ Demasiados clics ({diferencia}), limitando a 10")
-            diferencia = 10
+        if diferencia_clics > 10:
+            logger.warning(f"⚠️ Demasiados clics ({diferencia_clics}), limitando a 10")
+            diferencia_clics = 10
         
-        # Hacer clics
-        for i in range(diferencia):
-            try:
-                if direccion == "izquierda":
-                    page.click('button:has-text("<"), a:has-text("<"), [aria-label*="anterior"], [aria-label*="previous"]', timeout=5000)
-                else:
-                    page.click('button:has-text(">"), a:has-text(">"), [aria-label*="siguiente"], [aria-label*="next"]', timeout=5000)
-                
-                logger.info(f"✅ Clic {i+1}/{diferencia} hacia la {direccion}")
+        for i in range(diferencia_clics):
+            if hacer_clic_flecha(page, direccion):
+                logger.info(f"✅ Clic {i+1}/{diferencia_clics} hacia la {direccion}")
                 page.wait_for_timeout(3000)
-                
-            except Exception as e:
-                logger.error(f"❌ Error en clic {i+1}: {e}")
+            else:
+                logger.error(f"❌ No se pudo hacer clic {i+1}")
                 break
         
-        # Verificar fecha final
         fecha_final = leer_fecha_principal(page)
         if fecha_final:
-            if fecha_final == fecha_ayer:
+            if fecha_final == ayer_vzla:
                 logger.info(f"✅ Fecha confirmada: {fecha_final.strftime('%d/%m/%Y')}")
                 return True
             else:
-                logger.warning(f"⚠️ Fecha final: {fecha_final.strftime('%d/%m/%Y')}")
+                logger.warning(f"⚠️ Fecha final: {fecha_final.strftime('%d/%m/%Y')}, esperada: {ayer_vzla.strftime('%d/%m/%Y')}")
                 return False
         return False
         
@@ -161,19 +264,15 @@ def navegar_a_ayer(page):
         return False
 
 def extraer_resultados(page):
-    """Extrae juegos finalizados con Playwright"""
     logger.info("🏆 Extrayendo resultados...")
     
     try:
-        # Esperar a que cargue todo
         page.wait_for_load_state('networkidle')
         page.wait_for_timeout(2000)
         
-        # Obtener HTML
         html = page.content()
         soup = BeautifulSoup(html, 'html.parser')
         
-        # Debugging
         fecha_pagina = leer_fecha_principal(page)
         if fecha_pagina:
             logger.info(f"📅 Fecha en página: {fecha_pagina.strftime('%d/%m/%Y')}")
@@ -181,7 +280,6 @@ def extraer_resultados(page):
         todos_divs = soup.find_all('div')
         logger.info(f"📊 Total de divs: {len(todos_divs)}")
         
-        # Buscar "Finalizado"
         logger.info("🔍 Buscando 'Finalizado' o 'final':")
         divs_con_final = []
         for i, div in enumerate(todos_divs):
@@ -195,14 +293,13 @@ def extraer_resultados(page):
             for idx, texto in divs_con_final:
                 logger.info(f"  ✅ Div {idx}: '{texto}'")
         else:
-            logger.info("️ No se encontró 'Finalizado'")
-            logger.info(" Divs grandes:")
+            logger.info("⚠️ No se encontró 'Finalizado'")
+            logger.info("🔍 Divs grandes:")
             for i, div in enumerate(todos_divs[:30]):
                 texto = div.get_text()
                 if len(texto) > 100:
                     logger.info(f"  Div {i} ({len(texto)} chars): '{texto[:150]}...'")
         
-        # Extraer juegos
         juegos = []
         juegos_procesados = set()
         
@@ -267,10 +364,10 @@ def extraer_resultados(page):
                         if match_s:
                             pitcher_salvador = match_s.group(1).strip().split(',')[0].strip()
                     
-                    fecha_ayer = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+                    ayer_vzla = obtener_fecha_venezuela().replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=1)
                     
                     juegos.append({
-                        'fecha': fecha_ayer,
+                        'fecha': ayer_vzla.strftime("%Y-%m-%d"),
                         'visitante': visitante,
                         'local': local,
                         'scoreVisitante': score_visitante,
@@ -324,40 +421,37 @@ def actualizar_github(file_path, datos, mensaje):
         return False
 
 def main():
-    logger.info("🚀 Iniciando Bot de Resultados (Playwright)...")
+    logger.info(" Iniciando Bot de Resultados (Playwright)...")
     if not TOKEN:
         logger.error("❌ No hay GITHUB_TOKEN")
         return
     
     try:
         with sync_playwright() as p:
-            # Lanzar navegador
             browser = p.chromium.launch(headless=True)
             context = browser.new_context(
                 viewport={'width': 1920, 'height': 1080},
-                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                timezone_id='America/Caracas'
             )
             page = context.new_page()
             
-            # Navegar a la página
             logger.info("🌐 Navegando a stats.lvbp.com...")
             page.goto(URL_RESULTADOS, wait_until='networkidle', timeout=30000)
             
-            # Navegar a ayer
             if not navegar_a_ayer(page):
-                logger.warning("⚠️ No se pudo navegar a ayer con certeza")
+                logger.warning("️ No se pudo navegar a ayer con certeza")
             
-            # Extraer resultados
             resultados = extraer_resultados(page)
             
             if resultados and len(resultados) > 0:
                 logger.info(f"✅ Extraídos {len(resultados)} juegos")
-                actualizar_github('js/datos/resultados.js', resultados, "🤖 Bot: Resultados (Playwright)")
+                actualizar_github('js/datos/resultados.js', resultados, "🤖 Bot: Resultados")
             else:
                 logger.error("❌ No se extrajeron juegos")
             
             browser.close()
-            logger.info(" Bot finalizado")
+            logger.info("🏁 Bot finalizado")
             
     except Exception as e:
         logger.exception(f"❌ Error fatal: {e}")
