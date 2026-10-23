@@ -187,8 +187,8 @@ def extraer_posiciones(driver):
         return []
         
         def extraer_resultados(driver):
-    logger.info(" Extrayendo Resultados...")
-    try:
+        logger.info(" Extrayendo Resultados...")
+        try:
         driver.get(URL_RESULTADOS)
         WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
         time.sleep(3)
