@@ -502,7 +502,7 @@ def extraer_resultados(page):
                     juegos.append({
                         'fecha': ayer_naive.strftime("%Y-%m-%d"),
                         'visitante': visitante,
-'local': local,
+                        'local': local,
                         'scoreVisitante': score_visitante,
                         'scoreLocal': score_local,
                         'innings': innings,
