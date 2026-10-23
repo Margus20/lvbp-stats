@@ -94,7 +94,7 @@ def detectar_canales(juego):
     return canales_detectados
 
 def extraer_posiciones(driver):
-    print("📊 Extrayendo Posiciones...")
+    print(" Extrayendo Posiciones...")
     driver.get(URL_POSICIONES)
     WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "table")))
     time.sleep(2)
@@ -159,33 +159,27 @@ def extraer_posiciones(driver):
     return datos
 
 def extraer_resultados(driver):
-    """Extrae resultados FILTRANDO divs anidados y DEDUPLICANDO"""
     print("🏆 Extrayendo Resultados...")
     driver.get(URL_RESULTADOS)
     WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
     time.sleep(3)
     
     soup = BeautifulSoup(driver.page_source, 'html.parser')
-    
-    # MÉTODO 1: Buscar divs con "Finalizado"
     todos_divs = soup.find_all('div')
     candidatos = []
     
     for div in todos_divs:
         texto = div.get_text()
         if 'Finalizado' in texto or 'finalizado' in texto:
-            # Verificar que tenga al menos 2 equipos diferentes
             equipos_en_div = []
             for nombre_largo, nombre_corto in NOMBRES_EQUIPOS.items():
                 if nombre_corto in texto:
                     equipos_en_div.append(nombre_corto)
-            
             if len(equipos_en_div) >= 2:
                 candidatos.append((div, equipos_en_div, texto))
     
     print(f"🔍 Candidatos iniciales: {len(candidatos)}")
     
-    # 🔍 FILTRAR DIVS ANIDADOS: Solo tomar el más específico (menor)
     divs_finales = []
     for i, (div1, eq1, txt1) in enumerate(candidatos):
         es_anidado = False
@@ -198,28 +192,22 @@ def extraer_resultados(driver):
     
     print(f"✅ Después de filtrar anidados: {len(divs_finales)}")
     
-    # EXTRAER DATOS Y DEDUPLICAR
     datos = []
-    juegos_vistos = set()  # Para evitar duplicados
+    juegos_vistos = set()
     
     for div, equipos, texto in divs_finales[:8]:
         try:
             visitante = equipos[0]
             local = equipos[1]
-            
-            # Crear clave única para deduplicar
             clave = f"{visitante}-{local}"
             if clave in juegos_vistos:
-                print(f"⚠️ Duplicado detectado: {clave} - Saltando")
                 continue
             juegos_vistos.add(clave)
             
-            # Extraer scores buscando específicamente después de "R H E"
             scores = []
             lines = texto.split('\n')
             for i, line in enumerate(lines):
                 if 'R' in line and 'H' in line and 'E' in line:
-                    # Buscar en las siguientes 2 líneas
                     for j in range(i+1, min(i+3, len(lines))):
                         numeros = re.findall(r'\d+', lines[j])
                         if numeros and len(numeros) >= 2:
@@ -227,10 +215,8 @@ def extraer_resultados(driver):
                             break
                     break
             
-            # Si no encuentra por R H E, buscar números aislados (no en secuencia larga)
             if len(scores) < 2:
                 numeros_aislados = re.findall(r'\b\d{1,2}\b', texto)
-                # Filtrar números que parecen scores (0-20)
                 posibles = [n for n in numeros_aislados if 0 <= int(n) <= 20]
                 if len(posibles) >= 2:
                     scores = [posibles[0], posibles[1]]
@@ -238,11 +224,9 @@ def extraer_resultados(driver):
             score_visitante = scores[0] if len(scores) > 0 else "0"
             score_local = scores[1] if len(scores) > 1 else "0"
             
-            # Extraer innings
             inning_match = re.search(r'Inning\s*(\d+)', texto, re.IGNORECASE)
             innings = inning_match.group(1) if inning_match else "9"
             
-            # Extraer pitchers
             pitcher_ganador = ""
             pitcher_perdedor = ""
             pitcher_salvador = ""
@@ -250,11 +234,9 @@ def extraer_resultados(driver):
             match_g = re.search(r'G:\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s\.]+?)(?:\s*\||\s+P:|\s+S:|\s+BOXSCORE|\n|$)', texto, re.IGNORECASE)
             if match_g:
                 pitcher_ganador = match_g.group(1).strip()
-            
             match_p = re.search(r'P:\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s\.]+?)(?:\s*\||\s+S:|\s+BOXSCORE|\n|$)', texto, re.IGNORECASE)
             if match_p:
                 pitcher_perdedor = match_p.group(1).strip()
-            
             match_s = re.search(r'S:\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s\.]+?)(?:\s*\||\s+BOXSCORE|\n|$)', texto, re.IGNORECASE)
             if match_s:
                 pitcher_salvador = match_s.group(1).strip()
@@ -273,9 +255,8 @@ def extraer_resultados(driver):
             })
             
             print(f"✅ Juego: {visitante} {score_visitante} - {score_local} {local} ({innings} inn)")
-            
         except Exception as e:
-            print(f"️ Error: {e}")
+            print(f"⚠️ Error: {e}")
             continue
     
     if len(datos) == 0:
@@ -286,7 +267,7 @@ def extraer_resultados(driver):
     return datos
 
 def extraer_calendario(driver):
-    """Extrae calendario FILTRANDO divs anidados y DEDUPLICANDO"""
+    """Extrae calendario buscando DIRECTAMENTE divs con PREVIA"""
     print("📅 Extrayendo Calendario...")
     driver.get(URL_CALENDARIO)
     WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
@@ -294,78 +275,45 @@ def extraer_calendario(driver):
     
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     
-    hoy_dia = datetime.now().strftime("%d").lstrip('0')
-    hoy_mes = datetime.now().strftime("%B").lower()
-    hoy_mes_es = None
-    for mes_es, mes_en in MESES_ESPANOL.items():
-        if mes_en == hoy_mes:
-            hoy_mes_es = mes_es
-            break
+    # MÉTODO DIRECTO: Buscar TODOS los divs que contengan "PREVIA"
+    todos_divs = soup.find_all('div')
+    divs_con_previa = []
     
-    print(f"📅 Buscando: {hoy_dia} de {hoy_mes_es or hoy_mes}")
-    
-    # Buscar sección de hoy
-    todas_secciones = soup.find_all(['h2', 'h3', 'h4', 'strong', 'b'])
-    seccion_hoy = None
-    
-    for seccion in todas_secciones:
-        texto = seccion.get_text(strip=True).lower()
-        if hoy_dia in texto and (hoy_mes_es in texto or hoy_mes in texto):
-            seccion_hoy = seccion
-            print(f"✅ Sección encontrada: {seccion.get_text(strip=True)}")
-            break
-    
-    if not seccion_hoy:
-        print(f"️ No se encontró sección para {hoy_dia}")
-        return []
-    
-    # Buscar divs con "PREVIA" después de la sección
-    hermanos = []
-    hermano = seccion_hoy.find_next_sibling()
-    while hermano and hermano.name in ['div', 'section']:
-        texto = hermano.get_text()
+    for div in todos_divs:
+        texto = div.get_text()
         if 'PREVIA' in texto:
-            hermanos.append(hermano)
-        if len(hermanos) >= 10:
-            break
-        hermano = hermano.find_next_sibling()
+            # Verificar que tenga al menos 2 equipos
+            equipos_encontrados = []
+            for nombre_largo, nombre_corto in NOMBRES_EQUIPOS.items():
+                if nombre_corto in texto:
+                    equipos_encontrados.append(nombre_corto)
+            
+            if len(equipos_encontrados) >= 2:
+                divs_con_previa.append((div, equipos_encontrados, texto))
     
-    print(f"🔍 Divs con PREVIA: {len(hermanos)}")
+    print(f"🔍 Divs con PREVIA y 2+ equipos: {len(divs_con_previa)}")
     
-    # FILTRAR DIVS ANIDADOS
+    # Filtrar divs anidados (tomar solo el más específico)
     divs_finales = []
-    for i, div1 in enumerate(hermanos):
+    for i, (div1, eq1, txt1) in enumerate(divs_con_previa):
         es_anidado = False
-        for j, div2 in enumerate(hermanos):
+        for j, (div2, eq2, txt2) in enumerate(divs_con_previa):
             if i != j and div1 in div2.find_all('div'):
                 es_anidado = True
                 break
         if not es_anidado:
-            divs_finales.append(div1)
+            divs_finales.append((div1, eq1, txt1))
     
     print(f"✅ Después de filtrar anidados: {len(divs_finales)}")
     
-    # EXTRAER Y DEDUPLICAR
+    # Extraer y deduplicar
     datos = []
     juegos_vistos = set()
     
-    for div in divs_finales[:6]:
+    for div, equipos, texto in divs_finales[:6]:
         try:
-            texto = div.get_text()
-            
-            # Extraer equipos
-            equipos = []
-            for nombre_largo, nombre_corto in NOMBRES_EQUIPOS.items():
-                if nombre_corto in texto:
-                    equipos.append(nombre_corto)
-            
-            if len(equipos) < 2:
-                continue
-            
             visitante = equipos[0]
             local = equipos[1]
-            
-            # Deduplicar
             clave = f"{visitante}-{local}"
             if clave in juegos_vistos:
                 print(f"⚠️ Duplicado: {clave} - Saltando")
@@ -399,8 +347,7 @@ def extraer_calendario(driver):
                 'finalizado': False
             })
             
-            print(f"✅ Juego: {visitante} vs {local} - {hora} - {estadio}")
-            
+            print(f"✅ Juego: {visitante} vs {local} - {hora} - {estadio} - {transmision}")
         except Exception as e:
             print(f"⚠️ Error: {e}")
             continue
@@ -424,7 +371,7 @@ def actualizar_archivo_github(file_path, datos_lista, mensaje_commit):
     }
     if sha:
         data["sha"] = sha
-        
+    
     response = requests.put(url, headers=headers, json=data)
     if response.status_code in [200, 201]:
         print(f"✅ {file_path} actualizado.")
@@ -436,12 +383,12 @@ def main():
     if not TOKEN:
         print("❌ ERROR: No GITHUB_TOKEN")
         return
-        
+    
     driver = iniciar_driver()
     try:
         posiciones = extraer_posiciones(driver)
         if posiciones:
-            actualizar_archivo_github('js/datos/posiciones.js', posiciones, "🤖 Bot: Posiciones")
+            actualizar_archivo_github('js/datos/posiciones.js', posiciones, " Bot: Posiciones")
         
         resultados = extraer_resultados(driver)
         if resultados is not None and len(resultados) > 0:
@@ -454,7 +401,7 @@ def main():
             actualizar_archivo_github('js/datos/calendario.js', calendario, "🤖 Bot: Calendario")
         else:
             print("🔒 Calendario: NO se actualiza")
-        
+    
     except Exception as e:
         print(f"❌ Error fatal: {e}")
         import traceback
