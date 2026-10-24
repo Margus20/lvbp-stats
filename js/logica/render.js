@@ -7,7 +7,13 @@ import { NOTICIAS } from '../datos/noticias.js';
 import { RESULTADOS } from '../datos/resultados.js'; // Datos ya corregidos con pitcherGanador, etc.
 import { CALENDARIO } from '../datos/calendario.js';
 import { LIDERES, obtenerMascota } from '../datos/lideres.js';
-import { PUBLICIDAD } from '../datos/publicidad.js';
+
+// ⚠️⚠️ IMPORTANTE: Usamos "ppublicidad.js" (con doble P) porque el archivo 
+// original "publicidad.js" se corrompió en el pasado y no se podía editar ni borrar.
+// Este archivo paralelo fue creado como solución definitiva. 
+// NO ES UN ERROR DE ESCRITURA, ES INTENCIONAL.
+import { PUBLICIDAD } from '../datos/ppublicidad.js';
+
 import { CANALES } from '../datos/canales.js';
 import { getEquipo, getLogo, getColor, getColorTexto, calcularDIF } from './utils.js';
 
