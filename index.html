@@ -62,7 +62,7 @@
                         <p class="texto-marca-final">LVBP al Día - Tu fuente de béisbol venezolano</p>
                     </div>
                     <div class="seccion-comentarios">
-                        <h3>💬 Comentarios</h3>
+                        <h3> Comentarios</h3>
                         <form class="formulario-comentario" id="formulario-comentario">
                             <input type="text" placeholder="Tu nombre" required class="input-comentario">
                             <textarea placeholder="Escribe tu comentario..." required class="textarea-comentario" rows="4"></textarea>
@@ -142,6 +142,103 @@
             }
         }
         cargarComponentes();
+    </script>
+
+    <!-- 🔍 CONSOLA DE DIAGNÓSTICO EN PANTALLA (Para Tablet) -->
+    <script>
+        // Crear contenedor de diagnóstico visible
+        const debugDiv = document.createElement('div');
+        debugDiv.id = 'diagnostico-tablet';
+        debugDiv.style.cssText = `
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            background: rgba(0, 0, 0, 0.95); 
+            color: #00ff00; 
+            font-family: 'Courier New', monospace; 
+            font-size: 13px; 
+            padding: 15px; 
+            max-height: 300px; 
+            overflow-y: auto; 
+            z-index: 999999; 
+            border-top: 3px solid #00ff00;
+            box-shadow: 0 -5px 20px rgba(0,255,0,0.3);
+        `;
+        debugDiv.innerHTML = '<div style="font-weight: bold; color: #fff; margin-bottom: 10px; border-bottom: 2px solid #333; padding-bottom: 5px;"> DIAGNÓSTICO EN TIEMPO REAL</div><div id="debug-content"></div>';
+        document.body.appendChild(debugDiv);
+        
+        const debugContent = document.getElementById('debug-content');
+        
+        function log(msg, type = 'info') {
+            const color = type === 'error' ? '#ff4444' : (type === 'warn' ? '#ffaa00' : '#00ff00');
+            const icon = type === 'error' ? '❌' : (type === 'warn' ? '️' : '✅');
+            const p = document.createElement('div');
+            p.style.color = color;
+            p.style.marginBottom = '5px';
+            p.innerHTML = `${icon} ${msg}`;
+            debugContent.appendChild(p);
+            debugDiv.scrollTop = debugDiv.scrollHeight;
+        }
+        
+        // Iniciar diagnóstico
+        log('🚀 INICIANDO DIAGNÓSTICO...', 'info');
+        
+        // Verificar si los scripts se cargaron
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                log('📄 Página cargada completamente', 'info');
+                
+                // Verificar elementos del DOM
+                const elementos = {
+                    'posiciones-body': document.getElementById('posiciones-body'),
+                    'resultados-container': document.getElementById('resultados-container'),
+                    'calendario-container': document.getElementById('calendario-container'),
+                    'estadisticas-placeholder': document.getElementById('estadisticas-placeholder')
+                };
+                
+                for (const [id, elem] of Object.entries(elementos)) {
+                    if (elem) {
+                        log(`✅ Elemento #${id} existe`, 'info');
+                    } else {
+                        log(`❌ Elemento #${id} NO existe`, 'error');
+                    }
+                }
+                
+                // Verificar si app.js se cargó
+                if (typeof window.renderPosiciones === 'function') {
+                    log('✅ Funciones de render cargadas', 'info');
+                } else {
+                    log('❌ Funciones de render NO cargadas - app.js falló', 'error');
+                }
+                
+                // Intentar cargar datos manualmente
+                try {
+                    import('./js/datos/posiciones.js').then(mod => {
+                        log(` POSICIONES: ${mod.POSICIONES ? mod.POSICIONES.length + ' equipos' : 'VACÍO'}`, mod.POSICIONES ? 'info' : 'warn');
+                    }).catch(err => log(`❌ Error cargando posiciones.js: ${err.message}`, 'error'));
+                    
+                    import('./js/datos/resultados.js').then(mod => {
+                        log(`📊 RESULTADOS: ${mod.RESULTADOS ? mod.RESULTADOS.length + ' juegos' : 'VACÍO'}`, mod.RESULTADOS ? 'info' : 'warn');
+                    }).catch(err => log(`❌ Error cargando resultados.js: ${err.message}`, 'error'));
+                    
+                    import('./js/datos/calendario.js').then(mod => {
+                        log(`📊 CALENDARIO: ${mod.CALENDARIO ? mod.CALENDARIO.length + ' juegos' : 'VACÍO'}`, mod.CALENDARIO ? 'info' : 'warn');
+                    }).catch(err => log(`❌ Error cargando calendario.js: ${err.message}`, 'error'));
+                    
+                    import('./js/datos/lideres.js').then(mod => {
+                        log(`📊 LIDERES: ${mod.LIDERES ? Object.keys(mod.LIDERES).length + ' categorías' : 'VACÍO'}`, mod.LIDERES ? 'info' : 'warn');
+                    }).catch(err => log(`❌ Error cargando lideres.js: ${err.message}`, 'error'));
+                    
+                } catch (e) {
+                    log(`❌ Error general: ${e.message}`, 'error');
+                }
+                
+                log('🏁 Diagnóstico completado', 'info');
+                log(' Si ves errores rojos, esos son los problemas a resolver', 'warn');
+                
+            }, 3000); // Esperar 3 segundos después de cargar
+        });
     </script>
 </body>
 </html>
