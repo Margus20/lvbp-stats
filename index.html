@@ -10,20 +10,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Usamos un número aleatorio para forzar la recarga absoluta de los CSS -->
-    <link rel="stylesheet" href="css/01-base.css?v=999">
-    <link rel="stylesheet" href="css/02-header-nav.css?v=999">
-    <link rel="stylesheet" href="css/03-noticias-articulos.css?v=999">
-    <link rel="stylesheet" href="css/04-tablas-posiciones.css?v=999">
-    <link rel="stylesheet" href="css/05-tarjetas-juegos.css?v=999">
-    <link rel="stylesheet" href="css/06-estadisticas-mascotas.css?v=999">
-    <link rel="stylesheet" href="css/07-sidebar-footer.css?v=999">
-    <link rel="stylesheet" href="css/08-boton-flotante.css?v=999">
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="css/01-base.css?v=104">
+    <link rel="stylesheet" href="css/02-header-nav.css?v=104">
+    <link rel="stylesheet" href="css/03-noticias-articulos.css?v=104">
+    <link rel="stylesheet" href="css/04-tablas-posiciones.css?v=104">
+    <link rel="stylesheet" href="css/05-tarjetas-juegos.css?v=104">
+    <link rel="stylesheet" href="css/06-estadisticas-mascotas.css?v=104">
+    <link rel="stylesheet" href="css/07-sidebar-footer.css?v=104">
+    <link rel="stylesheet" href="css/08-boton-flotante.css?v=104">
     
+    <!-- Iconos de Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Analítica -->
     <script data-goatcounter="https://margus20.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
+    <!-- AQUÍ SE CARGARÁ EL HEADER DESDE componentes/header.html -->
     <div id="header-placeholder"></div>
 
     <div class="main-layout">
@@ -65,6 +69,15 @@
                         </form>
                         <div class="lista-comentarios" id="lista-comentarios"></div>
                     </div>
+                    <div class="seccion-compartir">
+                        <h3>📢 Comparte esta noticia</h3>
+                        <div class="botones-compartir">
+                            <a href="#" class="btn-compartir whatsapp" onclick="window.compartirEnRed('whatsapp', 'noticia'); return false;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                            <a href="#" class="btn-compartir telegram" onclick="window.compartirEnRed('telegram', 'noticia'); return false;"><i class="fab fa-telegram"></i> Telegram</a>
+                            <a href="#" class="btn-compartir facebook" onclick="window.compartirEnRed('facebook', 'noticia'); return false;"><i class="fab fa-facebook"></i> Facebook</a>
+                            <a href="#" class="btn-compartir twitter" onclick="window.compartirEnRed('twitter', 'noticia'); return false;"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/xapp.png" alt="X" class="logo-x-btn"> X</a>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -94,93 +107,39 @@
                 </div>
             </section>
 
+            <!-- AQUÍ SE CARGARÁN LAS ESTADÍSTICAS DESDE componentes/estadisticas.html -->
             <div id="estadisticas-placeholder"></div>
         </main>
+
         <aside class="sidebar-publicidad" id="sidebar-publicidad"></aside>
     </div>
 
+    <!-- AQUÍ SE CARGARÁ EL FOOTER DESDE componentes/footer.html -->
     <div id="footer-placeholder"></div>
 
-    <!-- 🔍 CONSOLA DE DIAGNÓSTICO INFALIBLE -->
+    <!-- Script que carga los componentes y luego la lógica principal -->
     <script>
-        // 1. Crear el cuadro de diagnóstico INMEDIATAMENTE
-        const debugDiv = document.createElement('div');
-        debugDiv.id = 'diagnostico-tablet';
-        debugDiv.style.cssText = `
-            position: fixed; bottom: 0; left: 0; right: 0; 
-            background: rgba(0, 0, 0, 0.95); color: #00ff00; 
-            font-family: 'Courier New', monospace; font-size: 13px; 
-            padding: 15px; max-height: 40vh; overflow-y: auto; 
-            z-index: 999999; border-top: 3px solid #00ff00;
-        `;
-        debugDiv.innerHTML = '<div style="font-weight: bold; color: #fff; margin-bottom: 10px; border-bottom: 2px solid #333; padding-bottom: 5px;">🔍 DIAGNÓSTICO EN TIEMPO REAL</div><div id="debug-content"></div>';
-        document.body.appendChild(debugDiv);
-        
-        const debugContent = document.getElementById('debug-content');
-        function log(msg, type = 'info') {
-            const color = type === 'error' ? '#ff4444' : (type === 'warn' ? '#ffaa00' : '#00ff00');
-            const icon = type === 'error' ? '❌' : (type === 'warn' ? '⚠️' : '✅');
-            const p = document.createElement('div');
-            p.style.color = color;
-            p.style.marginBottom = '5px';
-            p.innerHTML = `${icon} ${msg}`;
-            debugContent.appendChild(p);
-            debugDiv.scrollTop = debugDiv.scrollHeight;
-        }
-
-        log('🚀 INICIANDO DIAGNÓSTICO...', 'info');
-
-        // 2. Capturar CUALQUIER error del navegador y mostrarlo en el cuadro
-        window.addEventListener('error', function(event) {
-            log('ERROR GLOBAL: ' + event.message + ' (Línea: ' + event.lineno + ')', 'error');
-        });
-        const originalError = console.error;
-        console.error = function(...args) {
-            originalError.apply(console, args);
-            log('ERROR DE CONSOLA: ' + args.join(' '), 'error');
-        };
-
-        // 3. Ejecutar la carga de componentes con registro de cada paso
         async function cargarComponentes() {
             try {
-                log('⏳ Cargando header.html...', 'info');
-                const header = await fetch('componentes/header.html').then(r => {
-                    if (!r.ok) throw new Error('HTTP ' + r.status);
-                    return r.text();
-                });
+                const header = await fetch('componentes/header.html').then(r => r.text());
                 document.getElementById('header-placeholder').innerHTML = header;
-                log('✅ header.html cargado', 'info');
                 
-                log('⏳ Cargando estadisticas.html...', 'info');
-                const estadisticas = await fetch('componentes/estadisticas.html').then(r => {
-                    if (!r.ok) throw new Error('HTTP ' + r.status);
-                    return r.text();
-                });
+                const estadisticas = await fetch('componentes/estadisticas.html').then(r => r.text());
                 document.getElementById('estadisticas-placeholder').innerHTML = estadisticas;
-                log('✅ estadisticas.html cargado', 'info');
                 
-                log('⏳ Cargando footer.html...', 'info');
-                const footer = await fetch('componentes/footer.html').then(r => {
-                    if (!r.ok) throw new Error('HTTP ' + r.status);
-                    return r.text();
-                });
+                const footer = await fetch('componentes/footer.html').then(r => r.text());
                 document.getElementById('footer-placeholder').innerHTML = footer;
-                log('✅ footer.html cargado', 'info');
                 
-                log('⏳ Inyectando app.js...', 'info');
+                // Cargar app.js (versión 104 para forzar caché nueva y limpia)
                 const scriptApp = document.createElement('script');
                 scriptApp.type = 'module';
-                // USAMOS DATE.NOW() PARA ROMPER LA CACHÉ AL 100%
-                scriptApp.src = 'js/logica/app.js?v=' + Date.now(); 
-                scriptApp.onload = () => log('✅ app.js inyectado y ejecutándose', 'info');
-                scriptApp.onerror = (e) => log('❌ FALLO AL CARGAR app.js (Revisa la ruta o sintaxis)', 'error');
+                scriptApp.src = 'js/logica/app.js?v=104';
                 document.body.appendChild(scriptApp);
 
             } catch (error) {
-                log('❌ ERROR CRÍTICO EN CARGA: ' + error.message, 'error');
+                console.error('Error cargando componentes:', error);
             }
         }
-        
         cargarComponentes();
     </script>
 </body>
