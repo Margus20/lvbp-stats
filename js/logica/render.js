@@ -253,9 +253,9 @@ export function renderLideres() {
         });
     }
     
-    // ✅ AJUSTE: Forzar color negro (#000000) a los títulos de las categorías para máximo contraste
-    // Busca cualquier h3, h4 o elemento con clase 'titulo-categoria' dentro de la sección de líderes
-    document.querySelectorAll('#lideres h3, #lideres h4, .titulo-categoria, .titulo-seccion').forEach(titulo => {
+    // ✅ AJUSTE APLICADO: Forzar color negro (#000000) a los títulos de las categorías para máximo contraste
+    // Ahora busca específicamente los títulos dentro de las tarjetas de estadísticas (.stat-card h3)
+    document.querySelectorAll('.stat-card h3, .titulo-seccion').forEach(titulo => {
         titulo.style.color = '#000000'; 
         titulo.style.textShadow = 'none'; // Elimina sombras que puedan dificultar la lectura
     });
