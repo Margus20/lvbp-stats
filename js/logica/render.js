@@ -7,9 +7,33 @@ import { NOTICIAS } from '../datos/noticias.js';
 import { RESULTADOS } from '../datos/resultados.js';
 import { CALENDARIO } from '../datos/calendario.js';
 import { LIDERES, obtenerMascota } from '../datos/lideres.js';
-import { PUBLICIDAD } from '../datos/publicidad.js'; // ✅ CORREGIDO: Era ppublicidad.js
+import { PUBLICIDAD } from '../datos/publicidad.js';
 import { CANALES } from '../datos/canales.js';
 import { getEquipo, getLogo, getColor, getColorTexto, calcularDIF } from './utils.js';
+
+// 📱 CONSOLA EN PANTALLA (Para depuración en Tablet)
+function initConsolaTablet() {
+    if (document.getElementById('debug-tablet')) return;
+    const div = document.createElement('div');
+    div.id = 'debug-tablet';
+    div.style.cssText = 'position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.95); color: #00ff00; font-family: monospace; font-size: 13px; padding: 10px; max-height: 250px; overflow-y: auto; z-index: 99999; border-top: 3px solid #00ff00;';
+    div.innerHTML = '<div style="font-weight:bold; color:#fff; margin-bottom:8px; border-bottom:1px solid #333; padding-bottom:5px;">📱 CONSOLA DE DIAGNÓSTICO (Tablet)</div><div id="debug-logs"></div>';
+    document.body.appendChild(div);
+}
+
+function logTablet(msg, type = 'info') {
+    const logs = document.getElementById('debug-logs');
+    if (!logs) return;
+    const color = type === 'error' ? '#ff4444' : (type === 'warn' ? '#ffaa00' : '#00ff00');
+    const icon = type === 'error' ? '❌' : (type === 'warn' ? '⚠️' : '✅');
+    const p = document.createElement('div');
+    p.style.color = color;
+    p.style.marginBottom = '4px';
+    p.style.wordBreak = 'break-word';
+    p.innerHTML = `${icon} ${msg}`;
+    logs.appendChild(p);
+    document.getElementById('debug-tablet').scrollTop = document.getElementById('debug-tablet').scrollHeight;
+}
 
 export function renderPosiciones() {
     const tbody = document.getElementById("posiciones-body");
@@ -19,7 +43,6 @@ export function renderPosiciones() {
     POSICIONES.forEach((pos, i) => {
         const equipo = getEquipo(pos.nombre);
         if (!equipo) return;
-        // ✅ USAR el pct que extrajo el bot, no calcularlo
         const pct = pos.pct || '.000';
         const dif = calcularDIF(pos.jg, pos.jp, lider.jg, lider.jp);
         const tr = document.createElement("tr");
@@ -137,7 +160,6 @@ export function renderCalendario() {
                 return canal ? `<img src="${canal.logo}" alt="${nombre}" class="logo-canal-cal" title="${nombre}">` : `<span class="canal-texto">${nombre}</span>`;
             }).join(' <span class="separador-canal">+</span> ');
             
-            // ✅ EMOJI DEL ESTADIO ELIMINADO
             infoInferior = `<div class="info-juego-cal">
                 <div class="hora-cal">🕐 ${j.hora}</div>
                 <div class="estadio-cal">${j.lugar || 'Estadio por confirmar'}</div>
@@ -154,16 +176,17 @@ export function renderCalendario() {
     });
 }
 
-// 🐍 FUNCIÓN RENDERLIDERES CON MODO DEPURACIÓN (Inyectado quirúrgicamente)
+// 🐍 FUNCIÓN RENDERLIDERES CON CONSOLA EN PANTALLA
 export function renderLideres() {
-    console.group("🔍 DIAGNÓSTICO DE ESTADÍSTICAS");
-    console.log("1. ¿Se importaron los datos de LIDERES?", LIDERES ? "✅ SÍ" : "❌ NO");
+    initConsolaTablet();
+    logTablet("Iniciando diagnóstico de estadísticas...", "info");
+    logTablet(`¿Se importaron los datos de LIDERES? ${LIDERES ? "SÍ" : "NO"}`, LIDERES ? "info" : "error");
+    
     if (LIDERES) {
-        console.log("2. ¿La categoría 'jonrones' tiene datos?", LIDERES.jonrones ? `✅ SÍ (${LIDERES.jonrones.length} registros)` : "❌ NO");
+        logTablet(`¿La categoría 'jonrones' tiene datos? ${LIDERES.jonrones ? `SÍ (${LIDERES.jonrones.length} registros)` : "NO"}`, LIDERES.jonrones ? "info" : "warn");
     }
 
     const categoriasAMostrar = {
-        // BATEO
         'contenedor-jonrones': 'jonrones',
         'contenedor-average': 'average',
         'contenedor-impulsadas': 'impulsadas',
@@ -175,8 +198,6 @@ export function renderLideres() {
         'contenedor-basesRobadas': 'basesRobadas',
         'contenedor-basesPorBolas': 'basesPorBolas',
         'contenedor-ponchesBateo': 'ponchesBateo',
-        
-        // PITCHEO
         'contenedor-efectividad': 'efectividad',
         'contenedor-victorias': 'victorias',
         'contenedor-salvados': 'salvados',
@@ -191,15 +212,15 @@ export function renderLideres() {
         const contenedor = document.getElementById(idContenedor);
         
         if (!contenedor) {
-            console.error(`❌ FALLO: No se encontró el elemento con id="${idContenedor}" en el HTML. El fetch de estadísticas falló o el ID está mal escrito.`);
+            logTablet(`FALLO: No se encontró el elemento con id="${idContenedor}" en el HTML.`, "error");
             continue;
         }
         
-        console.log(`✅ Contenedor encontrado: ${idContenedor}`);
+        logTablet(`Contenedor encontrado: ${idContenedor}`, "info");
 
         const lideres = LIDERES[claveCategoria];
         if (!lideres) {
-            console.warn(`⚠️ ADVERTENCIA: No hay datos para la categoría ${claveCategoria}`);
+            logTablet(`ADVERTENCIA: No hay datos para la categoría ${claveCategoria}`, "warn");
             continue;
         }
 
@@ -207,8 +228,6 @@ export function renderLideres() {
 
         lideres.forEach(lider => {
             const rutaMascota = obtenerMascota(lider.equipo);
-            
-            // ✅ ELIMINADO: span de equipo redundante, ya que lider.nombre trae "D. Rodríguez (ARA)"
             const item = document.createElement('div');
             item.className = 'item-lider';
             item.innerHTML = `
@@ -222,8 +241,7 @@ export function renderLideres() {
             contenedor.appendChild(item);
         });
     }
-    console.log("3. Proceso de renderizado de líderes finalizado.");
-    console.groupEnd();
+    logTablet("Proceso de renderizado de líderes finalizado.", "info");
 }
 
 export function renderPublicidad() {
