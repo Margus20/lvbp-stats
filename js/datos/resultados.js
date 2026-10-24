@@ -3,48 +3,48 @@ export const RESULTADOS = [
         "fecha": "23 Oct 2026",
         "visitante": "Águilas",
         "local": "Cardenales",
-        "scoreVisitante": 8,
-        "scoreLocal": 11,
-        "innings": 9,
+        "scoreVisitante": "8",
+        "scoreLocal": "11",
+        "innings": "9",
         "finalizado": true,
-        "ganador": "Gustavo Rodriguez",
-        "perdedor": "Pedro Rodriguez",
-        "salvador": null
+        "pitcherGanador": "Gustavo Rodriguez",
+        "pitcherPerdedor": "Pedro Rodriguez",
+        "pitcherSalvador": ""
     },
     {
         "fecha": "23 Oct 2026",
         "visitante": "Caribes",
         "local": "Navegantes",
-        "scoreVisitante": 13,
-        "scoreLocal": 7,
-        "innings": 9,
+        "scoreVisitante": "13",
+        "scoreLocal": "7",
+        "innings": "9",
         "finalizado": true,
-        "ganador": "Marlon Franco",
-        "perdedor": "Ismael Agreda",
-        "salvador": null
+        "pitcherGanador": "Marlon Franco",
+        "pitcherPerdedor": "Ismael Agreda",
+        "pitcherSalvador": ""
     },
     {
         "fecha": "23 Oct 2026",
         "visitante": "Tiburones",
         "local": "Bravos",
-        "scoreVisitante": 2,
-        "scoreLocal": 10,
-        "innings": 9,
+        "scoreVisitante": "2",
+        "scoreLocal": "10",
+        "innings": "9",
         "finalizado": true,
-        "ganador": "Angel Rondón",
-        "perdedor": "Anthony Escobar",
-        "salvador": null
+        "pitcherGanador": "Angel Rondón",
+        "pitcherPerdedor": "Anthony Escobar",
+        "pitcherSalvador": ""
     },
     {
         "fecha": "23 Oct 2026",
         "visitante": "Leones",
         "local": "Tigres",
-        "scoreVisitante": 1,
-        "scoreLocal": 7,
-        "innings": 9,
+        "scoreVisitante": "1",
+        "scoreLocal": "7",
+        "innings": "9",
         "finalizado": true,
-        "ganador": "Jose Gonzalez",
-        "perdedor": "Erick Leal",
-        "salvador": null
+        "pitcherGanador": "Jose Gonzalez",
+        "pitcherPerdedor": "Erick Leal",
+        "pitcherSalvador": ""
     }
 ];
