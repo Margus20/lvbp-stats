@@ -23,7 +23,7 @@
 
 .juego-card .hora-cal { color: #ffd700; font-weight: bold; font-size: 0.95rem; }
 
-/* 🏟️ ESTILO DEL ESTADIO */
+/* ESTILO DEL ESTADIO (Sin emoji, el emoji se quitó desde el JS) */
 .estadio-cal {
     color: #ffd700; font-size: 0.85rem; font-weight: 600; text-align: center;
     margin: 5px 0; padding: 3px 10px; background: rgba(255, 215, 0, 0.1); border-radius: 4px;
@@ -48,3 +48,10 @@
 .finalizado-badge { background: #4caf50; color: #fff; padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; letter-spacing: 1px; }
 @keyframes parpadeo { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
 .inning-numero { color: #ffd700; font-size: 0.75rem; font-weight: bold; }
+
+/* ========================================== */
+/* 🆕 TÍTULOS DE ESTADÍSTICAS EN COLOR NEGRO */
+/* ========================================== */
+.stat-card h3 {
+    color: #000000 !important;
+}
