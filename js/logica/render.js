@@ -98,8 +98,7 @@ export function renderResultados() {
         const card = document.createElement("div");
         card.className = "resultado-card";
         
-        // ✅ AJUSTE: Ahora usa las claves correctas (pitcherGanador, pitcherPerdedor, pitcherSalvador)
-        // y les da un pequeño color (Verde, Rojo, Azul) para que se lean bien sobre fondo oscuro.
+        // ✅ Muestra los pitchers con colores (Verde, Rojo, Azul) para que se lean bien sobre fondo oscuro.
         const pitchersHTML = (r.pitcherGanador || r.pitcherPerdedor || r.pitcherSalvador) ? `
             <div style="padding: 8px 12px; font-size: 0.75rem; color: #cccccc; background: #1a1a1a; border-top: 1px solid #333; text-align: center; border-radius: 0 0 8px 8px;">
                 ${r.pitcherGanador ? `<span style="color: #4ade80; font-weight: bold;">G: ${r.pitcherGanador}</span>` : ''}
@@ -172,7 +171,7 @@ export function renderCalendario() {
                 return canal ? `<img src="${canal.logo}" alt="${nombre}" class="logo-canal-cal" title="${nombre}">` : `<span class="canal-texto">${nombre}</span>`;
             }).join(' <span class="separador-canal">+</span> ');
             
-            // ✅ AJUSTE: Se eliminó cualquier emoji antes del nombre del estadio para limpieza visual
+            // ✅ Muestra la info del estadio limpia, sin emojis innecesarios
             infoInferior = `<div class="info-juego-cal">
                 <div class="hora-cal">🕐 ${j.hora}</div>
                 <div class="estadio-cal">${j.lugar || 'Estadio por confirmar'}</div>
@@ -253,14 +252,9 @@ export function renderLideres() {
         });
     }
     
-    // ✅ AJUSTE APLICADO: Forzar color negro (#000000) a los títulos de las categorías para máximo contraste
-    // Ahora busca específicamente los títulos dentro de las tarjetas de estadísticas (.stat-card h3)
-    document.querySelectorAll('.stat-card h3, .titulo-seccion').forEach(titulo => {
-        titulo.style.color = '#000000'; 
-        titulo.style.textShadow = 'none'; // Elimina sombras que puedan dificultar la lectura
-    });
-    
-    logTablet("Proceso de renderizado de líderes finalizado. Títulos ajustados a negro.", "info");
+    // ✅ AJUSTE REALIZADO: Se eliminó el código JS que forzaba el color. 
+    // Ahora el archivo CSS (06-estadisticas-mascotas.css) se encarga de poner los títulos en negro de forma más limpia y sin parpadeos.
+    logTablet("Proceso de renderizado de líderes finalizado. (Títulos en negro gestionados por CSS)", "info");
 }
 
 export function renderPublicidad() {
