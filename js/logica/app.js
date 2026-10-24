@@ -80,82 +80,116 @@ function inicializarTodo() {
         });
     }
     
-    // 3. Renderizar todas las secciones
-    renderPosiciones();
-    renderNoticias();
-    renderResultados();
-    renderCalendario();
-    renderLideres();
-    renderPublicidad();
+    // 3. Renderizar todas las secciones CON PROTECCIÓN DE ERRORES
+    try {
+        console.log("🔄 Ejecutando renderPosiciones...");
+        renderPosiciones();
+        
+        console.log("🔄 Ejecutando renderNoticias...");
+        renderNoticias();
+        
+        console.log("🔄 Ejecutando renderResultados...");
+        renderResultados();
+        
+        console.log("🔄 Ejecutando renderCalendario...");
+        renderCalendario();
+        
+        console.log("🔄 Ejecutando renderLideres...");
+        renderLideres();
+        
+        console.log("🔄 Ejecutando renderPublicidad...");
+        renderPublicidad();
+        
+        console.log("✅ Todas las funciones de render ejecutadas sin errores.");
+    } catch (error) {
+        console.error("❌ ERROR CRÍTICO AL RENDERIZAR:", error);
+        // Mostrar el error en la consola de la tablet que agregamos al HTML
+        const debugContent = document.getElementById('debug-content');
+        if (debugContent) {
+            const p = document.createElement('div');
+            p.style.color = '#ff4444';
+            p.style.fontWeight = 'bold';
+            p.innerHTML = `❌ ERROR JS: ${error.message}`;
+            debugContent.appendChild(p);
+        }
+    }
     
     // 4. Inyectar botones de compartir
-    renderizarBotonesCompartir();
+    try {
+        renderizarBotonesCompartir();
+    } catch (error) {
+        console.error("❌ Error en botones compartir:", error);
+    }
 
     // 5. 🆕 CREAR EL BOTÓN FLOTANTE (Garantizado)
-    if (!document.querySelector('.boton-flotante-nav')) {
-        console.log("✅ Creando botón flotante...");
-        const contenedor = document.createElement('div');
-        contenedor.className = 'boton-flotante-nav';
-        
-        const menu = document.createElement('div');
-        menu.className = 'menu-flotante';
-        menu.innerHTML = `
-            <div class="menu-flotante-item" data-target="noticias"><i class="fas fa-newspaper"></i> <span>Noticias</span></div>
-            <div class="menu-flotante-item" data-target="posiciones"><i class="fas fa-trophy"></i> <span>Posiciones</span></div>
-            <div class="menu-flotante-item" data-target="resultados"><i class="fas fa-baseball-ball"></i> <span>Resultados</span></div>
-            <div class="menu-flotante-item" data-target="calendario"><i class="fas fa-calendar-alt"></i> <span>Calendario</span></div>
-            <div class="menu-flotante-item" data-target="estadisticas"><i class="fas fa-chart-bar"></i> <span>Estadísticas</span></div>
-            <div class="menu-flotante-separador"></div>
-            <div class="menu-flotante-item" data-target="inicio"><i class="fas fa-arrow-up"></i> <span>Ir al inicio</span></div>
-        `;
-        
-        const boton = document.createElement('button');
-        boton.className = 'btn-flotante-principal';
-        boton.innerHTML = '<i class="fas fa-bars"></i>';
-        boton.setAttribute('aria-label', 'Menú de navegación');
-        boton.setAttribute('title', 'Navegación rápida');
-        
-        contenedor.appendChild(menu);
-        contenedor.appendChild(boton);
-        document.body.appendChild(contenedor);
-        
-        let menuAbierto = false;
-        function toggleMenu() {
-            menuAbierto = !menuAbierto;
-            if (menuAbierto) {
-                menu.classList.add('visible');
-                boton.classList.add('activo');
-                boton.innerHTML = '<i class="fas fa-times"></i>';
-            } else {
-                menu.classList.remove('visible');
-                boton.classList.remove('activo');
-                boton.innerHTML = '<i class="fas fa-bars"></i>';
+    try {
+        if (!document.querySelector('.boton-flotante-nav')) {
+            console.log("✅ Creando botón flotante...");
+            const contenedor = document.createElement('div');
+            contenedor.className = 'boton-flotante-nav';
+            
+            const menu = document.createElement('div');
+            menu.className = 'menu-flotante';
+            menu.innerHTML = `
+                <div class="menu-flotante-item" data-target="noticias"><i class="fas fa-newspaper"></i> <span>Noticias</span></div>
+                <div class="menu-flotante-item" data-target="posiciones"><i class="fas fa-trophy"></i> <span>Posiciones</span></div>
+                <div class="menu-flotante-item" data-target="resultados"><i class="fas fa-baseball-ball"></i> <span>Resultados</span></div>
+                <div class="menu-flotante-item" data-target="calendario"><i class="fas fa-calendar-alt"></i> <span>Calendario</span></div>
+                <div class="menu-flotante-item" data-target="estadisticas"><i class="fas fa-chart-bar"></i> <span>Estadísticas</span></div>
+                <div class="menu-flotante-separador"></div>
+                <div class="menu-flotante-item" data-target="inicio"><i class="fas fa-arrow-up"></i> <span>Ir al inicio</span></div>
+            `;
+            
+            const boton = document.createElement('button');
+            boton.className = 'btn-flotante-principal';
+            boton.innerHTML = '<i class="fas fa-bars"></i>';
+            boton.setAttribute('aria-label', 'Menú de navegación');
+            boton.setAttribute('title', 'Navegación rápida');
+            
+            contenedor.appendChild(menu);
+            contenedor.appendChild(boton);
+            document.body.appendChild(contenedor);
+            
+            let menuAbierto = false;
+            function toggleMenu() {
+                menuAbierto = !menuAbierto;
+                if (menuAbierto) {
+                    menu.classList.add('visible');
+                    boton.classList.add('activo');
+                    boton.innerHTML = '<i class="fas fa-times"></i>';
+                } else {
+                    menu.classList.remove('visible');
+                    boton.classList.remove('activo');
+                    boton.innerHTML = '<i class="fas fa-bars"></i>';
+                }
             }
-        }
-        
-        function navegarASeccion(targetId) {
-            toggleMenu();
-            if (targetId === 'inicio') {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                return;
+            
+            function navegarASeccion(targetId) {
+                toggleMenu();
+                if (targetId === 'inicio') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
+                }
+                const seccion = document.getElementById(targetId);
+                if (seccion) {
+                    const posicion = seccion.getBoundingClientRect().top + window.pageYOffset;
+                    window.scrollTo({ top: posicion - 20, behavior: 'smooth' });
+                }
             }
-            const seccion = document.getElementById(targetId);
-            if (seccion) {
-                const posicion = seccion.getBoundingClientRect().top + window.pageYOffset;
-                window.scrollTo({ top: posicion - 20, behavior: 'smooth' });
-            }
-        }
-        
-        boton.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
-        menu.querySelectorAll('.menu-flotante-item').forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.stopPropagation();
-                navegarASeccion(item.getAttribute('data-target'));
+            
+            boton.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
+            menu.querySelectorAll('.menu-flotante-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    navegarASeccion(item.getAttribute('data-target'));
+                });
             });
-        });
-        document.addEventListener('click', (e) => {
-            if (menuAbierto && !contenedor.contains(e.target)) toggleMenu();
-        });
+            document.addEventListener('click', (e) => {
+                if (menuAbierto && !contenedor.contains(e.target)) toggleMenu();
+            });
+        }
+    } catch (error) {
+        console.error("❌ Error creando botón flotante:", error);
     }
     
     console.log("✅ LVBP al Día cargado correctamente al 100%");
