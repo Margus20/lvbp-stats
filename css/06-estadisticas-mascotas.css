@@ -3,7 +3,7 @@
 /* ========================================== */
 .stats-grid { 
     display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Aumentado ligeramente a 240px para dar más aire */
     gap: 15px; 
 }
 
@@ -37,11 +37,10 @@
 /* (Solo para los bordes y fondos de las tarjetas de jugadores) */
 /* ========================================== */
 
-/* 1. AMARILLO OSCURO (Jonrones, Slugging, Dobles, BB, Ponches Picheo, Innings, Avg Contra) */
+/* 1. AMARILLO OSCURO */
 .stats-grid .stat-card:nth-child(3n+1) {
     border-top: 4px solid #ffd700 !important;
 }
-/* ✅ AJUSTE: Título en negro, no en amarillo */
 .stats-grid .stat-card:nth-child(3n+1) h3 {
     color: #000000 !important;
     border-bottom-color: #a07818 !important;
@@ -61,11 +60,10 @@
     font-weight: 700 !important;
 }
 
-/* 2. AZUL OSCURO (Average, OPS, Triples, Ponches Bateo, Victorias, Hold) */
+/* 2. AZUL OSCURO */
 .stats-grid .stat-card:nth-child(3n+2) {
     border-top: 4px solid #4a90e2 !important;
 }
-/* ✅ AJUSTE: Título en negro, no en azul */
 .stats-grid .stat-card:nth-child(3n+2) h3 {
     color: #000000 !important;
     border-bottom-color: #1e3a5f !important;
@@ -85,11 +83,10 @@
     font-weight: 700 !important;
 }
 
-/* 3. ROJO OSCURO (Impulsadas, Hits, Bases Robadas, Efectividad, Salvados, WHIP) */
+/* 3. ROJO OSCURO */
 .stats-grid .stat-card:nth-child(3n) {
     border-top: 4px solid #dc143c !important;
 }
-/* ✅ AJUSTE: Título en negro, no en rojo */
 .stats-grid .stat-card:nth-child(3n) h3 {
     color: #000000 !important;
     border-bottom-color: #8b0000 !important;
@@ -131,6 +128,7 @@
     font-size: 1.1rem; 
     width: 30px; 
     text-align: center; 
+    flex-shrink: 0; /* Evita que el número se aplaste */
 }
 
 .item-lider .mascota-img {
@@ -141,7 +139,7 @@
     background: #ffffff; 
     border: 2px solid rgba(255,255,255,0.3); 
     padding: 4px; 
-    flex-shrink: 0;
+    flex-shrink: 0; /* Evita que la imagen se aplaste */
     filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.4));
 }
 
@@ -149,19 +147,24 @@
     flex-grow: 1; 
     display: flex; 
     flex-direction: column; 
+    min-width: 0; /* ← 🛠️ ESTO ES LA CLAVE: Permite que Firefox encoger el contenedor y ajuste el texto */
 }
 
 .item-lider .nombre { 
     font-weight: 700; 
-    font-size: 0.9rem; 
-    line-height: 1.2; 
+    font-size: 0.85rem; /* Ligeramente más pequeño para garantizar que quepa */
+    line-height: 1.3; 
+    word-wrap: break-word; /* ← Permite romper nombres largos en Firefox */
+    overflow-wrap: break-word;
+    max-width: 100%;
 }
 
 .item-lider .equipo { 
-    font-size: 0.75rem; 
+    font-size: 0.7rem; 
     margin-top: 2px; 
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    opacity: 0.9;
 }
 
 .item-lider .valor { 
@@ -172,4 +175,5 @@
     min-width: 50px; 
     text-align: center;
     background: rgba(255, 255, 255, 0.15) !important;
+    flex-shrink: 0; /* Evita que el número de estadística se aplaste */
 }
