@@ -154,8 +154,14 @@ export function renderCalendario() {
     });
 }
 
-// 🆕 FUNCIÓN RENDERLIDERES ACTUALIZADA Y LIMPIA
+// 🐍 FUNCIÓN RENDERLIDERES CON MODO DEPURACIÓN (Inyectado quirúrgicamente)
 export function renderLideres() {
+    console.group("🔍 DIAGNÓSTICO DE ESTADÍSTICAS");
+    console.log("1. ¿Se importaron los datos de LIDERES?", LIDERES ? "✅ SÍ" : "❌ NO");
+    if (LIDERES) {
+        console.log("2. ¿La categoría 'jonrones' tiene datos?", LIDERES.jonrones ? `✅ SÍ (${LIDERES.jonrones.length} registros)` : "❌ NO");
+    }
+
     const categoriasAMostrar = {
         // BATEO
         'contenedor-jonrones': 'jonrones',
@@ -183,10 +189,19 @@ export function renderLideres() {
 
     for (const [idContenedor, claveCategoria] of Object.entries(categoriasAMostrar)) {
         const contenedor = document.getElementById(idContenedor);
-        if (!contenedor) continue;
+        
+        if (!contenedor) {
+            console.error(`❌ FALLO: No se encontró el elemento con id="${idContenedor}" en el HTML. El fetch de estadísticas falló o el ID está mal escrito.`);
+            continue;
+        }
+        
+        console.log(`✅ Contenedor encontrado: ${idContenedor}`);
 
         const lideres = LIDERES[claveCategoria];
-        if (!lideres) continue;
+        if (!lideres) {
+            console.warn(`⚠️ ADVERTENCIA: No hay datos para la categoría ${claveCategoria}`);
+            continue;
+        }
 
         contenedor.innerHTML = '';
 
@@ -207,6 +222,8 @@ export function renderLideres() {
             contenedor.appendChild(item);
         });
     }
+    console.log("3. Proceso de renderizado de líderes finalizado.");
+    console.groupEnd();
 }
 
 export function renderPublicidad() {
@@ -219,4 +236,4 @@ export function renderPublicidad() {
         div.innerHTML = `<img src="${p.imagen}" alt="${p.alt}" class="anuncio-imagen">`;
         sidebar.appendChild(div);
     });
-                }
+}
