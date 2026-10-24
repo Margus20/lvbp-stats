@@ -4,7 +4,7 @@
 
 import { POSICIONES } from '../datos/posiciones.js';
 import { NOTICIAS } from '../datos/noticias.js';
-import { RESULTADOS } from '../datos/resultados.js';
+import { RESULTADOS } from '../datos/resultados.js'; // Datos ya corregidos con pitcherGanador, etc.
 import { CALENDARIO } from '../datos/calendario.js';
 import { LIDERES, obtenerMascota } from '../datos/lideres.js';
 import { PUBLICIDAD } from '../datos/publicidad.js';
@@ -13,26 +13,27 @@ import { getEquipo, getLogo, getColor, getColorTexto, calcularDIF } from './util
 
 // 📱 CONSOLA EN PANTALLA (Para depuración en Tablet)
 function initConsolaTablet() {
-    if (document.getElementById('debug-tablet')) return;
+    if (document.getElementById('debug-tablet')) return; // Evita duplicar la consola
     const div = document.createElement('div');
     div.id = 'debug-tablet';
-    div.style.cssText = 'position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.95); color: #00ff00; font-family: monospace; font-size: 13px; padding: 10px; max-height: 250px; overflow-y: auto; z-index: 99999; border-top: 3px solid #00ff00;';
-    div.innerHTML = '<div style="font-weight:bold; color:#fff; margin-bottom:8px; border-bottom:1px solid #333; padding-bottom:5px;">📱 CONSOLA DE DIAGNÓSTICO (Tablet)</div><div id="debug-logs"></div>';
+    // Estilos para que sea visible, legible y no estorbe demasiado en la tablet
+    div.style.cssText = 'position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.9); color: #00ff00; font-family: monospace; font-size: 12px; padding: 10px; max-height: 200px; overflow-y: auto; z-index: 99999; border-top: 2px solid #00ff00;';
+    div.innerHTML = '<div style="font-weight:bold; color:#fff; margin-bottom:5px; border-bottom:1px solid #333; padding-bottom:5px;">📱 CONSOLA DE DIAGNÓSTICO</div><div id="debug-logs"></div>';
     document.body.appendChild(div);
 }
 
 function logTablet(msg, type = 'info') {
     const logs = document.getElementById('debug-logs');
     if (!logs) return;
-    const color = type === 'error' ? '#ff4444' : (type === 'warn' ? '#ffaa00' : '#00ff00');
+    const color = type === 'error' ? '#ff4444' : (type === 'warn' ? '#ffaa00' : '#00ff00'); // Rojo error, Amarillo advertencia, Verde éxito
     const icon = type === 'error' ? '❌' : (type === 'warn' ? '⚠️' : '✅');
     const p = document.createElement('div');
     p.style.color = color;
-    p.style.marginBottom = '4px';
+    p.style.marginBottom = '3px';
     p.style.wordBreak = 'break-word';
     p.innerHTML = `${icon} ${msg}`;
     logs.appendChild(p);
-    document.getElementById('debug-tablet').scrollTop = document.getElementById('debug-tablet').scrollHeight;
+    document.getElementById('debug-tablet').scrollTop = document.getElementById('debug-tablet').scrollHeight; // Auto-scroll hacia abajo
 }
 
 export function renderPosiciones() {
@@ -43,13 +44,14 @@ export function renderPosiciones() {
     POSICIONES.forEach((pos, i) => {
         const equipo = getEquipo(pos.nombre);
         if (!equipo) return;
-        const pct = pos.pct || '.000';
+        const pct = pos.pct || '.000'; // Usa el AVE extraído por el bot, no lo calcula
         const dif = calcularDIF(pos.jg, pos.jp, lider.jg, lider.jp);
         const tr = document.createElement("tr");
         tr.className = equipo.claseFila;
         tr.innerHTML = `<td>${i + 1}</td><td class="equipo-con-logo"><img src="${equipo.logo}" alt="${equipo.nombre}" class="logo-small"><span>${equipo.nombreCorto}</span></td><td>${pos.jj}</td><td>${pos.jg}</td><td>${pos.jp}</td><td>${pct}</td><td>${dif}</td><td>${pos.racha}</td>`;
         tbody.appendChild(tr);
     });
+    logTablet("Tabla de posiciones renderizada correctamente", "info");
 }
 
 export function renderNoticias() {
@@ -95,6 +97,17 @@ export function renderResultados() {
     RESULTADOS.forEach(r => {
         const card = document.createElement("div");
         card.className = "resultado-card";
+        
+        // ✅ AJUSTE: Ahora usa las claves correctas (pitcherGanador, pitcherPerdedor, pitcherSalvador)
+        // y les da un pequeño color (Verde, Rojo, Azul) para que se lean bien sobre fondo oscuro.
+        const pitchersHTML = (r.pitcherGanador || r.pitcherPerdedor || r.pitcherSalvador) ? `
+            <div style="padding: 8px 12px; font-size: 0.75rem; color: #cccccc; background: #1a1a1a; border-top: 1px solid #333; text-align: center; border-radius: 0 0 8px 8px;">
+                ${r.pitcherGanador ? `<span style="color: #4ade80; font-weight: bold;">G: ${r.pitcherGanador}</span>` : ''}
+                ${r.pitcherGanador && r.pitcherPerdedor ? ' &nbsp;|&nbsp; ' : ''}
+                ${r.pitcherPerdedor ? `<span style="color: #f87171; font-weight: bold;">P: ${r.pitcherPerdedor}</span>` : ''}
+                ${r.pitcherSalvador ? ` &nbsp;|&nbsp; <span style="color: #60a5fa; font-weight: bold;">S: ${r.pitcherSalvador}</span>` : ''}
+            </div>` : '';
+
         card.innerHTML = `
             <div class="mitades">
                 <div class="mitad" style="background-color: ${getColor(r.visitante)}"><img src="${getLogo(r.visitante)}" class="logo-resultado"><div class="nombre-equipo-res" style="color: ${getColorTexto(r.visitante)}">${r.visitante}</div></div>
@@ -106,12 +119,11 @@ export function renderResultados() {
                 <div class="innings-info"><span class="innings-numero">${r.innings}</span><span class="innings-label">Innings</span></div>
             </div>
             <div class="fecha-juego-res">${r.fecha}</div>
-            ${r.ganador || r.perdedor ? `
-            <div style="padding: 6px 12px; font-size: 0.7rem; color: #b0b0b0; background: #0f0f0f; border-top: 1px solid #333; text-align: center;">
-                ${r.ganador ? `G: ${r.ganador}` : ''} ${r.ganador && r.perdedor ? ' | ' : ''} ${r.perdedor ? `P: ${r.perdedor}` : ''}
-            </div>` : ''}`;
+            ${pitchersHTML}
+        `;
         container.appendChild(card);
     });
+    logTablet(`Resultados renderizados: ${RESULTADOS.length} juegos con pitchers`, "info");
 }
 
 export function renderCalendario() {
@@ -160,6 +172,7 @@ export function renderCalendario() {
                 return canal ? `<img src="${canal.logo}" alt="${nombre}" class="logo-canal-cal" title="${nombre}">` : `<span class="canal-texto">${nombre}</span>`;
             }).join(' <span class="separador-canal">+</span> ');
             
+            // ✅ AJUSTE: Se eliminó cualquier emoji antes del nombre del estadio para limpieza visual
             infoInferior = `<div class="info-juego-cal">
                 <div class="hora-cal">🕐 ${j.hora}</div>
                 <div class="estadio-cal">${j.lugar || 'Estadio por confirmar'}</div>
@@ -174,16 +187,16 @@ export function renderCalendario() {
             </div>${infoInferior}`;
         container.appendChild(card);
     });
+    logTablet("Calendario renderizado correctamente", "info");
 }
 
-// 🐍 FUNCIÓN RENDERLIDERES CON CONSOLA EN PANTALLA
 export function renderLideres() {
     initConsolaTablet();
     logTablet("Iniciando diagnóstico de estadísticas...", "info");
     logTablet(`¿Se importaron los datos de LIDERES? ${LIDERES ? "SÍ" : "NO"}`, LIDERES ? "info" : "error");
     
     if (LIDERES) {
-        logTablet(`¿La categoría 'jonrones' tiene datos? ${LIDERES.jonrones ? `SÍ (${LIDERES.jonrones.length} registros)` : "NO"}`, LIDERES.jonrones ? "info" : "warn");
+        logTablet(`Categoría 'jonrones' tiene ${LIDERES.jonrones ? LIDERES.jonrones.length : 0} registros`, LIDERES.jonrones ? "info" : "warn");
     }
 
     const categoriasAMostrar = {
@@ -212,20 +225,18 @@ export function renderLideres() {
         const contenedor = document.getElementById(idContenedor);
         
         if (!contenedor) {
-            logTablet(`FALLO: No se encontró el elemento con id="${idContenedor}" en el HTML.`, "error");
+            logTablet(`FALLO: No se encontró el id="${idContenedor}" en el HTML`, "error");
             continue;
         }
         
-        logTablet(`Contenedor encontrado: ${idContenedor}`, "info");
-
         const lideres = LIDERES[claveCategoria];
-        if (!lideres) {
-            logTablet(`ADVERTENCIA: No hay datos para la categoría ${claveCategoria}`, "warn");
+        if (!lideres || lideres.length === 0) {
+            logTablet(`ADVERTENCIA: Sin datos para ${claveCategoria}`, "warn");
+            contenedor.innerHTML = '<p style="color:#666; font-size:0.8rem; text-align:center;">Sin datos</p>';
             continue;
         }
 
         contenedor.innerHTML = '';
-
         lideres.forEach(lider => {
             const rutaMascota = obtenerMascota(lider.equipo);
             const item = document.createElement('div');
@@ -241,7 +252,15 @@ export function renderLideres() {
             contenedor.appendChild(item);
         });
     }
-    logTablet("Proceso de renderizado de líderes finalizado.", "info");
+    
+    // ✅ AJUSTE: Forzar color negro (#000000) a los títulos de las categorías para máximo contraste
+    // Busca cualquier h3, h4 o elemento con clase 'titulo-categoria' dentro de la sección de líderes
+    document.querySelectorAll('#lideres h3, #lideres h4, .titulo-categoria, .titulo-seccion').forEach(titulo => {
+        titulo.style.color = '#000000'; 
+        titulo.style.textShadow = 'none'; // Elimina sombras que puedan dificultar la lectura
+    });
+    
+    logTablet("Proceso de renderizado de líderes finalizado. Títulos ajustados a negro.", "info");
 }
 
 export function renderPublicidad() {
