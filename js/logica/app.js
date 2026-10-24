@@ -1,7 +1,6 @@
 // ============================================
 // ORQUESTADOR PRINCIPAL (app.js)
 // ============================================
-console.log("🟢 app.js: Archivo cargado e iniciado.");
 
 import { 
     renderPosiciones, 
@@ -12,12 +11,8 @@ import {
     renderPublicidad 
 } from './render.js';
 
-console.log("🟢 app.js: Imports de render.js exitosos.");
-
 import { compartirEnRed, compartirSeccion, renderizarBotonesCompartir } from './compartir.js';
 import { NOTICIAS } from '../datos/noticias.js';
-
-console.log("🟢 app.js: Todos los imports completados.");
 
 // ============================================
 // EXPOSICIÓN GLOBAL PARA EL HTML
@@ -60,36 +55,54 @@ function renderizarComentarios() {
 // FUNCIÓN DE INICIALIZACIÓN PRINCIPAL
 // ============================================
 function inicializarTodo() {
-    console.log("🚀 Iniciando LVBP al Día...");
-
-    try {
-        console.log("🔄 Ejecutando renderPosiciones...");
-        renderPosiciones();
-        console.log("🔄 Ejecutando renderNoticias...");
-        renderNoticias();
-        console.log("🔄 Ejecutando renderResultados...");
-        renderResultados();
-        console.log("🔄 Ejecutando renderCalendario...");
-        renderCalendario();
-        console.log("🔄 Ejecutando renderLideres...");
-        renderLideres();
-        console.log("🔄 Ejecutando renderPublicidad...");
-        renderPublicidad();
-        console.log("✅ Todas las funciones de render ejecutadas sin errores.");
-    } catch (error) {
-        console.error("❌ ERROR CRÍTICO AL RENDERIZAR:", error);
+    // 1. Menú hamburguesa
+    const menuBtn = document.getElementById("menuBtn");
+    if (menuBtn) {
+        menuBtn.addEventListener("click", () => {
+            document.getElementById("navMenu").classList.toggle("activo");
+        });
     }
     
+    // 2. Formulario de comentarios
+    const formulario = document.getElementById("formulario-comentario");
+    if (formulario) {
+        formulario.addEventListener("submit", (e) => {
+            e.preventDefault();
+            comentarios.push({
+                autor: formulario.querySelector(".input-comentario").value,
+                texto: formulario.querySelector(".textarea-comentario").value,
+                fecha: new Date().toLocaleString("es-VE")
+            });
+            renderizarComentarios();
+            formulario.reset();
+        });
+    }
+    
+    // 3. Renderizar todas las secciones (con protección de errores)
+    try {
+        renderPosiciones();
+        renderNoticias();
+        renderResultados();
+        renderCalendario();
+        renderLideres();
+        renderPublicidad();
+    } catch (error) {
+        console.error("Error al renderizar secciones:", error);
+    }
+    
+    // 4. Inyectar botones de compartir
     try {
         renderizarBotonesCompartir();
     } catch (error) {
-        console.error("❌ Error en botones compartir:", error);
+        console.error("Error en botones compartir:", error);
     }
 
+    // 5. Crear el botón flotante de navegación
     try {
         if (!document.querySelector('.boton-flotante-nav')) {
             const contenedor = document.createElement('div');
             contenedor.className = 'boton-flotante-nav';
+            
             const menu = document.createElement('div');
             menu.className = 'menu-flotante';
             menu.innerHTML = `
@@ -101,20 +114,26 @@ function inicializarTodo() {
                 <div class="menu-flotante-separador"></div>
                 <div class="menu-flotante-item" data-target="inicio"><i class="fas fa-arrow-up"></i> <span>Ir al inicio</span></div>
             `;
+            
             const boton = document.createElement('button');
             boton.className = 'btn-flotante-principal';
             boton.innerHTML = '<i class="fas fa-bars"></i>';
+            boton.setAttribute('aria-label', 'Menú de navegación');
+            boton.setAttribute('title', 'Navegación rápida');
+            
             contenedor.appendChild(menu);
             contenedor.appendChild(boton);
             document.body.appendChild(contenedor);
             
             let menuAbierto = false;
+            
             function toggleMenu() {
                 menuAbierto = !menuAbierto;
                 boton.innerHTML = menuAbierto ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
                 menu.classList.toggle('visible', menuAbierto);
                 boton.classList.toggle('activo', menuAbierto);
             }
+            
             function navegarASeccion(targetId) {
                 toggleMenu();
                 if (targetId === 'inicio') {
@@ -126,24 +145,33 @@ function inicializarTodo() {
                     window.scrollTo({ top: seccion.getBoundingClientRect().top + window.pageYOffset - 20, behavior: 'smooth' });
                 }
             }
-            boton.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
+            
+            boton.addEventListener('click', (e) => { 
+                e.stopPropagation(); 
+                toggleMenu(); 
+            });
+            
             menu.querySelectorAll('.menu-flotante-item').forEach(item => {
                 item.addEventListener('click', (e) => {
                     e.stopPropagation();
                     navegarASeccion(item.getAttribute('data-target'));
                 });
             });
+            
             document.addEventListener('click', (e) => {
-                if (menuAbierto && !contenedor.contains(e.target)) toggleMenu();
+                if (menuAbierto && !contenedor.contains(e.target)) {
+                    toggleMenu();
+                }
             });
         }
     } catch (error) {
-        console.error("❌ Error creando botón flotante:", error);
+        console.error("Error creando botón flotante:", error);
     }
-    
-    console.log("✅ LVBP al Día cargado correctamente al 100%");
 }
 
+// ============================================
+// EJECUCIÓN GARANTIZADA
+// ============================================
 if (document.readyState === 'loading') {
     document.addEventListener("DOMContentLoaded", inicializarTodo);
 } else {
