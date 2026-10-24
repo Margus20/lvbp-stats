@@ -7,7 +7,7 @@ import { NOTICIAS } from '../datos/noticias.js';
 import { RESULTADOS } from '../datos/resultados.js';
 import { CALENDARIO } from '../datos/calendario.js';
 import { LIDERES, obtenerMascota } from '../datos/lideres.js';
-import { PUBLICIDAD } from '../datos/ppublicidad.js'; 
+import { PUBLICIDAD } from '../datos/publicidad.js'; // ✅ CORREGIDO: Era ppublicidad.js
 import { CANALES } from '../datos/canales.js';
 import { getEquipo, getLogo, getColor, getColorTexto, calcularDIF } from './utils.js';
 
@@ -82,7 +82,11 @@ export function renderResultados() {
                 <div class="marcador"><span class="carreras-visitante">${r.scoreVisitante}</span><span class="separador-marcador">-</span><span class="carreras-local">${r.scoreLocal}</span></div>
                 <div class="innings-info"><span class="innings-numero">${r.innings}</span><span class="innings-label">Innings</span></div>
             </div>
-            <div class="fecha-juego-res">${r.fecha}</div>`;
+            <div class="fecha-juego-res">${r.fecha}</div>
+            ${r.ganador || r.perdedor ? `
+            <div style="padding: 6px 12px; font-size: 0.7rem; color: #b0b0b0; background: #0f0f0f; border-top: 1px solid #333; text-align: center;">
+                ${r.ganador ? `G: ${r.ganador}` : ''} ${r.ganador && r.perdedor ? ' | ' : ''} ${r.perdedor ? `P: ${r.perdedor}` : ''}
+            </div>` : ''}`;
         container.appendChild(card);
     });
 }
@@ -133,9 +137,10 @@ export function renderCalendario() {
                 return canal ? `<img src="${canal.logo}" alt="${nombre}" class="logo-canal-cal" title="${nombre}">` : `<span class="canal-texto">${nombre}</span>`;
             }).join(' <span class="separador-canal">+</span> ');
             
+            // ✅ EMOJI DEL ESTADIO ELIMINADO
             infoInferior = `<div class="info-juego-cal">
-                <div class="hora-cal"> ${j.hora}</div>
-                <div class="estadio-cal">🏟️ ${j.lugar || 'Estadio por confirmar'}</div>
+                <div class="hora-cal">🕐 ${j.hora}</div>
+                <div class="estadio-cal">${j.lugar || 'Estadio por confirmar'}</div>
                 <div class="transmision-cal">${canalesHTML}</div>
             </div>`;
         }
@@ -149,10 +154,10 @@ export function renderCalendario() {
     });
 }
 
-// 🆕 FUNCIÓN RENDERLIDERES ACTUALIZADA (CON NOMBRE DE EQUIPO INCLUIDO)
+// 🆕 FUNCIÓN RENDERLIDERES ACTUALIZADA Y LIMPIA
 export function renderLideres() {
     const categoriasAMostrar = {
-        // BATEO (11 categorías)
+        // BATEO
         'contenedor-jonrones': 'jonrones',
         'contenedor-average': 'average',
         'contenedor-impulsadas': 'impulsadas',
@@ -165,7 +170,7 @@ export function renderLideres() {
         'contenedor-basesPorBolas': 'basesPorBolas',
         'contenedor-ponchesBateo': 'ponchesBateo',
         
-        // PITCHEO (8 categorías)
+        // PITCHEO
         'contenedor-efectividad': 'efectividad',
         'contenedor-victorias': 'victorias',
         'contenedor-salvados': 'salvados',
@@ -188,17 +193,14 @@ export function renderLideres() {
         lideres.forEach(lider => {
             const rutaMascota = obtenerMascota(lider.equipo);
             
-            let nombreEquipo = lider.equipo.charAt(0).toUpperCase() + lider.equipo.slice(1);
-            if (lider.equipo === 'navegantes') nombreEquipo = 'Magallanes';
-
+            // ✅ ELIMINADO: span de equipo redundante, ya que lider.nombre trae "D. Rodríguez (ARA)"
             const item = document.createElement('div');
             item.className = 'item-lider';
             item.innerHTML = `
                 <div class="posicion">#${lider.posicion}</div>
-                <img src="${rutaMascota}" alt="Mascota de ${nombreEquipo}" class="mascota-img" onerror="this.src='mascotas/leo.jpg'">
+                <img src="${rutaMascota}" alt="Mascota" class="mascota-img" onerror="this.src='mascotas/leo.jpg'">
                 <div class="info-jugador">
                     <span class="nombre">${lider.nombre}</span>
-                    <span class="equipo">${nombreEquipo}</span> 
                 </div>
                 <div class="valor">${lider.valor}</div>
             `;
@@ -217,4 +219,4 @@ export function renderPublicidad() {
         div.innerHTML = `<img src="${p.imagen}" alt="${p.alt}" class="anuncio-imagen">`;
         sidebar.appendChild(div);
     });
-}
+                }
