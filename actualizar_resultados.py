@@ -92,7 +92,6 @@ def navegar_a_ayer(page):
         page.wait_for_timeout(3000)
 
         for intento in range(3):
-            # Buscar selectores comunes de librerías de calendario (ej. FullCalendar) o flechas
             locator_str = "a.fc-prev-button, button.prev, .fecha-prev, [class*='prev'], button:has-text('‹'), div:has-text('‹'), button:has-text('<')"
             flecha_izquierda = page.locator(locator_str).first
             
@@ -116,130 +115,103 @@ def navegar_a_ayer(page):
         return False
         
     except Exception as e:
-        logger.error(f"❌ Error en navegación a ayer: {e}")
+        logger.error(f" Error en navegación a ayer: {e}")
         return False
 
 def extraer_resultados(page):
+    """Versión robusta que detecta juegos en progreso y finalizados"""
     logger.info("🏆 Extrayendo resultados...")
-    
+
     try:
         page.wait_for_load_state('networkidle')
         page.wait_for_timeout(2000)
-        
+
         html = page.content()
         soup = BeautifulSoup(html, 'html.parser')
-        
+
         fecha_pagina = leer_fecha_principal(page)
         if fecha_pagina:
-            logger.info(f"📅 Fecha confirmada en página: {fecha_pagina.strftime('%d/%m/%Y')}")
-        
+            logger.info(f"📅 Fecha en página: {fecha_pagina.strftime('%d/%m/%Y')}")
+
         todos_divs = soup.find_all('div')
-        logger.info(f"📊 Total de divs analizados: {len(todos_divs)}")
-        
+        logger.info(f"📊 Total de divs: {len(todos_divs)}")
+
         juegos = []
         juegos_procesados = set()
-        
+
         for div in todos_divs:
-            try:
-                texto = div.get_text()
-                
-                # Filtro flexible: buscamos finalizado, o si la fecha es correcta, aceptamos el juego
-                es_finalizado = 'finalizado' in texto.lower() or 'final' in texto.lower()
-                
-                # Si no dice finalizado, pero encontramos 2 equipos y scores, lo procesamos (por si la etiqueta cambia)
-                equipos_encontrados = []
+            texto = div.get_text(separator="\n").strip()
+
+            # Detectar bloques que tengan R/H/E y dos equipos
+            if "R" in texto and "H" in texto and "E" in texto:
+
+                lineas = [l.strip() for l in texto.split("\n") if l.strip()]
+
+                # Buscar equipos
+                equipos = []
                 for nombre_largo, nombre_corto in NOMBRES_EQUIPOS.items():
-                    if nombre_corto in texto:
-                        equipos_encontrados.append(nombre_corto)
-                
-                if len(equipos_encontrados) < 2:
+                    for idx, linea in enumerate(lineas):
+                        if nombre_corto.lower() in linea.lower():
+                            equipos.append((nombre_corto, idx))
+
+                if len(equipos) < 2:
                     continue
-                
-                # Procesar de 2 en 2 (visitante, local)
-                for i in range(0, len(equipos_encontrados), 2):
-                    if i + 1 >= len(equipos_encontrados):
-                        break
-                    
-                    visitante = equipos_encontrados[i]
-                    local = equipos_encontrados[i + 1]
-                    
-                    clave = f"{visitante}-{local}"
-                    if clave in juegos_procesados:
-                        continue
-                    
-                    # Solo agregar si es finalizado o si tenemos scores válidos distintos de 0-0
-                    # (Para evitar agregar juegos futuros del calendario)
+
+                # Ordenar por aparición
+                equipos = sorted(equipos, key=lambda x: x[1])
+                visitante = equipos[0][0]
+                local = equipos[1][0]
+
+                clave = f"{visitante}-{local}"
+                if clave in juegos_procesados:
+                    continue
+                juegos_procesados.add(clave)
+
+                # Buscar números después de R/H/E
+                try:
+                    idx_r = lineas.index("R")
+                    score_visitante = re.findall(r"\d+", lineas[idx_r + 1])[0]
+                    score_local = re.findall(r"\d+", lineas[idx_r + 2])[0]
+                except:
                     score_visitante = "0"
                     score_local = "0"
-                    
-                    lines = texto.split('\n')
-                    for j, line in enumerate(lines):
-                        if 'R' in line and 'H' in line and 'E' in line:
-                            for k in range(j+1, min(j+4, len(lines))):
-                                numeros = re.findall(r'\b(\d+)\b', lines[k])
-                                if numeros and len(numeros) >= 2:
-                                    score_visitante = numeros[0]
-                                    score_local = numeros[1]
-                                    break
-                            break
-                    
-                    # Si no hay scores, saltar (es un juego futuro o del calendario)
-                    if score_visitante == "0" and score_local == "0" and not es_finalizado:
-                        continue
-                        
-                    juegos_procesados.add(clave)
-                    
-                    innings = "9"
-                    inning_match = re.search(r'Inning\s*(\d+)', texto, re.IGNORECASE)
-                    if inning_match:
-                        innings = inning_match.group(1)
-                    
-                    pitcher_ganador = pitcher_perdedor = pitcher_salvador = ""
-                    
-                    if 'G:' in texto or 'W:' in texto:
-                        match_g = re.search(r'(?:G|W):\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s,\.]+?)(?:\s+P:|\s+S:|\s+L:|\s+BOXSCORE|\n\n|$)', texto, re.IGNORECASE)
-                        if match_g:
-                            pitcher_ganador = match_g.group(1).strip().split(',')[0].strip()
-                        
-                        match_p = re.search(r'(?:P|L):\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s,\.]+?)(?:\s+S:|\s+BOXSCORE|\n\n|$)', texto, re.IGNORECASE)
-                        if match_p:
-                            pitcher_perdedor = match_p.group(1).strip().split(',')[0].strip()
-                        
-                        match_s = re.search(r'S:\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s,\.]+?)(?:\s+BOXSCORE|\n\n|$)', texto, re.IGNORECASE)
-                        if match_s:
-                            pitcher_salvador = match_s.group(1).strip().split(',')[0].strip()
-                    
-                    ayer_vzla = datetime.now(timezone.utc).astimezone(VENEZUELA_OFFSET)
-                    ayer_naive = datetime(ayer_vzla.year, ayer_vzla.month, ayer_vzla.day)
-                    
-                    juegos.append({
-                        'fecha': ayer_naive.strftime("%Y-%m-%d"),
-                        'visitante': visitante,
-                        'local': local,
-                        'scoreVisitante': score_visitante,
-                        'scoreLocal': score_local,
-                        'innings': innings,
-                        'finalizado': True,
-                        'pitcherGanador': pitcher_ganador,
-                        'pitcherPerdedor': pitcher_perdedor,
-                        'pitcherSalvador': pitcher_salvador
-                    })
-                    
-                    logger.info(f"✅ Juego extraído: {visitante} {score_visitante} - {score_local} {local}")
-                
-            except Exception as e:
-                continue
-        
-        logger.info(f"📊 Total de juegos extraídos: {len(juegos)}")
+
+                # Detectar inning
+                inning = "Final"
+                for linea in lineas:
+                    m = re.search(r"Inning\s*(\d+)", linea, re.IGNORECASE)
+                    if m:
+                        inning = m.group(1)
+                        break
+
+                # Detectar si está en vivo o finalizado
+                finalizado = "final" in texto.lower() or "finalizado" in texto.lower()
+
+                ayer_vzla = datetime.now(timezone.utc).astimezone(VENEZUELA_OFFSET)
+                fecha_naive = datetime(ayer_vzla.year, ayer_vzla.month, ayer_vzla.day)
+
+                juegos.append({
+                    "fecha": fecha_naive.strftime("%Y-%m-%d"),
+                    "visitante": visitante,
+                    "local": local,
+                    "scoreVisitante": score_visitante,
+                    "scoreLocal": score_local,
+                    "innings": inning,
+                    "finalizado": finalizado
+                })
+
+                logger.info(f"✅ Juego detectado: {visitante} {score_visitante} - {score_local} {local} (Inning {inning})")
+
+        logger.info(f"📊 Total extraídos: {len(juegos)}")
         return juegos if juegos else None
-        
+
     except Exception as e:
-        logger.error(f"❌ Error crítico en extracción: {e}")
+        logger.error(f" Error crítico: {e}")
         return None
 
 def actualizar_github(file_path, datos, mensaje):
     if not datos:
-        logger.warning(f"⚠️ Lista vacía para {file_path}")
+        logger.warning(f"️ Lista vacía para {file_path}")
         return False
     
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{file_path}"
@@ -260,16 +232,16 @@ def actualizar_github(file_path, datos, mensaje):
     
     put_response = requests.put(url, headers=headers, json=data, timeout=10)
     if put_response.status_code in [200, 201]:
-        logger.info(f"✅ {file_path} actualizado correctamente")
+        logger.info(f"✅ {file_path} actualizado")
         return True
     else:
-        logger.error(f"❌ Error al actualizar: {put_response.text}")
+        logger.error(f"❌ Error: {put_response.text}")
         return False
 
 def main():
     logger.info("🚀 Iniciando Bot de Resultados LVBP...")
     if not TOKEN:
-        logger.error("❌ No se encontró GITHUB_TOKEN")
+        logger.error("❌ No hay GITHUB_TOKEN")
         return
     
     try:
@@ -286,21 +258,21 @@ def main():
             page.goto(URL_RESULTADOS, wait_until='networkidle', timeout=30000)
             
             if not navegar_a_ayer(page):
-                logger.warning("⚠️ No se pudo navegar a ayer con certeza, se intentará extraer lo disponible.")
+                logger.warning("⚠️ No se pudo navegar a ayer con certeza")
             
             resultados = extraer_resultados(page)
             
             if resultados and len(resultados) > 0:
-                logger.info(f"✅ Éxito: {len(resultados)} juegos extraídos.")
-                actualizar_github('js/datos/resultados.js', resultados, "🤖 Bot: Resultados Actualizados")
+                logger.info(f"✅ Extraídos {len(resultados)} juegos")
+                actualizar_github('js/datos/resultados.js', resultados, "🤖 Bot: Resultados")
             else:
-                logger.error("❌ No se extrajeron juegos. Verifica que haya juegos finalizados en la fecha objetivo.")
+                logger.error("❌ No se extrajeron juegos")
             
             browser.close()
-            logger.info("🏁 Bot finalizado.")
+            logger.info("🏁 Bot finalizado")
             
     except Exception as e:
-        logger.exception(f"❌ Error fatal en la ejecución: {e}")
+        logger.exception(f"❌ Error fatal: {e}")
 
 if __name__ == '__main__':
     main()
