@@ -11,17 +11,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- 🔄 AJUSTE: Versión de caché actualizada a v=102 para forzar recarga en la tablet -->
-    <link rel="stylesheet" href="css/01-base.css?v=102">
-    <link rel="stylesheet" href="css/02-header-nav.css?v=102">
-    <link rel="stylesheet" href="css/03-noticias-articulos.css?v=102">
-    <link rel="stylesheet" href="css/04-tablas-posiciones.css?v=102">
-    <link rel="stylesheet" href="css/05-tarjetas-juegos.css?v=102">
-    <link rel="stylesheet" href="css/06-estadisticas-mascotas.css?v=102">
-    <link rel="stylesheet" href="css/07-sidebar-footer.css?v=102">
-    <link rel="stylesheet" href="css/08-boton-flotante.css?v=102">
+    <!-- 🔄 AJUSTE FINAL: Versión de caché actualizada a v=103 para forzar recarga en la tablet -->
+    <link rel="stylesheet" href="css/01-base.css?v=103">
+    <link rel="stylesheet" href="css/02-header-nav.css?v=103">
+    <link rel="stylesheet" href="css/03-noticias-articulos.css?v=103">
+    <link rel="stylesheet" href="css/04-tablas-posiciones.css?v=103">
+    <link rel="stylesheet" href="css/05-tarjetas-juegos.css?v=103">
+    <link rel="stylesheet" href="css/06-estadisticas-mascotas.css?v=103">
+    <link rel="stylesheet" href="css/07-sidebar-footer.css?v=103">
+    <link rel="stylesheet" href="css/08-boton-flotante.css?v=103">
     
-    <!-- Iconos de Font Awesome (¡Perfecto que ya lo tenías!) -->
+    <!-- Iconos de Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- Analítica -->
@@ -131,10 +131,10 @@
                 const footer = await fetch('componentes/footer.html').then(r => r.text());
                 document.getElementById('footer-placeholder').innerHTML = footer;
                 
-                // 🔄 AJUSTE: Versión de caché actualizada a v=102
+                // 🔄 AJUSTE: Versión de caché actualizada a v=103
                 const scriptApp = document.createElement('script');
                 scriptApp.type = 'module';
-                scriptApp.src = 'js/logica/app.js?v=102';
+                scriptApp.src = 'js/logica/app.js?v=103';
                 document.body.appendChild(scriptApp);
 
             } catch (error) {
