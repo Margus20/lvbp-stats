@@ -220,10 +220,21 @@ def extraer_TODOS_los_jugadores(driver, indice_columna_objetivo, nombre_categori
             jugador_raw = celdas[nombre_idx].get_text(strip=True)
             equipo_raw = celdas[equipo_idx].get_text(strip=True) if equipo_idx < len(celdas) else ""
             
-            # Limpiar nombre
-            nombre_limpio = jugador_raw
-            for pos in ['1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF', 'C', 'DH', 'P', '#', '*']:
-                nombre_limpio = nombre_limpio.replace(pos, '').strip()
+            # ==========================================
+            # 🛠️ AQUÍ ESTÁ EL ARREGLO: Limpieza SEGURA del nombre
+            # ==========================================
+            nombre_limpio = jugador_raw.strip()
+            
+            # 1. Quitamos símbolos sueltos al inicio o final
+            nombre_limpio = nombre_limpio.replace('#', '').replace('*', '').strip()
+            
+            # 2. Quitamos la posición SOLO si está al final del texto (ej: "Juan Pérez P" o "Juan Pérez 1B")
+            # Al poner un espacio antes de la posición, evitamos borrar la 'P' inicial de "Pérez" o "Pinto"
+            posiciones_finales = [' 1B', ' 2B', ' 3B', ' SS', ' LF', ' CF', ' RF', ' C', ' DH', ' P']
+            for pos in posiciones_finales:
+                if nombre_limpio.endswith(pos):
+                    nombre_limpio = nombre_limpio[:-len(pos)].strip()
+                    break  # Solo quitamos una posición si la encontramos al final
             
             if not nombre_limpio or 'publicidad' in equipo_raw.lower() or len(nombre_limpio) < 3:
                 continue
@@ -421,7 +432,7 @@ export function obtenerMascota(equipo) {
     
     content_encoded = base64.b64encode(contenido.encode('utf-8')).decode('utf-8')
     data = {
-        "message": "🤖 Actualización automática (19 categorías - ordenamiento matemático estricto por columna)",
+        "message": "🤖 Actualización automática (Nombres corregidos: se respeta la 'P' inicial)",
         "content": content_encoded,
         "sha": sha
     }
