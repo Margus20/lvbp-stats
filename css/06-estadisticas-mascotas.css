@@ -15,12 +15,15 @@
     overflow: hidden;
 }
 
+/* ✅ AJUSTE: Título base en negro para máxima legibilidad */
 .stat-card h3 { 
     margin-bottom: 12px; 
     font-size: 1rem; 
     padding-bottom: 8px; 
     border-bottom: 2px solid #e0e0e0; 
-    font-weight: 700;
+    font-weight: 800;
+    color: #000000 !important; /* Forzamos negro puro */
+    text-shadow: none !important; /* Eliminamos cualquier sombra */
 }
 
 .lista-lideres { 
@@ -31,14 +34,16 @@
 
 /* ========================================== */
 /* PATRÓN DE COLORES: AMARILLO, AZUL, ROJO */
+/* (Solo para los bordes y fondos de las tarjetas de jugadores) */
 /* ========================================== */
 
 /* 1. AMARILLO OSCURO (Jonrones, Slugging, Dobles, BB, Ponches Picheo, Innings, Avg Contra) */
 .stats-grid .stat-card:nth-child(3n+1) {
     border-top: 4px solid #ffd700 !important;
 }
+/* ✅ AJUSTE: Título en negro, no en amarillo */
 .stats-grid .stat-card:nth-child(3n+1) h3 {
-    color: #ffd700 !important;
+    color: #000000 !important;
     border-bottom-color: #a07818 !important;
 }
 .stats-grid .stat-card:nth-child(3n+1) .item-lider {
@@ -60,8 +65,9 @@
 .stats-grid .stat-card:nth-child(3n+2) {
     border-top: 4px solid #4a90e2 !important;
 }
+/* ✅ AJUSTE: Título en negro, no en azul */
 .stats-grid .stat-card:nth-child(3n+2) h3 {
-    color: #4a90e2 !important;
+    color: #000000 !important;
     border-bottom-color: #1e3a5f !important;
 }
 .stats-grid .stat-card:nth-child(3n+2) .item-lider {
@@ -83,8 +89,9 @@
 .stats-grid .stat-card:nth-child(3n) {
     border-top: 4px solid #dc143c !important;
 }
+/* ✅ AJUSTE: Título en negro, no en rojo */
 .stats-grid .stat-card:nth-child(3n) h3 {
-    color: #dc143c !important;
+    color: #000000 !important;
     border-bottom-color: #8b0000 !important;
 }
 .stats-grid .stat-card:nth-child(3n) .item-lider {
