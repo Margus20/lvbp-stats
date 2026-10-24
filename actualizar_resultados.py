@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 TOKEN = os.environ.get('GITHUB_TOKEN')
 REPO_OWNER = 'Margus20'
 REPO_NAME = 'lvbp-stats'
-URL_MERIDIANO = 'https://meridiano.net/beisbol/lvbp/resultados-y-calendario/'
+URL_FLASHSCORE = 'https://www.flashscore.com.pe/beisbol/venezuela/lvbp/resultados/'
 
 NOMBRES_EQUIPOS = {
     'Caribes de Anzoátegui': 'Caribes',
@@ -37,109 +37,65 @@ def obtener_nombre_corto(nombre_completo):
             return nombre_corto
     return nombre_completo.split()[0] if nombre_completo else ''
 
-def obtener_fecha_venezuela():
-    ahora_utc = datetime.now(timezone.utc)
-    return ahora_utc.astimezone(VENEZUELA_OFFSET)
-
-def extraer_resultados_meridiano(page):
-    """Extrae resultados de Meridiano.net - fuente confiable"""
-    logger.info(" Extrayendo resultados de Meridiano...")
+def extraer_resultados_flashscore(page):
+    """Extrae resultados de Flashscore - HTML limpio y predecible"""
+    logger.info("🏆 Extrayendo resultados de Flashscore...")
     
     try:
-        page.wait_for_load_state('networkidle')
-        page.wait_for_timeout(3000)
+        # Esperar a que cargue el contenido
+        page.wait_for_load_state('domcontentloaded')
+        page.wait_for_timeout(5000)
         
         html = page.content()
         soup = BeautifulSoup(html, 'html.parser')
         
-        # Buscar secciones "FINAL" (juegos terminados)
-        secciones_final = soup.find_all(string=lambda text: text and 'FINAL' in text.upper())
+        # Buscar todos los partidos
+        partidos = soup.find_all('div', class_='event__match')
         
-        logger.info(f"🔍 Secciones FINAL encontradas: {len(secciones_final)}")
+        logger.info(f"🔍 Total de partidos encontrados: {len(partidos)}")
         
-        if len(secciones_final) == 0:
-            logger.warning("️ No hay juegos finalizados en Meridiano")
+        if len(partidos) == 0:
+            logger.warning("⚠️ No se encontraron partidos en Flashscore")
             return None
         
         juegos = []
         juegos_procesados = set()
         
-        for seccion in secciones_final:
+        for partido in partidos:
             try:
-                # Encontrar el contenedor padre del juego
-                contenedor = seccion.find_parent()
-                if not contenedor:
+                # Verificar si el partido está finalizado
+                status = partido.find('div', class_='event__status')
+                if not status or 'finished' not in status.get('class', []):
                     continue
                 
-                # Buscar el contenedor más grande que tenga los dos equipos
-                for _ in range(5):
-                    if contenedor and contenedor.parent:
-                        texto_padre = contenedor.parent.get_text()
-                        equipos_count = sum(1 for eq in NOMBRES_EQUIPOS.values() if eq in texto_padre)
-                        if equipos_count >= 2:
-                            contenedor = contenedor.parent
-                        else:
-                            break
-                    else:
-                        break
-                
-                texto = contenedor.get_text() if contenedor else seccion.get_text()
-                
-                # Buscar equipos en orden de aparición
-                equipos_encontrados = []
-                for nombre_largo, nombre_corto in NOMBRES_EQUIPOS.items():
-                    if nombre_corto in texto and nombre_corto not in equipos_encontrados:
-                        equipos_encontrados.append(nombre_corto)
-                
-                if len(equipos_encontrados) < 2:
+                # Extraer equipos
+                equipos = partido.find_all('div', class_='event__participant')
+                if len(equipos) < 2:
                     continue
                 
-                visitante = equipos_encontrados[0]
-                local = equipos_encontrados[1]
+                visitante_raw = equipos[0].get_text(strip=True)
+                local_raw = equipos[1].get_text(strip=True)
                 
+                # Convertir a nombres cortos
+                visitante = obtener_nombre_corto(visitante_raw)
+                local = obtener_nombre_corto(local_raw)
+                
+                if not visitante or not local:
+                    continue
+                
+                # Evitar duplicados
                 clave = f"{visitante}-{local}"
                 if clave in juegos_procesados:
                     continue
                 juegos_procesados.add(clave)
                 
-                # Extraer scores del formato "Equipo X - Y" o similar
-                score_visitante = "0"
-                score_local = "0"
+                # Extraer scores
+                scores = partido.find_all('div', class_='event__score')
+                if len(scores) < 2:
+                    continue
                 
-                # Buscar patrón "Equipo1 3 - 6 Equipo2" o similar
-                match_score = re.search(rf'{re.escape(visitante)}\s+(\d+)\s*-\s*(\d+)\s*{re.escape(local)}', texto, re.IGNORECASE)
-                if match_score:
-                    score_visitante = match_score.group(1)
-                    score_local = match_score.group(2)
-                else:
-                    # Buscar números cerca de los equipos
-                    lines = texto.split('\n')
-                    for i, line in enumerate(lines):
-                        if visitante in line:
-                            numeros = re.findall(r'\b(\d+)\b', line)
-                            if numeros:
-                                score_visitante = numeros[0]
-                        if local in line:
-                            numeros = re.findall(r'\b(\d+)\b', line)
-                            if numeros:
-                                score_local = numeros[0]
-                
-                # Extraer pitchers (W: y L:)
-                pitcher_ganador = ""
-                pitcher_perdedor = ""
-                pitcher_salvador = ""
-                
-                match_w = re.search(r'W:\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s]+?)(?:\s+\d|\n|$)', texto)
-                if match_w:
-                    pitcher_ganador = match_w.group(1).strip()
-                
-                match_l = re.search(r'L:\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s]+?)(?:\s+\d|\n|$)', texto)
-                if match_l:
-                    pitcher_perdedor = match_l.group(1).strip()
-                
-                match_s = re.search(r'S:\s*([A-Za-zÁÉÍÓÚáéíóúÑñ\s]+?)(?:\s+\d|\n|$)', texto)
-                if match_s:
-                    pitcher_salvador = match_s.group(1).strip()
+                score_visitante = scores[0].get_text(strip=True)
+                score_local = scores[1].get_text(strip=True)
                 
                 # Fecha de ayer
                 ahora_vzla = datetime.now(timezone.utc).astimezone(VENEZUELA_OFFSET)
@@ -153,27 +109,27 @@ def extraer_resultados_meridiano(page):
                     'scoreLocal': score_local,
                     'innings': "9",
                     'finalizado': True,
-                    'pitcherGanador': pitcher_ganador,
-                    'pitcherPerdedor': pitcher_perdedor,
-                    'pitcherSalvador': pitcher_salvador
+                    'pitcherGanador': "",
+                    'pitcherPerdedor': "",
+                    'pitcherSalvador': ""
                 })
                 
                 logger.info(f"✅ Juego: {visitante} {score_visitante} - {score_local} {local}")
                 
             except Exception as e:
-                logger.warning(f"⚠️ Error procesando juego: {e}")
+                logger.warning(f"⚠️ Error procesando partido: {e}")
                 continue
         
         logger.info(f"📊 Total extraídos: {len(juegos)}")
         return juegos if juegos else None
         
     except Exception as e:
-        logger.error(f"❌ Error crítico: {e}")
+        logger.error(f" Error crítico: {e}")
         return None
 
 def actualizar_github(file_path, datos, mensaje):
     if not datos:
-        logger.warning(f"⚠️ Lista vacía para {file_path}")
+        logger.warning(f"️ Lista vacía para {file_path}")
         return False
     
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{file_path}"
@@ -197,11 +153,11 @@ def actualizar_github(file_path, datos, mensaje):
         logger.info(f"✅ {file_path} actualizado")
         return True
     else:
-        logger.error(f"❌ Error: {put_response.text}")
+        logger.error(f" Error: {put_response.text}")
         return False
 
 def main():
-    logger.info("🚀 Iniciando Bot de Resultados (Meridiano)...")
+    logger.info("🚀 Iniciando Bot de Resultados (Flashscore)...")
     if not TOKEN:
         logger.error("❌ No hay GITHUB_TOKEN")
         return
@@ -216,10 +172,10 @@ def main():
             )
             page = context.new_page()
             
-            logger.info("🌐 Navegando a Meridiano.net...")
-            page.goto(URL_MERIDIANO, wait_until='networkidle', timeout=30000)
+            logger.info("🌐 Navegando a Flashscore...")
+            page.goto(URL_FLASHSCORE, wait_until='domcontentloaded', timeout=60000)
             
-            resultados = extraer_resultados_meridiano(page)
+            resultados = extraer_resultados_flashscore(page)
             
             if resultados and len(resultados) > 0:
                 logger.info(f"✅ Extraídos {len(resultados)} juegos")
