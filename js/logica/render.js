@@ -204,13 +204,23 @@ export function renderLideres() {
         contenedor.innerHTML = '';
         lideres.forEach(lider => {
             const rutaMascota = obtenerMascota(lider.equipo);
+            
+            // 🛠️ CORRECCIÓN AUTOMÁTICA (SANITIZACIÓN):
+            // El Bot a veces trae "D. Rodríguez1B (ARA)" o "J. Pérez LF".
+            // Esta Expresión Regular busca las posiciones (1B, 2B, 3B, SS, LF, CF, RF, C, DH, P)
+            // y las elimina, dejando solo "Nombre (Equipo)" o solo "Nombre".
+            let nombreLimpio = lider.nombre
+                .replace(/\s*(?:1B|2B|3B|SS|LF|CF|RF|C|DH|P)\s*(?=\(|$)/gi, ' ') // Quita la posición antes del paréntesis o al final
+                .replace(/\s+/g, ' ') // Limpia espacios dobles que puedan quedar
+                .trim(); // Quita espacios al inicio y final
+
             const item = document.createElement('div');
             item.className = 'item-lider';
             item.innerHTML = `
                 <div class="posicion">#${lider.posicion}</div>
                 <img src="${rutaMascota}" alt="Mascota" class="mascota-img" onerror="this.src='mascotas/leo.jpg'">
                 <div class="info-jugador">
-                    <span class="nombre">${lider.nombre}</span>
+                    <span class="nombre" title="${nombreLimpio}">${nombreLimpio}</span>
                 </div>
                 <div class="valor">${lider.valor}</div>
             `;
