@@ -35,7 +35,7 @@ export const CALENDARIO = [
         "visitante": "Leones",
         "local": "Navegantes",
         "lugar": "Estadio José Bernardo Pérez",
-        "transmision": "BYM Sport",
+        "transmision": "BYM Sport / Venevisión",
         "enVivo": false,
         "finalizado": false
     }
