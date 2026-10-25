@@ -8,7 +8,20 @@
 
 .tabla-container { overflow-x: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 table { width: 100%; border-collapse: collapse; background: #ffffff; font-size: 0.85rem; }
-th { background: linear-gradient(90deg, #d32f2f 0%, #b71c1c 100%); color: #fff; padding: 10px 8px; text-align: center; font-weight: 600; font-size: 0.8rem; white-space: nowrap; }
+
+/* ✅ AJUSTE: Encabezado cambiado de rojo a amarillo dorado con degradado sutil */
+th { 
+    background: linear-gradient(90deg, #ffd700 0%, #e6c200 100%); 
+    color: #000000; 
+    padding: 10px 8px; 
+    text-align: center; 
+    font-weight: 700; 
+    font-size: 0.8rem; 
+    white-space: nowrap; 
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 td { padding: 10px 8px; text-align: center; border-bottom: 1px solid #e0e0e0; color: #2c2c2c; font-weight: 500; font-size: 0.85rem; }
 tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2s; }
 
