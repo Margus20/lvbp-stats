@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1,
+        "titulo": "Magallanes derrota a Cardenales 11-7",
+        "resumen": "Los navegantes consiguieron su primera victoria de la temporada.",
+        "fechaCreacion": "19 Oct 2026",
+        "fechaPublicacion": "19 Oct 2026",
+        "tag": "RESULTADOS",
+        "imagen": "img/lvbp.png",
+        "contenido": "<p><strong>LARA.-</strong> Navegantes del Magallanes logró su primera victoria.</p>",
+        "esPrincipal": false
+    },
+    {
+        "id": 2,
+        "titulo": "H. Pérez conecta 5 jonrones en la temporada",
+        "resumen": "El jardinero de las Águilas lidera la liga de jonrones.",
+        "fechaCreacion": "25 Oct 2026",
+        "fechaPublicacion": "26 Oct 2026",
+        "tag": "LÍDERES",
+        "imagen": "img/lvbp.png",
+        "contenido": "<p>Héctor Pérez sigue imparable en la temporada.</p>",
+        "esPrincipal": true
+    },
+    {
+        "id": 3,
+        "titulo": "Tiburones blanquea 5-0 a Leones",
+        "resumen": "Dominio total de los Tiburones en el Universitario.",
+        "fechaCreacion": "25 Oct 2026",
+        "fechaPublicacion": "27 Oct 2026",
+        "tag": "RESULTADOS",
+        "imagen": "img/lvbp.png",
+        "contenido": "<p>En el estadio Universitario, Tiburones dominó de principio a fin.</p>",
+        "esPrincipal": true
+    }
+]
