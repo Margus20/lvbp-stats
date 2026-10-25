@@ -11,14 +11,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Estilos CSS -->
-    <link rel="stylesheet" href="css/01-base.css?v=104">
-    <link rel="stylesheet" href="css/02-header-nav.css?v=104">
-    <link rel="stylesheet" href="css/03-noticias-articulos.css?v=104">
-    <link rel="stylesheet" href="css/04-tablas-posiciones.css?v=104">
-    <link rel="stylesheet" href="css/05-tarjetas-juegos.css?v=104">
-    <link rel="stylesheet" href="css/06-estadisticas-mascotas.css?v=104">
-    <link rel="stylesheet" href="css/07-sidebar-footer.css?v=104">
-    <link rel="stylesheet" href="css/08-boton-flotante.css?v=104">
+    <link rel="stylesheet" href="css/01-base.css?v=105">
+    <link rel="stylesheet" href="css/02-header-nav.css?v=105">
+    <link rel="stylesheet" href="css/03-noticias-articulos.css?v=105">
+    <link rel="stylesheet" href="css/04-tablas-posiciones.css?v=105">
+    <link rel="stylesheet" href="css/05-tarjetas-juegos.css?v=105">
+    <link rel="stylesheet" href="css/06-estadisticas-mascotas.css?v=105">
+    <link rel="stylesheet" href="css/07-sidebar-footer.css?v=105">
+    <link rel="stylesheet" href="css/08-boton-flotante.css?v=105">
     
     <!-- Iconos de Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -32,7 +32,7 @@
 
     <div class="main-layout">
         <main class="contenido-principal">
-            <section class="hero-noticia" id="noticias">
+            <section class="hero-noticia">
                 <div class="hero-imagen" style="background-image: url('https://images.unsplash.com/photo-1508344928928-7165b67de128?w=1400&q=80');">
                     <div class="hero-overlay"></div>
                     <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua">
@@ -45,10 +45,21 @@
                 </div>
             </section>
 
-            <section class="noticias-grid-section">
+            <!-- ========================================== -->
+            <!-- SECCIÓN DE NOTICIAS (1 GRANDE + 4 PEQUEÑAS) -->
+            <!-- ========================================== -->
+            <section class="noticias-grid-section" id="seccion-noticias">
                 <div class="container">
-                    <h2 class="titulo-seccion"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion"> Últimas Noticias</h2>
-                    <div class="noticias-grid" id="noticias-container"></div>
+                    <h2 class="titulo-seccion">
+                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
+                        Últimas Noticias
+                    </h2>
+                    
+                    <!-- Noticia Principal (GRANDE) -->
+                    <div id="noticia-principal-container"></div>
+                    
+                    <!-- Noticias Secundarias (PEQUEÑAS en grid) -->
+                    <div id="noticias-secundarias-container" class="grid-noticias"></div>
                 </div>
             </section>
 
@@ -130,10 +141,10 @@
                 const footer = await fetch('componentes/footer.html').then(r => r.text());
                 document.getElementById('footer-placeholder').innerHTML = footer;
                 
-                // Cargar app.js (versión 104 para forzar caché nueva y limpia)
+                // Cargar app.js (versión 105 para forzar caché nueva y limpia)
                 const scriptApp = document.createElement('script');
                 scriptApp.type = 'module';
-                scriptApp.src = 'js/logica/app.js?v=104';
+                scriptApp.src = 'js/logica/app.js?v=105';
                 document.body.appendChild(scriptApp);
 
             } catch (error) {
