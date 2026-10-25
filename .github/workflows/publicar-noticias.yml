@@ -1,0 +1,33 @@
+name: Publicar Noticias Automáticas
+
+on:
+  schedule:
+    # Se ejecuta todos los días a las 12:00 UTC = 8:00 AM hora Venezuela
+    - cron: '0 12 * * *'
+  workflow_dispatch:  # Permite ejecutarlo manualmente también
+
+jobs:
+  publicar-noticias:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Ejecutar script de noticias
+        run: python scripts/publicar-noticias.py
+      
+      - name: Guardar cambios automáticamente
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add js/datos/noticias.js
+          git diff --staged --quiet || git commit -m "📰 Noticias actualizadas automáticamente - $(date +'%Y-%m-%d')"
+          git push
