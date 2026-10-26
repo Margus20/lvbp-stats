@@ -34,7 +34,7 @@ export function renderPosiciones() {
 }
 
 // ============================================
-// RENDERIZAR NOTICIAS (HERO DINÁMICO + SECUNDARIAS)
+// RENDERIZAR NOTICIAS (HERO LIMPIO + SECUNDARIAS)
 // ============================================
 export function renderNoticias() {
     const heroContainer = document.getElementById("hero-noticia-container");
@@ -42,16 +42,15 @@ export function renderNoticias() {
     
     if (!heroContainer || !containerSecundarias) return;
     
-    // Si no hay noticias, mostrar un hero de respaldo
+    // Si no hay noticias, mostrar un hero de respaldo (también limpio)
     if (!NOTICIAS || NOTICIAS.length === 0) {
         heroContainer.innerHTML = `
             <div class="hero-imagen" style="background-image: url('https://images.unsplash.com/photo-1508344928928-7165b67de128?w=1400&q=80');">
                 <div class="hero-overlay"></div>
                 <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua">
                 <div class="hero-contenido">
-                    <span class="hero-tag">ACTUALIDAD LVBP</span>
                     <h1 class="hero-titulo">Bienvenido a LVBP al Día</h1>
-                    <p class="hero-subtitulo">Próximamente nuevas noticias y resultados de la jornada.</p>
+                    <p class="hero-fecha">Temporada 2026-2027</p>
                 </div>
             </div>`;
         containerSecundarias.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">No hay noticias publicadas</p>';
@@ -61,15 +60,13 @@ export function renderNoticias() {
     // 1. Encontrar la noticia PRINCIPAL (la grande)
     const noticiaPrincipal = NOTICIAS.find(n => n.esPrincipal) || NOTICIAS[0];
     
-    // 2. Renderizar el HERO dinámicamente con la noticia principal
+    // 2. Renderizar el HERO dinámicamente (SOLO título y fecha, sin tag ni resumen)
     heroContainer.innerHTML = `
         <div class="hero-imagen" style="background-image: url('${noticiaPrincipal.imagen}');">
             <div class="hero-overlay"></div>
             <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua">
             <div class="hero-contenido" style="cursor: pointer;" onclick="window.abrirArticulo(${noticiaPrincipal.id})">
-                <span class="hero-tag">${noticiaPrincipal.tag}</span>
                 <h1 class="hero-titulo">${noticiaPrincipal.titulo}</h1>
-                <p class="hero-subtitulo">${noticiaPrincipal.resumen}</p>
                 <p class="hero-fecha">${noticiaPrincipal.fecha}</p>
             </div>
         </div>
@@ -87,7 +84,7 @@ export function renderNoticias() {
             card.className = "noticia-secundaria-card";
             card.onclick = () => window.abrirArticulo(noticia.id);
             
-            // ✅ AJUSTE: Se eliminó el <span class="tag"> para que solo muestre titular y fecha
+            // ✅ Tarjetas secundarias: SOLO titular y fecha
             card.innerHTML = `
                 <img src="${noticia.imagen}" alt="${noticia.titulo}">
                 <div class="noticia-secundaria-overlay">
