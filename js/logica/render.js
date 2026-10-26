@@ -87,10 +87,10 @@ export function renderNoticias() {
             card.className = "noticia-secundaria-card";
             card.onclick = () => window.abrirArticulo(noticia.id);
             
+            // ✅ AJUSTE: Se eliminó el <span class="tag"> para que solo muestre titular y fecha
             card.innerHTML = `
                 <img src="${noticia.imagen}" alt="${noticia.titulo}">
                 <div class="noticia-secundaria-overlay">
-                    <span class="tag">${noticia.tag}</span>
                     <h4>${noticia.titulo}</h4>
                     <div class="fecha">${noticia.fecha}</div>
                 </div>
