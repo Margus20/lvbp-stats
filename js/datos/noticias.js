@@ -7,7 +7,7 @@
 export const NOTICIAS = [
     {
         id: 4,
-        titulo: "Cardenales en la cima: Dominan con autoridad la LVBP",
+        titulo: "Cardenales en la cima",
         resumen: "",
         fecha: "26 Oct 2026",
         tag: "",
