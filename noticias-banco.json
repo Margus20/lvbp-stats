@@ -19,7 +19,7 @@
         "tag": "LÍDERES",
         "imagen": "img/lvbp.png",
         "contenido": "<p>Héctor Pérez sigue imparable en la temporada.</p>",
-        "esPrincipal": true
+        "esPrincipal": false
     },
     {
         "id": 3,
