@@ -6,10 +6,10 @@ import os
 # BOT DE PUBLICACIÓN AUTOMÁTICA DE NOTICIAS
 # ============================================
 # Este script:
-# 1. Lee el banco de noticias (JSON)
+# 1. Lee el banco de noticias (JSON) desde la raíz
 # 2. Filtra las que tienen fechaPublicacion = HOY
 # 3. Selecciona 1 principal + 4 más recientes
-# 4. Genera noticias.js automáticamente
+# 4. Genera noticias.js automáticamente en js/datos/
 # ============================================
 
 def obtener_fecha_hoy():
@@ -20,10 +20,11 @@ def obtener_fecha_hoy():
     return f"{hoy.day} {meses[hoy.month - 1]} {hoy.year}"
 
 def cargar_banco():
-    """Carga el banco de noticias desde el JSON"""
-    ruta = 'js/datos/noticias-banco.json'
+    """Carga el banco de noticias desde el JSON en la raíz del repositorio"""
+    # ✅ CAMBIO AQUÍ: Ahora busca en la raíz, no en js/datos/
+    ruta = 'noticias-banco.json'
     if not os.path.exists(ruta):
-        print(f" No se encontró {ruta}")
+        print(f"❌ No se encontró {ruta}")
         return []
     
     with open(ruta, 'r', encoding='utf-8') as f:
@@ -109,7 +110,7 @@ export const NOTICIAS = [];
     return '\n'.join(lines)
 
 def guardar_noticias(contenido_js):
-    """Guarda el archivo noticias.js"""
+    """Guarda el archivo noticias.js en su carpeta correcta"""
     ruta = 'js/datos/noticias.js'
     with open(ruta, 'w', encoding='utf-8') as f:
         f.write(contenido_js)
@@ -125,7 +126,7 @@ def main():
     print(f"📚 Total de noticias en el banco: {len(banco)}")
     
     noticias_hoy = filtrar_noticias_hoy(banco, fecha_hoy)
-    print(f" Noticias programadas para hoy: {len(noticias_hoy)}")
+    print(f"📰 Noticias programadas para hoy: {len(noticias_hoy)}")
     
     if not noticias_hoy:
         print("⚠️ No hay noticias programadas para hoy")
