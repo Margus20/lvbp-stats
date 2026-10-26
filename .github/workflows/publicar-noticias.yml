@@ -6,6 +6,10 @@ on:
     - cron: '0 12 * * *'
   workflow_dispatch:  # Permite ejecutarlo manualmente también
 
+# ✅ ESTO ES LO NUEVO: Permisos para escribir en el repositorio
+permissions:
+  contents: write
+
 jobs:
   publicar-noticias:
     runs-on: ubuntu-latest
