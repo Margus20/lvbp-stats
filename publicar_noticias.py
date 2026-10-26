@@ -7,9 +7,11 @@ import os
 # ============================================
 # Este script:
 # 1. Lee el banco de noticias (JSON) desde la raíz
-# 2. Filtra las que tienen fechaPublicacion = HOY
-# 3. Selecciona 1 principal + 4 más recientes
-# 4. Genera noticias.js automáticamente en js/datos/
+# 2. Lee el archivo Evergreen (noticias atemporales)
+# 3. Filtra las que tienen fechaPublicacion = HOY
+# 4. Si no hay 5 noticias del día, completa con Evergreen
+# 5. Selecciona 1 principal + 4 más recientes
+# 6. Genera noticias.js automáticamente en js/datos/
 # ============================================
 
 def obtener_fecha_hoy():
@@ -21,10 +23,19 @@ def obtener_fecha_hoy():
 
 def cargar_banco():
     """Carga el banco de noticias desde el JSON en la raíz del repositorio"""
-    # ✅ CAMBIO AQUÍ: Ahora busca en la raíz, no en js/datos/
     ruta = 'noticias-banco.json'
     if not os.path.exists(ruta):
         print(f"❌ No se encontró {ruta}")
+        return []
+    
+    with open(ruta, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+def cargar_evergreen():
+    """Carga las noticias Evergreen (atemporales) desde el JSON"""
+    ruta = 'noticias-evergreen.json'
+    if not os.path.exists(ruta):
+        print(f"⚠️ No se encontró {ruta} (no hay noticias Evergreen)")
         return []
     
     with open(ruta, 'r', encoding='utf-8') as f:
@@ -38,27 +49,60 @@ def filtrar_noticias_hoy(banco, fecha_hoy):
             noticias_hoy.append(noticia)
     return noticias_hoy
 
-def seleccionar_noticias(noticias_hoy):
-    """Selecciona 1 principal + 4 más recientes (máximo 5)"""
-    if not noticias_hoy:
+def seleccionar_noticias(noticias_hoy, evergreen):
+    """
+    Selecciona hasta 5 noticias:
+    1. Primero toma las del día (1 principal + hasta 4 secundarias)
+    2. Si no llega a 5, completa con Evergreen
+    """
+    if not noticias_hoy and not evergreen:
         return []
     
-    # Separar principales y secundarias
-    principales = [n for n in noticias_hoy if n.get('esPrincipal', False)]
-    secundarias = [n for n in noticias_hoy if not n.get('esPrincipal', False)]
+    # Separar principales y secundarias del día
+    principales_hoy = [n for n in noticias_hoy if n.get('esPrincipal', False)]
+    secundarias_hoy = [n for n in noticias_hoy if not n.get('esPrincipal', False)]
     
     resultado = []
     
-    # Agregar 1 principal (la más reciente si hay varias)
-    if principales:
-        resultado.append(principales[0])
+    # Paso 1: Agregar 1 principal del día (si existe)
+    if principales_hoy:
+        resultado.append(principales_hoy[0])
+        print(f"   - ⭐ PRINCIPAL (día): {principales_hoy[0].get('titulo')}")
     
-    # Agregar hasta 4 secundarias
-    resultado.extend(secundarias[:4])
+    # Paso 2: Agregar secundarias del día (hasta 4)
+    secundarias_agregadas = 0
+    for noticia in secundarias_hoy:
+        if len(resultado) < 5:
+            resultado.append(noticia)
+            secundarias_agregadas += 1
+            print(f"   -  Secundaria (día): {noticia.get('titulo')}")
     
-    # Si no hay principal pero hay secundarias, la primera será principal
-    if not principales and resultado:
+    # Paso 3: Si no llegamos a 5, completar con Evergreen
+    if evergreen and len(resultado) < 5:
+        print("📚 Completando con noticias Evergreen...")
+        evergreen_disponibles = [n for n in evergreen if n not in resultado]
+        
+        # Si no hay principal aún, buscar una en Evergreen
+        if not principales_hoy:
+            evergreen_principal = next((n for n in evergreen_disponibles if n.get('esPrincipal', False)), None)
+            if evergreen_principal and len(resultado) < 5:
+                resultado.append(evergreen_principal)
+                print(f"   - ⭐ PRINCIPAL (Evergreen): {evergreen_principal.get('titulo')}")
+                evergreen_disponibles.remove(evergreen_principal)
+        
+        # Agregar el resto de Evergreen como secundarias
+        for noticia in evergreen_disponibles:
+            if len(resultado) < 5:
+                resultado.append(noticia)
+                print(f"   - 📰 Secundaria (Evergreen): {noticia.get('titulo')}")
+    
+    # Si no hay principal pero hay noticias, marcar la primera como principal
+    if not resultado:
+        return []
+    
+    if not any(n.get('esPrincipal', False) for n in resultado):
         resultado[0]['esPrincipal'] = True
+        print(f"   - ⚠️ Sin principal definida, se asignó: {resultado[0].get('titulo')}")
     
     return resultado[:5]  # Máximo 5 noticias
 
@@ -117,26 +161,29 @@ def guardar_noticias(contenido_js):
     print(f"✅ Archivo guardado: {ruta}")
 
 def main():
-    print("🤖 Bot de noticias iniciado...")
+    print(" Bot de noticias iniciado...")
     
     fecha_hoy = obtener_fecha_hoy()
     print(f"📅 Fecha de hoy: {fecha_hoy}")
     
+    # Cargar banco normal y Evergreen
     banco = cargar_banco()
-    print(f"📚 Total de noticias en el banco: {len(banco)}")
+    evergreen = cargar_evergreen()
     
+    print(f"📚 Total de noticias en el banco: {len(banco)}")
+    print(f" Total de noticias Evergreen: {len(evergreen)}")
+    
+    # Filtrar noticias del día
     noticias_hoy = filtrar_noticias_hoy(banco, fecha_hoy)
     print(f"📰 Noticias programadas para hoy: {len(noticias_hoy)}")
     
-    if not noticias_hoy:
-        print("⚠️ No hay noticias programadas para hoy")
+    if not noticias_hoy and not evergreen:
+        print("⚠️ No hay noticias del día ni Evergreen disponibles")
         contenido = generar_js([])
     else:
-        seleccionadas = seleccionar_noticias(noticias_hoy)
-        print(f"✅ Noticias seleccionadas: {len(seleccionadas)}")
-        for n in seleccionadas:
-            tipo = "⭐ PRINCIPAL" if n.get('esPrincipal') else "📰 Secundaria"
-            print(f"   - {tipo}: {n.get('titulo')}")
+        print("🎯 Seleccionando noticias (prioridad: día > Evergreen)...")
+        seleccionadas = seleccionar_noticias(noticias_hoy, evergreen)
+        print(f"✅ Total de noticias seleccionadas: {len(seleccionadas)}")
         contenido = generar_js(seleccionadas)
     
     guardar_noticias(contenido)
