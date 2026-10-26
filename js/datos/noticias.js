@@ -17,22 +17,22 @@ export const NOTICIAS = [
     },
     {
         id: 1,
-        titulo: "Magallanes derrota a Cardenales 11-7",
+        titulo: "Los Leones se aprovechan de la nave turca",
         resumen: "",
         fecha: "26 Oct 2026",
         tag: "",
-        imagen: "img/lvbp.png",
-        contenido: "<p><strong>LARA.-</strong> Navegantes del Magallanes logró su primera victoria.</p>",
+        imagen: "img/noticias/leones-gana-magallanes.jpg",
+        contenido: "<p><strong>CARACAS.-</strong> Los eternos rivales de la Liga Venezolana de Béisbol Profesional (LVBP) protagonizaron un fin de semana lleno de emociones en una doble jornada donde los <strong>Leones del Caracas</strong> mostraron todo su poderío ofensivo frente a los <strong>Navegantes del Magallanes</strong>. Los melenudos tomaron la serie de fin de semana como un auténtico trampolín para escalar posiciones clave en la tabla, mientras que los filibusteros continúan sin poder consolidar una racha de victorias.</p><h3 style='color: #d32f2f; margin-top: 20px;'>Despliegue de poder en escenarios a casa llena</h3><p>Ambos compromisos contaron con recintos a casi la totalidad de su capacidad, vibrando con la pasión del clásico capital-valenciano:</p><ul style='margin-left: 20px;'><li><strong>Sábado 24 (Estadio Monumental de Caracas Simón Bolívar):</strong> La artillería melenuda desató todo su potencial ante su afición al imponerse de manera contundente con pizarra de <strong>10-1</strong>. El Caracas conectó 11 imparables, anotando 10 carreras con solo 1 error, mientras que Magallanes apenas pudo fabricar 1 rayita con 6 hits y sin errores. El triunfo desde el montículo fue para <strong>Nic Swanson (G)</strong> y la derrota para <strong>Dillon Tate (P)</strong>.</li><li><strong>Domingo 25 (Estadio José Bernardo Pérez de Valencia):</strong> En un choque mucho más cerrado que se extendió a 10 entradas, los Leones volvieron a prevalecer con marcador de <strong>8-3</strong>. La ofensiva de Caracas sumó 12 indiscutibles para registrar 8 anotaciones (1 error), superando la resistencia eléctrica de 3 carreras y 5 imparables (sin pecar a la defensiva). La victoria se la adjudicó <strong>Sandy Gastón (G)</strong> y el revés recayó en <strong>Jesús Reyes (P)</strong>.</li></ul><p>En total, la toletería de <strong>Leones del Caracas</strong> fabricó un imponente saldo de <strong>18 carreras</strong> a lo largo del fin de semana para dominar la doble cartelera frente a su acérrimo rival.</p><p>💬 <em>¿Lograrán los Leones mantener esta vena ofensiva para pelear el liderato o reaccionará la nave en los próximos enfrentamientos? ¡Déjanos tu comentario!</em></p>",
         esPrincipal: false
     },
     {
         id: 2,
-        titulo: "H. Pérez conecta 5 jonrones en la temporada",
+        titulo: "Hernán Pérez se coloca líder en cuadrangulares",
         resumen: "",
         fecha: "26 Oct 2026",
         tag: "",
-        imagen: "img/lvbp.png",
-        contenido: "<p>Héctor Pérez sigue imparable en la temporada.</p>",
+        imagen: "img/noticias/hernan-perez-jonrones.jpg",
+        contenido: "<p><strong>CARACAS.-</strong> La lucha por la cima de la fuerza en la Liga Venezolana de Béisbol Profesional (LVBP) tiene un nuevo dueño absoluto. El experimentado infielder Hernán Pérez, ficha de los Caribes de Anzoátegui, asumió el liderato en solitario del departamento de cuadrangulares tras conectar su quinto bambinazo de la temporada.</p><p>Este estacazo clave se produjo en el Estadio Universitario de Caracas, en un emocionante encuentro donde los orientales se impusieron ante los Tiburones de La Guaira. Con esta demostración de poder, Pérez encabeza la tabla de vuelacercas tras disputar los primeros 12 encuentros de la campaña.</p><p>La lucha por el departamento de poder está que arde en este arranque de torneo. Muy de cerca le pisan los talones en la persecución un grupo selecto de artilleros con 4 cuadrangulares: <strong>Angel Reyes</strong> (Navegantes), <strong>David Rodríguez</strong> (Tigres) y <strong>Keyber Rodríguez</strong> (Tigres). Más atrás, con 3 estacazos, figuran nombres como <strong>David Peralta</strong> (Bravos), <strong>Renato Núñez</strong> (Navegantes) y su compañero de equipo <strong>Gabriel Gonzalez</strong> (Caribes).</p><p> <em>¿Podrá Hernán Pérez mantener el ritmo y quedarse con la corona de jonroneros este año? ¡Déjanos tu comentario!</em></p>",
         esPrincipal: false
     },
     {
