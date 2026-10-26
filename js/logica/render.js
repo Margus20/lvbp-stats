@@ -34,62 +34,70 @@ export function renderPosiciones() {
 }
 
 // ============================================
-// RENDERIZAR NOTICIAS (1 GRANDE + 4 PEQUEÑAS)
+// RENDERIZAR NOTICIAS (HERO DINÁMICO + SECUNDARIAS)
 // ============================================
 export function renderNoticias() {
-    const containerPrincipal = document.getElementById("noticia-principal-container");
+    const heroContainer = document.getElementById("hero-noticia-container");
     const containerSecundarias = document.getElementById("noticias-secundarias-container");
     
-    if (!containerPrincipal || !containerSecundarias) return;
+    if (!heroContainer || !containerSecundarias) return;
     
-    containerPrincipal.innerHTML = '';
-    containerSecundarias.innerHTML = '';
-    
+    // Si no hay noticias, mostrar un hero de respaldo
     if (!NOTICIAS || NOTICIAS.length === 0) {
-        containerPrincipal.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">No hay noticias publicadas</p>';
+        heroContainer.innerHTML = `
+            <div class="hero-imagen" style="background-image: url('https://images.unsplash.com/photo-1508344928928-7165b67de128?w=1400&q=80');">
+                <div class="hero-overlay"></div>
+                <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua">
+                <div class="hero-contenido">
+                    <span class="hero-tag">ACTUALIDAD LVBP</span>
+                    <h1 class="hero-titulo">Bienvenido a LVBP al Día</h1>
+                    <p class="hero-subtitulo">Próximamente nuevas noticias y resultados de la jornada.</p>
+                </div>
+            </div>`;
+        containerSecundarias.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">No hay noticias publicadas</p>';
         return;
     }
     
-    // Separar noticia principal de las secundarias
+    // 1. Encontrar la noticia PRINCIPAL (la grande)
     const noticiaPrincipal = NOTICIAS.find(n => n.esPrincipal) || NOTICIAS[0];
-    const noticiasSecundarias = NOTICIAS.filter(n => n !== noticiaPrincipal).slice(0, 4);
     
-    // === Renderizar noticia principal (GRANDE) ===
-    const cardPrincipal = document.createElement("div");
-    cardPrincipal.className = "noticia-principal-card";
-    cardPrincipal.onclick = () => window.abrirArticulo(noticiaPrincipal.id);
-    
-    cardPrincipal.innerHTML = `
-        <img src="${noticiaPrincipal.imagen}" alt="${noticiaPrincipal.titulo}">
-        <div class="noticia-principal-overlay">
-            <span class="tag">${noticiaPrincipal.tag}</span>
-            <h3>${noticiaPrincipal.titulo}</h3>
-            <div class="fecha">${noticiaPrincipal.fecha}</div>
+    // 2. Renderizar el HERO dinámicamente con la noticia principal
+    heroContainer.innerHTML = `
+        <div class="hero-imagen" style="background-image: url('${noticiaPrincipal.imagen}');">
+            <div class="hero-overlay"></div>
+            <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua">
+            <div class="hero-contenido" style="cursor: pointer;" onclick="window.abrirArticulo(${noticiaPrincipal.id})">
+                <span class="hero-tag">${noticiaPrincipal.tag}</span>
+                <h1 class="hero-titulo">${noticiaPrincipal.titulo}</h1>
+                <p class="hero-subtitulo">${noticiaPrincipal.resumen}</p>
+                <p class="hero-fecha">${noticiaPrincipal.fecha}</p>
+            </div>
         </div>
     `;
-    containerPrincipal.appendChild(cardPrincipal);
     
-    // === Renderizar noticias secundarias (PEQUEÑAS) ===
+    // 3. Renderizar las noticias secundarias (las que NO son la principal, máximo 4)
+    containerSecundarias.innerHTML = '';
+    const noticiasSecundarias = NOTICIAS.filter(n => n.id !== noticiaPrincipal.id).slice(0, 4);
+    
     if (noticiasSecundarias.length === 0) {
-        containerSecundarias.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">No hay más noticias</p>';
-        return;
+        containerSecundarias.innerHTML = '<p style="text-align:center; color:#999; padding:20px; grid-column: 1/-1;">No hay más noticias para mostrar</p>';
+    } else {
+        noticiasSecundarias.forEach(noticia => {
+            const card = document.createElement("div");
+            card.className = "noticia-secundaria-card";
+            card.onclick = () => window.abrirArticulo(noticia.id);
+            
+            card.innerHTML = `
+                <img src="${noticia.imagen}" alt="${noticia.titulo}">
+                <div class="noticia-secundaria-overlay">
+                    <span class="tag">${noticia.tag}</span>
+                    <h4>${noticia.titulo}</h4>
+                    <div class="fecha">${noticia.fecha}</div>
+                </div>
+            `;
+            containerSecundarias.appendChild(card);
+        });
     }
-    
-    noticiasSecundarias.forEach(noticia => {
-        const card = document.createElement("div");
-        card.className = "noticia-secundaria-card";
-        card.onclick = () => window.abrirArticulo(noticia.id);
-        
-        card.innerHTML = `
-            <img src="${noticia.imagen}" alt="${noticia.titulo}">
-            <div class="noticia-secundaria-overlay">
-                <span class="tag">${noticia.tag}</span>
-                <h4>${noticia.titulo}</h4>
-                <div class="fecha">${noticia.fecha}</div>
-            </div>
-        `;
-        containerSecundarias.appendChild(card);
-    });
 }
 
 export function renderResultados() {
@@ -178,9 +186,9 @@ export function renderCalendario() {
         card.className = "juego-card" + (j.enVivo ? " en-vivo" : "") + (j.finalizado ? " finalizado" : "");
         let infoInferior = '';
         
-        if (j.finalizado && j.scoreLocal !== null) {
+        if (j.finalizado && j.scoreLocal !== "") {
             infoInferior = `<div class="info-juego-cal finalizado-info"><div class="marcador-vivo"><span class="carreras-visitante">${j.scoreVisitante}</span><span class="separador-marcador">-</span><span class="carreras-local">${j.scoreLocal}</span></div><div class="inning-info"><span class="finalizado-badge">FINAL</span><span class="inning-numero">${j.innings || 9} Innings</span></div></div>`;
-        } else if (j.enVivo && j.scoreLocal !== null) {
+        } else if (j.enVivo && j.scoreLocal !== "") {
             infoInferior = `<div class="info-juego-cal en-vivo-info"><div class="marcador-vivo"><span class="carreras-visitante">${j.scoreVisitante}</span><span class="separador-marcador">-</span><span class="carreras-local">${j.scoreLocal}</span></div><div class="inning-info"><span class="en-vivo-badge"> EN VIVO</span><span class="inning-numero">Inning ${j.inning}</span></div></div>`;
         } else {
             const canalesHTML = j.transmision.split('/').map(c => {
