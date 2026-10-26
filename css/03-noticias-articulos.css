@@ -19,7 +19,7 @@
 .hero-subtitulo { color: #e0e0e0; font-size: 1rem; margin-bottom: 15px; line-height: 1.5; }
 .hero-fecha { color: #ffd700; font-size: 0.95rem; font-weight: 500; }
 
-/* --- SECCIÓN DE NOTICIAS (1 GRANDE + 4 PEQUEÑAS EN 2x2) --- */
+/* --- SECCIÓN DE NOTICIAS --- */
 .noticias-grid-section { padding: 30px 0; background: transparent; }
 
 /* Noticia Principal (GRANDE) */
@@ -87,13 +87,14 @@
     font-weight: bold;
 }
 
-/* ✅ CAMBIO CLAVE: Grid forzado de 2 columnas x 2 filas */
+/* ✅ Grid forzado de 2 columnas x 2 filas - SIEMPRE */
 .grid-noticias {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* EXACTAMENTE 2 columnas */
-    grid-template-rows: repeat(2, 1fr);    /* EXACTAMENTE 2 filas */
+    grid-template-rows: repeat(2, 200px);  /* EXACTAMENTE 2 filas de 200px */
     gap: 15px;
     width: 100%;
+    max-width: 100%;
 }
 
 .noticia-secundaria-card {
@@ -104,7 +105,8 @@
     cursor: pointer;
     transition: transform 0.3s ease;
     background: #000;
-    height: 220px; /* Altura fija para uniformidad */
+    height: 200px; /* Altura fija */
+    width: 100%;
 }
 
 .noticia-secundaria-card:hover {
@@ -116,7 +118,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.75;
+    opacity: 0.85; /* Más visible para que se vea la imagen */
 }
 
 .noticia-secundaria-overlay {
@@ -124,38 +126,31 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 15px 12px 12px;
-    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    padding: 12px 10px 10px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.95));
     color: white;
 }
 
+/* ✅ OCULTAR el tag de las tarjetas secundarias */
 .noticia-secundaria-overlay .tag {
-    display: inline-block;
-    background: #d32f2f;
-    color: white;
-    padding: 4px 10px;
-    border-radius: 3px;
-    font-size: 0.7rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    letter-spacing: 0.5px;
+    display: none;
 }
 
 .noticia-secundaria-overlay h4 {
-    font-size: 1rem;
-    margin: 0 0 6px 0;
+    font-size: 0.95rem;
+    margin: 0 0 4px 0;
     line-height: 1.2;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    font-weight: 600;
 }
 
 .noticia-secundaria-overlay .fecha {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #ffd700;
     font-weight: bold;
 }
 
-/* Responsive para tablets y móviles */
+/* ✅ Responsive: mantener 2 columnas incluso en móvil */
 @media (max-width: 768px) {
     .noticia-principal-card {
         height: 350px;
@@ -163,12 +158,17 @@
     .noticia-principal-overlay h3 {
         font-size: 1.4rem;
     }
+    /* Mantener 2 columnas en tablet */
     .grid-noticias {
-        grid-template-columns: 1fr; /* 1 columna en pantallas pequeñas */
-        grid-template-rows: repeat(4, 1fr); /* 4 filas */
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 180px);
+        gap: 10px;
     }
     .noticia-secundaria-card {
-        height: 200px;
+        height: 180px;
+    }
+    .noticia-secundaria-overlay h4 {
+        font-size: 0.85rem;
     }
 }
 
@@ -182,11 +182,24 @@
     .noticia-principal-overlay h3 {
         font-size: 1.2rem;
     }
+    /* Mantener 2 columnas en móvil */
+    .grid-noticias {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 150px);
+        gap: 8px;
+    }
     .noticia-secundaria-card {
-        height: 180px;
+        height: 150px;
+    }
+    .noticia-secundaria-overlay {
+        padding: 8px 6px 6px;
     }
     .noticia-secundaria-overlay h4 {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
+        line-height: 1.1;
+    }
+    .noticia-secundaria-overlay .fecha {
+        font-size: 0.65rem;
     }
 }
 
