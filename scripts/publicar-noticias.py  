@@ -23,7 +23,7 @@ def cargar_banco():
     """Carga el banco de noticias desde el JSON"""
     ruta = 'js/datos/noticias-banco.json'
     if not os.path.exists(ruta):
-        print(f"❌ No se encontró {ruta}")
+        print(f" No se encontró {ruta}")
         return []
     
     with open(ruta, 'r', encoding='utf-8') as f:
@@ -134,7 +134,7 @@ def main():
         seleccionadas = seleccionar_noticias(noticias_hoy)
         print(f"✅ Noticias seleccionadas: {len(seleccionadas)}")
         for n in seleccionadas:
-            tipo = "⭐ PRINCIPAL" if n.get('esPrincipal') else " Secundaria"
+            tipo = "⭐ PRINCIPAL" if n.get('esPrincipal') else "📰 Secundaria"
             print(f"   - {tipo}: {n.get('titulo')}")
         contenido = generar_js(seleccionadas)
     
