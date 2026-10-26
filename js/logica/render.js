@@ -33,21 +33,62 @@ export function renderPosiciones() {
     });
 }
 
+// ============================================
+// RENDERIZAR NOTICIAS (1 GRANDE + 4 PEQUEÑAS)
+// ============================================
 export function renderNoticias() {
-    const container = document.getElementById("noticias-container");
-    if (!container) return;
-    container.innerHTML = '';
-    if (NOTICIAS.length === 0) {
-        container.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">No hay noticias publicadas</p>';
+    const containerPrincipal = document.getElementById("noticia-principal-container");
+    const containerSecundarias = document.getElementById("noticias-secundarias-container");
+    
+    if (!containerPrincipal || !containerSecundarias) return;
+    
+    containerPrincipal.innerHTML = '';
+    containerSecundarias.innerHTML = '';
+    
+    if (!NOTICIAS || NOTICIAS.length === 0) {
+        containerPrincipal.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">No hay noticias publicadas</p>';
         return;
     }
-    NOTICIAS.forEach(n => {
+    
+    // Separar noticia principal de las secundarias
+    const noticiaPrincipal = NOTICIAS.find(n => n.esPrincipal) || NOTICIAS[0];
+    const noticiasSecundarias = NOTICIAS.filter(n => n !== noticiaPrincipal).slice(0, 4);
+    
+    // === Renderizar noticia principal (GRANDE) ===
+    const cardPrincipal = document.createElement("div");
+    cardPrincipal.className = "noticia-principal-card";
+    cardPrincipal.onclick = () => window.abrirArticulo(noticiaPrincipal.id);
+    
+    cardPrincipal.innerHTML = `
+        <img src="${noticiaPrincipal.imagen}" alt="${noticiaPrincipal.titulo}">
+        <div class="noticia-principal-overlay">
+            <span class="tag">${noticiaPrincipal.tag}</span>
+            <h3>${noticiaPrincipal.titulo}</h3>
+            <div class="fecha">${noticiaPrincipal.fecha}</div>
+        </div>
+    `;
+    containerPrincipal.appendChild(cardPrincipal);
+    
+    // === Renderizar noticias secundarias (PEQUEÑAS) ===
+    if (noticiasSecundarias.length === 0) {
+        containerSecundarias.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">No hay más noticias</p>';
+        return;
+    }
+    
+    noticiasSecundarias.forEach(noticia => {
         const card = document.createElement("div");
-        card.className = "noticia-card";
-        card.style.backgroundImage = `url('${n.imagen}')`;
-        card.onclick = () => window.abrirArticulo(n.id);
-        card.innerHTML = `<div class="noticia-contenido"><span class="noticia-tag">${n.tag}</span><h3>${n.titulo}</h3><p class="fecha">${n.fecha}</p></div>`;
-        container.appendChild(card);
+        card.className = "noticia-secundaria-card";
+        card.onclick = () => window.abrirArticulo(noticia.id);
+        
+        card.innerHTML = `
+            <img src="${noticia.imagen}" alt="${noticia.titulo}">
+            <div class="noticia-secundaria-overlay">
+                <span class="tag">${noticia.tag}</span>
+                <h4>${noticia.titulo}</h4>
+                <div class="fecha">${noticia.fecha}</div>
+            </div>
+        `;
+        containerSecundarias.appendChild(card);
     });
 }
 
