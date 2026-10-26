@@ -1,1 +1,36 @@
+name: Actualizar Jornada Diaria
 
+on:
+  schedule:
+    # Se ejecuta todos los días a las 11:00 UTC = 7:00 AM hora Venezuela
+    - cron: '0 11 * * *'
+  workflow_dispatch:  # Permite ejecutarlo manualmente también
+
+permissions:
+  contents: write
+
+jobs:
+  actualizar-jornada:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Ejecutar script de jornada
+        run: python actualizar_jornada.py
+      
+      - name: Guardar cambios automáticamente
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add js/datos/jornada.js
+          git diff --staged --quiet || git commit -m "📅 Jornada actualizada automáticamente - $(date +'%Y-%m-%d')"
+          git push
