@@ -60,12 +60,14 @@ export function renderNoticias() {
     // 1. Encontrar la noticia PRINCIPAL (la grande)
     const noticiaPrincipal = NOTICIAS.find(n => n.esPrincipal) || NOTICIAS[0];
     
-    // 2. Renderizar el HERO dinámicamente (SOLO título y fecha, sin tag ni resumen)
+    // 2. Renderizar el HERO dinámicamente
+    // ✅ AJUSTE CLAVE: El onclick y cursor: pointer ahora están en el contenedor principal (.hero-imagen)
+    // para que toda el área de la imagen sea clickable, no solo el texto.
     heroContainer.innerHTML = `
-        <div class="hero-imagen" style="background-image: url('${noticiaPrincipal.imagen}');">
-            <div class="hero-overlay"></div>
-            <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua">
-            <div class="hero-contenido" style="cursor: pointer;" onclick="window.abrirArticulo(${noticiaPrincipal.id})">
+        <div class="hero-imagen" style="background-image: url('${noticiaPrincipal.imagen}'); cursor: pointer;" onclick="window.abrirArticulo(${noticiaPrincipal.id})">
+            <div class="hero-overlay" style="pointer-events: none;"></div>
+            <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua" style="pointer-events: none;">
+            <div class="hero-contenido">
                 <h1 class="hero-titulo">${noticiaPrincipal.titulo}</h1>
                 <p class="hero-fecha">${noticiaPrincipal.fecha}</p>
             </div>
@@ -86,8 +88,8 @@ export function renderNoticias() {
             
             // ✅ Tarjetas secundarias: SOLO titular y fecha
             card.innerHTML = `
-                <img src="${noticia.imagen}" alt="${noticia.titulo}">
-                <div class="noticia-secundaria-overlay">
+                <img src="${noticia.imagen}" alt="${noticia.titulo}" style="pointer-events: none;">
+                <div class="noticia-secundaria-overlay" style="pointer-events: none;">
                     <h4>${noticia.titulo}</h4>
                     <div class="fecha">${noticia.fecha}</div>
                 </div>
