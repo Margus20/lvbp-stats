@@ -28,7 +28,17 @@ let comentarios = [];
 window.abrirArticulo = function(id) {
     const noticia = NOTICIAS.find(n => n.id === id);
     if (!noticia) return;
-    document.getElementById("articulo-contenido").innerHTML = `<h1 class="articulo-titulo">${noticia.titulo}</h1><p class="articulo-fecha">${noticia.fecha} | LVBP al Día</p><div class="articulo-texto">${noticia.contenido}</div>`;
+    
+    // ✅ AJUSTE: Se agregó la imagen de la noticia en el encabezado del artículo
+    document.getElementById("articulo-contenido").innerHTML = `
+        <div class="articulo-imagen-principal" style="margin-bottom: 25px; border-radius: 12px; overflow: hidden;">
+            <img src="${noticia.imagen}" alt="${noticia.titulo}" style="width: 100%; height: auto; max-height: 400px; object-fit: cover; display: block;">
+        </div>
+        <h1 class="articulo-titulo">${noticia.titulo}</h1>
+        <p class="articulo-fecha">${noticia.fecha} | LVBP al Día</p>
+        <div class="articulo-texto">${noticia.contenido}</div>
+    `;
+    
     document.getElementById("articulo-completo").style.display = "block";
     document.getElementById("articulo-completo").scrollIntoView({ behavior: "smooth" });
     renderizarComentarios();
