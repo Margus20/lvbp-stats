@@ -21,6 +21,16 @@ export const POSICIONES = [
     },
     {
         "numero": 3,
+        "nombre": "Tigres",
+        "jj": "12",
+        "jg": "8",
+        "jp": "4",
+        "pct": ".667",
+        "dif": "1.0",
+        "racha": "G1"
+    },
+    {
+        "numero": 4,
         "nombre": "Bravos",
         "jj": "11",
         "jg": "7",
@@ -30,24 +40,14 @@ export const POSICIONES = [
         "racha": "P1"
     },
     {
-        "numero": 4,
-        "nombre": "Tigres",
-        "jj": "11",
-        "jg": "7",
-        "jp": "4",
-        "pct": ".636",
-        "dif": "1.5",
-        "racha": "P2"
-    },
-    {
         "numero": 5,
         "nombre": "Leones",
-        "jj": "10",
+        "jj": "11",
         "jg": "4",
-        "jp": "6",
-        "pct": ".400",
-        "dif": "4.0",
-        "racha": "G2"
+        "jp": "7",
+        "pct": ".364",
+        "dif": "4.5",
+        "racha": "P1"
     },
     {
         "numero": 6,
