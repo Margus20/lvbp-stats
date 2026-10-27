@@ -18,7 +18,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.85); /* Capa blanca semitransparente para suavizar */
+    background: rgba(255, 255, 255, 0.85);
     pointer-events: none;
     z-index: 0;
 }
@@ -105,4 +105,53 @@ footer {
 }
 .footer-social a:hover { 
     color: #ffd700; 
+}
+
+/* ========================================== */
+/* 📱 RESPONSIVE: TABLETS */
+/* ========================================== */
+@media (max-width: 1024px) {
+    .sidebar-publicidad {
+        min-height: auto;
+    }
+}
+
+/* ========================================== */
+/* 📱 RESPONSIVE: SMARTPHONES */
+/* ========================================== */
+@media (max-width: 768px) {
+    .sidebar-publicidad {
+        min-height: auto;
+        flex-direction: row;
+    }
+    
+    .marca-final-articulo {
+        padding: 20px 15px;
+        margin: 20px 0;
+    }
+    
+    .footer-texto {
+        font-size: 0.8rem;
+    }
+    
+    .footer-creditos {
+        font-size: 0.75rem;
+    }
+}
+
+/* ========================================== */
+/* 📱 RESPONSIVE: SMARTPHONES PEQUEÑOS */
+/* ========================================== */
+@media (max-width: 480px) {
+    .marca-final-articulo {
+        padding: 15px 10px;
+    }
+    
+    .logo-marca-final {
+        width: 80px;
+    }
+    
+    .texto-marca-final {
+        font-size: 0.9rem;
+    }
 }
