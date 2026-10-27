@@ -37,7 +37,72 @@ body::before {
     background-image: url('../img/textura-beisbol.png');
     background-repeat: repeat;
     background-size: 250px 250px;
-    opacity: 0.15; /* Opacidad aumentada al 15% para que sea más visible */
-    pointer-events: none; /* No interfiere con clics */
-    z-index: -1; /* Detrás de todo el contenido */
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* ========================================== */
+/* 📱 RESPONSIVE: TABLETS (768px - 1024px) */
+/* ========================================== */
+@media (max-width: 1024px) {
+    .main-layout {
+        gap: 10px;
+        padding: 0 10px;
+    }
+    .sidebar-publicidad {
+        width: 160px;
+    }
+    .container {
+        padding: 0 15px;
+    }
+}
+
+/* ========================================== */
+/* 📱 RESPONSIVE: SMARTPHONES (< 768px) */
+/* ========================================== */
+@media (max-width: 768px) {
+    .main-layout {
+        flex-direction: column; /* Apila contenido y sidebar verticalmente */
+        gap: 20px;
+        padding: 0 10px;
+        margin: 10px auto;
+    }
+    
+    .contenido-principal {
+        width: 100%;
+        min-width: 100%;
+    }
+    
+    .sidebar-publicidad {
+        width: 100%;
+        min-height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+    }
+    
+    .sidebar-publicidad .espacio-publicidad {
+        width: calc(50% - 10px);
+        margin-bottom: 0;
+    }
+    
+    .container {
+        padding: 0 10px;
+    }
+}
+
+/* ========================================== */
+/* 📱 RESPONSIVE: SMARTPHONES PEQUEÑOS (< 480px) */
+/* ========================================== */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 8px;
+    }
+    
+    .sidebar-publicidad .espacio-publicidad {
+        width: 100%;
+    }
 }
