@@ -57,11 +57,11 @@ export function renderNoticias() {
         if (!NOTICIAS || NOTICIAS.length === 0) {
             console.warn("⚠️ [DIAGNÓSTICO] 4. El array NOTICIAS está vacío o no se importó correctamente.");
             heroContainer.innerHTML = `
-                <div class="hero-imagen" style="position: relative;">
-                    <img src="${imagenRespaldo}" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;" alt="Respaldo">
-                    <div class="hero-overlay" style="position: relative; z-index: 1;"></div>
-                    <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua" style="position: relative; z-index: 1; pointer-events: none;">
-                    <div class="hero-contenido" style="position: relative; z-index: 1;">
+                <div class="hero-imagen" style="position: relative; height: 400px; border-radius: 12px; overflow: hidden;">
+                    <img src="${imagenRespaldo}" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1;" alt="Respaldo">
+                    <div class="hero-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%); z-index: 2;"></div>
+                    <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua" style="position: absolute; top: 15px; right: 15px; width: 80px; height: auto; opacity: 0.4; z-index: 4; pointer-events: none;">
+                    <div class="hero-contenido" style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 3; padding: 30px;">
                         <h1 class="hero-titulo">Bienvenido a LVBP al Día</h1>
                         <p class="hero-fecha">Temporada 2026-2027</p>
                     </div>
@@ -77,16 +77,16 @@ export function renderNoticias() {
         console.log("🌟 [DIAGNÓSTICO] 5. Noticia principal seleccionada:", noticiaPrincipal.titulo);
         console.log("🔗 [DIAGNÓSTICO] 6. URL de la imagen principal que intentará cargar:", noticiaPrincipal.imagen);
         
-        // 2. Renderizar el HERO dinámicamente con <img> para que onerror SÍ funcione
+        // 2. Renderizar el HERO dinámicamente con <img> y estilos ABSOLUTOS correctos
         heroContainer.innerHTML = `
-            <div class="hero-imagen" style="position: relative; cursor: pointer;" onclick="window.abrirArticulo(${noticiaPrincipal.id})">
+            <div class="hero-imagen" style="position: relative; cursor: pointer; height: 400px; border-radius: 12px; overflow: hidden;" onclick="window.abrirArticulo(${noticiaPrincipal.id})">
                 <img src="${noticiaPrincipal.imagen}" 
                      onerror="console.error('❌ [DIAGNÓSTICO] 7. FALLÓ LA CARGA DE IMAGEN PRINCIPAL. URL:', this.src); this.src='${imagenRespaldo}'; console.log('🔄 [DIAGNÓSTICO] 8. Imagen de respaldo activada.');" 
-                     style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;" 
+                     style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1;" 
                      alt="${noticiaPrincipal.titulo}">
-                <div class="hero-overlay" style="position: relative; z-index: 1; pointer-events: none;"></div>
-                <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua" style="position: relative; z-index: 1; pointer-events: none;">
-                <div class="hero-contenido" style="position: relative; z-index: 1;">
+                <div class="hero-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%); z-index: 2; pointer-events: none;"></div>
+                <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua" style="position: absolute; top: 15px; right: 15px; width: 80px; height: auto; opacity: 0.4; z-index: 4; pointer-events: none;">
+                <div class="hero-contenido" style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 3; padding: 30px;">
                     <h1 class="hero-titulo">${noticiaPrincipal.titulo}</h1>
                     <p class="hero-fecha">${noticiaPrincipal.fecha}</p>
                 </div>
