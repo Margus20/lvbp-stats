@@ -1,48 +1,42 @@
-// ============================================
-// NOTICIAS DEL DÍA
-// Generado automáticamente por el bot
-// Fecha: 27 Oct 2026
-// ============================================
-
-export const NOTICIAS = [
+[
     {
-        id: 1,
-        titulo: "Campeón y subcampeón de la LVBP rumbo a la palestra internacional",
-        resumen: "",
-        fecha: "",
-        tag: "",
-        imagen: "img/noticias/logos-lvbp-caribe-americas.jpg",
-        contenido: "<p><strong>CARACAS.-</strong> La emoción de la Liga Venezolana de Béisbol Profesional (LVBP) en su temporada 2026-2027 adquiere un valor histórico y doblemente competitivo, ya que además de buscar la gloria nacional, el torneo definirá los boletos de honor hacia citas de talla internacional.</p><p>De acuerdo con la planificación oficial, el equipo que se corone como <strong>campeón de la LVBP</strong> en esta campaña ganará el derecho de representar a Venezuela en la esperada <strong>Serie del Caribe 2027</strong>, la cual se celebrará del 1 al 7 de febrero de 2027 en el Estadio Fernando Valenzuela de Hermosillo, Sonora, México.</p><p>Por su parte, la emoción se extiende al equipo que obtenga el título de <strong>subcampeón</strong> del torneo, el cual participará de forma directa en la <strong>III Serie de las Américas 2027</strong>. Este importante evento continental se llevará a cabo del 9 al 15 de febrero de 2027 (justo después de la conclusión de la Serie del Caribe), teniendo como escenario principal el imponente <strong>Estadio Monumental Simón Bolívar</strong> en Caracas, Venezuela. El torneo contará con un formato ampliado que incluirá a los subcampeones de México, Puerto Rico y República Dominicana, además de los representantes de Argentina, Colombia, Cuba, Curazao, Nicaragua y Panamá.</p><p>De esta manera, cada duelo en la pelota criolla se convierte en una batalla crucial para asegurar un puesto en los escenarios más prestigiosos de la pelota rentada internacional.</p><p>💬 <em>¿Qué novenas consideras que tienen la consistencia necesaria para llegar a las instancias finales y dejar el tricolor en alto en ambos torneos? ¡Coméntanos!</em></p>",
-        esPrincipal: true
+        "id": 1,
+        "titulo": "Los Leones se aprovechan de la nave turca",
+        "fechaPublicacion": "26 Oct 2026",
+        "imagen": "img/noticias/leones-gana-magallanes.jpg",
+        "contenido": "<p><strong>CARACAS.-</strong> Los eternos rivales de la Liga Venezolana de Béisbol Profesional se enfrentaron en una jornada vibrante donde los Leones del Caracas demostraron su poder ofensivo ante los Navegantes del Magallanes.</p>",
+        "esPrincipal": false
     },
     {
-        id: 2,
-        titulo: "La LVBP Temporada 2026-2027: Formato, Novedades y Homenajes",
-        resumen: "",
-        fecha: "",
-        tag: "",
-        imagen: "img/noticias/lvbp-noticia.jpg",
-        contenido: "<p><strong>CARACAS, Venezuela.-</strong> La Liga Venezolana de Béisbol Profesional (LVBP) se prepara para una emocionante temporada 2026-2027, conocida comercialmente como <strong>Mastercard LVBP</strong>. Esta campaña, que rinde homenaje a los campeones del Clásico Mundial de Béisbol, trae consigo un formato de competencia renovado, particularidades normativas y eventos especiales que prometen cautivar a la afición.</p><h3 style='color: #d32f2f; margin-top: 20px;'>Formato de Competencia: Camino al Título</h3><p>El calendario de la Mastercard LVBP 2026-2027 se estructura en cuatro fases clave:</p><ul style='margin-left: 20px;'><li><strong>Ronda Regular (12 de Octubre - 27 de Diciembre de 2026):</strong> Los 8 equipos disputarán un total de 56 compromisos cada uno. Como novedad, se incluyen partidos los días lunes con transmisiones a cargo de la propia liga.</li><li><strong>Serie del Comodín / Play-In (29 y 30 de Diciembre de 2026):</strong> Los equipos que culminen en el 5º y 6º lugar de la tabla se enfrentarán para definir el pase a la siguiente instancia.</li><li><strong>Round Robin / Todos contra Todos (2 - 30 de Enero de 2027):</strong> Las novenas clasificadas disputarán un total de 16 juegos.</li><li><strong>Gran Final (Primera semana de Febrero de 2027):</strong> Pautada para definir al campeón de la temporada.</li></ul><h3 style='color: #d32f2f; margin-top: 20px;'>Particularidades y Normativas: Innovación y Disciplina</h3><p>Esta temporada introduce cambios significativos en las normativas:</p><ul style='margin-left: 20px;'><li><strong>Cupo de Extranjeros:</strong> Se aprobó la ampliación a 8 jugadores importados por equipo durante la fase regular, cifra que puede aumentar hasta 10 extranjeros para la final. El roster semanal de activos es de 34 peloteros.</li><li><strong>Vitrina Internacional:</strong> El equipo campeón representará a Venezuela en la Serie del Caribe Hermosillo 2027, mientras que el subcampeón asistirá a la nueva Serie de las Américas en Caracas.</li><li><strong>Innovación Tecnológica (ABS):</strong> Se contemplan pruebas con el sistema automatizado de bolas y strikes (ABS) a partir de noviembre.</li><li><strong>Disciplina e Integridad:</strong> Creación de un Tribunal Disciplinario independiente para atender casos de dopaje y la implementación de programas educativos y de prevención contra el amaño de encuentros y apuestas ilegales.</li></ul><h3 style='color: #d32f2f; margin-top: 20px;'>Homenajes y Eventos Especiales: Uniendo a la Afición</h3><p>La Mastercard LVBP 2026-2027 será escenario de momentos de reflexión y celebración:</p><ul style='margin-left: 20px;'><li><strong>Homenaje a Víctimas del Terremoto:</strong> Se guardará un minuto de silencio los días 24 de cada mes en todos los estadios en memoria de las víctimas del terremoto ocurrido en junio de 2026.</li><li><strong>Eventos de Estrellas:</strong> El Derby del Jonrón está programado para el 30 de noviembre de 2026, seguido del Juego de Estrellas el 1 de diciembre de 2026.</li></ul><p>La Mastercard LVBP 2026-2027 se perfila como una campaña llena de emociones, donde el béisbol se une con la innovación, la disciplina y el sentido de comunidad.</p><p>💬 <em>¿Cuál de los 8 equipos crees que tiene la mejor oportunidad de llevarse el título esta temporada y representar a Venezuela internacionalmente? ¡Déjanos tu comentario!</em></p>",
-        esPrincipal: false
+        "id": 2,
+        "titulo": "Hernán Pérez se coloca líder en cuadrangulares",
+        "fechaPublicacion": "26 Oct 2026",
+        "imagen": "img/noticias/hernan-perez-jonrones.jpg",
+        "contenido": "<p><strong>CARACAS.-</strong> La lucha por la cima de la fuerza en la Liga Venezolana de Béisbol Profesional tiene nuevo líder. Hernán Pérez de los Tigres de Aragua se coloca en la punta de la lista de jonroneros.</p>",
+        "esPrincipal": false
     },
     {
-        id: 3,
-        titulo: "El Estadio Monumental Simón Bolívar: Joya moderna de la pelota caribeña",
-        resumen: "",
-        fecha: "",
-        tag: "",
-        imagen: "img/noticias/estadio-monumental-caracas.jpg",
-        contenido: "<p><strong>CARACAS, Venezuela.-</strong> Ubicado en el sector de La Rinconada en Caracas, el <strong>Estadio Monumental de Caracas «Simón Bolívar»</strong> se ha consolidado como una de las obras arquitectónicas deportivas más imponentes y modernas de América Latina.</p><h3 style='color: #d32f2f; margin-top: 20px;'>Construcción e Inauguración</h3><p>Su historia comenzó con el inicio de los movimientos de tierra en el año <strong>2013</strong>. Tras un proceso de construcción que atravesó diversas etapas, el recinto abrió sus puertas oficialmente el <strong>2 de febrero de 2023</strong>, siendo concebido primordialmente para albergar la sexagésima quinta edición de la <strong>Serie del Caribe</strong>.</p><h3 style='color: #d32f2f; margin-top: 20px;'>Aforo y Capacidad</h3><p>El parque de pelota cuenta con una capacidad oficial para <strong>38.000 espectadores sentados</strong>, cifra que puede expandirse con 2.000 aficionados adicionales de pie en la zona del jardín central, alcanzando un aforo total de <strong>40.000 personas</strong> para encuentros de béisbol, e incluso incrementándose para eventos masivos o conciertos. Esto lo posiciona como el <strong>segundo estadio de béisbol con mayor capacidad</strong> en toda el área del Caribe y Latinoamérica.</p><h3 style='color: #d32f2f; margin-top: 20px;'>Dimensiones del Terreno de Juego</h3><p>Diseñado bajo estrictos estándares de las Grandes Ligas (MLB), el terreno de juego presenta las siguientes distancias oficiales desde el plato:</p><ul style='margin-left: 20px;'><li><strong>Jardín Izquierdo:</strong> 341 pies (aprox. 103,94 metros).</li><li><strong>Jardín Central:</strong> 405 pies (aprox. 123,44 metros).</li><li><strong>Jardín Derecho:</strong> 330 pies (aprox. 100,58 metros).</li></ul><p>Además de su imponente estructura, el recinto destaca por albergar una de las <strong>pantallas LED de video más grandes de Suramérica</strong> y servir como la casa oficial de los <strong>Leones del Caracas</strong> en la LVBP, consolidándose como un epicentro ineludible del béisbol en el país.</p><p>💬 <em>¿Has tenido la oportunidad de visitar este imponente estadio? ¡Cuéntanos tu experiencia!</em></p>",
-        esPrincipal: false
+        "id": 3,
+        "titulo": "El que mejor batea y el que mejor pichea",
+        "fechaPublicacion": "26 Oct 2026",
+        "imagen": "img/noticias/bravos-vs-caribes.jpg",
+        "contenido": "<p><strong>CARACAS.-</strong> Cuando hoy se cumplen exactamente dos semanas desde el inicio de la temporada de la Liga Venezolana de Béisbol Profesional (LVBP), el análisis de los líderes estadísticos revela nombres sorprendentes.</p>",
+        "esPrincipal": false
     },
     {
-        id: 4,
-        titulo: "Hito histórico en la LVBP: Unificación de indumentaria",
-        resumen: "",
-        fecha: "",
-        tag: "",
-        imagen: "img/noticias/alianza-lvbp-rs-group.jpg",
-        contenido: "<p><strong>CARACAS, Venezuela.-</strong> La Liga Venezolana de Béisbol Profesional (LVBP) marcó un antes y un después en su historia comercial y organizativa de cara a la temporada 2026-2027. Por primera vez en los anales del circuito criollo, una misma firma nacional —<strong>RS Group</strong>— asumió el patrocinio oficial y la confección de la indumentaria completa para la totalidad de las ocho franquicias que hacen vida en el torneo.</p><h3 style='color: #d32f2f; margin-top: 20px;'>Una alianza sin precedentes en el deporte nacional</h3><p>Hasta el pasado reciente, cada organización gestionaba de manera independiente sus contratos de indumentaria con distintas marcas nacionales e internacionales. Sin embargo, este acuerdo inédito unifica la imagen de la liga, vistiendo no solo a los ocho equipos en disputa de la ronda regular, sino también integrando la indumentaria oficial del personal de la propia institución.</p><p>El alcance de esta alianza trasciende las fronteras nacionales, contemplando además que la marca vista a la representación de Venezuela en los escenarios internacionales de la región: tanto al club campeón que asistirá a la <strong>Serie del Caribe</strong> (Hermosillo), como al subcampeón nacional que dirá presente en la <strong>Serie de las Américas</strong> en Caracas.</p><h3 style='color: #d32f2f; margin-top: 20px;'>Estándar unificado para la pelota criolla</h3><p>Con esta medida, la LVBP se alinea con las grandes ligas del mundo al estandarizar la calidad textil, el diseño y la identidad visual de sus conjuntos, ofreciendo a los fanáticos una propuesta estética integral que consolida el crecimiento comercial del béisbol profesional venezolano.</p><p>💬 <em>¿Qué te parece esta unificación de la indumentaria de los ocho equipos y cuál es el diseño de camisola que más te gusta para esta temporada? ¡Déjanos tu opinión en los comentarios!</em></p>",
-        esPrincipal: false
+        "id": 4,
+        "titulo": "Cardenales en la cima",
+        "fechaPublicacion": "26 Oct 2026",
+        "imagen": "img/noticias/cardenales-cima.jpg",
+        "contenido": "<p><strong>CARACAS.-</strong> La acción en la Liga Venezolana de Béisbol Profesional ha dejado a los Cardenales de Lara en la punta de la tabla de posiciones tras una racha ganadora impresionante.</p>",
+        "esPrincipal": false
+    },
+    {
+        "id": 5,
+        "titulo": "Festival ofensivo en la LVBP",
+        "fechaPublicacion": "27 Oct 2026",
+        "imagen": "img/noticias/2026-10-27-resumen-jornada-lvbp.jpg",
+        "contenido": "<p><strong>CARACAS.-</strong> La jornada de este martes 27 de octubre en la Liga Venezolana de Béisbol Profesional dejó vibrantes batazos, despliegues ofensivos y victorias contundentes en los tres escenarios del país.</p><p><strong>Tiburones 10 - 2 Navegantes</strong><br>En el Estadio José Bernardo Pérez de Valencia, la toletería de los Tiburones de La Guaira desplegó una implacable ofensiva de 17 imparables para arrollar 10-2 a los Navegantes del Magallanes. La victoria desde el montículo fue para Alejandro Hidalgo (G), mientras que Drew Parrish (P) cargó con el descalabro.</p><p><strong>Águilas 6 - 10 Caribes</strong><br>En el Estadio Alfonso Carrasquel de Puerto La Cruz, la tribu oriental se hizo fuerte en casa al vencer 10-6 a las Águilas del Zulia. Caribes de Anzoátegui ligó 13 indiscutibles en un choque de alto carretaje sin pifias a la defensiva por ningún bando. El triunfo fue a la cuenta de Leonard Garcia (G) y la derrota para Andry Lara (P).</p><p><strong>Cardenales 5 - 9 Bravos</strong><br>En el Estadio Nueva Esparta, Bravos de Margarita hizo respetar su localía al superar 9-5 a los Cardenales de Lara. El pitcheo insular contó con el respaldo de 11 imparables para asegurar el compromiso. El abridor Luis Cohen (G) se acreditó el triunfo, mientras que Justin Lopez (P) sufrió el descalabro.</p><p>💬 ¿Qué equipo demostró el mejor nivel en esta jornada de martes? ¡Déjanos tu comentario y comparte tu pronóstico para los próximos encuentros!</p>",
+        "esPrincipal": true
     }
-];
+]
