@@ -1,26 +1,36 @@
 export const CALENDARIO = [
     {
-        "fecha": "27 Oct 2026",
+        "fecha": "28 Oct 2026",
         "hora": "7:00 PM",
-        "visitante": "Cardenales",
-        "local": "Bravos",
-        "lugar": "Estadio Nueva Esparta",
+        "visitante": "Navegantes",
+        "local": "Tigres",
+        "lugar": "Estadio José Pérez Colmenares",
         "transmision": "Meridiano TV",
         "enVivo": false,
         "finalizado": false
     },
     {
-        "fecha": "27 Oct 2026",
+        "fecha": "28 Oct 2026",
         "hora": "7:00 PM",
-        "visitante": "Tiburones",
-        "local": "Navegantes",
-        "lugar": "Estadio José Bernardo Pérez",
-        "transmision": "Baseball / TVES",
+        "visitante": "Cardenales",
+        "local": "Bravos",
+        "lugar": "Estadio Nueva Esparta",
+        "transmision": "Baseball",
         "enVivo": false,
         "finalizado": false
     },
     {
-        "fecha": "27 Oct 2026",
+        "fecha": "28 Oct 2026",
+        "hora": "7:00 PM",
+        "visitante": "Tiburones",
+        "local": "Leones",
+        "lugar": "Estadio Monumental Simón Bolívar",
+        "transmision": "BYM Sport",
+        "enVivo": false,
+        "finalizado": false
+    },
+    {
+        "fecha": "28 Oct 2026",
         "hora": "7:00 PM",
         "visitante": "Águilas",
         "local": "Caribes",
