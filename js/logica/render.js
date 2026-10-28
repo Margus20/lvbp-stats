@@ -34,77 +34,96 @@ export function renderPosiciones() {
 }
 
 // ============================================
-// RENDERIZAR NOTICIAS (HERO LIMPIO + SECUNDARIAS)
+// RENDERIZAR NOTICIAS (CON DIAGNÓSTICO COMPLETO)
 // ============================================
 export function renderNoticias() {
+    console.log("🔍 [DIAGNÓSTICO] 1. Iniciando renderNoticias()...");
+    
     const heroContainer = document.getElementById("hero-noticia-container");
     const containerSecundarias = document.getElementById("noticias-secundarias-container");
     
-    if (!heroContainer || !containerSecundarias) return;
-    
-    // ✅ IMAGEN DE RESPALDO (backup)
-    const imagenRespaldo = "/lvbp-stats/img/noticias/lvbp-noticia.jpg";
-    
-    // Si no hay noticias, mostrar un hero de respaldo
-    if (!NOTICIAS || NOTICIAS.length === 0) {
-        heroContainer.innerHTML = `
-            <div class="hero-imagen" style="position: relative;">
-                <img src="${imagenRespaldo}" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;" alt="Respaldo">
-                <div class="hero-overlay" style="position: relative; z-index: 1;"></div>
-                <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua" style="position: relative; z-index: 1; pointer-events: none;">
-                <div class="hero-contenido" style="position: relative; z-index: 1;">
-                    <h1 class="hero-titulo">Bienvenido a LVBP al Día</h1>
-                    <p class="hero-fecha">Temporada 2026-2027</p>
-                </div>
-            </div>`;
-        containerSecundarias.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">No hay noticias publicadas</p>';
+    if (!heroContainer || !containerSecundarias) {
+        console.error("❌ [DIAGNÓSTICO] ERROR: No se encontraron los contenedores del DOM. Revisa el HTML.");
         return;
     }
+    console.log("✅ [DIAGNÓSTICO] 2. Contenedores del DOM encontrados correctamente.");
+
+    // ✅ IMAGEN DE RESPALDO (backup)
+    const imagenRespaldo = "/lvbp-stats/img/noticias/lvbp-noticia.jpg";
+    console.log("🖼️ [DIAGNÓSTICO] 3. Imagen de respaldo configurada:", imagenRespaldo);
     
-    // 1. Encontrar la noticia PRINCIPAL (la grande)
-    const noticiaPrincipal = NOTICIAS.find(n => n.esPrincipal) || NOTICIAS[0];
-    
-    // 2. Renderizar el HERO dinámicamente con <img> para que onerror SÍ funcione
-    heroContainer.innerHTML = `
-        <div class="hero-imagen" style="position: relative; cursor: pointer;" onclick="window.abrirArticulo(${noticiaPrincipal.id})">
-            <img src="${noticiaPrincipal.imagen}" 
-                 onerror="this.src='${imagenRespaldo}'" 
-                 style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;" 
-                 alt="${noticiaPrincipal.titulo}">
-            <div class="hero-overlay" style="position: relative; z-index: 1; pointer-events: none;"></div>
-            <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua" style="position: relative; z-index: 1; pointer-events: none;">
-            <div class="hero-contenido" style="position: relative; z-index: 1;">
-                <h1 class="hero-titulo">${noticiaPrincipal.titulo}</h1>
-                <p class="hero-fecha">${noticiaPrincipal.fecha}</p>
-            </div>
-        </div>
-    `;
-    
-    // 3. Renderizar las noticias secundarias
-    containerSecundarias.innerHTML = '';
-    const noticiasSecundarias = NOTICIAS.filter(n => n.id !== noticiaPrincipal.id).slice(0, 4);
-    
-    if (noticiasSecundarias.length === 0) {
-        containerSecundarias.innerHTML = '<p style="text-align:center; color:#999; padding:20px; grid-column: 1/-1;">No hay más noticias para mostrar</p>';
-    } else {
-        noticiasSecundarias.forEach(noticia => {
-            const card = document.createElement("div");
-            card.className = "noticia-secundaria-card";
-            card.onclick = () => window.abrirArticulo(noticia.id);
-            
-            // ✅ Tarjetas secundarias: onerror aquí SÍ funciona porque es etiqueta <img>
-            card.innerHTML = `
-                <img src="${noticia.imagen}" 
-                     alt="${noticia.titulo}" 
-                     onerror="this.src='${imagenRespaldo}'"
-                     style="pointer-events: none; width: 100%; height: 100%; object-fit: cover;">
-                <div class="noticia-secundaria-overlay" style="pointer-events: none;">
-                    <h4>${noticia.titulo}</h4>
-                    <div class="fecha">${noticia.fecha}</div>
+    try {
+        // Si no hay noticias, mostrar un hero de respaldo
+        if (!NOTICIAS || NOTICIAS.length === 0) {
+            console.warn("⚠️ [DIAGNÓSTICO] 4. El array NOTICIAS está vacío o no se importó correctamente.");
+            heroContainer.innerHTML = `
+                <div class="hero-imagen" style="position: relative;">
+                    <img src="${imagenRespaldo}" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;" alt="Respaldo">
+                    <div class="hero-overlay" style="position: relative; z-index: 1;"></div>
+                    <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua" style="position: relative; z-index: 1; pointer-events: none;">
+                    <div class="hero-contenido" style="position: relative; z-index: 1;">
+                        <h1 class="hero-titulo">Bienvenido a LVBP al Día</h1>
+                        <p class="hero-fecha">Temporada 2026-2027</p>
+                    </div>
+                </div>`;
+            containerSecundarias.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">No hay noticias publicadas</p>';
+            return;
+        }
+        
+        console.log("✅ [DIAGNÓSTICO] 4. Array NOTICIAS cargado exitosamente con", NOTICIAS.length, "elementos.");
+        
+        // 1. Encontrar la noticia PRINCIPAL (la grande)
+        const noticiaPrincipal = NOTICIAS.find(n => n.esPrincipal) || NOTICIAS[0];
+        console.log("🌟 [DIAGNÓSTICO] 5. Noticia principal seleccionada:", noticiaPrincipal.titulo);
+        console.log("🔗 [DIAGNÓSTICO] 6. URL de la imagen principal que intentará cargar:", noticiaPrincipal.imagen);
+        
+        // 2. Renderizar el HERO dinámicamente con <img> para que onerror SÍ funcione
+        heroContainer.innerHTML = `
+            <div class="hero-imagen" style="position: relative; cursor: pointer;" onclick="window.abrirArticulo(${noticiaPrincipal.id})">
+                <img src="${noticiaPrincipal.imagen}" 
+                     onerror="console.error('❌ [DIAGNÓSTICO] 7. FALLÓ LA CARGA DE IMAGEN PRINCIPAL. URL:', this.src); this.src='${imagenRespaldo}'; console.log('🔄 [DIAGNÓSTICO] 8. Imagen de respaldo activada.');" 
+                     style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;" 
+                     alt="${noticiaPrincipal.titulo}">
+                <div class="hero-overlay" style="position: relative; z-index: 1; pointer-events: none;"></div>
+                <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="hero-marca-agua" style="position: relative; z-index: 1; pointer-events: none;">
+                <div class="hero-contenido" style="position: relative; z-index: 1;">
+                    <h1 class="hero-titulo">${noticiaPrincipal.titulo}</h1>
+                    <p class="hero-fecha">${noticiaPrincipal.fecha}</p>
                 </div>
-            `;
-            containerSecundarias.appendChild(card);
-        });
+            </div>
+        `;
+        
+        // 3. Renderizar las noticias secundarias
+        containerSecundarias.innerHTML = '';
+        const noticiasSecundarias = NOTICIAS.filter(n => n.id !== noticiaPrincipal.id).slice(0, 4);
+        console.log("📰 [DIAGNÓSTICO] 9. Noticias secundarias a renderizar:", noticiasSecundarias.length);
+        
+        if (noticiasSecundarias.length === 0) {
+            containerSecundarias.innerHTML = '<p style="text-align:center; color:#999; padding:20px; grid-column: 1/-1;">No hay más noticias para mostrar</p>';
+        } else {
+            noticiasSecundarias.forEach(noticia => {
+                const card = document.createElement("div");
+                card.className = "noticia-secundaria-card";
+                card.onclick = () => window.abrirArticulo(noticia.id);
+                
+                // ✅ Tarjetas secundarias: onerror con diagnóstico
+                card.innerHTML = `
+                    <img src="${noticia.imagen}" 
+                         alt="${noticia.titulo}" 
+                         onerror="console.error('❌ [DIAGNÓSTICO] FALLÓ LA CARGA DE IMAGEN SECUNDARIA. URL:', this.src); this.src='${imagenRespaldo}';"
+                         style="pointer-events: none; width: 100%; height: 100%; object-fit: cover;">
+                    <div class="noticia-secundaria-overlay" style="pointer-events: none;">
+                        <h4>${noticia.titulo}</h4>
+                        <div class="fecha">${noticia.fecha}</div>
+                    </div>
+                `;
+                containerSecundarias.appendChild(card);
+            });
+        }
+        console.log("✅ [DIAGNÓSTICO] 10. renderNoticias() completado exitosamente sin errores.");
+        
+    } catch (error) {
+        console.error("💥 [DIAGNÓSTICO] ERROR CRÍTICO en renderNoticias():", error);
     }
 }
 
@@ -293,4 +312,4 @@ export function renderPublicidad() {
         div.innerHTML = `<img src="${p.imagen}" alt="${p.alt}" class="anuncio-imagen">`;
         sidebar.appendChild(div);
     });
-                       }
+}
