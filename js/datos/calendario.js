@@ -1,41 +1,31 @@
 export const CALENDARIO = [
     {
-        "fecha": "29 Oct 2026",
+        "fecha": "30 Oct 2026",
         "hora": "7:00 PM",
         "visitante": "Águilas",
-        "local": "Tigres",
-        "lugar": "Estadio José Pérez Colmenares",
-        "transmision": "BYM Sport",
-        "enVivo": false,
-        "finalizado": false
-    },
-    {
-        "fecha": "29 Oct 2026",
-        "hora": "7:00 PM",
-        "visitante": "Cardenales",
         "local": "Tiburones",
         "lugar": "Estadio Universitario",
-        "transmision": "Meridiano TV",
+        "transmision": "BYM Sport / Venezolana TV",
         "enVivo": false,
         "finalizado": false
     },
     {
-        "fecha": "29 Oct 2026",
+        "fecha": "30 Oct 2026",
         "hora": "7:00 PM",
         "visitante": "Leones",
         "local": "Bravos",
         "lugar": "Estadio Nueva Esparta",
-        "transmision": "Baseball",
+        "transmision": "Baseball / Meridiano TV",
         "enVivo": false,
         "finalizado": false
     },
     {
-        "fecha": "29 Oct 2026",
+        "fecha": "30 Oct 2026",
         "hora": "7:00 PM",
         "visitante": "Navegantes",
         "local": "Caribes",
         "lugar": "Estadio Alfonso Carrasquel",
-        "transmision": "IVC / Venezolana TV",
+        "transmision": "Venevisión",
         "enVivo": false,
         "finalizado": false
     }
