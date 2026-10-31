@@ -1,31 +1,41 @@
 export const CALENDARIO = [
     {
-        "fecha": "30 Oct 2026",
-        "hora": "7:00 PM",
-        "visitante": "Águilas",
-        "local": "Tiburones",
-        "lugar": "Estadio Universitario",
-        "transmision": "BYM Sport / Venezolana TV",
+        "fecha": "31 Oct 2026",
+        "hora": "4:00 PM",
+        "visitante": "Caribes",
+        "local": "Leones",
+        "lugar": "Estadio Monumental Simón Bolívar",
+        "transmision": "BYM Sport",
         "enVivo": false,
         "finalizado": false
     },
     {
-        "fecha": "30 Oct 2026",
-        "hora": "7:00 PM",
-        "visitante": "Leones",
+        "fecha": "31 Oct 2026",
+        "hora": "6:00 PM",
+        "visitante": "Tiburones",
+        "local": "Cardenales",
+        "lugar": "Estadio Antonio Herrera Gutiérrez",
+        "transmision": "Baseball",
+        "enVivo": false,
+        "finalizado": false
+    },
+    {
+        "fecha": "31 Oct 2026",
+        "hora": "6:00 PM",
+        "visitante": "Águilas",
+        "local": "Navegantes",
+        "lugar": "Estadio José Bernardo Pérez",
+        "transmision": "Televen",
+        "enVivo": false,
+        "finalizado": false
+    },
+    {
+        "fecha": "31 Oct 2026",
+        "hora": "8:00 PM",
+        "visitante": "Tigres",
         "local": "Bravos",
         "lugar": "Estadio Nueva Esparta",
-        "transmision": "Baseball / Meridiano TV",
-        "enVivo": false,
-        "finalizado": false
-    },
-    {
-        "fecha": "30 Oct 2026",
-        "hora": "7:00 PM",
-        "visitante": "Navegantes",
-        "local": "Caribes",
-        "lugar": "Estadio Alfonso Carrasquel",
-        "transmision": "Venevisión",
+        "transmision": "IVC",
         "enVivo": false,
         "finalizado": false
     }
