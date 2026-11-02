@@ -28,7 +28,15 @@ export function renderPosiciones() {
         const dif = calcularDIF(pos.jg, pos.jp, lider.jg, lider.jp);
         const tr = document.createElement("tr");
         tr.className = equipo.claseFila;
-        tr.innerHTML = `<td>${i + 1}</td><td class="equipo-con-logo"><img src="${equipo.logo}" alt="${equipo.nombre}" class="logo-small"><span>${equipo.nombreCorto}</span></td><td>${pos.jj}</td><td>${pos.jg}</td><td>${pos.jp}</td><td>${pct}</td><td>${dif}</td><td>${pos.racha}</td>`;
+        
+        // 🆕 Determinar clase de posición según zona
+        let posClase = '';
+        if (i < 4) posClase = 'pos-clasificacion';       // 1, 2, 3, 4 (Verde)
+        else if (i < 6) posClase = 'pos-comodin';        // 5, 6 (Amarillo)
+        else posClase = 'pos-eliminado';                 // 7, 8 (Morado)
+        
+        // 🆕 El número ahora está dentro de un span con la clase de color
+        tr.innerHTML = `<td><span class="pos-badge ${posClase}">${i + 1}</span></td><td class="equipo-con-logo"><img src="${equipo.logo}" alt="${equipo.nombre}" class="logo-small"><span>${equipo.nombreCorto}</span></td><td>${pos.jj}</td><td>${pos.jg}</td><td>${pos.jp}</td><td>${pct}</td><td>${dif}</td><td>${pos.racha}</td>`;
         tbody.appendChild(tr);
     });
 }
