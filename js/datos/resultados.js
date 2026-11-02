@@ -1,50 +1,50 @@
 export const RESULTADOS = [
     {
-        "fecha": "31 Oct 2026",
-        "visitante": "Caribes",
-        "local": "Leones",
-        "scoreVisitante": "5",
-        "scoreLocal": "17",
-        "innings": "9",
-        "finalizado": true,
-        "pitcherGanador": "Zak Kent",
-        "pitcherPerdedor": "Bryan Caceres",
-        "pitcherSalvador": ""
-    },
-    {
-        "fecha": "31 Oct 2026",
+        "fecha": "01 Nov 2026",
         "visitante": "Tiburones",
         "local": "Cardenales",
-        "scoreVisitante": "4",
-        "scoreLocal": "14",
+        "scoreVisitante": "2",
+        "scoreLocal": "4",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Max Castillo",
-        "pitcherPerdedor": "Angel Padron",
+        "pitcherGanador": "Justin Lopez",
+        "pitcherPerdedor": "Caleb Freeman",
+        "pitcherSalvador": "Jose Campos"
+    },
+    {
+        "fecha": "01 Nov 2026",
+        "visitante": "Caribes",
+        "local": "Leones",
+        "scoreVisitante": "7",
+        "scoreLocal": "1",
+        "innings": "9",
+        "finalizado": true,
+        "pitcherGanador": "Liarvis Breto",
+        "pitcherPerdedor": "Connor Van Scoyoc",
         "pitcherSalvador": ""
     },
     {
-        "fecha": "31 Oct 2026",
-        "visitante": "Águilas",
-        "local": "Navegantes",
-        "scoreVisitante": "6",
-        "scoreLocal": "9",
-        "innings": "9",
-        "finalizado": true,
-        "pitcherGanador": "Andre Granillo",
-        "pitcherPerdedor": "Will Kincanon",
-        "pitcherSalvador": "Felipe Vázquez"
-    },
-    {
-        "fecha": "31 Oct 2026",
+        "fecha": "01 Nov 2026",
         "visitante": "Tigres",
         "local": "Bravos",
-        "scoreVisitante": "11",
-        "scoreLocal": "2",
+        "scoreVisitante": "5",
+        "scoreLocal": "8",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Christian Suarez",
-        "pitcherPerdedor": "Junior Guerra",
-        "pitcherSalvador": ""
+        "pitcherGanador": "Jorge Garcia",
+        "pitcherPerdedor": "Jose E. Martinez",
+        "pitcherSalvador": "Claudio Custodio"
+    },
+    {
+        "fecha": "01 Nov 2026",
+        "visitante": "Águilas",
+        "local": "Navegantes",
+        "scoreVisitante": "1",
+        "scoreLocal": "4",
+        "innings": "9",
+        "finalizado": true,
+        "pitcherGanador": "Drew Parrish",
+        "pitcherPerdedor": "Andry Lara",
+        "pitcherSalvador": "Felipe Vázquez"
     }
 ];
