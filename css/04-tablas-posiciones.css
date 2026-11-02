@@ -75,3 +75,74 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
 .pos-eliminado {
     background: linear-gradient(135deg, #4a1a6b 0%, #2d0f42 100%);
 }
+
+/* ========================================== */
+/* 🆕 LEYENDA DE ZONAS DE CLASIFICACIÓN */
+/* ========================================== */
+.leyenda-posiciones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 15px;
+    padding: 12px 15px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: #f9f9f9;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+}
+
+.leyenda-color {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.pos-clasificacion-leyenda {
+    background: linear-gradient(135deg, #1a6b3c 0%, #0f4d2a 100%);
+}
+
+.pos-comodin-leyenda {
+    background: linear-gradient(135deg, #b8860b 0%, #8b6914 100%);
+}
+
+.pos-eliminado-leyenda {
+    background: linear-gradient(135deg, #4a1a6b 0%, #2d0f42 100%);
+}
+
+.leyenda-texto {
+    font-size: 0.8rem;
+    color: #2c2c2c;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* 📱 RESPONSIVE: En pantallas pequeñas, los items se apilan */
+@media (max-width: 600px) {
+    .leyenda-posiciones {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 10px;
+    }
+    
+    .leyenda-item {
+        justify-content: center;
+        padding: 8px 10px;
+    }
+    
+    .leyenda-texto {
+        font-size: 0.75rem;
+    }
+}
