@@ -36,3 +36,32 @@ tr:hover { filter: brightness(0.95); transform: scale(1.01); transition: all 0.2
 
 .equipo-con-logo { display: flex; align-items: center; gap: 8px; text-align: left; font-size: 0.85rem; }
 .logo-small { width: 32px; height: 32px; object-fit: contain; }
+
+/* ========================================== */
+/* 🆕 BADGE DE POSICIÓN CON COLORES POR ZONA */
+/* ========================================== */
+.pos-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px; /* Cajita cuadrada con esquinas apenas suavizadas */
+    font-weight: 900;
+    font-size: 1rem;
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.pos-clasificacion {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%); /* Verde */
+}
+
+.pos-comodin {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); /* Amarillo */
+    color: #000000;
+}
+
+.pos-eliminado {
+    background: linear-gradient(135deg, #6f42c1 0%, #9c27b0 100%); /* Morado */
+}
