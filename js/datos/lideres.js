@@ -1,6 +1,6 @@
 // ============================================
 // LÍDERES ESTADÍSTICOS - ACTUALIZACIÓN AUTOMÁTICA
-// Actualizado: 2026-11-02 18:07:30
+// Actualizado: 2026-11-03 16:03:44
 // ============================================
 
 export const LIDERES = {
@@ -37,10 +37,10 @@ export const LIDERES = {
     basesPorBolas: [
         {"posicion": 1, "nombre": "D. MontanoDH (LAG)", "equipo": "tiburones", "valor": "18"},
         {"posicion": 2, "nombre": "D. PeraltaLF (MAR)", "equipo": "bravos", "valor": "15"},
-        {"posicion": 3, "nombre": "A. Corredor1B (CAR)", "equipo": "leones", "valor": "12"}
+        {"posicion": 3, "nombre": "G. HernándezCF (ARA)", "equipo": "tigres", "valor": "13"}
     ],
     ponchesBateo: [
-        {"posicion": 1, "nombre": "G. HernándezCF (ARA)", "equipo": "tigres", "valor": "18"},
+        {"posicion": 1, "nombre": "G. HernándezCF (ARA)", "equipo": "tigres", "valor": "19"},
         {"posicion": 2, "nombre": "L. Cedeño1B (CAR)", "equipo": "leones", "valor": "16"},
         {"posicion": 3, "nombre": "A. Corredor1B (CAR)", "equipo": "leones", "valor": "16"}
     ],
