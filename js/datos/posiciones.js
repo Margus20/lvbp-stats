@@ -12,16 +12,16 @@ export const POSICIONES = [
     {
         "numero": 2,
         "nombre": "Cardenales",
-        "jj": "15",
+        "jj": "16",
         "jg": "11",
-        "jp": "4",
-        "pct": ".733",
-        "dif": "1.5",
-        "racha": "G2"
+        "jp": "5",
+        "pct": ".688",
+        "dif": "2.0",
+        "racha": "P1"
     },
     {
         "numero": 3,
-        "nombre": "Bravos",
+        "nombre": "Tigres",
         "jj": "17",
         "jg": "10",
         "jp": "7",
@@ -31,13 +31,13 @@ export const POSICIONES = [
     },
     {
         "numero": 4,
-        "nombre": "Tigres",
-        "jj": "16",
-        "jg": "9",
+        "nombre": "Bravos",
+        "jj": "17",
+        "jg": "10",
         "jp": "7",
-        "pct": ".563",
-        "dif": "4.0",
-        "racha": "P1"
+        "pct": ".588",
+        "dif": "3.5",
+        "racha": "G1"
     },
     {
         "numero": 5,
