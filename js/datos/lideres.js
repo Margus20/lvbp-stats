@@ -1,6 +1,6 @@
 // ============================================
 // LÍDERES ESTADÍSTICOS - ACTUALIZACIÓN AUTOMÁTICA
-// Actualizado: 2026-11-04 16:09:39
+// Actualizado: 2026-11-04 19:14:18
 // ============================================
 
 export const LIDERES = {
