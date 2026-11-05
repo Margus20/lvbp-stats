@@ -19,11 +19,16 @@
     flex: 1;
 }
 
-.logo-header { height: 60px; width: auto; }
+.logo-header { 
+    height: 60px; 
+    width: auto; 
+    order: 1; /* Logo siempre primero */
+}
 
 .menu-hamburguesa {
     background: none; border: none; cursor: pointer;
     display: flex; flex-direction: column; gap: 5px; padding: 10px;
+    order: 2; /* Menú hamburguesa siempre segundo (al lado del logo) */
 }
 .menu-hamburguesa span { width: 30px; height: 3px; background: #ffd700; transition: all 0.3s; }
 
@@ -57,16 +62,16 @@
     justify-content: center;
     margin-left: auto;
     margin-right: 20px;
-    padding: 0; /* Sin padding porque ya no hay fondo */
-    background: transparent; /* Sin fondo amarillo */
+    padding: 0;
+    background: transparent;
     border-radius: 0;
-    border: none; /* Sin borde */
-    box-shadow: none; /* Sin sombra de caja */
+    border: none;
+    box-shadow: none;
     position: relative;
     overflow: visible;
+    order: 3; /* Badge siempre tercero (centrado entre menú y redes sociales) */
 }
 
-/* Desactivamos el destello porque ya no hay fondo donde brillar */
 .fase-badge-header::before {
     display: none;
 }
@@ -119,6 +124,8 @@
         justify-content: center;
         gap: 10px;
     }
+    .logo-header { order: 1; }
+    .menu-hamburguesa { order: 2; }
     .fase-badge-header {
         margin: 8px auto 0 auto;
         padding: 0;
