@@ -2,6 +2,9 @@
 // ORQUESTADOR PRINCIPAL (app.js)
 // ============================================
 
+// 🆕 NUEVO: Importamos la configuración de la fase actual
+import { FASE_ACTUAL } from '../datos/fase-actual.js';
+
 import { 
     renderPosiciones, 
     renderNoticias, 
@@ -65,6 +68,9 @@ function renderizarComentarios() {
 // FUNCIÓN DE INICIALIZACIÓN PRINCIPAL
 // ============================================
 function inicializarTodo() {
+    // 🆕 NUEVO: Verificar en consola que leemos la fase correctamente
+    console.log(`🚀 Fase actual: ${FASE_ACTUAL.nombre}`);
+    
     // 1. Menú hamburguesa
     const menuBtn = document.getElementById("menuBtn");
     if (menuBtn) {
