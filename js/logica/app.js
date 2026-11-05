@@ -71,6 +71,12 @@ function inicializarTodo() {
     // 🆕 NUEVO: Verificar en consola que leemos la fase correctamente
     console.log(`🚀 Fase actual: ${FASE_ACTUAL.nombre}`);
     
+    // 🆕 NUEVO: Actualizar el badge del header dinámicamente
+    const badgeTitulo = document.getElementById('faseTitulo');
+    if (badgeTitulo) {
+        badgeTitulo.textContent = FASE_ACTUAL.nombre.toUpperCase();
+    }
+    
     // 1. Menú hamburguesa
     const menuBtn = document.getElementById("menuBtn");
     if (menuBtn) {
