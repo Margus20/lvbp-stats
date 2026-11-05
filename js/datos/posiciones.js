@@ -1,3 +1,6 @@
+// Total de juegos por equipo en la fase actual (Ronda Regular = 56)
+export const TOTAL_JUEGOS_FASE = 56;
+
 export const POSICIONES = [
     {
         "numero": 1,
