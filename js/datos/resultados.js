@@ -1,38 +1,50 @@
 export const RESULTADOS = [
     {
-        "fecha": "03 Nov 2026",
-        "visitante": "Tiburones",
-        "local": "Leones",
-        "scoreVisitante": "9",
-        "scoreLocal": "4",
+        "fecha": "04 Nov 2026",
+        "visitante": "Leones",
+        "local": "Tiburones",
+        "scoreVisitante": "10",
+        "scoreLocal": "7",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Elieser Hernández",
-        "pitcherPerdedor": "Wilmer Font",
-        "pitcherSalvador": ""
+        "pitcherGanador": "Simon Leandro",
+        "pitcherPerdedor": "Ricardo Pinto",
+        "pitcherSalvador": "Sandy Gaston"
     },
     {
-        "fecha": "03 Nov 2026",
-        "visitante": "Caribes",
-        "local": "Águilas",
-        "scoreVisitante": "16",
-        "scoreLocal": "12",
-        "innings": "9",
-        "finalizado": true,
-        "pitcherGanador": "Jose Alvarez",
-        "pitcherPerdedor": "Yonny Chirinos",
-        "pitcherSalvador": ""
-    },
-    {
-        "fecha": "03 Nov 2026",
+        "fecha": "04 Nov 2026",
         "visitante": "Bravos",
         "local": "Navegantes",
         "scoreVisitante": "7",
-        "scoreLocal": "11",
+        "scoreLocal": "8",
+        "innings": "8",
+        "finalizado": true,
+        "pitcherGanador": "Alexandro Tovalin",
+        "pitcherPerdedor": "Angel Rondón",
+        "pitcherSalvador": "Felipe Vázquez"
+    },
+    {
+        "fecha": "04 Nov 2026",
+        "visitante": "Tigres",
+        "local": "Cardenales",
+        "scoreVisitante": "14",
+        "scoreLocal": "8",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Saul Garcia",
-        "pitcherPerdedor": "Alejandro Hernandez",
-        "pitcherSalvador": "Felipe Vázquez"
+        "pitcherGanador": "Deolis Guerra",
+        "pitcherPerdedor": "Brayan Perez",
+        "pitcherSalvador": ""
+    },
+    {
+        "fecha": "04 Nov 2026",
+        "visitante": "Caribes",
+        "local": "Águilas",
+        "scoreVisitante": "4",
+        "scoreLocal": "6",
+        "innings": "9",
+        "finalizado": true,
+        "pitcherGanador": "Giussepe Velasquez",
+        "pitcherPerdedor": "Angel Cuenca",
+        "pitcherSalvador": "Silvino Bracho"
     }
 ];
