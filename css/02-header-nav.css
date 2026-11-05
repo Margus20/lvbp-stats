@@ -15,8 +15,8 @@
 .header-izquierda { 
     display: flex; 
     align-items: center; 
-    gap: 15px; /* Reducido de 20px a 15px para dar más espacio al badge */
-    flex: 1; /* Permite que ocupe el espacio disponible */
+    gap: 15px;
+    flex: 1;
 }
 
 .logo-header { height: 60px; width: auto; }
@@ -48,36 +48,27 @@
 .nav-menu a:hover { background: #ffd700; color: #000; }
 
 /* ========================================== */
-/* 🆕 BADGE DE FASE EN HEADER - Centrado flexible */
+/* 🆕 BADGE DE FASE EN HEADER - Letras blancas con contorno rojo */
 /* ========================================== */
 .fase-badge-header {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: auto; /* Empuja el badge hacia la derecha automáticamente */
-    margin-right: 20px; /* Espacio antes de los íconos sociales */
-    padding: 8px 18px;
-    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
-    border-radius: 10px;
-    border: 2px solid #ff6b00;
-    box-shadow: 0 3px 10px rgba(255, 107, 0, 0.5);
+    margin-left: auto;
+    margin-right: 20px;
+    padding: 0; /* Sin padding porque ya no hay fondo */
+    background: transparent; /* Sin fondo amarillo */
+    border-radius: 0;
+    border: none; /* Sin borde */
+    box-shadow: none; /* Sin sombra de caja */
     position: relative;
-    overflow: hidden;
+    overflow: visible;
 }
 
+/* Desactivamos el destello porque ya no hay fondo donde brillar */
 .fase-badge-header::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, 
-        transparent 30%, 
-        rgba(255, 255, 255, 0.5) 50%, 
-        transparent 70%);
-    animation: destello 4s ease-in-out infinite;
+    display: none;
 }
 
 .fase-titulo {
@@ -130,7 +121,7 @@
     }
     .fase-badge-header {
         margin: 8px auto 0 auto;
-        padding: 6px 14px;
+        padding: 0;
         order: 3;
     }
     .fase-titulo {
