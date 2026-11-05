@@ -2,7 +2,7 @@
 // RENDERIZADO VISUAL
 // ============================================
 
-import { POSICIONES } from '../datos/posiciones.js';
+import { POSICIONES, TOTAL_JUEGOS_FASE } from '../datos/posiciones.js';
 import { NOTICIAS } from '../datos/noticias.js';
 import { RESULTADOS } from '../datos/resultados.js';
 import { CALENDARIO } from '../datos/calendario.js';
@@ -26,6 +26,10 @@ export function renderPosiciones() {
         if (!equipo) return;
         const pct = pos.pct || '.000';
         const dif = calcularDIF(pos.jg, pos.jp, lider.jg, lider.jp);
+        
+        // 🆕 Calcular Juegos Restantes (convertir string a número)
+        const jr = TOTAL_JUEGOS_FASE - parseInt(pos.jj);
+        
         const tr = document.createElement("tr");
         tr.className = equipo.claseFila;
         
@@ -35,8 +39,8 @@ export function renderPosiciones() {
         else if (i < 6) posClase = 'pos-comodin';        // 5, 6 (Amarillo)
         else posClase = 'pos-eliminado';                 // 7, 8 (Morado)
         
-        // 🆕 El número ahora está dentro de un span con la clase de color
-        tr.innerHTML = `<td><span class="pos-badge ${posClase}">${i + 1}</span></td><td class="equipo-con-logo"><img src="${equipo.logo}" alt="${equipo.nombre}" class="logo-small"><span>${equipo.nombreCorto}</span></td><td>${pos.jj}</td><td>${pos.jg}</td><td>${pos.jp}</td><td>${pct}</td><td>${dif}</td><td>${pos.racha}</td>`;
+        // 🆕 Se agregó la celda de JR justo antes de la racha
+        tr.innerHTML = `<td><span class="pos-badge ${posClase}">${i + 1}</span></td><td class="equipo-con-logo"><img src="${equipo.logo}" alt="${equipo.nombre}" class="logo-small"><span>${equipo.nombreCorto}</span></td><td>${pos.jj}</td><td>${pos.jg}</td><td>${pos.jp}</td><td>${pct}</td><td>${dif}</td><td>${jr}</td><td>${pos.racha}</td>`;
         tbody.appendChild(tr);
     });
 }
@@ -320,4 +324,4 @@ export function renderPublicidad() {
         div.innerHTML = `<img src="${p.imagen}" alt="${p.alt}" class="anuncio-imagen">`;
         sidebar.appendChild(div);
     });
-}
+        }
