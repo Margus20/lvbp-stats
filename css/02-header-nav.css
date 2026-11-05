@@ -42,24 +42,22 @@
 .nav-menu a:hover { background: #ffd700; color: #000; }
 
 /* ========================================== */
-/* 🆕 BADGE DE FASE EN HEADER - Estilo metálico */
+/* 🆕 BADGE DE FASE EN HEADER - Estilo nítido */
 /* ========================================== */
 .fase-badge-header {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: 15px;
-    padding: 6px 16px;
+    margin-left: 30px;
+    margin-right: 10px;
+    padding: 8px 18px;
     background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4), 
-                inset 0 2px 4px rgba(255, 255, 255, 0.5),
-                inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
     border: 2px solid #ff6b00;
+    box-shadow: 0 3px 10px rgba(255, 107, 0, 0.5);
     position: relative;
     overflow: hidden;
-    animation: brilloFase 3s ease-in-out infinite;
 }
 
 .fase-badge-header::before {
@@ -71,7 +69,7 @@
     height: 200%;
     background: linear-gradient(45deg, 
         transparent 30%, 
-        rgba(255, 255, 255, 0.4) 50%, 
+        rgba(255, 255, 255, 0.5) 50%, 
         transparent 70%);
     animation: destello 4s ease-in-out infinite;
 }
@@ -80,47 +78,34 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.3rem;
     font-weight: 700;
-    background: linear-gradient(180deg, #ffffff 0%, #c0c0c0 50%, #ffffff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #ffffff;
     text-shadow: 
-        0 0 10px rgba(255, 107, 0, 0.8),
-        0 0 20px rgba(255, 107, 0, 0.6),
-        2px 2px 4px rgba(0, 0, 0, 0.5);
+        2px 2px 0px #ff6b00,
+        -1px -1px 0 #ff6b00,
+        1px -1px 0 #ff6b00,
+        -1px 1px 0 #ff6b00,
+        1px 1px 0 #ff6b00;
     letter-spacing: 1px;
     line-height: 1.1;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .fase-subtitulo {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1rem;
     font-weight: 700;
-    background: linear-gradient(180deg, #ffffff 0%, #c0c0c0 50%, #ffffff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #ffffff;
     text-shadow: 
-        0 0 10px rgba(255, 107, 0, 0.8),
-        0 0 20px rgba(255, 107, 0, 0.6),
-        2px 2px 4px rgba(0, 0, 0, 0.5);
+        2px 2px 0px #ff6b00,
+        -1px -1px 0 #ff6b00,
+        1px -1px 0 #ff6b00,
+        -1px 1px 0 #ff6b00,
+        1px 1px 0 #ff6b00;
     letter-spacing: 0.5px;
     line-height: 1.1;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-}
-
-@keyframes brilloFase {
-    0%, 100% { 
-        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4), 
-                    inset 0 2px 4px rgba(255, 255, 255, 0.5),
-                    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
-    }
-    50% { 
-        box-shadow: 0 4px 25px rgba(255, 215, 0, 0.7), 
-                    inset 0 2px 4px rgba(255, 255, 255, 0.8),
-                    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
-    }
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 @keyframes destello {
@@ -128,7 +113,7 @@
     50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
 }
 
-/* Responsive: En móviles se ajusta y apila limpiamente */
+/* Responsive: En móviles se ajusta y centra perfectamente */
 @media (max-width: 768px) {
     .header-izquierda {
         flex-wrap: wrap;
@@ -136,9 +121,11 @@
         gap: 10px;
     }
     .fase-badge-header {
-        margin: 5px auto 0 auto;
-        padding: 5px 12px;
-        order: 3; /* Se coloca debajo del logo y el botón de menú */
+        margin: 8px auto 0 auto;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 6px 14px;
+        order: 3;
     }
     .fase-titulo {
         font-size: 1.1rem;
@@ -150,6 +137,9 @@
 
 /* Tablet: Tamaño intermedio */
 @media (min-width: 769px) and (max-width: 1024px) {
+    .fase-badge-header {
+        margin-left: 20px;
+    }
     .fase-titulo {
         font-size: 1.15rem;
     }
