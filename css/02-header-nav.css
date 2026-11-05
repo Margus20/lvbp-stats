@@ -12,7 +12,13 @@
     display: flex; justify-content: space-between; align-items: center;
 }
 
-.header-izquierda { display: flex; align-items: center; gap: 20px; }
+.header-izquierda { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; /* Reducido de 20px a 15px para dar más espacio al badge */
+    flex: 1; /* Permite que ocupe el espacio disponible */
+}
+
 .logo-header { height: 60px; width: auto; }
 
 .menu-hamburguesa {
@@ -42,15 +48,15 @@
 .nav-menu a:hover { background: #ffd700; color: #000; }
 
 /* ========================================== */
-/* 🆕 BADGE DE FASE EN HEADER - Con sombra y centrado */
+/* 🆕 BADGE DE FASE EN HEADER - Centrado flexible */
 /* ========================================== */
 .fase-badge-header {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: 50px; /* Aumentado para moverlo más a la derecha */
-    margin-right: 10px;
+    margin-left: auto; /* Empuja el badge hacia la derecha automáticamente */
+    margin-right: 20px; /* Espacio antes de los íconos sociales */
     padding: 8px 18px;
     background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
     border-radius: 10px;
@@ -85,7 +91,7 @@
         1px -1px 0 #ff6b00,
         -1px 1px 0 #ff6b00,
         1px 1px 0 #ff6b00,
-        3px 3px 6px rgba(0, 0, 0, 0.4); /* Sombra negra para profundidad */
+        3px 3px 6px rgba(0, 0, 0, 0.4);
     letter-spacing: 1px;
     line-height: 1.1;
     -webkit-font-smoothing: antialiased;
@@ -103,7 +109,7 @@
         1px -1px 0 #ff6b00,
         -1px 1px 0 #ff6b00,
         1px 1px 0 #ff6b00,
-        3px 3px 6px rgba(0, 0, 0, 0.4); /* Sombra negra para profundidad */
+        3px 3px 6px rgba(0, 0, 0, 0.4);
     letter-spacing: 0.5px;
     line-height: 1.1;
     -webkit-font-smoothing: antialiased;
@@ -124,8 +130,6 @@
     }
     .fase-badge-header {
         margin: 8px auto 0 auto;
-        margin-left: auto;
-        margin-right: auto;
         padding: 6px 14px;
         order: 3;
     }
@@ -140,7 +144,7 @@
 /* Tablet: Tamaño intermedio */
 @media (min-width: 769px) and (max-width: 1024px) {
     .fase-badge-header {
-        margin-left: 35px;
+        margin-right: 15px;
     }
     .fase-titulo {
         font-size: 1.15rem;
