@@ -95,7 +95,7 @@ def extraer_posiciones(driver):
         idx_jj = next((i for i, th in enumerate(ths) if th == 'JJ'), 2)
         idx_jg = next((i for i, th in enumerate(ths) if th == 'JG'), 3)
         idx_jp = next((i for i, th in enumerate(ths) if th == 'JP'), 4)
-        idx_pct = next((i for i, th in enumerate(ths) if 'AVE' in th or 'PCT' in th), 5)  # ✅ CORREGIDO
+        idx_pct = next((i for i, th in enumerate(ths) if 'AVE' in th or 'PCT' in th), 5)
         idx_dif = next((i for i, th in enumerate(ths) if 'DIF' in th), 6)
         idx_racha = next((i for i, th in enumerate(ths) if 'RACHA' in th), 7)
         
@@ -140,7 +140,14 @@ def actualizar_github(file_path, datos, mensaje):
     sha = response.json().get('sha') if response.status_code == 200 else None
     
     nombre_constante = file_path.split('/')[-1].replace('.js', '').upper()
-    js_content = f"export const {nombre_constante} = {json.dumps(datos, indent=4, ensure_ascii=False)};\n"
+    
+    # 🆕 CAMBIO CLAVE: Inyectamos la constante TOTAL_JUEGOS_FASE al inicio del archivo
+    # para que el frontend siempre pueda calcular la columna JR automáticamente.
+    js_content = (
+        f"// Total de juegos por equipo en la fase actual (Ronda Regular = 56)\n"
+        f"export const TOTAL_JUEGOS_FASE = 56;\n\n"
+        f"export const {nombre_constante} = {json.dumps(datos, indent=4, ensure_ascii=False)};\n"
+    )
     
     data = {
         "message": mensaje,
@@ -168,7 +175,7 @@ def main():
         driver = iniciar_driver()
         posiciones = extraer_posiciones(driver)
         if posiciones:
-            actualizar_github('js/datos/posiciones.js', posiciones, "🤖 Bot: Posiciones")
+            actualizar_github('js/datos/posiciones.js', posiciones, "🤖 Bot: Actualización automática de posiciones")
         else:
             logger.error("❌ Posiciones: NO se actualiza")
         logger.info("🏁 Bot finalizado")
