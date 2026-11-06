@@ -150,6 +150,12 @@ export function renderResultados() {
     if (!container) return;
     container.innerHTML = '';
     
+    // 🕵️ CHIVATO: Nos dirá exactamente qué datos está leyendo el navegador
+    console.log("🔍 DATOS DE RESULTADOS LEÍDOS:", RESULTADOS);
+    if (RESULTADOS.length > 0) {
+        console.log("🔍 ESTADO DEL PRIMER JUEGO:", RESULTADOS[0].estado);
+    }
+    
     if (titulo) {
         if (RESULTADOS.length === 0) {
             titulo.innerHTML = `<img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" class="logo-seccion"> SIN RESULTADOS RECIENTES`;
@@ -309,9 +315,4 @@ export function renderLideres() {
         'contenedor-ops': 'ops',
         'contenedor-hits': 'hits',
         'contenedor-dobles': 'dobles',
-        'contenedor-triples': 'triples',
-        'contenedor-basesRobadas': 'basesRobadas',
-        'contenedor-basesPorBolas': 'basesPorBolas',
-        'contenedor-ponchesBateo': 'ponchesBateo',
-        'contenedor-efectividad': 'efectividad',
-        'contenedor-victorias': 
+        'contenedor
