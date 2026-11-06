@@ -16,7 +16,7 @@
     display: flex; 
     align-items: center; 
     gap: 15px;
-    flex: 1;
+    /* ❌ ELIMINADO: flex: 1; (esto causaba el problema en Firefox) */
 }
 
 .logo-header { 
