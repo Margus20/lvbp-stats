@@ -25,12 +25,12 @@ export const POSICIONES = [
     {
         "numero": 3,
         "nombre": "Tigres",
-        "jj": "18",
+        "jj": "19",
         "jg": "11",
-        "jp": "7",
-        "pct": ".611",
-        "dif": "3.0",
-        "racha": "G2"
+        "jp": "8",
+        "pct": ".579",
+        "dif": "3.5",
+        "racha": "P1"
     },
     {
         "numero": 4,
@@ -55,31 +55,31 @@ export const POSICIONES = [
     {
         "numero": 6,
         "nombre": "Tiburones",
-        "jj": "20",
-        "jg": "8",
+        "jj": "21",
+        "jg": "9",
         "jp": "12",
-        "pct": ".400",
-        "dif": "7.0",
-        "racha": "P1"
+        "pct": ".429",
+        "dif": "6.5",
+        "racha": "G1"
     },
     {
         "numero": 7,
         "nombre": "Magallanes",
-        "jj": "20",
-        "jg": "7",
+        "jj": "21",
+        "jg": "8",
         "jp": "13",
-        "pct": ".350",
-        "dif": "8.0",
-        "racha": "G4"
+        "pct": ".381",
+        "dif": "7.5",
+        "racha": "G5"
     },
     {
         "numero": 8,
         "nombre": "Águilas",
-        "jj": "20",
+        "jj": "21",
         "jg": "6",
-        "jp": "14",
-        "pct": ".300",
-        "dif": "9.0",
-        "racha": "G1"
+        "jp": "15",
+        "pct": ".286",
+        "dif": "9.5",
+        "racha": "P1"
     }
 ];
