@@ -12,7 +12,7 @@ import {
     renderCalendario, 
     renderLideres, 
     renderPublicidad 
-} from './render.js';
+} from './render/index.js'; // 🆕 CAMBIO: Ahora apunta a la nueva carpeta
 
 import { compartirEnRed, compartirSeccion, renderizarBotonesCompartir } from './compartir.js';
 import { NOTICIAS } from '../datos/noticias.js';
