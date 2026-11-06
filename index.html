@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- 🚨 DETECTOR DE ERRORES GLOBALES (Se ejecuta antes que cualquier otra cosa) -->
+    <script>
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error("🚨 [ERROR GLOBAL DETECTADO]");
+            console.error("📝 Mensaje:", message);
+            console.error("📂 Archivo:", source);
+            console.error("📍 Línea:", lineno, "| Columna:", colno);
+            if (error) {
+                console.error("🔍 Detalle completo:", error.stack);
+            }
+            return false;
+        };
+
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error("🚨 [PROMESA RECHAZADA] Motivo del fallo:", event.reason);
+        });
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LVBP al Día - Liga Venezolana de Béisbol Profesional</title>
