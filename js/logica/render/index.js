@@ -9,4 +9,4 @@ export { renderNoticias } from './noticias.js';
 export { renderResultados } from './resultados.js';
 export { renderCalendario } from './calendario.js';
 export { renderLideres } from './lideres.js';
-export { renderPublicidad } from './publicidad.js';
+export { renderPublicidad } from './ppublicidad.js';
