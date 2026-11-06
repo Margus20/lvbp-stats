@@ -1,41 +1,31 @@
 export const CALENDARIO = [
     {
-        "fecha": "5 Nov 2026",
+        "fecha": "6 Nov 2026",
         "hora": "7:00 PM",
-        "visitante": "Tiburones",
-        "local": "Tigres",
-        "lugar": "Estadio José Pérez Colmenares",
-        "transmision": "Baseball",
+        "visitante": "Tigres",
+        "local": "Tiburones",
+        "lugar": "Estadio Universitario",
+        "transmision": "Venevisión",
         "enVivo": false,
         "finalizado": false
     },
     {
-        "fecha": "5 Nov 2026",
-        "hora": "7:00 PM",
-        "visitante": "Bravos",
-        "local": "Leones",
-        "lugar": "Estadio Monumental Simón Bolívar",
-        "transmision": "Meridiano TV",
-        "enVivo": false,
-        "finalizado": false
-    },
-    {
-        "fecha": "5 Nov 2026",
+        "fecha": "6 Nov 2026",
         "hora": "7:00 PM",
         "visitante": "Navegantes",
         "local": "Águilas",
         "lugar": "Estadio Luis Aparicio",
-        "transmision": "IVC",
+        "transmision": "IVC / Venezolana TV",
         "enVivo": false,
         "finalizado": false
     },
     {
-        "fecha": "5 Nov 2026",
+        "fecha": "6 Nov 2026",
         "hora": "7:00 PM",
-        "visitante": "Caribes",
-        "local": "Cardenales",
-        "lugar": "Estadio Antonio Herrera Gutiérrez",
-        "transmision": "BYM Sport / Venezolana TV",
+        "visitante": "Bravos",
+        "local": "Leones",
+        "lugar": "Estadio Monumental Simón Bolívar",
+        "transmision": "Baseball / Meridiano TV",
         "enVivo": false,
         "finalizado": false
     }
