@@ -25,61 +25,61 @@ export const POSICIONES = [
     {
         "numero": 3,
         "nombre": "Tigres",
-        "jj": "19",
+        "jj": "20",
         "jg": "11",
-        "jp": "8",
-        "pct": ".579",
-        "dif": "3.5",
-        "racha": "P1"
-    },
-    {
-        "numero": 4,
-        "nombre": "Bravos",
-        "jj": "19",
-        "jg": "10",
         "jp": "9",
-        "pct": ".526",
-        "dif": "4.5",
+        "pct": ".550",
+        "dif": "4.0",
         "racha": "P2"
     },
     {
-        "numero": 5,
+        "numero": 4,
         "nombre": "Leones",
-        "jj": "18",
-        "jg": "8",
+        "jj": "20",
+        "jg": "10",
         "jp": "10",
-        "pct": ".444",
-        "dif": "6.0",
-        "racha": "G1"
+        "pct": ".500",
+        "dif": "5.0",
+        "racha": "G3"
+    },
+    {
+        "numero": 5,
+        "nombre": "Bravos",
+        "jj": "21",
+        "jg": "10",
+        "jp": "11",
+        "pct": ".476",
+        "dif": "5.5",
+        "racha": "P4"
     },
     {
         "numero": 6,
         "nombre": "Tiburones",
-        "jj": "21",
-        "jg": "9",
+        "jj": "22",
+        "jg": "10",
         "jp": "12",
-        "pct": ".429",
-        "dif": "6.5",
-        "racha": "G1"
+        "pct": ".455",
+        "dif": "6.0",
+        "racha": "G2"
     },
     {
         "numero": 7,
         "nombre": "Magallanes",
-        "jj": "21",
-        "jg": "8",
+        "jj": "22",
+        "jg": "9",
         "jp": "13",
-        "pct": ".381",
-        "dif": "7.5",
-        "racha": "G5"
+        "pct": ".409",
+        "dif": "7.0",
+        "racha": "G6"
     },
     {
         "numero": 8,
         "nombre": "Águilas",
-        "jj": "21",
+        "jj": "22",
         "jg": "6",
-        "jp": "15",
-        "pct": ".286",
-        "dif": "9.5",
-        "racha": "P1"
+        "jp": "16",
+        "pct": ".273",
+        "dif": "10.0",
+        "racha": "P2"
     }
 ];
