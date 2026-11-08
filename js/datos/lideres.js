@@ -1,6 +1,6 @@
 // ============================================
 // LÍDERES ESTADÍSTICOS - ACTUALIZACIÓN AUTOMÁTICA
-// Actualizado: 2026-11-08 14:58:04
+// Actualizado: 2026-11-08 23:09:34
 // ============================================
 
 export const LIDERES = {
@@ -17,7 +17,7 @@ export const LIDERES = {
     dobles: [
         {"posicion": 1, "nombre": "A. Amarista2B (MAR)", "equipo": "bravos", "valor": "9"},
         {"posicion": 2, "nombre": "S. MuzziottiRF (LAG)", "equipo": "tiburones", "valor": "8"},
-        {"posicion": 3, "nombre": "A. Corredor1B (CAR)", "equipo": "leones", "valor": "8"}
+        {"posicion": 3, "nombre": "L. CedeñoDH (CAR)", "equipo": "leones", "valor": "8"}
     ],
     triples: [
         {"posicion": 1, "nombre": "B. ValeraLF (CAR)", "equipo": "leones", "valor": "3"},
@@ -40,14 +40,14 @@ export const LIDERES = {
         {"posicion": 3, "nombre": "J. BarrosaCF (LAG)", "equipo": "tiburones", "valor": "17"}
     ],
     ponchesBateo: [
-        {"posicion": 1, "nombre": "A. Corredor1B (CAR)", "equipo": "leones", "valor": "20"},
+        {"posicion": 1, "nombre": "A. Corredor1B (CAR)", "equipo": "leones", "valor": "22"},
         {"posicion": 2, "nombre": "V. AriasCF (ZUL)", "equipo": "aguilas", "valor": "18"},
         {"posicion": 3, "nombre": "L. Valera3B (ANZ)", "equipo": "caribes", "valor": "17"}
     ],
     average: [
         {"posicion": 1, "nombre": "D. PeraltaLF (MAR)", "equipo": "bravos", "valor": ".421"},
         {"posicion": 2, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": ".410"},
-        {"posicion": 3, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": ".391"}
+        {"posicion": 3, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": ".382"}
     ],
     slugging: [
         {"posicion": 1, "nombre": "D. PeraltaLF (MAR)", "equipo": "bravos", "valor": ".754"},
@@ -57,7 +57,7 @@ export const LIDERES = {
     ops: [
         {"posicion": 1, "nombre": "D. PeraltaLF (MAR)", "equipo": "bravos", "valor": "1.314"},
         {"posicion": 2, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": "1.202"},
-        {"posicion": 3, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": "1.185"}
+        {"posicion": 3, "nombre": "L. Valera3B (ANZ)", "equipo": "caribes", "valor": "1.176"}
     ],
     efectividad: [
         {"posicion": 1, "nombre": "M. Castillo (LAR)", "equipo": "cardenales", "valor": "1.29"},
