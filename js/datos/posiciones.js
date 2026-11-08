@@ -15,35 +15,45 @@ export const POSICIONES = [
     {
         "numero": 2,
         "nombre": "Cardenales",
-        "jj": "17",
+        "jj": "18",
         "jg": "11",
-        "jp": "6",
-        "pct": ".647",
-        "dif": "2.5",
-        "racha": "P2"
+        "jp": "7",
+        "pct": ".611",
+        "dif": "3.0",
+        "racha": "P3"
     },
     {
         "numero": 3,
         "nombre": "Tigres",
-        "jj": "20",
+        "jj": "21",
         "jg": "11",
-        "jp": "9",
-        "pct": ".550",
-        "dif": "4.0",
-        "racha": "P2"
+        "jp": "10",
+        "pct": ".524",
+        "dif": "4.5",
+        "racha": "P3"
     },
     {
         "numero": 4,
         "nombre": "Leones",
-        "jj": "20",
-        "jg": "10",
+        "jj": "21",
+        "jg": "11",
         "jp": "10",
-        "pct": ".500",
-        "dif": "5.0",
-        "racha": "G3"
+        "pct": ".524",
+        "dif": "4.5",
+        "racha": "G4"
     },
     {
         "numero": 5,
+        "nombre": "Tiburones",
+        "jj": "23",
+        "jg": "11",
+        "jp": "12",
+        "pct": ".478",
+        "dif": "5.5",
+        "racha": "G3"
+    },
+    {
+        "numero": 6,
         "nombre": "Bravos",
         "jj": "21",
         "jg": "10",
@@ -53,33 +63,23 @@ export const POSICIONES = [
         "racha": "P4"
     },
     {
-        "numero": 6,
-        "nombre": "Tiburones",
-        "jj": "22",
-        "jg": "10",
-        "jp": "12",
-        "pct": ".455",
-        "dif": "6.0",
-        "racha": "G2"
-    },
-    {
         "numero": 7,
         "nombre": "Magallanes",
-        "jj": "22",
-        "jg": "9",
+        "jj": "23",
+        "jg": "10",
         "jp": "13",
-        "pct": ".409",
-        "dif": "7.0",
-        "racha": "G6"
+        "pct": ".435",
+        "dif": "6.5",
+        "racha": "G7"
     },
     {
         "numero": 8,
         "nombre": "Águilas",
-        "jj": "22",
+        "jj": "23",
         "jg": "6",
-        "jp": "16",
-        "pct": ".273",
-        "dif": "10.0",
-        "racha": "P2"
+        "jp": "17",
+        "pct": ".261",
+        "dif": "10.5",
+        "racha": "P3"
     }
 ];
