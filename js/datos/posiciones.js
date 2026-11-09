@@ -5,22 +5,22 @@ export const POSICIONES = [
     {
         "numero": 1,
         "nombre": "Caribes",
-        "jj": "20",
+        "jj": "21",
         "jg": "15",
-        "jp": "5",
-        "pct": ".750",
+        "jp": "6",
+        "pct": ".714",
         "dif": "-",
-        "racha": "P1"
+        "racha": "P2"
     },
     {
         "numero": 2,
         "nombre": "Cardenales",
-        "jj": "18",
+        "jj": "19",
         "jg": "11",
-        "jp": "7",
-        "pct": ".611",
+        "jp": "8",
+        "pct": ".579",
         "dif": "3.0",
-        "racha": "P3"
+        "racha": "P4"
     },
     {
         "numero": 3,
@@ -29,7 +29,7 @@ export const POSICIONES = [
         "jg": "12",
         "jp": "10",
         "pct": ".545",
-        "dif": "4.0",
+        "dif": "3.5",
         "racha": "G5"
     },
     {
@@ -39,47 +39,47 @@ export const POSICIONES = [
         "jg": "11",
         "jp": "11",
         "pct": ".500",
-        "dif": "5.0",
+        "dif": "4.5",
         "racha": "P4"
     },
     {
         "numero": 5,
-        "nombre": "Tiburones",
-        "jj": "23",
+        "nombre": "Bravos",
+        "jj": "22",
         "jg": "11",
-        "jp": "12",
-        "pct": ".478",
-        "dif": "5.5",
-        "racha": "G3"
+        "jp": "11",
+        "pct": ".500",
+        "dif": "4.5",
+        "racha": "G1"
     },
     {
         "numero": 6,
-        "nombre": "Bravos",
-        "jj": "21",
-        "jg": "10",
-        "jp": "11",
-        "pct": ".476",
+        "nombre": "Tiburones",
+        "jj": "24",
+        "jg": "11",
+        "jp": "13",
+        "pct": ".458",
         "dif": "5.5",
-        "racha": "P4"
+        "racha": "P1"
     },
     {
         "numero": 7,
         "nombre": "Magallanes",
-        "jj": "23",
-        "jg": "10",
+        "jj": "24",
+        "jg": "11",
         "jp": "13",
-        "pct": ".435",
-        "dif": "6.5",
-        "racha": "G7"
+        "pct": ".458",
+        "dif": "5.5",
+        "racha": "G8"
     },
     {
         "numero": 8,
         "nombre": "Águilas",
-        "jj": "23",
-        "jg": "6",
+        "jj": "24",
+        "jg": "7",
         "jp": "17",
-        "pct": ".261",
-        "dif": "10.5",
-        "racha": "P3"
+        "pct": ".292",
+        "dif": "9.5",
+        "racha": "G1"
     }
 ];
