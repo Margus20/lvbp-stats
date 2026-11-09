@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- 🚨 DETECTOR DE ERRORES GLOBALES -->
+    <script>
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error("🚨 [ERROR GLOBAL DETECTADO]", message, source, lineno);
+            return false;
+        };
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error("🚨 [PROMESA RECHAZADA]", event.reason);
+        });
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round Robin - Proyección Diaria | LVBP al Día</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Estilos CSS (Versión 109 para forzar caché nueva) -->
+    <link rel="stylesheet" href="css/01-base.css?v=109">
+    <link rel="stylesheet" href="css/02-header-nav.css?v=109">
+    <link rel="stylesheet" href="css/03-noticias-articulos.css?v=109">
+    <link rel="stylesheet" href="css/04-tablas-posiciones.css?v=109">
+    <link rel="stylesheet" href="css/05-tarjetas-juegos.css?v=109">
+    <link rel="stylesheet" href="css/06-estadisticas-mascotas.css?v=109">
+    <link rel="stylesheet" href="css/07-sidebar-footer.css?v=109">
+    <link rel="stylesheet" href="css/08-boton-flotante.css?v=109">
+    
+    <!-- Iconos de Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Analítica -->
+    <script data-goatcounter="https://margus20.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="main-layout">
+        <main class="contenido-principal">
+            
+            <section class="hero-noticia" id="hero-noticia-container"></section>
+
+            <section class="noticias-grid-section" id="seccion-noticias">
+                <div class="container">
+                    <h2 class="titulo-seccion">
+                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion">
+                        Más Noticias
+                    </h2>
+                    <div id="noticias-secundarias-container" class="grid-noticias"></div>
+                </div>
+            </section>
+
+            <section class="articulo-completo" id="articulo-completo" style="display: none;">
+                <div class="container">
+                    <button class="btn-volver" onclick="window.cerrarArticulo()">← Volver a noticias</button>
+                    <article class="articulo-contenido" id="articulo-contenido"></article>
+                    <div class="marca-final-articulo">
+                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/logo_pag.png" alt="LVBP al Día" class="logo-marca-final">
+                        <p class="texto-marca-final">LVBP al Día - Tu fuente de béisbol venezolano</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- 🆕 TABLA DE POSICIONES: SOLO ROUND ROBIN (Top 4) -->
+            <!-- ========================================== -->
+            <section id="posiciones-rr" class="seccion-oscura">
+                <div class="container">
+                    <h2 class="titulo-seccion">
+                        <img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion"> 
+                        Proyección: Round Robin
+                    </h2>
+                    <p style="text-align: center; color: #ccc; margin-bottom: 20px; font-size: 0.9rem;">
+                        Equipos que ocupan actualmente las 4 primeras posiciones (Clasificación directa). Se actualiza diariamente.
+                    </p>
+                    <div class="tabla-container">
+                        <table id="tabla-posiciones">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Equipo</th>
+                                    <th>JJ</th>
+                                    <th>JG</th>
+                                    <th>JP</th>
+                                    <th>PCT</th>
+                                    <th>DIF</th>
+                                    <th>RACHA</th>
+                                </tr>
+                            </thead>
+                            <!-- 🎯 EL ID "round-robin-body" ES LA CLAVE: El JS solo llenará esto con los índices 0, 1, 2 y 3 -->
+                            <tbody id="round-robin-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="resultados" class="seccion-clara">
+                <div class="container">
+                    <h2 class="titulo-seccion"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion"> Resultados Recientes</h2>
+                    <div class="resultados-grid" id="resultados-container"></div>
+                </div>
+            </section>
+
+            <section id="calendario" class="seccion-oscura">
+                <div class="container">
+                    <h2 class="titulo-seccion"><img src="https://raw.githubusercontent.com/Margus20/lvbp-stats/main/img/lvbp.png" alt="LVBP" class="logo-seccion"> Próximos Juegos</h2>
+                    <div class="calendario-lista" id="calendario-container"></div>
+                </div>
+            </section>
+
+            <div id="estadisticas-placeholder"></div>
+        </main>
+
+        <aside class="sidebar-publicidad" id="sidebar-publicidad"></aside>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        async function cargarComponentesRR() {
+            try {
+                const header = await fetch('componentes/header.html').then(r => r.text());
+                document.getElementById('header-placeholder').innerHTML = header;
+                
+                const estadisticas = await fetch('componentes/estadisticas.html').then(r => r.text());
+                document.getElementById('estadisticas-placeholder').innerHTML = estadisticas;
+                
+                const footer = await fetch('componentes/footer.html').then(r => r.text());
+                document.getElementById('footer-placeholder').innerHTML = footer;
+                
+                // 🆕 Cargamos el script ESPECÍFICO para Round Robin
+                const scriptApp = document.createElement('script');
+                scriptApp.type = 'module';
+                scriptApp.src = 'js/logica/app-round-robin.js?v=109';
+                document.body.appendChild(scriptApp);
+
+            } catch (error) {
+                console.error('Error cargando componentes:', error);
+            }
+        }
+        cargarComponentesRR();
+    </script>
+</body>
+</html>
