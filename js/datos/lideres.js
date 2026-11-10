@@ -1,6 +1,6 @@
 // ============================================
 // LÍDERES ESTADÍSTICOS - ACTUALIZACIÓN AUTOMÁTICA
-// Actualizado: 2026-11-09 18:38:38
+// Actualizado: 2026-11-10 16:21:34
 // ============================================
 
 export const LIDERES = {
@@ -42,12 +42,12 @@ export const LIDERES = {
     ponchesBateo: [
         {"posicion": 1, "nombre": "A. Corredor1B (CAR)", "equipo": "leones", "valor": "22"},
         {"posicion": 2, "nombre": "L. Valera3B (ANZ)", "equipo": "caribes", "valor": "18"},
-        {"posicion": 3, "nombre": "V. AriasLF (ZUL)", "equipo": "aguilas", "valor": "18"}
+        {"posicion": 3, "nombre": "L. CedeñoDH (CAR)", "equipo": "leones", "valor": "18"}
     ],
     average: [
         {"posicion": 1, "nombre": "D. PeraltaLF (MAR)", "equipo": "bravos", "valor": ".421"},
         {"posicion": 2, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": ".402"},
-        {"posicion": 3, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": ".382"}
+        {"posicion": 3, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": ".366"}
     ],
     slugging: [
         {"posicion": 1, "nombre": "D. PeraltaLF (MAR)", "equipo": "bravos", "valor": ".754"},
@@ -57,7 +57,7 @@ export const LIDERES = {
     ops: [
         {"posicion": 1, "nombre": "D. PeraltaLF (MAR)", "equipo": "bravos", "valor": "1.314"},
         {"posicion": 2, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": "1.176"},
-        {"posicion": 3, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": "1.147"}
+        {"posicion": 3, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": "1.114"}
     ],
     efectividad: [
         {"posicion": 1, "nombre": "J. Pinto (ARA)", "equipo": "tigres", "valor": "1.42"},
