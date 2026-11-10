@@ -14,23 +14,23 @@ export const POSICIONES = [
     },
     {
         "numero": 2,
-        "nombre": "Cardenales",
-        "jj": "19",
-        "jg": "11",
-        "jp": "8",
-        "pct": ".579",
+        "nombre": "Leones",
+        "jj": "23",
+        "jg": "13",
+        "jp": "10",
+        "pct": ".565",
         "dif": "3.0",
-        "racha": "P4"
+        "racha": "G6"
     },
     {
         "numero": 3,
-        "nombre": "Leones",
-        "jj": "22",
-        "jg": "12",
-        "jp": "10",
-        "pct": ".545",
+        "nombre": "Cardenales",
+        "jj": "20",
+        "jg": "11",
+        "jp": "9",
+        "pct": ".550",
         "dif": "3.5",
-        "racha": "G5"
+        "racha": "P5"
     },
     {
         "numero": 4,
