@@ -35,42 +35,42 @@ export const POSICIONES = [
     {
         "numero": 4,
         "nombre": "Tigres",
-        "jj": "22",
-        "jg": "11",
+        "jj": "23",
+        "jg": "12",
         "jp": "11",
-        "pct": ".500",
-        "dif": "4.5",
-        "racha": "P4"
-    },
-    {
-        "numero": 5,
-        "nombre": "Bravos",
-        "jj": "22",
-        "jg": "11",
-        "jp": "11",
-        "pct": ".500",
-        "dif": "4.5",
+        "pct": ".522",
+        "dif": "4.0",
         "racha": "G1"
     },
     {
-        "numero": 6,
-        "nombre": "Tiburones",
-        "jj": "24",
-        "jg": "11",
+        "numero": 5,
+        "nombre": "Magallanes",
+        "jj": "25",
+        "jg": "12",
         "jp": "13",
-        "pct": ".458",
-        "dif": "5.5",
+        "pct": ".480",
+        "dif": "5.0",
+        "racha": "G9"
+    },
+    {
+        "numero": 6,
+        "nombre": "Bravos",
+        "jj": "23",
+        "jg": "11",
+        "jp": "12",
+        "pct": ".478",
+        "dif": "5.0",
         "racha": "P1"
     },
     {
         "numero": 7,
-        "nombre": "Magallanes",
-        "jj": "24",
+        "nombre": "Tiburones",
+        "jj": "25",
         "jg": "11",
-        "jp": "13",
-        "pct": ".458",
-        "dif": "5.5",
-        "racha": "G8"
+        "jp": "14",
+        "pct": ".440",
+        "dif": "6.0",
+        "racha": "P2"
     },
     {
         "numero": 8,
