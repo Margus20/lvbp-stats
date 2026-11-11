@@ -1,6 +1,6 @@
 // ============================================
 // LÍDERES ESTADÍSTICOS - ACTUALIZACIÓN AUTOMÁTICA
-// Actualizado: 2026-11-10 16:21:34
+// Actualizado: 2026-11-11 11:38:44
 // ============================================
 
 export const LIDERES = {
@@ -12,7 +12,7 @@ export const LIDERES = {
     hits: [
         {"posicion": 1, "nombre": "S. MuzziottiRF (LAG)", "equipo": "tiburones", "valor": "38"},
         {"posicion": 2, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": "35"},
-        {"posicion": 3, "nombre": "A. Estrada2B (ZUL)", "equipo": "aguilas", "valor": "33"}
+        {"posicion": 3, "nombre": "J. BarrosaCF (LAG)", "equipo": "tiburones", "valor": "35"}
     ],
     dobles: [
         {"posicion": 1, "nombre": "A. Amarista2B (MAR)", "equipo": "bravos", "valor": "9"},
@@ -20,8 +20,8 @@ export const LIDERES = {
         {"posicion": 3, "nombre": "L. CedeñoDH (CAR)", "equipo": "leones", "valor": "8"}
     ],
     triples: [
-        {"posicion": 1, "nombre": "B. ValeraLF (CAR)", "equipo": "leones", "valor": "3"},
-        {"posicion": 2, "nombre": "D. PeraltaLF (MAR)", "equipo": "bravos", "valor": "2"},
+        {"posicion": 1, "nombre": "D. PeraltaLF (MAR)", "equipo": "bravos", "valor": "2"},
+        {"posicion": 2, "nombre": "J. BarrosaCF (LAG)", "equipo": "tiburones", "valor": "2"},
         {"posicion": 3, "nombre": "L. Valera3B (ANZ)", "equipo": "caribes", "valor": "2"}
     ],
     impulsadas: [
@@ -32,7 +32,7 @@ export const LIDERES = {
     basesRobadas: [
         {"posicion": 1, "nombre": "Y. Hernández3B (LAR)", "equipo": "cardenales", "valor": "8"},
         {"posicion": 2, "nombre": "V. AriasLF (ZUL)", "equipo": "aguilas", "valor": "6"},
-        {"posicion": 3, "nombre": "E. OlivaresCF (MAR)", "equipo": "bravos", "valor": "4"}
+        {"posicion": 3, "nombre": "J. BarrosaCF (LAG)", "equipo": "tiburones", "valor": "4"}
     ],
     basesPorBolas: [
         {"posicion": 1, "nombre": "D. MontanoDH (LAG)", "equipo": "tiburones", "valor": "23"},
@@ -41,13 +41,13 @@ export const LIDERES = {
     ],
     ponchesBateo: [
         {"posicion": 1, "nombre": "A. Corredor1B (CAR)", "equipo": "leones", "valor": "22"},
-        {"posicion": 2, "nombre": "L. Valera3B (ANZ)", "equipo": "caribes", "valor": "18"},
-        {"posicion": 3, "nombre": "L. CedeñoDH (CAR)", "equipo": "leones", "valor": "18"}
+        {"posicion": 2, "nombre": "D. MontanoDH (LAG)", "equipo": "tiburones", "valor": "19"},
+        {"posicion": 3, "nombre": "L. Valera3B (ANZ)", "equipo": "caribes", "valor": "18"}
     ],
     average: [
         {"posicion": 1, "nombre": "D. PeraltaLF (MAR)", "equipo": "bravos", "valor": ".421"},
         {"posicion": 2, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": ".402"},
-        {"posicion": 3, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": ".366"}
+        {"posicion": 3, "nombre": "J. Vivas2B (ARA)", "equipo": "tigres", "valor": ".382"}
     ],
     slugging: [
         {"posicion": 1, "nombre": "D. PeraltaLF (MAR)", "equipo": "bravos", "valor": ".754"},
