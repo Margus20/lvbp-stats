@@ -1,56 +1,30 @@
 export const RESULTADOS = [
     // ============================================
-    // DOMINGO 8 DE NOVIEMBRE 2026
+    // MARTES 10 DE NOVIEMBRE 2026
     // ============================================
     {
-        "fecha": "08 Nov 2026",
-        "visitante": "Leones",
-        "local": "Tigres",
-        "scoreVisitante": "2",
-        "scoreLocal": "1",
+        "fecha": "10 Nov 2026",
+        "visitante": "Tigres",
+        "local": "Tiburones",
+        "scoreVisitante": "6",
+        "scoreLocal": "3",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Luis Curvelo",
-        "pitcherPerdedor": "Luis Pacheco",
-        "pitcherSalvador": "Sandy Gaston",
+        "pitcherGanador": "Christian Mejias",
+        "pitcherPerdedor": "Brander Guevara",
+        "pitcherSalvador": "Luis Pacheco",
         "estado": "finalizado"
     },
     {
-        "fecha": "08 Nov 2026",
-        "visitante": "Bravos",
-        "local": "Caribes",
-        "scoreVisitante": "10",
-        "scoreLocal": "6",
+        "fecha": "10 Nov 2026",
+        "visitante": "Navegantes",
+        "local": "Bravos",
+        "scoreVisitante": "11",
+        "scoreLocal": "0",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Jorge Garcia",
-        "pitcherPerdedor": "Bryan Caceres",
-        "pitcherSalvador": "Werner Leal",
-        "estado": "finalizado"
-    },
-    {
-        "fecha": "08 Nov 2026",
-        "visitante": "Tiburones",
-        "local": "Águilas",
-        "scoreVisitante": "5",
-        "scoreLocal": "6",
-        "innings": "9",
-        "finalizado": true,
-        "pitcherGanador": "Yonny Chirinos",
-        "pitcherPerdedor": "Elieser Hernández",
-        "pitcherSalvador": "Silvino Bracho",
-        "estado": "finalizado"
-    },
-    {
-        "fecha": "08 Nov 2026",
-        "visitante": "Cardenales",
-        "local": "Navegantes",
-        "scoreVisitante": "4",
-        "scoreLocal": "11",
-        "innings": "9",
-        "finalizado": true,
-        "pitcherGanador": "Esmerlin Vinicio",
-        "pitcherPerdedor": "Jose Campos",
+        "pitcherGanador": "Jose Franco",
+        "pitcherPerdedor": "Félix Doubront",
         "pitcherSalvador": "",
         "estado": "finalizado"
     }
