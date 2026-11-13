@@ -5,81 +5,81 @@ export const POSICIONES = [
     {
         "numero": 1,
         "nombre": "Caribes",
-        "jj": "21",
+        "jj": "22",
         "jg": "15",
-        "jp": "6",
-        "pct": ".714",
+        "jp": "7",
+        "pct": ".682",
         "dif": "-",
-        "racha": "P2"
+        "racha": "P3"
     },
     {
         "numero": 2,
-        "nombre": "Cardenales",
-        "jj": "21",
-        "jg": "12",
-        "jp": "9",
-        "pct": ".571",
-        "dif": "3.0",
-        "racha": "G1"
+        "nombre": "Leones",
+        "jj": "24",
+        "jg": "14",
+        "jp": "10",
+        "pct": ".583",
+        "dif": "2.0",
+        "racha": "G7"
     },
     {
         "numero": 3,
-        "nombre": "Leones",
-        "jj": "23",
-        "jg": "13",
-        "jp": "10",
-        "pct": ".565",
-        "dif": "3.0",
-        "racha": "G6"
+        "nombre": "Tigres",
+        "jj": "25",
+        "jg": "14",
+        "jp": "11",
+        "pct": ".560",
+        "dif": "2.5",
+        "racha": "G3"
     },
     {
         "numero": 4,
-        "nombre": "Tigres",
-        "jj": "24",
-        "jg": "13",
-        "jp": "11",
-        "pct": ".542",
-        "dif": "3.5",
-        "racha": "G2"
+        "nombre": "Cardenales",
+        "jj": "22",
+        "jg": "12",
+        "jp": "10",
+        "pct": ".545",
+        "dif": "3.0",
+        "racha": "P1"
     },
     {
         "numero": 5,
         "nombre": "Magallanes",
-        "jj": "26",
+        "jj": "27",
         "jg": "13",
-        "jp": "13",
-        "pct": ".500",
+        "jp": "14",
+        "pct": ".481",
         "dif": "4.5",
-        "racha": "G10"
+        "racha": "P1"
     },
     {
         "numero": 6,
-        "nombre": "Bravos",
-        "jj": "24",
-        "jg": "11",
-        "jp": "13",
-        "pct": ".458",
+        "nombre": "Tiburones",
+        "jj": "27",
+        "jg": "12",
+        "jp": "15",
+        "pct": ".444",
         "dif": "5.5",
-        "racha": "P2"
+        "racha": "G1"
     },
     {
         "numero": 7,
-        "nombre": "Tiburones",
-        "jj": "26",
+        "nombre": "Bravos",
+        "jj": "25",
         "jg": "11",
-        "jp": "15",
-        "pct": ".423",
-        "dif": "6.5",
+        "jp": "14",
+        "pct": ".440",
+        "dif": "5.5",
         "racha": "P3"
     },
     {
         "numero": 8,
         "nombre": "Águilas",
-        "jj": "25",
-        "jg": "7",
+        "jj": "26",
+        "jg": "8",
         "jp": "18",
-        "pct": ".280",
-        "dif": "10.0",
-        "racha": "P1"
+        "pct": ".308",
+        "dif": "9.0",
+        "racha": "G1"
     }
 ];
