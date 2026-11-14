@@ -1,31 +1,41 @@
 export const CALENDARIO = [
     {
-        "fecha": "13 Nov 2026",
-        "hora": "7:00 PM",
-        "visitante": "Águilas",
-        "local": "Bravos",
-        "lugar": "Estadio Nueva Esparta",
-        "transmision": "Venevisión",
-        "enVivo": false,
-        "finalizado": false
-    },
-    {
-        "fecha": "13 Nov 2026",
-        "hora": "7:00 PM",
+        "fecha": "14 Nov 2026",
+        "hora": "4:00 PM",
         "visitante": "Cardenales",
-        "local": "Leones",
-        "lugar": "Estadio Monumental Simón Bolívar",
-        "transmision": "BYM Sport / Venevisión",
-        "enVivo": false,
-        "finalizado": false
-    },
-    {
-        "fecha": "13 Nov 2026",
-        "hora": "7:00 PM",
-        "visitante": "Tigres",
         "local": "Caribes",
         "lugar": "Estadio Alfonso Carrasquel",
-        "transmision": "Baseball / Meridiano TV",
+        "transmision": "BYM Sport",
+        "enVivo": false,
+        "finalizado": false
+    },
+    {
+        "fecha": "14 Nov 2026",
+        "hora": "6:00 PM",
+        "visitante": "Tigres",
+        "local": "Bravos",
+        "lugar": "Estadio Nueva Esparta",
+        "transmision": "Televen",
+        "enVivo": false,
+        "finalizado": false
+    },
+    {
+        "fecha": "14 Nov 2026",
+        "hora": "8:00 PM",
+        "visitante": "Águilas",
+        "local": "Leones",
+        "lugar": "Estadio Monumental Simón Bolívar",
+        "transmision": "IVC",
+        "enVivo": false,
+        "finalizado": false
+    },
+    {
+        "fecha": "14 Nov 2026",
+        "hora": "8:00 PM",
+        "visitante": "Navegantes",
+        "local": "Tiburones",
+        "lugar": "loanDepot park",
+        "transmision": "",
         "enVivo": false,
         "finalizado": false
     }
