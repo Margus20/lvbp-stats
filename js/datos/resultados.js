@@ -1,44 +1,57 @@
 export const RESULTADOS = [
     // ============================================
-    // VIERNES 13 DE NOVIEMBRE 2026
+    // SÁBADO 14 DE NOVIEMBRE 2026
     // ============================================
     {
-        "fecha": "13 Nov 2026",
-        "visitante": "Águilas",
-        "local": "Bravos",
-        "scoreVisitante": "6",
-        "scoreLocal": "8",
+        "fecha": "14 Nov 2026",
+        "visitante": "Cardenales",
+        "local": "Caribes",
+        "scoreVisitante": "4",
+        "scoreLocal": "6",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Solomon Bates",
-        "pitcherPerdedor": "Manuel Medina",
-        "pitcherSalvador": "Claudio Custodio",
+        "pitcherGanador": "Joander Suarez",
+        "pitcherPerdedor": "Robinson Hernandez",
+        "pitcherSalvador": "Saul Teran",
         "estado": "finalizado"
     },
     {
-        "fecha": "13 Nov 2026",
-        "visitante": "Cardenales",
-        "local": "Leones",
-        "scoreVisitante": "2",
-        "scoreLocal": "9",
+        "fecha": "14 Nov 2026",
+        "visitante": "Tigres",
+        "local": "Bravos",
+        "scoreVisitante": "3",
+        "scoreLocal": "2",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Wikelman González",
-        "pitcherPerdedor": "James Gonzalez",
+        "pitcherGanador": "Jose E. Martinez",
+        "pitcherPerdedor": "Junior Guerra",
+        "pitcherSalvador": "Luis Pacheco",
+        "estado": "finalizado"
+    },
+    {
+        "fecha": "14 Nov 2026",
+        "visitante": "Águilas",
+        "local": "Leones",
+        "scoreVisitante": "9",
+        "scoreLocal": "2",
+        "innings": "9",
+        "finalizado": true,
+        "pitcherGanador": "Angelo Cabral",
+        "pitcherPerdedor": "Wilmer Font",
         "pitcherSalvador": "",
         "estado": "finalizado"
     },
     {
-        "fecha": "13 Nov 2026",
-        "visitante": "Tigres",
-        "local": "Caribes",
-        "scoreVisitante": "9",
-        "scoreLocal": "6",
-        "innings": "9",
+        "fecha": "14 Nov 2026",
+        "visitante": "Tiburones",
+        "local": "Navegantes",
+        "scoreVisitante": "4",
+        "scoreLocal": "2",
+        "innings": "10",
         "finalizado": true,
-        "pitcherGanador": "Chester Pimentel",
-        "pitcherPerdedor": "Jose Rodriguez",
-        "pitcherSalvador": "Luis Pacheco",
+        "pitcherGanador": "Caleb Freeman",
+        "pitcherPerdedor": "José Mujica",
+        "pitcherSalvador": "Henderson Alvarez",
         "estado": "finalizado"
     }
 ];
