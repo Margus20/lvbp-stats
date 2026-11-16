@@ -1,33 +1,33 @@
 // ============================================
 // LÍDERES ESTADÍSTICOS - ACTUALIZACIÓN AUTOMÁTICA
-// Actualizado: 2026-11-15 15:34:52
+// Actualizado: 2026-11-16 11:38:32
 // ============================================
 
 export const LIDERES = {
     jonrones: [
-        {"posicion": 1, "nombre": "C. Pérez1B (MAR)", "equipo": "bravos", "valor": "9"},
+        {"posicion": 1, "nombre": "C. Pérez1B (MAR)", "equipo": "bravos", "valor": "10"},
         {"posicion": 2, "nombre": "A. ReyesRF (CAR)", "equipo": "leones", "valor": "9"},
         {"posicion": 3, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": "7"}
     ],
     hits: [
         {"posicion": 1, "nombre": "S. MuzziottiRF (LAG)", "equipo": "tiburones", "valor": "41"},
-        {"posicion": 2, "nombre": "A. Estrada2B (ZUL)", "equipo": "aguilas", "valor": "39"},
-        {"posicion": 3, "nombre": "A. Castillo1B (ZUL)", "equipo": "aguilas", "valor": "38"}
+        {"posicion": 2, "nombre": "A. Estrada2B (ZUL)", "equipo": "aguilas", "valor": "40"},
+        {"posicion": 3, "nombre": "A. Castillo1B (ZUL)", "equipo": "aguilas", "valor": "39"}
     ],
     dobles: [
-        {"posicion": 1, "nombre": "L. CedeñoDH (CAR)", "equipo": "leones", "valor": "10"},
+        {"posicion": 1, "nombre": "L. CedeñoDH (CAR)", "equipo": "leones", "valor": "11"},
         {"posicion": 2, "nombre": "A. Amarista2B (MAR)", "equipo": "bravos", "valor": "9"},
         {"posicion": 3, "nombre": "A. Corredor1B (CAR)", "equipo": "leones", "valor": "9"}
     ],
     triples: [
-        {"posicion": 1, "nombre": "D. PeraltaLF (MAR)", "equipo": "bravos", "valor": "2"},
+        {"posicion": 1, "nombre": "Y. DazaCF (CAR)", "equipo": "leones", "valor": "3"},
         {"posicion": 2, "nombre": "J. BarrosaCF (LAG)", "equipo": "tiburones", "valor": "2"},
         {"posicion": 3, "nombre": "L. Valera3B (ANZ)", "equipo": "caribes", "valor": "2"}
     ],
     impulsadas: [
         {"posicion": 1, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": "26"},
         {"posicion": 2, "nombre": "S. MuzziottiRF (LAG)", "equipo": "tiburones", "valor": "25"},
-        {"posicion": 3, "nombre": "A. ReyesRF (CAR)", "equipo": "leones", "valor": "23"}
+        {"posicion": 3, "nombre": "D. Rodríguez1B (ARA)", "equipo": "tigres", "valor": "24"}
     ],
     basesRobadas: [
         {"posicion": 1, "nombre": "Y. Hernández3B (LAR)", "equipo": "cardenales", "valor": "9"},
@@ -35,29 +35,29 @@ export const LIDERES = {
         {"posicion": 3, "nombre": "E. OlivaresLF (MAR)", "equipo": "bravos", "valor": "5"}
     ],
     basesPorBolas: [
-        {"posicion": 1, "nombre": "A. Corredor1B (CAR)", "equipo": "leones", "valor": "19"},
-        {"posicion": 2, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": "18"},
-        {"posicion": 3, "nombre": "D. PeraltaLF (MAR)", "equipo": "bravos", "valor": "17"}
+        {"posicion": 1, "nombre": "D. MontanoDH (LAG)", "equipo": "tiburones", "valor": "23"},
+        {"posicion": 2, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": "19"},
+        {"posicion": 3, "nombre": "A. Corredor1B (CAR)", "equipo": "leones", "valor": "19"}
     ],
     ponchesBateo: [
-        {"posicion": 1, "nombre": "A. Corredor1B (CAR)", "equipo": "leones", "valor": "26"},
-        {"posicion": 2, "nombre": "H. RodriguezCF (ANZ)", "equipo": "caribes", "valor": "23"},
-        {"posicion": 3, "nombre": "L. CedeñoDH (CAR)", "equipo": "leones", "valor": "21"}
+        {"posicion": 1, "nombre": "L. Sosa3B (CAR)", "equipo": "leones", "valor": "33"},
+        {"posicion": 2, "nombre": "A. Corredor1B (CAR)", "equipo": "leones", "valor": "27"},
+        {"posicion": 3, "nombre": "H. RodriguezCF (ANZ)", "equipo": "caribes", "valor": "24"}
     ],
     average: [
-        {"posicion": 1, "nombre": "D. PeraltaLF (MAR)", "equipo": "bravos", "valor": ".421"},
-        {"posicion": 2, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": ".381"},
-        {"posicion": 3, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": ".378"}
+        {"posicion": 1, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": ".380"},
+        {"posicion": 2, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": ".375"},
+        {"posicion": 3, "nombre": "L. CedeñoDH (CAR)", "equipo": "leones", "valor": ".371"}
     ],
     slugging: [
-        {"posicion": 1, "nombre": "D. PeraltaLF (MAR)", "equipo": "bravos", "valor": ".754"},
-        {"posicion": 2, "nombre": "A. ReyesRF (CAR)", "equipo": "leones", "valor": ".701"},
-        {"posicion": 3, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": ".673"}
+        {"posicion": 1, "nombre": "A. ReyesRF (CAR)", "equipo": "leones", "valor": ".701"},
+        {"posicion": 2, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": ".680"},
+        {"posicion": 3, "nombre": "C. Pérez1B (MAR)", "equipo": "bravos", "valor": ".663"}
     ],
     ops: [
-        {"posicion": 1, "nombre": "D. PeraltaLF (MAR)", "equipo": "bravos", "valor": "1.314"},
-        {"posicion": 2, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": "1.128"},
-        {"posicion": 3, "nombre": "A. ReyesRF (CAR)", "equipo": "leones", "valor": "1.097"}
+        {"posicion": 1, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": "1.136"},
+        {"posicion": 2, "nombre": "A. ReyesRF (CAR)", "equipo": "leones", "valor": "1.097"},
+        {"posicion": 3, "nombre": "L. CedeñoDH (CAR)", "equipo": "leones", "valor": "1.080"}
     ],
     efectividad: [
         {"posicion": 1, "nombre": "J. Pinto (ARA)", "equipo": "tigres", "valor": "1.57"},
