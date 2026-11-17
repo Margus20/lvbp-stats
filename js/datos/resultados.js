@@ -1,56 +1,17 @@
 export const RESULTADOS = [
     // ============================================
-    // DOMINGO 15 DE NOVIEMBRE 2026
+    // LUNES 16 DE NOVIEMBRE 2026
     // ============================================
     {
-        "fecha": "15 Nov 2026",
-        "visitante": "Tigres",
-        "local": "Bravos",
-        "scoreVisitante": "14",
-        "scoreLocal": "13",
-        "innings": "12",
-        "finalizado": true,
-        "pitcherGanador": "Zach Willeman",
-        "pitcherPerdedor": "Alfred Gutierrez",
-        "pitcherSalvador": "",
-        "estado": "finalizado"
-    },
-    {
-        "fecha": "15 Nov 2026",
-        "visitante": "Navegantes",
-        "local": "Tiburones",
-        "scoreVisitante": "11",
-        "scoreLocal": "9",
-        "innings": "9",
-        "finalizado": true,
-        "pitcherGanador": "José Mujica",
-        "pitcherPerdedor": "Yapson Gomez",
-        "pitcherSalvador": "Andre Granillo",
-        "estado": "finalizado"
-    },
-    {
-        "fecha": "15 Nov 2026",
-        "visitante": "Águilas",
-        "local": "Leones",
-        "scoreVisitante": "0",
-        "scoreLocal": "9",
-        "innings": "9",
-        "finalizado": true,
-        "pitcherGanador": "Wikelman González",
-        "pitcherPerdedor": "Yonny Chirinos",
-        "pitcherSalvador": "",
-        "estado": "finalizado"
-    },
-    {
-        "fecha": "15 Nov 2026",
+        "fecha": "16 Nov 2026",
         "visitante": "Cardenales",
-        "local": "Caribes",
-        "scoreVisitante": "11",
-        "scoreLocal": "1",
+        "local": "Leones",
+        "scoreVisitante": "5",
+        "scoreLocal": "6",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Abdiel Mendoza",
-        "pitcherPerdedor": "Josimar Cousin",
+        "pitcherGanador": "Sandy Gaston",
+        "pitcherPerdedor": "Gustavo Rodriguez",
         "pitcherSalvador": "",
         "estado": "finalizado"
     }
