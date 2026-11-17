@@ -1,6 +1,6 @@
 // ============================================
 // LÍDERES ESTADÍSTICOS - ACTUALIZACIÓN AUTOMÁTICA
-// Actualizado: 2026-11-16 18:16:20
+// Actualizado: 2026-11-17 10:20:39
 // ============================================
 
 export const LIDERES = {
@@ -21,8 +21,8 @@ export const LIDERES = {
     ],
     triples: [
         {"posicion": 1, "nombre": "Y. DazaCF (CAR)", "equipo": "leones", "valor": "3"},
-        {"posicion": 2, "nombre": "J. BarrosaCF (LAG)", "equipo": "tiburones", "valor": "2"},
-        {"posicion": 3, "nombre": "L. Valera3B (ANZ)", "equipo": "caribes", "valor": "2"}
+        {"posicion": 2, "nombre": "B. ValeraLF (CAR)", "equipo": "leones", "valor": "3"},
+        {"posicion": 3, "nombre": "J. BarrosaCF (LAG)", "equipo": "tiburones", "valor": "2"}
     ],
     impulsadas: [
         {"posicion": 1, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": "26"},
@@ -40,14 +40,14 @@ export const LIDERES = {
         {"posicion": 3, "nombre": "A. Corredor1B (CAR)", "equipo": "leones", "valor": "19"}
     ],
     ponchesBateo: [
-        {"posicion": 1, "nombre": "L. Sosa3B (CAR)", "equipo": "leones", "valor": "33"},
+        {"posicion": 1, "nombre": "L. Sosa3B (CAR)", "equipo": "leones", "valor": "34"},
         {"posicion": 2, "nombre": "A. Corredor1B (CAR)", "equipo": "leones", "valor": "27"},
         {"posicion": 3, "nombre": "H. RodriguezCF (ANZ)", "equipo": "caribes", "valor": "24"}
     ],
     average: [
         {"posicion": 1, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": ".380"},
-        {"posicion": 2, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": ".375"},
-        {"posicion": 3, "nombre": "L. CedeñoDH (CAR)", "equipo": "leones", "valor": ".371"}
+        {"posicion": 2, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": ".376"},
+        {"posicion": 3, "nombre": "A. Estrada2B (ZUL)", "equipo": "aguilas", "valor": ".360"}
     ],
     slugging: [
         {"posicion": 1, "nombre": "A. ReyesRF (CAR)", "equipo": "leones", "valor": ".701"},
@@ -57,7 +57,7 @@ export const LIDERES = {
     ops: [
         {"posicion": 1, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": "1.136"},
         {"posicion": 2, "nombre": "A. ReyesRF (CAR)", "equipo": "leones", "valor": "1.097"},
-        {"posicion": 3, "nombre": "L. CedeñoDH (CAR)", "equipo": "leones", "valor": "1.080"}
+        {"posicion": 3, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": "1.072"}
     ],
     efectividad: [
         {"posicion": 1, "nombre": "J. Pinto (ARA)", "equipo": "tigres", "valor": "1.57"},
@@ -85,9 +85,9 @@ export const LIDERES = {
         {"posicion": 3, "nombre": "J. Guerra (MAR)", "equipo": "bravos", "valor": "23"}
     ],
     hold: [
-        {"posicion": 1, "nombre": "J. Pinto (ARA)", "equipo": "tigres", "valor": "0"},
-        {"posicion": 2, "nombre": "G. Velasquez (ZUL)", "equipo": "aguilas", "valor": "0"},
-        {"posicion": 3, "nombre": "J. Gonzalez (ARA)", "equipo": "tigres", "valor": "0"}
+        {"posicion": 1, "nombre": "C. Van Scoyoc (CAR)", "equipo": "leones", "valor": "1"},
+        {"posicion": 2, "nombre": "J. Pinto (ARA)", "equipo": "tigres", "valor": "0"},
+        {"posicion": 3, "nombre": "G. Velasquez (ZUL)", "equipo": "aguilas", "valor": "0"}
     ],
     whip: [
         {"posicion": 1, "nombre": "J. Pinto (ARA)", "equipo": "tigres", "valor": "1.00"},
