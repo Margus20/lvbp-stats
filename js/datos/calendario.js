@@ -1,31 +1,31 @@
 export const CALENDARIO = [
     {
-        "fecha": "17 Nov 2026",
-        "hora": "7:00 PM",
+        "fecha": "18 Nov 2026",
+        "hora": "1:00 PM",
         "visitante": "Caribes",
         "local": "Águilas",
         "lugar": "Estadio Luis Aparicio",
-        "transmision": "Baseball / TVES",
+        "transmision": "IVC / Televen",
         "enVivo": false,
         "finalizado": false
     },
     {
-        "fecha": "17 Nov 2026",
+        "fecha": "18 Nov 2026",
         "hora": "7:00 PM",
-        "visitante": "Navegantes",
-        "local": "Leones",
-        "lugar": "Estadio Monumental Simón Bolívar",
-        "transmision": "Venevisión / BYM Sport",
+        "visitante": "Cardenales",
+        "local": "Navegantes",
+        "lugar": "Estadio José Bernardo Pérez",
+        "transmision": "BYM Sport",
         "enVivo": false,
         "finalizado": false
     },
     {
-        "fecha": "17 Nov 2026",
+        "fecha": "18 Nov 2026",
         "hora": "7:00 PM",
         "visitante": "Bravos",
         "local": "Tiburones",
         "lugar": "Estadio Universitario",
-        "transmision": "IVC",
+        "transmision": "Meridiano TV",
         "enVivo": false,
         "finalizado": false
     }
