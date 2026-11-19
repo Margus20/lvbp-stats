@@ -1,43 +1,43 @@
 export const RESULTADOS = [
     // ============================================
-    // MARTES 17 DE NOVIEMBRE 2026
+    // MIÉRCOLES 18 DE NOVIEMBRE 2026
     // ============================================
     {
-        "fecha": "17 Nov 2026",
+        "fecha": "18 Nov 2026",
         "visitante": "Caribes",
         "local": "Águilas",
-        "scoreVisitante": "12",
-        "scoreLocal": "8",
-        "innings": "11",
-        "finalizado": true,
-        "pitcherGanador": "Cleiverth Perez",
-        "pitcherPerdedor": "Manuel Medina",
-        "pitcherSalvador": "Enderjer Sifontes",
-        "estado": "finalizado"
-    },
-    {
-        "fecha": "17 Nov 2026",
-        "visitante": "Navegantes",
-        "local": "Leones",
-        "scoreVisitante": "11",
-        "scoreLocal": "8",
-        "innings": "10",
-        "finalizado": true,
-        "pitcherGanador": "Alexandro Tovalin",
-        "pitcherPerdedor": "Sandy Gaston",
-        "pitcherSalvador": "Reid Birlingmair",
-        "estado": "finalizado"
-    },
-    {
-        "fecha": "17 Nov 2026",
-        "visitante": "Bravos",
-        "local": "Tiburones",
-        "scoreVisitante": "2",
-        "scoreLocal": "10",
+        "scoreVisitante": "4",
+        "scoreLocal": "11",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Elieser Hernández",
-        "pitcherPerdedor": "Solomon Bates",
+        "pitcherGanador": "Ian Kahaloa",
+        "pitcherPerdedor": "Miguel Cienfuegos",
+        "pitcherSalvador": "",
+        "estado": "finalizado"
+    },
+    {
+        "fecha": "18 Nov 2026",
+        "visitante": "Cardenales",
+        "local": "Navegantes",
+        "scoreVisitante": "4",
+        "scoreLocal": "9",
+        "innings": "9",
+        "finalizado": true,
+        "pitcherGanador": "Felipe Vázquez",
+        "pitcherPerdedor": "Justin Lopez",
+        "pitcherSalvador": "",
+        "estado": "finalizado"
+    },
+    {
+        "fecha": "18 Nov 2026",
+        "visitante": "Bravos",
+        "local": "Tiburones",
+        "scoreVisitante": "5",
+        "scoreLocal": "14",
+        "innings": "9",
+        "finalizado": true,
+        "pitcherGanador": "Stiven Cruz",
+        "pitcherPerdedor": "Melvi Acosta",
         "pitcherSalvador": "",
         "estado": "finalizado"
     }
