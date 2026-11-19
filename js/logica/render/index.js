@@ -9,4 +9,5 @@ export { renderNoticias } from './noticias.js';
 export { renderResultados } from './resultados.js';
 export { renderCalendario } from './calendario.js';
 export { renderLideres } from './lideres.js';
-export { renderPublicidad } from './ppublicidad.js';
+export { renderPublicidad } from './ppublicidad.js'; // 🆕 Mantenemos la doble P como acordamos
+export { renderGruposSerieAmericas } from './grupos-serie-americas.js'; // 🆕 NUEVO: Grupos Serie Américas
