@@ -1,44 +1,44 @@
 export const RESULTADOS = [
     // ============================================
-    // MIÉRCOLES 18 DE NOVIEMBRE 2026
+    // JUEVES 19 DE NOVIEMBRE 2026
     // ============================================
     {
-        "fecha": "18 Nov 2026",
+        "fecha": "19 Nov 2026",
         "visitante": "Caribes",
+        "local": "Cardenales",
+        "scoreVisitante": "3",
+        "scoreLocal": "4",
+        "innings": "10",
+        "finalizado": true,
+        "pitcherGanador": "Luis Carrasco",
+        "pitcherPerdedor": "Moises Diaz",
+        "pitcherSalvador": "",
+        "estado": "finalizado"
+    },
+    {
+        "fecha": "19 Nov 2026",
+        "visitante": "Tiburones",
         "local": "Águilas",
-        "scoreVisitante": "4",
-        "scoreLocal": "11",
+        "scoreVisitante": "1",
+        "scoreLocal": "2",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Ian Kahaloa",
-        "pitcherPerdedor": "Miguel Cienfuegos",
-        "pitcherSalvador": "",
+        "pitcherGanador": "Pedro Garcia",
+        "pitcherPerdedor": "Alex Carrillo",
+        "pitcherSalvador": "Silvino Bracho",
         "estado": "finalizado"
     },
     {
-        "fecha": "18 Nov 2026",
-        "visitante": "Cardenales",
-        "local": "Navegantes",
-        "scoreVisitante": "4",
-        "scoreLocal": "9",
-        "innings": "9",
-        "finalizado": true,
-        "pitcherGanador": "Felipe Vázquez",
-        "pitcherPerdedor": "Justin Lopez",
-        "pitcherSalvador": "",
-        "estado": "finalizado"
-    },
-    {
-        "fecha": "18 Nov 2026",
+        "fecha": "19 Nov 2026",
         "visitante": "Bravos",
-        "local": "Tiburones",
-        "scoreVisitante": "5",
-        "scoreLocal": "14",
+        "local": "Tigres",
+        "scoreVisitante": "6",
+        "scoreLocal": "8",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Stiven Cruz",
-        "pitcherPerdedor": "Melvi Acosta",
-        "pitcherSalvador": "",
+        "pitcherGanador": "Christian Mejias",
+        "pitcherPerdedor": "Alejandro Hernandez",
+        "pitcherSalvador": "Luis Pacheco",
         "estado": "finalizado"
     }
 ];
