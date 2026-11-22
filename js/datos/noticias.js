@@ -1,7 +1,7 @@
 // ============================================
 // NOTICIAS DEL DÍA
 // Generado automáticamente por el bot
-// Fecha: 21 Nov 2026
+// Fecha: 22 Nov 2026
 // ============================================
 
 export const NOTICIAS = [
