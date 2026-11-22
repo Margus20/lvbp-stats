@@ -1,57 +1,44 @@
 export const RESULTADOS = [
     // ============================================
-    // VIERNES 20 DE NOVIEMBRE 2026
+    // SÁBADO 21 DE NOVIEMBRE 2026
     // ============================================
     {
-        "fecha": "20 Nov 2026",
+        "fecha": "21 Nov 2026",
         "visitante": "Caribes",
-        "local": "Navegantes",
-        "scoreVisitante": "9",
-        "scoreLocal": "10",
-        "innings": "9",
+        "local": "Tigres",
+        "scoreVisitante": "13",
+        "scoreLocal": "14",
+        "innings": "10",
         "finalizado": true,
-        "pitcherGanador": "Cristofer Gomez",
-        "pitcherPerdedor": "Saul Teran",
+        "pitcherGanador": "Deolis Guerra",
+        "pitcherPerdedor": "Gabriel Jaramillo",
         "pitcherSalvador": "",
         "estado": "finalizado"
     },
     {
-        "fecha": "20 Nov 2026",
-        "visitante": "Tiburones",
+        "fecha": "21 Nov 2026",
+        "visitante": "Bravos",
         "local": "Águilas",
         "scoreVisitante": "5",
         "scoreLocal": "7",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Manuel Medina",
-        "pitcherPerdedor": "Ramon Santos",
+        "pitcherGanador": "Anthony Escobar",
+        "pitcherPerdedor": "Claudio Scotti",
         "pitcherSalvador": "Silvino Bracho",
         "estado": "finalizado"
     },
     {
-        "fecha": "20 Nov 2026",
+        "fecha": "21 Nov 2026",
         "visitante": "Leones",
-        "local": "Cardenales",
+        "local": "Navegantes",
         "scoreVisitante": "3",
         "scoreLocal": "4",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Cruz Noriega",
-        "pitcherPerdedor": "Wilkel Hernandez",
-        "pitcherSalvador": "Scott Engler",
-        "estado": "finalizado"
-    },
-    {
-        "fecha": "20 Nov 2026",
-        "visitante": "Bravos",
-        "local": "Tigres",
-        "scoreVisitante": "11",
-        "scoreLocal": "12",
-        "innings": "9",
-        "finalizado": true,
-        "pitcherGanador": "Daniel Juarez",
-        "pitcherPerdedor": "Valentin Linarez",
-        "pitcherSalvador": "",
+        "pitcherGanador": "Yorman Gómez",
+        "pitcherPerdedor": "Connor Van Scoyoc",
+        "pitcherSalvador": "Cristofer Gomez",
         "estado": "finalizado"
     }
 ];
