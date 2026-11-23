@@ -1,44 +1,44 @@
 export const RESULTADOS = [
     // ============================================
-    // SÁBADO 21 DE NOVIEMBRE 2026
+    // DOMINGO 22 DE NOVIEMBRE 2026
     // ============================================
     {
-        "fecha": "21 Nov 2026",
-        "visitante": "Caribes",
-        "local": "Tigres",
-        "scoreVisitante": "13",
-        "scoreLocal": "14",
-        "innings": "10",
+        "fecha": "22 Nov 2026",
+        "visitante": "Cardenales",
+        "local": "Tiburones",
+        "scoreVisitante": "9",
+        "scoreLocal": "5",
+        "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Deolis Guerra",
-        "pitcherPerdedor": "Gabriel Jaramillo",
+        "pitcherGanador": "Cruz Noriega",
+        "pitcherPerdedor": "Elieser Hernández",
+        "pitcherSalvador": "Scott Engler",
+        "estado": "finalizado"
+    },
+    {
+        "fecha": "22 Nov 2026",
+        "visitante": "Bravos",
+        "local": "Águilas",
+        "scoreVisitante": "8",
+        "scoreLocal": "3",
+        "innings": "9",
+        "finalizado": true,
+        "pitcherGanador": "Félix Doubront",
+        "pitcherPerdedor": "Giussepe Velasquez",
         "pitcherSalvador": "",
         "estado": "finalizado"
     },
     {
-        "fecha": "21 Nov 2026",
-        "visitante": "Bravos",
-        "local": "Águilas",
-        "scoreVisitante": "5",
-        "scoreLocal": "7",
+        "fecha": "22 Nov 2026",
+        "visitante": "Caribes",
+        "local": "Tigres",
+        "scoreVisitante": "2",
+        "scoreLocal": "3",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Anthony Escobar",
-        "pitcherPerdedor": "Claudio Scotti",
-        "pitcherSalvador": "Silvino Bracho",
-        "estado": "finalizado"
-    },
-    {
-        "fecha": "21 Nov 2026",
-        "visitante": "Leones",
-        "local": "Navegantes",
-        "scoreVisitante": "3",
-        "scoreLocal": "4",
-        "innings": "9",
-        "finalizado": true,
-        "pitcherGanador": "Yorman Gómez",
-        "pitcherPerdedor": "Connor Van Scoyoc",
-        "pitcherSalvador": "Cristofer Gomez",
+        "pitcherGanador": "Christian Mejias",
+        "pitcherPerdedor": "Marlon Franco",
+        "pitcherSalvador": "Luis Pacheco",
         "estado": "finalizado"
     }
 ];
