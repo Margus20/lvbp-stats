@@ -1,6 +1,6 @@
 // ============================================
 // LÍDERES ESTADÍSTICOS - ACTUALIZACIÓN AUTOMÁTICA
-// Actualizado: 2026-11-22 16:09:36
+// Actualizado: 2026-11-23 10:42:49
 // ============================================
 
 export const LIDERES = {
@@ -10,9 +10,9 @@ export const LIDERES = {
         {"posicion": 3, "nombre": "H. PérezRF (ANZ)", "equipo": "caribes", "valor": "8"}
     ],
     hits: [
-        {"posicion": 1, "nombre": "S. MuzziottiRF (LAG)", "equipo": "tiburones", "valor": "48"},
-        {"posicion": 2, "nombre": "L. CedrolaRF (ARA)", "equipo": "tigres", "valor": "44"},
-        {"posicion": 3, "nombre": "A. Castillo1B (ZUL)", "equipo": "aguilas", "valor": "44"}
+        {"posicion": 1, "nombre": "S. MuzziottiRF (LAG)", "equipo": "tiburones", "valor": "50"},
+        {"posicion": 2, "nombre": "L. CedrolaRF (ARA)", "equipo": "tigres", "valor": "46"},
+        {"posicion": 3, "nombre": "A. Castillo1B (ZUL)", "equipo": "aguilas", "valor": "46"}
     ],
     dobles: [
         {"posicion": 1, "nombre": "L. CedeñoDH (CAR)", "equipo": "leones", "valor": "11"},
@@ -21,12 +21,12 @@ export const LIDERES = {
     ],
     triples: [
         {"posicion": 1, "nombre": "B. ValeraLF (CAR)", "equipo": "leones", "valor": "3"},
-        {"posicion": 2, "nombre": "L. Valera3B (ANZ)", "equipo": "caribes", "valor": "2"},
-        {"posicion": 3, "nombre": "J. BarrosaCF (LAG)", "equipo": "tiburones", "valor": "2"}
+        {"posicion": 2, "nombre": "J. BarrosaCF (LAG)", "equipo": "tiburones", "valor": "2"},
+        {"posicion": 3, "nombre": "L. Valera3B (ANZ)", "equipo": "caribes", "valor": "2"}
     ],
     impulsadas: [
-        {"posicion": 1, "nombre": "S. MuzziottiRF (LAG)", "equipo": "tiburones", "valor": "32"},
-        {"posicion": 2, "nombre": "D. Rodríguez1B (ARA)", "equipo": "tigres", "valor": "30"},
+        {"posicion": 1, "nombre": "S. MuzziottiRF (LAG)", "equipo": "tiburones", "valor": "35"},
+        {"posicion": 2, "nombre": "D. Rodríguez1B (ARA)", "equipo": "tigres", "valor": "31"},
         {"posicion": 3, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": "28"}
     ],
     basesRobadas: [
@@ -45,19 +45,19 @@ export const LIDERES = {
         {"posicion": 3, "nombre": "H. PérezRF (ANZ)", "equipo": "caribes", "valor": "27"}
     ],
     average: [
-        {"posicion": 1, "nombre": "J. Vivas2B (ARA)", "equipo": "tigres", "valor": ".394"},
+        {"posicion": 1, "nombre": "J. Vivas2B (ARA)", "equipo": "tigres", "valor": ".405"},
         {"posicion": 2, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": ".376"},
-        {"posicion": 3, "nombre": "A. Estrada2B (ZUL)", "equipo": "aguilas", "valor": ".360"}
+        {"posicion": 3, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": ".370"}
     ],
     slugging: [
         {"posicion": 1, "nombre": "A. ReyesRF (CAR)", "equipo": "leones", "valor": ".681"},
-        {"posicion": 2, "nombre": "C. Pérez1B (MAR)", "equipo": "bravos", "valor": ".647"},
+        {"posicion": 2, "nombre": "C. Pérez1B (MAR)", "equipo": "bravos", "valor": ".640"},
         {"posicion": 3, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": ".634"}
     ],
     ops: [
         {"posicion": 1, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": "1.122"},
         {"posicion": 2, "nombre": "A. ReyesRF (CAR)", "equipo": "leones", "valor": "1.099"},
-        {"posicion": 3, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": "1.077"}
+        {"posicion": 3, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": "1.090"}
     ],
     efectividad: [
         {"posicion": 1, "nombre": "J. Gonzalez (ARA)", "equipo": "tigres", "valor": "1.98"},
@@ -90,14 +90,14 @@ export const LIDERES = {
         {"posicion": 3, "nombre": "J. Pinto (ARA)", "equipo": "tigres", "valor": "0"}
     ],
     whip: [
-        {"posicion": 1, "nombre": "J. Gonzalez (ARA)", "equipo": "tigres", "valor": "1.24"},
-        {"posicion": 2, "nombre": "J. Pinto (ARA)", "equipo": "tigres", "valor": "1.31"},
-        {"posicion": 3, "nombre": "W. Moreno (CAR)", "equipo": "leones", "valor": "1.34"}
+        {"posicion": 1, "nombre": "C. Curlis (ARA)", "equipo": "tigres", "valor": "1.19"},
+        {"posicion": 2, "nombre": "J. Gonzalez (ARA)", "equipo": "tigres", "valor": "1.24"},
+        {"posicion": 3, "nombre": "J. Pinto (ARA)", "equipo": "tigres", "valor": "1.31"}
     ],
     averageContra: [
         {"posicion": 1, "nombre": "J. Gonzalez (ARA)", "equipo": "tigres", "valor": ".222"},
         {"posicion": 2, "nombre": "R. Williams (ARA)", "equipo": "tigres", "valor": ".240"},
-        {"posicion": 3, "nombre": "J. Pinto (ARA)", "equipo": "tigres", "valor": ".271"}
+        {"posicion": 3, "nombre": "C. Curlis (ARA)", "equipo": "tigres", "valor": ".257"}
     ],
 };
 
