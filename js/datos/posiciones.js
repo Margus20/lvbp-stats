@@ -45,22 +45,22 @@ export const POSICIONES = [
     {
         "numero": 5,
         "nombre": "Cardenales",
-        "jj": "30",
+        "jj": "31",
         "jg": "16",
-        "jp": "14",
-        "pct": ".533",
-        "dif": "4.0",
-        "racha": "G3"
+        "jp": "15",
+        "pct": ".516",
+        "dif": "4.5",
+        "racha": "P1"
     },
     {
         "numero": 6,
         "nombre": "Tiburones",
-        "jj": "32",
-        "jg": "14",
+        "jj": "33",
+        "jg": "15",
         "jp": "18",
-        "pct": ".438",
-        "dif": "7.0",
-        "racha": "P3"
+        "pct": ".455",
+        "dif": "6.5",
+        "racha": "G1"
     },
     {
         "numero": 7,
