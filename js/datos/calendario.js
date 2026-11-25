@@ -1,11 +1,21 @@
 export const CALENDARIO = [
     {
-        "fecha": "24 Nov 2026",
+        "fecha": "25 Nov 2026",
         "hora": "7:00 PM",
-        "visitante": "Leones",
-        "local": "Navegantes",
-        "lugar": "Estadio José Bernardo Pérez",
-        "transmision": "Meridiano TV / Baseball / BYM Sport",
+        "visitante": "Águilas",
+        "local": "Cardenales",
+        "lugar": "Estadio Antonio Herrera Gutiérrez",
+        "transmision": "Meridiano TV",
+        "enVivo": false,
+        "finalizado": false
+    },
+    {
+        "fecha": "25 Nov 2026",
+        "hora": "7:00 PM",
+        "visitante": "Navegantes",
+        "local": "Tiburones",
+        "lugar": "Estadio Universitario",
+        "transmision": "IVC",
         "enVivo": false,
         "finalizado": false
     }
