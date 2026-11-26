@@ -1,6 +1,6 @@
 // ============================================
 // LÍDERES ESTADÍSTICOS - ACTUALIZACIÓN AUTOMÁTICA
-// Actualizado: 2026-11-25 18:36:51
+// Actualizado: 2026-11-26 10:42:03
 // ============================================
 
 export const LIDERES = {
@@ -10,14 +10,14 @@ export const LIDERES = {
         {"posicion": 3, "nombre": "H. PérezRF (ANZ)", "equipo": "caribes", "valor": "8"}
     ],
     hits: [
-        {"posicion": 1, "nombre": "S. MuzziottiRF (LAG)", "equipo": "tiburones", "valor": "51"},
-        {"posicion": 2, "nombre": "L. CedrolaRF (ARA)", "equipo": "tigres", "valor": "46"},
-        {"posicion": 3, "nombre": "A. Castillo1B (ZUL)", "equipo": "aguilas", "valor": "46"}
+        {"posicion": 1, "nombre": "S. MuzziottiRF (LAG)", "equipo": "tiburones", "valor": "52"},
+        {"posicion": 2, "nombre": "A. Castillo1B (ZUL)", "equipo": "aguilas", "valor": "47"},
+        {"posicion": 3, "nombre": "L. CedrolaRF (ARA)", "equipo": "tigres", "valor": "46"}
     ],
     dobles: [
         {"posicion": 1, "nombre": "L. CedeñoDH (CAR)", "equipo": "leones", "valor": "11"},
-        {"posicion": 2, "nombre": "A. Amarista2B (MAR)", "equipo": "bravos", "valor": "10"},
-        {"posicion": 3, "nombre": "S. MuzziottiRF (LAG)", "equipo": "tiburones", "valor": "9"}
+        {"posicion": 2, "nombre": "S. MuzziottiRF (LAG)", "equipo": "tiburones", "valor": "10"},
+        {"posicion": 3, "nombre": "A. Amarista2B (MAR)", "equipo": "bravos", "valor": "10"}
     ],
     triples: [
         {"posicion": 1, "nombre": "B. ValeraLF (CAR)", "equipo": "leones", "valor": "3"},
@@ -30,9 +30,9 @@ export const LIDERES = {
         {"posicion": 3, "nombre": "D. Rodríguez1B (ARA)", "equipo": "tigres", "valor": "31"}
     ],
     basesRobadas: [
-        {"posicion": 1, "nombre": "Y. Hernández3B (LAR)", "equipo": "cardenales", "valor": "10"},
-        {"posicion": 2, "nombre": "H. RodriguezCF (ANZ)", "equipo": "caribes", "valor": "9"},
-        {"posicion": 3, "nombre": "V. AriasLF (ZUL)", "equipo": "aguilas", "valor": "8"}
+        {"posicion": 1, "nombre": "V. AriasLF (ZUL)", "equipo": "aguilas", "valor": "10"},
+        {"posicion": 2, "nombre": "Y. Hernández3B (LAR)", "equipo": "cardenales", "valor": "10"},
+        {"posicion": 3, "nombre": "H. RodriguezCF (ANZ)", "equipo": "caribes", "valor": "9"}
     ],
     basesPorBolas: [
         {"posicion": 1, "nombre": "J. BarrosaCF (LAG)", "equipo": "tiburones", "valor": "21"},
@@ -50,14 +50,14 @@ export const LIDERES = {
         {"posicion": 3, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": ".370"}
     ],
     slugging: [
-        {"posicion": 1, "nombre": "A. ReyesRF (CAR)", "equipo": "leones", "valor": ".705"},
+        {"posicion": 1, "nombre": "A. ReyesRF (CAR)", "equipo": "leones", "valor": ".677"},
         {"posicion": 2, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": ".664"},
         {"posicion": 3, "nombre": "C. Pérez1B (MAR)", "equipo": "bravos", "valor": ".640"}
     ],
     ops: [
         {"posicion": 1, "nombre": "V. BericotoRF (CAR)", "equipo": "leones", "valor": "1.152"},
-        {"posicion": 2, "nombre": "A. ReyesRF (CAR)", "equipo": "leones", "valor": "1.126"},
-        {"posicion": 3, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": "1.090"}
+        {"posicion": 2, "nombre": "G. GonzalezLF (ANZ)", "equipo": "caribes", "valor": "1.090"},
+        {"posicion": 3, "nombre": "A. ReyesRF (CAR)", "equipo": "leones", "valor": "1.084"}
     ],
     efectividad: [
         {"posicion": 1, "nombre": "J. Gonzalez (ARA)", "equipo": "tigres", "valor": "1.98"},
