@@ -35,35 +35,45 @@ export const POSICIONES = [
     {
         "numero": 4,
         "nombre": "Magallanes",
-        "jj": "32",
+        "jj": "33",
         "jg": "17",
-        "jp": "15",
-        "pct": ".531",
-        "dif": "4.0",
-        "racha": "P1"
+        "jp": "16",
+        "pct": ".515",
+        "dif": "4.5",
+        "racha": "P2"
     },
     {
         "numero": 5,
         "nombre": "Cardenales",
-        "jj": "31",
+        "jj": "32",
         "jg": "16",
-        "jp": "15",
-        "pct": ".516",
-        "dif": "4.5",
-        "racha": "P1"
+        "jp": "16",
+        "pct": ".500",
+        "dif": "5.0",
+        "racha": "P2"
     },
     {
         "numero": 6,
         "nombre": "Tiburones",
-        "jj": "33",
-        "jg": "15",
+        "jj": "34",
+        "jg": "16",
         "jp": "18",
-        "pct": ".455",
-        "dif": "6.5",
-        "racha": "G1"
+        "pct": ".471",
+        "dif": "6.0",
+        "racha": "G2"
     },
     {
         "numero": 7,
+        "nombre": "Águilas",
+        "jj": "36",
+        "jg": "14",
+        "jp": "22",
+        "pct": ".389",
+        "dif": "9.0",
+        "racha": "G1"
+    },
+    {
+        "numero": 8,
         "nombre": "Bravos",
         "jj": "34",
         "jg": "13",
@@ -71,15 +81,5 @@ export const POSICIONES = [
         "pct": ".382",
         "dif": "9.0",
         "racha": "G1"
-    },
-    {
-        "numero": 8,
-        "nombre": "Águilas",
-        "jj": "35",
-        "jg": "13",
-        "jp": "22",
-        "pct": ".371",
-        "dif": "9.5",
-        "racha": "P1"
     }
 ];
