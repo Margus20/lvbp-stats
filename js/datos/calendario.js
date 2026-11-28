@@ -1,41 +1,41 @@
 export const CALENDARIO = [
     {
-        "fecha": "27 Nov 2026",
-        "hora": "7:00 PM",
-        "visitante": "Cardenales",
-        "local": "Bravos",
-        "lugar": "Estadio Nueva Esparta",
-        "transmision": "Venevisión",
+        "fecha": "28 Nov 2026",
+        "hora": "4:00 PM",
+        "visitante": "Tiburones",
+        "local": "Tigres",
+        "lugar": "Estadio José Pérez Colmenares",
+        "transmision": "BYM Sport",
         "enVivo": false,
         "finalizado": false
     },
     {
-        "fecha": "27 Nov 2026",
-        "hora": "7:00 PM",
-        "visitante": "Tigres",
+        "fecha": "28 Nov 2026",
+        "hora": "6:00 PM",
+        "visitante": "Cardenales",
         "local": "Leones",
         "lugar": "Estadio Monumental Simón Bolívar",
-        "transmision": "IVC",
+        "transmision": "Televen",
         "enVivo": false,
         "finalizado": false
     },
     {
-        "fecha": "27 Nov 2026",
-        "hora": "7:00 PM",
+        "fecha": "28 Nov 2026",
+        "hora": "6:00 PM",
         "visitante": "Águilas",
-        "local": "Tiburones",
-        "lugar": "Estadio Universitario",
-        "transmision": "Baseball / Meridiano TV",
-        "enVivo": false,
-        "finalizado": false
-    },
-    {
-        "fecha": "27 Nov 2026",
-        "hora": "7:00 PM",
-        "visitante": "Navegantes",
         "local": "Caribes",
         "lugar": "Estadio Alfonso Carrasquel",
-        "transmision": "BYM Sport / Venezolana TV",
+        "transmision": "Baseball",
+        "enVivo": false,
+        "finalizado": false
+    },
+    {
+        "fecha": "28 Nov 2026",
+        "hora": "8:00 PM",
+        "visitante": "Navegantes",
+        "local": "Bravos",
+        "lugar": "Estadio Nueva Esparta",
+        "transmision": "IVC",
         "enVivo": false,
         "finalizado": false
     }
