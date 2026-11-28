@@ -1,56 +1,56 @@
 export const RESULTADOS = [
     // ============================================
-    // JUEVES 26 DE NOVIEMBRE 2026
+    // VIERNES 27 DE NOVIEMBRE 2026
     // ============================================
     {
-        "fecha": "26 Nov 2026",
+        "fecha": "27 Nov 2026",
         "visitante": "Cardenales",
         "local": "Bravos",
-        "scoreVisitante": "16",
-        "scoreLocal": "7",
+        "scoreVisitante": "2",
+        "scoreLocal": "15",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Erasmo Ramírez",
-        "pitcherPerdedor": "Luis Escobar",
+        "pitcherGanador": "Junior Guerra",
+        "pitcherPerdedor": "Jose Atencio",
         "pitcherSalvador": "",
         "estado": "finalizado"
     },
     {
-        "fecha": "26 Nov 2026",
-        "visitante": "Águilas",
-        "local": "Tiburones",
-        "scoreVisitante": "5",
-        "scoreLocal": "7",
-        "innings": "9",
-        "finalizado": true,
-        "pitcherGanador": "Rafael Cova",
-        "pitcherPerdedor": "Jonaiker Villalobos",
-        "pitcherSalvador": "Ramon Santos",
-        "estado": "finalizado"
-    },
-    {
-        "fecha": "26 Nov 2026",
+        "fecha": "27 Nov 2026",
         "visitante": "Tigres",
         "local": "Leones",
-        "scoreVisitante": "8",
-        "scoreLocal": "9",
-        "innings": "11",
+        "scoreVisitante": "10",
+        "scoreLocal": "11",
+        "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Dale Stanavich",
-        "pitcherPerdedor": "Jose E. Martinez",
+        "pitcherGanador": "Tomohiro Anraku",
+        "pitcherPerdedor": "Daniel Juarez",
         "pitcherSalvador": "",
         "estado": "finalizado"
     },
     {
-        "fecha": "26 Nov 2026",
-        "visitante": "Navegantes",
-        "local": "Caribes",
-        "scoreVisitante": "6",
-        "scoreLocal": "0",
+        "fecha": "27 Nov 2026",
+        "visitante": "Águilas",
+        "local": "Tiburones",
+        "scoreVisitante": "4",
+        "scoreLocal": "11",
         "innings": "9",
         "finalizado": true,
-        "pitcherGanador": "Wilmer Flores",
-        "pitcherPerdedor": "Harol González",
+        "pitcherGanador": "Pedro Rodriguez",
+        "pitcherPerdedor": "Carlos Navas",
+        "pitcherSalvador": "",
+        "estado": "finalizado"
+    },
+    {
+        "fecha": "27 Nov 2026",
+        "visitante": "Navegantes",
+        "local": "Caribes",
+        "scoreVisitante": "7",
+        "scoreLocal": "12",
+        "innings": "9",
+        "finalizado": true,
+        "pitcherGanador": "Moises Diaz",
+        "pitcherPerdedor": "Yorman Gómez",
         "pitcherSalvador": "",
         "estado": "finalizado"
     }
